@@ -1,0 +1,119 @@
+<!-- 
+    =======================================================================
+    WEBSITE DEVELOPED BY: [Your Name]
+    CLIENT: Compass Consult (Employability & Skills) Ltd
+    DATE: 2026
+    =======================================================================
+-->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="[Your Name]">
+    <title>Terms of Service - Compass Consult</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                    colors: {
+                        compass: {
+                            purple: '#483086',
+                            teal: '#2da8b4',
+                            dark: '#1e1b2e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="font-sans text-gray-600 bg-gray-50 antialiased flex flex-col min-h-screen">
+
+    <nav class="fixed w-full z-50 glass-nav">
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="text-compass-purple transition-transform duration-700 group-hover:rotate-180">
+                        <i data-lucide="compass" class="w-8 h-8 stroke-[1.5]"></i>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <h1 class="text-xl font-bold leading-none tracking-tight">
+                            <span class="text-compass-purple">Compass</span> <span class="text-compass-teal">Consult</span>
+                        </h1>
+                    </div>
+                </a>
+                <a href="index.html" class="text-sm font-semibold text-compass-purple hover:text-compass-teal transition-colors flex items-center gap-2">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-32 pb-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-8">Terms of Service</h1>
+            <p class="text-sm text-gray-500 mb-8">Last Updated: <span id="date"></span></p>
+
+            <div class="space-y-8 bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100">
+                <section>
+                    <h2 class="text-xl font-bold text-compass-purple mb-4">1. Agreement to Terms</h2>
+                    <p class="leading-relaxed mb-4">
+                        By accessing or using the website of Compass Consult (Employability & Skills) Ltd, you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this site.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-compass-purple mb-4">2. Use License</h2>
+                    <p class="leading-relaxed mb-4">
+                        Permission is granted to temporarily download one copy of the materials (information or software) on Compass Consult's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-compass-purple mb-4">3. Disclaimer</h2>
+                    <p class="leading-relaxed mb-4">
+                        The materials on Compass Consult's website are provided on an 'as is' basis. Compass Consult makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-compass-purple mb-4">4. Limitations</h2>
+                    <p class="leading-relaxed mb-4">
+                        In no event shall Compass Consult or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Compass Consult's website.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-compass-purple mb-4">5. Governing Law</h2>
+                    <p class="leading-relaxed">
+                        These terms and conditions are governed by and construed in accordance with the laws of the United Kingdom and you irrevocably submit to the exclusive jurisdiction of the courts in that location.
+                    </p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-compass-dark text-white py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-400 text-sm">&copy; <span id="year"></span> Compass Consult (Employability & Skills) Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        document.getElementById('year').textContent = new Date().getFullYear();
+        document.getElementById('date').textContent = new Date().toLocaleDateString();
+        console.log('Developed by [Your Name]');
+    </script>
+</body>
+</html>
+
+

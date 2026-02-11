@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<!-- Website created by Jake Gibbons -->
+<html lang="en" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Jake Gibbons">
+    <title>Compass Consult (Employability & Skills) Ltd</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        compass: {
+                            purple: '#483086', // Deep purple from "Compass"
+                            lightPurple: '#6a4eb8',
+                            teal: '#2da8b4',   // Teal from "Consult"
+                            lightTeal: '#4fd3e0',
+                            dark: '#1e1b2e',
+                            light: '#f8f9fc',
+                        }
+                    },
+                    backgroundImage: {
+                        'hero-gradient': 'linear-gradient(135deg, #483086 0%, #2da8b4 100%)',
+                        'card-gradient': 'linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%)',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .compass-icon-spin {
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .group:hover .compass-icon-spin {
+            transform: rotate(180deg);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #483086 0%, #2da8b4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .clip-slant {
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+
+        .clip-slant-reverse {
+            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+        }
+        
+        /* Animation Base Classes */
+        .reveal {
+            opacity: 0;
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        /* Directions */
+        .reveal-up { transform: translateY(40px); }
+        .reveal-left { transform: translateX(-40px); }
+        .reveal-right { transform: translateX(40px); }
+        .reveal-zoom { transform: scale(0.9); }
+
+        /* Active State (Triggered by JS) */
+        .reveal.active {
+            opacity: 1;
+            transform: translate(0) scale(1);
+        }
+
+        /* Stagger Delays */
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+        .delay-400 { transition-delay: 0.4s; }
+
+        /* Infinite Scroll Animation */
+        @keyframes infinite-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+        .animate-infinite-scroll {
+            animation: infinite-scroll 25s linear infinite;
+        }
+        
+        /* Hide scrollbar for nav on mobile */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-600 bg-gray-50 antialiased selection:bg-compass-teal selection:text-white w-full overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 reveal reveal-up active" id="navbar">
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo Area -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <!-- Lucide Compass Icon -->
+                    <div class="text-compass-purple transition-transform duration-700 group-hover:rotate-180">
+                        <i data-lucide="compass" class="w-10 h-10 stroke-[1.5]"></i>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <h1 class="text-2xl font-bold leading-none tracking-tight">
+                            <span class="text-compass-purple">Compass</span> <span class="text-compass-teal">Consult</span>
+                        </h1>
+                        <span class="text-[0.65rem] uppercase tracking-wider text-gray-500 font-semibold">(Employability & Skills) Ltd</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden xl:flex items-center space-x-6 text-sm font-semibold">
+                    <a href="#home" class="relative text-gray-600 hover:text-compass-purple transition-colors after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-compass-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Home</a>
+                    <a href="#about" class="relative text-gray-600 hover:text-compass-purple transition-colors after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-compass-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">About Us</a>
+                    <a href="#services" class="relative text-gray-600 hover:text-compass-purple transition-colors after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-compass-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Our Services</a>
+                    <a href="#people" class="relative text-gray-600 hover:text-compass-purple transition-colors after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-compass-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Our People</a>
+                    <a href="#clients" class="relative text-gray-600 hover:text-compass-purple transition-colors after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-compass-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Our Clients</a>
+                    <a href="#knowledge" class="relative text-gray-600 hover:text-compass-purple transition-colors after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-compass-purple after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Knowledge Base</a>
+                    <a href="#contact" class="px-5 py-2.5 rounded-full bg-compass-purple text-white hover:bg-compass-lightPurple transition-all shadow-lg shadow-purple-200 hover:shadow-purple-300 hover:scale-105 active:scale-95">
+                        Contact Us
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="xl:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-compass-purple focus:outline-none relative w-8 h-8 flex items-center justify-center">
+                        <i data-lucide="menu" id="icon-menu" class="w-6 h-6 absolute transition-all duration-300 opacity-100 rotate-0 scale-100"></i>
+                        <i data-lucide="x" id="icon-close" class="w-6 h-6 absolute transition-all duration-300 opacity-0 -rotate-90 scale-75"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="xl:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl overflow-hidden transition-all duration-500 ease-in-out max-h-0 opacity-0">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="#home" class="block px-3 py-3 text-base font-medium text-gray-700 hover:bg-purple-50 hover:text-compass-purple rounded-md transition-colors mobile-link">Home</a>
+                <a href="#about" class="block px-3 py-3 text-base font-medium text-gray-700 hover:bg-purple-50 hover:text-compass-purple rounded-md transition-colors mobile-link">About Us</a>
+                <a href="#services" class="block px-3 py-3 text-base font-medium text-gray-700 hover:bg-purple-50 hover:text-compass-purple rounded-md transition-colors mobile-link">Our Services</a>
+                <a href="#people" class="block px-3 py-3 text-base font-medium text-gray-700 hover:bg-purple-50 hover:text-compass-purple rounded-md transition-colors mobile-link">Our People</a>
+                <a href="#clients" class="block px-3 py-3 text-base font-medium text-gray-700 hover:bg-purple-50 hover:text-compass-purple rounded-md transition-colors mobile-link">Our Clients</a>
+                <a href="#knowledge" class="block px-3 py-3 text-base font-medium text-gray-700 hover:bg-purple-50 hover:text-compass-purple rounded-md transition-colors mobile-link">Knowledge Base</a>
+                <a href="#contact" class="block px-3 py-3 text-base font-medium text-compass-teal hover:bg-teal-50 rounded-md transition-colors mobile-link">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-20 pb-12 lg:pt-20 lg:pb-16 overflow-hidden w-full">
+        <!-- Animated Background Elements -->
+        <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob pointer-events-none"></div>
+        <div class="absolute top-0 -right-4 w-72 h-72 bg-teal-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000 pointer-events-none"></div>
+        <div class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-hero-gradient opacity-5 z-0 pointer-events-none"></div>
+        
+        <!-- Hero Client Carousel (Ticker) -->
+        <div class="relative z-10 w-full py-6 border-b border-gray-100 bg-white/40 backdrop-blur-sm overflow-hidden mb-12 reveal reveal-up">
+            <div class="max-w-7xl mx-auto px-4 mb-3">
+                <p class="text-center text-xs font-bold text-compass-purple uppercase tracking-widest opacity-70">Trusted by industry leaders</p>
+            </div>
+            <div class="flex overflow-hidden group">
+                <div class="flex space-x-16 animate-infinite-scroll group-hover:paused px-8">
+                    <!-- Set 1 -->
+                    <div class="flex items-center gap-2 text-gray-400 font-bold text-xl hover:text-compass-purple transition-colors duration-300 whitespace-nowrap"><i data-lucide="building" class="w-8 h-8"></i> TechGlobal</div>
+                    <div class="flex items-center gap-2 text-gray-400 font-bold text-xl hover:text-compass-purple transition-colors duration-300 whitespace-nowrap"><i data-lucide="landmark" class="w-8 h-8"></i> EduFirst</div>
+                    <div class="flex items-center gap-2 text-gray-400 font-bold text-xl hover:text-compass-purple transition-colors duration-300 whitespace-nowrap"><i data-lucide="rocket" class="w-8 h-8"></i> StartUp Inc</div>
+                    <div class="flex items-center gap-2 text-gray-400 font-bold text-xl hover:text-compass-purple transition-colors duration-300 whitespace-nowrap"><i data-lucide="anchor" class="w-8 h-8"></i> Harbor Logistics</div>
+                    <div class="flex items-center gap-2 text-gray-400 font-bold text-xl hover:text-compass-purple transition-colors duration-300 whitespace-nowrap"><i data-lucide="cpu" class="w-8 h-8"></i> CyberSys</div>
+                    <div class="flex items-center gap-2 text-gray-400 font-bold text-xl hover:text-compass-purple transition-colors duration-300 whitespace-nowrap"><i data-lucide="globe-2" class="w-8 h-8"></i> WorldWide</div>
+                    <!-- Duplicate Set for smooth loop -->
+                    <div class="flex items-center gap-2 text-gray-400 font-bold text-xl hover:text-compass-purple transition-colors duration-300 whitespace-nowrap"><i data-lucide="building" class="w-8 h-8"></i> TechGlobal</div>
+                    <div class="flex items-center gap-2 text-gray-400 font-bold text-xl hover:text-compass-purple transition-colors duration-300 whitespace-nowrap"><i data-lucide="landmark" class="w-8 h-8"></i> EduFirst</div>
+                    <div class="flex items-center gap-2 text-gray-400 font-bold text-xl hover:text-compass-purple transition-colors duration-300 whitespace-nowrap"><i data-lucide="rocket" class="w-8 h-8"></i> StartUp Inc</div>
+                    <div class="flex items-center gap-2 text-gray-400 font-bold text-xl hover:text-compass-purple transition-colors duration-300 whitespace-nowrap"><i data-lucide="anchor" class="w-8 h-8"></i> Harbor Logistics</div>
+                    <div class="flex items-center gap-2 text-gray-400 font-bold text-xl hover:text-compass-purple transition-colors duration-300 whitespace-nowrap"><i data-lucide="cpu" class="w-8 h-8"></i> CyberSys</div>
+                    <div class="flex items-center gap-2 text-gray-400 font-bold text-xl hover:text-compass-purple transition-colors duration-300 whitespace-nowrap"><i data-lucide="globe-2" class="w-8 h-8"></i> WorldWide</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Hero Content -->
+                <div class="space-y-8 reveal reveal-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 border border-purple-200 text-compass-purple text-sm font-semibold hover:bg-purple-200 transition-colors cursor-default">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-compass-purple"></span>
+                        </span>
+                        Navigating Your Future
+                    </div>
+                    
+                    <h1 class="text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-[1.15]">
+                        Guiding You Towards <br>
+                        <span class="gradient-text">Professional Excellence</span>
+                    </h1>
+                    
+                    <p class="text-lg text-gray-600 leading-relaxed max-w-lg">
+                        We specialize in employability solutions, skills training, and career consultancy. Let Compass Consult direct your path to success with expert guidance and tailored strategies.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#services" class="group inline-flex justify-center items-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-full text-white bg-compass-purple hover:bg-compass-lightPurple transition-all shadow-lg shadow-purple-200 hover:shadow-purple-300 hover:-translate-y-1">
+                            Explore Services
+                            <i data-lucide="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="#contact" class="inline-flex justify-center items-center px-8 py-3.5 border border-gray-200 text-base font-semibold rounded-full text-gray-700 bg-white hover:bg-gray-50 hover:border-compass-teal transition-all hover:-translate-y-1 hover:shadow-md">
+                            Get in Touch
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Hero Visuals -->
+                <div class="relative lg:h-[500px] flex items-center justify-center reveal reveal-right delay-200">
+                   <!-- Abstract Geometric Illustration mimicking compass directions -->
+                   <div class="relative w-full max-w-md aspect-square animate-float">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-compass-purple to-compass-teal rounded-full opacity-10 blur-3xl animate-pulse"></div>
+                        
+                        <!-- Main Card -->
+                        <div class="relative bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-white/50 transform rotate-3 transition-transform duration-500 hover:rotate-0 hover:scale-105">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-compass-purple">
+                                    <i data-lucide="briefcase" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-900">Career Readiness</h3>
+                                    <p class="text-sm text-gray-500">Skills Analysis Complete</p>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="h-2 bg-gray-100 rounded-full w-full overflow-hidden">
+                                    <div class="h-full bg-compass-teal w-[0%] rounded-full animate-progress-teal"></div>
+                                </div>
+                                <div class="flex justify-between text-xs text-gray-500">
+                                    <span>Soft Skills</span>
+                                    <span class="font-bold text-compass-teal">85%</span>
+                                </div>
+                                <div class="h-2 bg-gray-100 rounded-full w-full overflow-hidden mt-4">
+                                    <div class="h-full bg-compass-purple w-[0%] rounded-full animate-progress-purple"></div>
+                                </div>
+                                <div class="flex justify-between text-xs text-gray-500">
+                                    <span>Technical Proficiency</span>
+                                    <span class="font-bold text-compass-purple">92%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Stat Card -->
+                        <div class="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-xl p-4 border border-gray-100 flex items-center gap-3 animate-[bounce_3s_infinite] hover:animate-none hover:scale-110 transition-transform cursor-pointer">
+                            <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-compass-teal">
+                                <i data-lucide="users" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-semibold text-gray-500 uppercase">Clients Placed</p>
+                                <p class="text-xl font-bold text-gray-900"><span id="counter" data-target="500">0</span>+</p>
+                            </div>
+                        </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal reveal-up">
+                <span class="text-compass-purple font-semibold tracking-wider uppercase text-sm mb-2 block">About Us</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Who We Are</h2>
+                <div class="h-1.5 w-20 bg-gradient-to-r from-compass-purple to-compass-teal mx-auto rounded-full mb-6"></div>
+                <p class="max-w-2xl mx-auto text-lg text-gray-600">
+                    Compass Consult (Employability & Skills) Ltd is dedicated to bridging the gap between talent and opportunity. We empower individuals and organizations through bespoke training and consultancy.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="group p-8 rounded-2xl bg-gray-50 hover:bg-white border border-gray-100 hover:border-purple-100 hover:shadow-xl hover:shadow-purple-100/50 transition-all duration-300 reveal reveal-up delay-100 hover:-translate-y-2">
+                    <div class="w-14 h-14 rounded-xl bg-purple-100 text-compass-purple flex items-center justify-center mb-6 group-hover:bg-compass-purple group-hover:text-white transition-all duration-500 transform group-hover:scale-110">
+                        <i data-lucide="compass" class="w-7 h-7 compass-icon-spin"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Strategic Direction</h3>
+                    <p class="text-gray-600">
+                        We provide clear, actionable roadmaps for career development and organizational growth, ensuring you never lose your way.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="group p-8 rounded-2xl bg-gray-50 hover:bg-white border border-gray-100 hover:border-teal-100 hover:shadow-xl hover:shadow-teal-100/50 transition-all duration-300 reveal reveal-up delay-200 hover:-translate-y-2">
+                    <div class="w-14 h-14 rounded-xl bg-teal-100 text-compass-teal flex items-center justify-center mb-6 group-hover:bg-compass-teal group-hover:text-white transition-all duration-500 transform group-hover:scale-110">
+                        <i data-lucide="target" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Targeted Skills</h3>
+                    <p class="text-gray-600">
+                        Our training programs are precise and industry-relevant, focusing on the employability skills that employers actually demand.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="group p-8 rounded-2xl bg-gray-50 hover:bg-white border border-gray-100 hover:border-purple-100 hover:shadow-xl hover:shadow-purple-100/50 transition-all duration-300 reveal reveal-up delay-300 hover:-translate-y-2">
+                    <div class="w-14 h-14 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500 transform group-hover:scale-110">
+                        <i data-lucide="trending-up" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Sustainable Growth</h3>
+                    <p class="text-gray-600">
+                        We don't just solve immediate problems; we build foundations for long-term career stability and business resilience.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-50 clip-slant relative w-full overflow-hidden">
+        <div class="absolute right-0 top-1/4 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl animate-pulse pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal reveal-left">
+                <div class="max-w-xl">
+                    <span class="text-compass-teal font-bold tracking-wider uppercase text-sm mb-2 block">Our Expertise</span>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900">Comprehensive Solutions</h2>
+                </div>
+                <a href="#contact" class="hidden md:inline-flex items-center font-semibold text-compass-purple hover:text-compass-teal transition-colors mt-4 md:mt-0 group">
+                    View full catalogue <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service Card 1 -->
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-300 p-6 reveal reveal-up delay-100 hover:-translate-y-2 group cursor-pointer">
+                    <div class="h-40 bg-purple-50 rounded-lg mb-6 flex items-center justify-center group-hover:bg-purple-100 transition-colors">
+                         <i data-lucide="file-text" class="w-16 h-16 text-compass-purple opacity-80 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">CV & Application Support</h3>
+                    <p class="text-sm text-gray-600 mb-4">Professional crafting of CVs and cover letters to stand out in the competitive market.</p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center"><i data-lucide="check" class="w-3 h-3 mr-2 text-green-500"></i> ATS Optimization</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-3 h-3 mr-2 text-green-500"></i> Personal Branding</li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-300 p-6 reveal reveal-up delay-200 hover:-translate-y-2 group cursor-pointer">
+                    <div class="h-40 bg-teal-50 rounded-lg mb-6 flex items-center justify-center group-hover:bg-teal-100 transition-colors">
+                        <i data-lucide="users-2" class="w-16 h-16 text-compass-teal opacity-80 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Interview Coaching</h3>
+                    <p class="text-sm text-gray-600 mb-4">Mock interviews and confidence-building techniques to help you secure the role.</p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center"><i data-lucide="check" class="w-3 h-3 mr-2 text-green-500"></i> STAR Technique</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-3 h-3 mr-2 text-green-500"></i> Body Language</li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-300 p-6 reveal reveal-up delay-300 hover:-translate-y-2 group cursor-pointer">
+                    <div class="h-40 bg-blue-50 rounded-lg mb-6 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+                        <i data-lucide="graduation-cap" class="w-16 h-16 text-blue-500 opacity-80 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Skills Workshops</h3>
+                    <p class="text-sm text-gray-600 mb-4">Interactive group sessions focusing on soft skills, leadership, and workplace etiquette.</p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center"><i data-lucide="check" class="w-3 h-3 mr-2 text-green-500"></i> Team Building</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-3 h-3 mr-2 text-green-500"></i> Communication</li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-300 p-6 reveal reveal-up delay-400 hover:-translate-y-2 group cursor-pointer">
+                    <div class="h-40 bg-indigo-50 rounded-lg mb-6 flex items-center justify-center group-hover:bg-indigo-100 transition-colors">
+                        <i data-lucide="building-2" class="w-16 h-16 text-indigo-500 opacity-80 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Corporate Consultancy</h3>
+                    <p class="text-sm text-gray-600 mb-4">Helping businesses streamline their recruitment processes and employee retention strategies.</p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center"><i data-lucide="check" class="w-3 h-3 mr-2 text-green-500"></i> Talent Acquisition</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-3 h-3 mr-2 text-green-500"></i> Staff Development</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our People Section -->
+    <section id="people" class="py-24 bg-white clip-slant-reverse w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+            <div class="text-center mb-16 reveal reveal-up">
+                <span class="text-compass-teal font-bold tracking-wider uppercase text-sm mb-2 block">Our Team</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Meet Our People</h2>
+                <div class="h-1.5 w-20 bg-gradient-to-r from-compass-purple to-compass-teal mx-auto rounded-full mb-6"></div>
+                <p class="max-w-2xl mx-auto text-lg text-gray-600">
+                    The experts behind your success. Our team combines decades of experience in recruitment, HR, and education.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="text-center reveal reveal-up delay-100 group">
+                    <div class="w-32 h-32 rounded-full bg-gray-200 mx-auto mb-4 overflow-hidden border-4 border-purple-50 group-hover:border-compass-purple transition-colors duration-300">
+                        <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 group-hover:text-compass-purple transition-colors">
+                            <i data-lucide="user" class="w-16 h-16"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 group-hover:text-compass-purple transition-colors">Sarah Jenkins</h3>
+                    <p class="text-compass-teal font-medium mb-3">Managing Director</p>
+                    <p class="text-sm text-gray-500 max-w-xs mx-auto">Expert in strategic organizational development with 15 years in the public sector.</p>
+                    <div class="flex justify-center gap-3 mt-4 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
+                        <a href="#" class="text-gray-400 hover:text-compass-purple hover:scale-110 transition-transform"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-compass-purple hover:scale-110 transition-transform"><i data-lucide="mail" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="text-center reveal reveal-up delay-200 group">
+                    <div class="w-32 h-32 rounded-full bg-gray-200 mx-auto mb-4 overflow-hidden border-4 border-teal-50 group-hover:border-compass-teal transition-colors duration-300">
+                        <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 group-hover:text-compass-teal transition-colors">
+                            <i data-lucide="user" class="w-16 h-16"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 group-hover:text-compass-teal transition-colors">David Chen</h3>
+                    <p class="text-compass-teal font-medium mb-3">Senior Consultant</p>
+                    <p class="text-sm text-gray-500 max-w-xs mx-auto">Specializes in technical skill acquisition and corporate training frameworks.</p>
+                    <div class="flex justify-center gap-3 mt-4 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
+                        <a href="#" class="text-gray-400 hover:text-compass-teal hover:scale-110 transition-transform"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-compass-teal hover:scale-110 transition-transform"><i data-lucide="mail" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="text-center reveal reveal-up delay-300 group">
+                    <div class="w-32 h-32 rounded-full bg-gray-200 mx-auto mb-4 overflow-hidden border-4 border-purple-50 group-hover:border-compass-purple transition-colors duration-300">
+                        <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 group-hover:text-compass-purple transition-colors">
+                            <i data-lucide="user" class="w-16 h-16"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 group-hover:text-compass-purple transition-colors">Emily Thorne</h3>
+                    <p class="text-compass-teal font-medium mb-3">Employability Coach</p>
+                    <p class="text-sm text-gray-500 max-w-xs mx-auto">Dedicated to helping graduates and job seekers navigate the interview process.</p>
+                    <div class="flex justify-center gap-3 mt-4 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
+                        <a href="#" class="text-gray-400 hover:text-compass-purple hover:scale-110 transition-transform"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-compass-purple hover:scale-110 transition-transform"><i data-lucide="mail" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Clients Section -->
+    <section id="clients" class="py-20 bg-gray-50 w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12 reveal reveal-left">
+                <div>
+                    <span class="text-compass-purple font-semibold tracking-wider uppercase text-sm mb-2 block">Our Clients</span>
+                    <h2 class="text-3xl font-bold text-gray-900">Partners in Success</h2>
+                </div>
+                <p class="mt-4 md:mt-0 max-w-md text-gray-600 text-sm md:text-right">
+                    We've worked with diverse organizations from startups to government bodies to deliver impactful skills training.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Staggered Client Boxes -->
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center justify-center h-32 reveal reveal-zoom delay-100 group">
+                     <span class="font-bold text-gray-400 text-xl flex gap-2 items-center group-hover:text-compass-purple transition-colors"><i data-lucide="building" class="w-5 h-5"></i> TechGlobal</span>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center justify-center h-32 reveal reveal-zoom delay-200 group">
+                     <span class="font-bold text-gray-400 text-xl flex gap-2 items-center group-hover:text-compass-teal transition-colors"><i data-lucide="landmark" class="w-5 h-5"></i> EduFirst</span>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center justify-center h-32 reveal reveal-zoom delay-300 group">
+                     <span class="font-bold text-gray-400 text-xl flex gap-2 items-center group-hover:text-indigo-600 transition-colors"><i data-lucide="rocket" class="w-5 h-5"></i> StartUp Inc</span>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center justify-center h-32 reveal reveal-zoom delay-400 group">
+                     <span class="font-bold text-gray-400 text-xl flex gap-2 items-center group-hover:text-blue-500 transition-colors"><i data-lucide="anchor" class="w-5 h-5"></i> Harbor</span>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center justify-center h-32 reveal reveal-zoom delay-100 group">
+                     <span class="font-bold text-gray-400 text-xl flex gap-2 items-center group-hover:text-compass-purple transition-colors"><i data-lucide="cpu" class="w-5 h-5"></i> CyberSys</span>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center justify-center h-32 reveal reveal-zoom delay-200 group">
+                     <span class="font-bold text-gray-400 text-xl flex gap-2 items-center group-hover:text-compass-teal transition-colors"><i data-lucide="globe-2" class="w-5 h-5"></i> WorldWide</span>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center justify-center h-32 reveal reveal-zoom delay-300 group">
+                     <span class="font-bold text-gray-400 text-xl flex gap-2 items-center group-hover:text-indigo-600 transition-colors"><i data-lucide="zap" class="w-5 h-5"></i> PowerGen</span>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex items-center justify-center h-32 reveal reveal-zoom delay-400 group">
+                     <span class="font-bold text-gray-400 text-xl flex gap-2 items-center group-hover:text-blue-500 transition-colors"><i data-lucide="heart-pulse" class="w-5 h-5"></i> MedCare</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Knowledge Base Section -->
+    <section id="knowledge" class="py-20 bg-white w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal reveal-up">
+                <span class="text-compass-teal font-bold tracking-wider uppercase text-sm mb-2 block">Resources</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Knowledge Base</h2>
+                <p class="max-w-2xl mx-auto text-lg text-gray-600">
+                    Download our latest guides, whitepapers, and industry reports in PDF format.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- PDF Document 1 -->
+                <div class="group bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden reveal reveal-up delay-100">
+                    <div class="h-48 bg-gray-50 flex items-center justify-center relative group-hover:bg-purple-50 transition-colors">
+                        <i data-lucide="file-text" class="w-16 h-16 text-gray-300 group-hover:text-compass-purple transition-colors transform group-hover:scale-110 duration-300"></i>
+                        <div class="absolute top-4 right-4 bg-red-100 text-red-600 px-2 py-1 rounded text-xs font-bold">PDF</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-compass-purple transition-colors">Top 10 Soft Skills for 2024</h3>
+                        <p class="text-gray-600 text-sm mb-4">A comprehensive guide on emotional intelligence and adaptability in the modern workplace.</p>
+                        <div class="flex items-center justify-between mt-4">
+                            <span class="text-xs text-gray-400">2.4 MB</span>
+                            <a href="#" class="inline-flex items-center text-sm font-semibold text-compass-teal hover:underline group/link">
+                                <i data-lucide="download" class="w-4 h-4 mr-2 group-hover/link:animate-bounce"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PDF Document 2 -->
+                <div class="group bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden reveal reveal-up delay-200">
+                    <div class="h-48 bg-gray-50 flex items-center justify-center relative group-hover:bg-teal-50 transition-colors">
+                        <i data-lucide="file-bar-chart-2" class="w-16 h-16 text-gray-300 group-hover:text-compass-teal transition-colors transform group-hover:scale-110 duration-300"></i>
+                        <div class="absolute top-4 right-4 bg-red-100 text-red-600 px-2 py-1 rounded text-xs font-bold">PDF</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-compass-teal transition-colors">Recruitment Funnel Optimization</h3>
+                        <p class="text-gray-600 text-sm mb-4">Strategies to reduce time-to-hire and improve candidate quality.</p>
+                        <div class="flex items-center justify-between mt-4">
+                            <span class="text-xs text-gray-400">1.8 MB</span>
+                            <a href="#" class="inline-flex items-center text-sm font-semibold text-compass-teal hover:underline group/link">
+                                <i data-lucide="download" class="w-4 h-4 mr-2 group-hover/link:animate-bounce"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PDF Document 3 -->
+                <div class="group bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden reveal reveal-up delay-300">
+                    <div class="h-48 bg-gray-50 flex items-center justify-center relative group-hover:bg-indigo-50 transition-colors">
+                        <i data-lucide="file-check" class="w-16 h-16 text-gray-300 group-hover:text-indigo-600 transition-colors transform group-hover:scale-110 duration-300"></i>
+                        <div class="absolute top-4 right-4 bg-red-100 text-red-600 px-2 py-1 rounded text-xs font-bold">PDF</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">Mastering the STAR Method</h3>
+                        <p class="text-gray-600 text-sm mb-4">Workbook and templates for behavioral interview preparation.</p>
+                        <div class="flex items-center justify-between mt-4">
+                            <span class="text-xs text-gray-400">3.1 MB</span>
+                            <a href="#" class="inline-flex items-center text-sm font-semibold text-compass-teal hover:underline group/link">
+                                <i data-lucide="download" class="w-4 h-4 mr-2 group-hover/link:animate-bounce"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 relative overflow-hidden bg-compass-dark w-full">
+        <div class="absolute inset-0 bg-hero-gradient opacity-90 pointer-events-none"></div>
+        <!-- Animated dots -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 30px 30px;"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center reveal reveal-up">
+            <h2 class="text-3xl lg:text-5xl font-bold text-white mb-6">Ready to find your direction?</h2>
+            <p class="text-purple-100 text-lg mb-10 max-w-2xl mx-auto">
+                Whether you are an individual looking for work or a company seeking talent strategies, we have the compass to guide you.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" class="px-8 py-4 bg-white text-compass-purple font-bold rounded-full hover:bg-gray-100 transition-all shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95">
+                    Contact Us Today
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-white w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Contact Info -->
+                <div class="reveal reveal-left">
+                    <span class="text-compass-teal font-bold tracking-wider uppercase text-sm mb-2 block">Get In Touch</span>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6">Let's start the conversation</h2>
+                    <p class="text-gray-600 mb-10 text-lg">
+                        Reach out to our team for inquiries about our training programs, consultancy services, or general advice.
+                    </p>
+
+                    <div class="space-y-8">
+                        <div class="flex items-start group">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center text-compass-purple group-hover:bg-compass-purple group-hover:text-white transition-colors duration-300">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-gray-900">Head Office</h3>
+                                <p class="text-gray-600 mt-1">123 Business Park, Enterprise Way<br>London, UK</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start group">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-teal-50 flex items-center justify-center text-compass-teal group-hover:bg-compass-teal group-hover:text-white transition-colors duration-300">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-gray-900">Email Us</h3>
+                                <p class="text-gray-600 mt-1">info@compassconsult.co.uk<br>support@compassconsult.co.uk</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start group">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
+                                <i data-lucide="phone" class="w-5 h-5"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-gray-900">Call Us</h3>
+                                <p class="text-gray-600 mt-1">+44 (0) 20 1234 5678<br>Mon-Fri, 9am - 5pm</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="bg-gray-50 rounded-3xl p-8 lg:p-10 shadow-lg border border-gray-100 reveal reveal-right delay-200 hover:shadow-2xl transition-shadow duration-500">
+                    <form onsubmit="event.preventDefault(); alert('Thank you for your message! This is a demo form.');" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                <input type="text" id="firstName" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-compass-purple focus:ring-2 focus:ring-purple-100 outline-none transition-all hover:border-gray-300" placeholder="John">
+                            </div>
+                            <div>
+                                <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                <input type="text" id="lastName" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-compass-purple focus:ring-2 focus:ring-purple-100 outline-none transition-all hover:border-gray-300" placeholder="Doe">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-compass-purple focus:ring-2 focus:ring-purple-100 outline-none transition-all hover:border-gray-300" placeholder="john@example.com">
+                        </div>
+
+                        <div>
+                            <label for="interest" class="block text-sm font-medium text-gray-700 mb-2">I am interested in</label>
+                            <select id="interest" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-compass-purple focus:ring-2 focus:ring-purple-100 outline-none transition-all bg-white hover:border-gray-300">
+                                <option>Employability Skills Training</option>
+                                <option>Career Consultancy</option>
+                                <option>Corporate Services</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-compass-purple focus:ring-2 focus:ring-purple-100 outline-none transition-all hover:border-gray-300" placeholder="How can we help you?"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full py-4 bg-compass-purple text-white font-bold rounded-xl hover:bg-compass-lightPurple transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 active:translate-y-0">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8 w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="mb-6">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="compass" class="w-8 h-8 text-compass-teal"></i>
+                            <span class="text-2xl font-bold">Compass Consult</span>
+                        </div>
+                         <!-- Added (Employability & Skills) Ltd below the logo as requested -->
+                        <span class="text-[0.65rem] uppercase tracking-wider text-gray-500 font-semibold block mt-1 ml-10">(Employability & Skills) Ltd</span>
+                    </div>
+                    <p class="text-gray-400 max-w-sm mb-6">
+                        Empowering individuals and businesses with the skills, strategy, and confidence to navigate the modern workforce.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-6 text-compass-teal">Quick Links</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">About Us</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Our Services</a></li>
+                        <li><a href="#people" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Our People</a></li>
+                        <li><a href="#clients" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Our Clients</a></li>
+                        <li><a href="#knowledge" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Knowledge Base</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-6 text-compass-teal">Legal</h3>
+                    <ul class="space-y-4">
+                        <li><a href="privacy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="cookies.html" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <!-- Dynamic Year -->
+                <p>&copy; <span id="copyright-year"></span> Compass Consult (Employability & Skills) Ltd. All rights reserved.</p>
+                <div class="mt-4 md:mt-0 flex items-center gap-2">
+                    <span>Website created by Jake Gibbons.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Set Copyright Year
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const iconMenu = document.getElementById('icon-menu');
+        const iconClose = document.getElementById('icon-close');
+        let isMenuOpen = false;
+
+        function toggleMenu(forceClose = false) {
+            if (forceClose) {
+                isMenuOpen = false;
+            } else {
+                isMenuOpen = !isMenuOpen;
+            }
+
+            if (isMenuOpen) {
+                // Open Menu
+                menu.classList.remove('max-h-0', 'opacity-0');
+                menu.classList.add('max-h-[500px]', 'opacity-100');
+                
+                // Rotate to Close Icon
+                iconMenu.classList.remove('opacity-100', 'rotate-0', 'scale-100');
+                iconMenu.classList.add('opacity-0', 'rotate-90', 'scale-75');
+                
+                iconClose.classList.remove('opacity-0', '-rotate-90', 'scale-75');
+                iconClose.classList.add('opacity-100', 'rotate-0', 'scale-100');
+            } else {
+                // Close Menu
+                menu.classList.remove('max-h-[500px]', 'opacity-100');
+                menu.classList.add('max-h-0', 'opacity-0');
+                
+                // Rotate to Menu Icon
+                iconMenu.classList.remove('opacity-0', 'rotate-90', 'scale-75');
+                iconMenu.classList.add('opacity-100', 'rotate-0', 'scale-100');
+                
+                iconClose.classList.remove('opacity-100', 'rotate-0', 'scale-100');
+                iconClose.classList.add('opacity-0', '-rotate-90', 'scale-75');
+            }
+        }
+
+        btn.addEventListener('click', () => toggleMenu());
+
+        // Handle Mobile Link Clicks (Prevent Default & Scroll Smoothly)
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent standard jump/reload
+                const targetId = link.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                toggleMenu(true); // Close menu first
+
+                if (targetElement) {
+                    // Small delay to allow menu closing animation to start/finish
+                    setTimeout(() => {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }, 300);
+                }
+            });
+        });
+
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Number Counter Animation
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Trigger counter when in view
+        const counterElement = document.getElementById("counter");
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-target'));
+                    animateValue(entry.target, 0, target, 2000);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        if(counterElement) {
+            counterObserver.observe(counterElement);
+        }
+        
+        // Progress bar animation trigger
+        const progressBars = document.querySelectorAll('.animate-progress-teal, .animate-progress-purple');
+        if(progressBars.length > 0) {
+            setTimeout(() => {
+                progressBars[0].style.width = '85%';
+                progressBars[0].style.transition = 'width 1.5s ease-out';
+                progressBars[1].style.width = '92%';
+                progressBars[1].style.transition = 'width 1.5s ease-out 0.5s';
+            }, 1000); // Start after hero enters
+        }
+    </script>
+</body>
+</html>
+
+
