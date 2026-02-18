@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Sarah Jenkins",
+    "role": "Managing Director",
+    "bio": "Expert in strategic organizational development with 15 years in the public sector.",
+    "image": "/assets/images/team/sarah-jenkins.jpg",
+    "email": "sarah@compassconsult.co.uk",
+    "linkedin": "https://linkedin.com/in/sarahjenkins",
+    "expertise": [
+      "Strategic Planning",
+      "Organizational Development",
+      "Change Management",
+      "HR Strategy"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "David Chen",
+    "role": "Senior Consultant",
+    "bio": "Specializes in technical skill acquisition and corporate training frameworks.",
+    "image": "/assets/images/team/david-chen.jpg",
+    "email": "david@compassconsult.co.uk",
+    "linkedin": "https://linkedin.com/in/davidchen",
+    "expertise": [
+      "Skills Training",
+      "Technical Development",
+      "Corporate Training",
+      "Program Design"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Emily Thorne",
+    "role": "Employability Coach",
+    "bio": "Dedicated to helping graduates and job seekers navigate the interview process.",
+    "image": "/assets/images/team/emily-thorne.jpg",
+    "email": "emily@compassconsult.co.uk",
+    "linkedin": "https://linkedin.com/in/emilythorne",
+    "expertise": [
+      "Interview Coaching",
+      "Career Development",
+      "CV Writing",
+      "Job Search Strategy"
+    ]
+  }
+]

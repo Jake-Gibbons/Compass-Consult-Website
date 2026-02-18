@@ -1,0 +1,37 @@
+{
+  "name": "compass-consult-website",
+  "version": "1.0.0",
+  "description": "Professional website for Compass Consult (Employability & Skills) Ltd",
+  "author": "Jake Gibbons",
+  "license": "MIT",
+  "keywords": [
+    "employability",
+    "skills training",
+    "career consultancy",
+    "recruitment"
+  ],
+  "homepage": "https://compassconsult.co.uk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jake-Gibbons/Compass-Consult-Website"
+  },
+  "scripts": {
+    "dev": "http-server",
+    "serve": "http-server -p 8000 -c-1",
+    "build": "echo 'Build script to be configured'",
+    "test": "echo 'Test script to be configured'",
+    "lint": "echo 'Lint script to be configured'",
+    "deploy": "echo 'Deploy script to be configured'"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

@@ -1,0 +1,70 @@
+[
+  {
+    "id": 1,
+    "name": "CV & Application Support",
+    "slug": "cv-application-support",
+    "icon": "file-text",
+    "color": "purple",
+    "description": "Transform your CV from overlooked to unforgettable. We craft compelling applications that pass ATS screening and captivate recruiters.",
+    "fullDescription": "Professional crafting of CVs and cover letters designed to stand out in the competitive job market and get noticed by hiring managers.",
+    "features": [
+      "ATS Optimization",
+      "Personal Branding",
+      "Cover Letter Writing",
+      "LinkedIn Profile Optimization"
+    ],
+    "price": "From £99",
+    "duration": "1-2 weeks"
+  },
+  {
+    "id": 2,
+    "name": "Interview Coaching",
+    "slug": "interview-coaching",
+    "icon": "users-2",
+    "color": "teal",
+    "description": "Master every interview scenario with intensive one-on-one coaching. From behavioral questions to technical assessments.",
+    "fullDescription": "Mock interviews and confidence-building techniques to help you secure the role you want.",
+    "features": [
+      "STAR Technique",
+      "Body Language Training",
+      "Mock Interviews",
+      "Confidence Building"
+    ],
+    "price": "From £150",
+    "duration": "4-6 weeks"
+  },
+  {
+    "id": 3,
+    "name": "Skills Workshops",
+    "slug": "skills-workshops",
+    "icon": "graduation-cap",
+    "color": "blue",
+    "description": "Accelerate your professional growth through dynamic, interactive training delivered by industry experts.",
+    "fullDescription": "Interactive group sessions focusing on soft skills, leadership, communication, and workplace etiquette.",
+    "features": [
+      "Team Building",
+      "Communication Skills",
+      "Leadership Development",
+      "Project Management"
+    ],
+    "price": "From £299",
+    "duration": "2 days - 4 weeks"
+  },
+  {
+    "id": 4,
+    "name": "Corporate Consultancy",
+    "slug": "corporate-consultancy",
+    "icon": "building-2",
+    "color": "indigo",
+    "description": "Partner with us to optimize talent acquisition, strengthen employee retention, and build high-performing teams.",
+    "fullDescription": "Helping businesses streamline their recruitment processes, employee retention strategies, and organizational development.",
+    "features": [
+      "Talent Acquisition",
+      "Staff Development",
+      "HR Strategy",
+      "Team Development"
+    ],
+    "price": "Custom pricing",
+    "duration": "Ongoing"
+  }
+]

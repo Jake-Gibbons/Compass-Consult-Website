@@ -1,0 +1,53 @@
+/* Main Stylesheet
+ * This file would contain extracted styles from inline Tailwind
+ * Currently using Tailwind CSS via CDN in HTML
+ * 
+ * Custom styles can be added here as needed
+ */
+
+/* Color Variables */
+:root {
+  --color-primary: #483086;
+  --color-primary-light: #6a4eb8;
+  --color-secondary: #2da8b4;
+  --color-secondary-light: #4fd3e0;
+  --color-dark: #1e1b2e;
+  --color-light: #f8f9fc;
+}
+
+/* Utility Classes */
+.shadow-lg-purple {
+  box-shadow: 0 20px 25px -5px rgba(72, 48, 134, 0.15);
+}
+
+.shadow-lg-teal {
+  box-shadow: 0 20px 25px -5px rgba(45, 168, 180, 0.15);
+}
+
+/* Animation Keyframes */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Note: Most styles are currently in index.html using Tailwind CSS
+ * As the project grows, consider extracting to dedicated CSS files
+ * Examples: components.css, responsive.css, animations.css
+ */

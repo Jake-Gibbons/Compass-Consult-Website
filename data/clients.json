@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "name": "TechGlobal",
+    "industry": "Technology",
+    "icon": "building",
+    "logo": "/assets/logos/techglobal.svg",
+    "description": "Leading technology solutions provider"
+  },
+  {
+    "id": 2,
+    "name": "EduFirst",
+    "industry": "Education",
+    "icon": "landmark",
+    "logo": "/assets/logos/edufirst.svg",
+    "description": "Educational institution and training provider"
+  },
+  {
+    "id": 3,
+    "name": "StartUp Inc",
+    "industry": "Startup",
+    "icon": "rocket",
+    "logo": "/assets/logos/startup-inc.svg",
+    "description": "Innovative startup company"
+  },
+  {
+    "id": 4,
+    "name": "Harbor Logistics",
+    "industry": "Logistics",
+    "icon": "anchor",
+    "logo": "/assets/logos/harbor.svg",
+    "description": "Leading logistics and supply chain company"
+  },
+  {
+    "id": 5,
+    "name": "CyberSys",
+    "industry": "Cybersecurity",
+    "icon": "cpu",
+    "logo": "/assets/logos/cybersys.svg",
+    "description": "Cybersecurity solutions provider"
+  },
+  {
+    "id": 6,
+    "name": "WorldWide",
+    "industry": "International",
+    "icon": "globe-2",
+    "logo": "/assets/logos/worldwide.svg",
+    "description": "Global business consulting firm"
+  },
+  {
+    "id": 7,
+    "name": "PowerGen",
+    "industry": "Energy",
+    "icon": "zap",
+    "logo": "/assets/logos/powergen.svg",
+    "description": "Energy and power generation company"
+  },
+  {
+    "id": 8,
+    "name": "MedCare",
+    "industry": "Healthcare",
+    "icon": "heart-pulse",
+    "logo": "/assets/logos/medcare.svg",
+    "description": "Healthcare services provider"
+  }
+]
