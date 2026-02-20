@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Compass Consult</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                    colors: {
+                        compass: { 
+                            purple: '#483086', 
+                            lightPurple: '#6a4eb8',
+                            teal: '#2da8b4', 
+                            lightTeal: '#4fd3e0',
+                            dark: '#1e1b2e', 
+                            light: '#f8f9fc' 
+                        }
+                    },
+                    backgroundImage: { 'hero-gradient': 'linear-gradient(135deg, #483086 0%, #2da8b4 100%)' }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .reveal { opacity: 0; transition: all 1s; transform: translateY(20px); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
+    </style>
+</head>
+<body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
+
+    <aside class="hidden lg:flex fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-100 z-50 flex-col p-8 justify-between shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
+        <div>
+            <a href="index.html" class="flex items-center gap-3 cursor-pointer group mb-12">
+                <div class="text-compass-purple transition-transform duration-700 group-hover:rotate-180">
+                    <i data-lucide="compass" class="w-10 h-10 stroke-[1.5]"></i>
+                </div>
+                <div class="flex flex-col justify-center">
+                    <h1 class="text-2xl font-bold leading-none tracking-tight">
+                        <span class="text-compass-purple">Compass</span> <span class="text-compass-teal">Consult</span>
+                    </h1>
+                    <span class="text-[0.6rem] uppercase tracking-wider text-gray-500 font-semibold">(Employability & Skills) Ltd</span>
+                </div>
+            </a>
+            <nav class="space-y-2">
+                <a href="index.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Home</a>
+                <a href="about.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">About us</a>
+                <a href="team.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Meet the Team</a>
+                <a href="services.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Our Services</a>
+                <a href="resources.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Resource Centre</a>
+                <a href="partnerships.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Partnerships</a>
+            </nav>
+        </div>
+        <div>
+            <a href="contact.html" class="group flex items-center justify-center w-full py-3 px-4 rounded-full bg-compass-purple text-white font-semibold hover:bg-compass-lightPurple shadow-lg hover:shadow-purple-200 transition-all transform hover:-translate-y-0.5">Contact Us <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1"></i></a>
+            <p class="text-xs text-center text-gray-400 mt-6">&copy; <span class="year-span"></span> Compass Consult</p>
+        </div>
+    </aside>
+
+    <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
+        <div class="px-4 flex justify-between items-center h-20">
+             <a href="index.html" class="flex items-center gap-2">
+                <i data-lucide="compass" class="w-8 h-8 text-compass-purple"></i>
+                <div class="flex flex-col"><span class="font-bold text-gray-900 leading-none"><span class="text-compass-purple">Compass</span> <span class="text-compass-teal">Consult</span></span><span class="text-[0.5rem] uppercase text-gray-500 font-bold">Employability & Skills</span></div>
+             </a>
+             <button id="mobile-menu-btn" class="text-gray-600 p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 py-4 space-y-2">
+                <a href="index.html" class="block py-2 px-3 text-gray-700">Home</a>
+                <a href="about.html" class="block py-2 px-3 text-gray-700">About us</a>
+                <a href="team.html" class="block py-2 px-3 text-gray-700">Meet the Team</a>
+                <a href="services.html" class="block py-2 px-3 text-gray-700">Our Services</a>
+                <a href="resources.html" class="block py-2 px-3 text-gray-700">Resource Centre</a>
+                <a href="partnerships.html" class="block py-2 px-3 text-gray-700">Partnerships</a>
+                <a href="contact.html" class="block py-2 px-3 text-compass-teal font-medium bg-teal-50 rounded-md">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
+        <header class="bg-gray-50 pt-32 pb-16 lg:pt-24 text-center">
+            <h1 class="text-4xl font-bold text-gray-900">Get In Touch</h1>
+            <p class="mt-4 text-gray-600">Support for Your Organisation</p>
+        </header>
+
+        <section class="py-20 bg-white flex-grow">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-16 reveal active">
+                    <div>
+                        <span class="text-compass-teal font-bold tracking-wider uppercase text-sm mb-2 block">Contact</span>
+                        <h2 class="text-4xl font-bold text-gray-900 mb-6">Let's start the conversation</h2>
+                        <p class="text-gray-600 mb-10 text-lg">Talk to us today about how we can support your organisation to mobilise, grow, and excel.</p>
+
+                        <div class="space-y-8">
+                            <div class="flex items-start group">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center text-compass-purple group-hover:bg-compass-purple group-hover:text-white transition-colors"><i data-lucide="map-pin" class="w-5 h-5"></i></div>
+                                <div class="ml-4"><h3 class="text-lg font-semibold text-gray-900">Head Office</h3><p class="text-gray-600 mt-1">123 Business Park, Enterprise Way<br>London, UK</p></div>
+                            </div>
+                            <div class="flex items-start group">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-teal-50 flex items-center justify-center text-compass-teal group-hover:bg-compass-teal group-hover:text-white transition-colors"><i data-lucide="mail" class="w-5 h-5"></i></div>
+                                <div class="ml-4"><h3 class="text-lg font-semibold text-gray-900">Email Us</h3><p class="text-gray-600 mt-1">info@compassconsult.co.uk<br>support@compassconsult.co.uk</p></div>
+                            </div>
+                            <div class="flex items-start group">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors"><i data-lucide="phone" class="w-5 h-5"></i></div>
+                                <div class="ml-4"><h3 class="text-lg font-semibold text-gray-900">Call Us</h3><p class="text-gray-600 mt-1">+44 (0) 20 1234 5678<br>Mon-Fri, 9am - 5pm</p></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-3xl p-8 lg:p-10 shadow-lg border border-gray-100 hover:shadow-2xl transition-all">
+                        <form onsubmit="event.preventDefault(); alert('Thank you for your message!');" class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div><label class="block text-sm font-medium text-gray-700 mb-2">First Name</label><input type="text" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-compass-purple outline-none transition-colors hover:border-gray-300" placeholder="John"></div>
+                                <div><label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label><input type="text" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-compass-purple outline-none transition-colors hover:border-gray-300" placeholder="Doe"></div>
+                            </div>
+                            <div><label class="block text-sm font-medium text-gray-700 mb-2">Email</label><input type="email" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-compass-purple outline-none transition-colors hover:border-gray-300" placeholder="john@example.com"></div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Interest</label>
+                                <select class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-compass-purple outline-none bg-white transition-colors hover:border-gray-300">
+                                    <option>Mobilisation</option><option>Partnership</option><option>Governance</option><option>Other</option>
+                                </select>
+                            </div>
+                            <div><label class="block text-sm font-medium text-gray-700 mb-2">Message</label><textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-compass-purple outline-none transition-colors hover:border-gray-300" placeholder="How can we help?"></textarea></div>
+                            <button type="submit" class="w-full py-4 bg-compass-purple text-white font-bold rounded-xl hover:bg-compass-lightPurple transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 active:translate-y-0">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-4 gap-12 mb-12">
+                    <div class="col-span-1 md:col-span-2">
+                        <div class="mb-6">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="compass" class="w-8 h-8 text-compass-teal"></i>
+                                <span class="text-2xl font-bold">Compass Consult</span>
+                            </div>
+                            <span class="text-[0.65rem] uppercase tracking-wider text-gray-500 font-semibold block mt-1 ml-10">(Employability & Skills) Ltd</span>
+                        </div>
+                        <p class="text-gray-400 max-w-sm mb-6">
+                            Empowering individuals and businesses with the skills, strategy, and confidence to navigate the modern workforce.
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                                <i data-lucide="linkedin" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                                <i data-lucide="twitter" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                                <i data-lucide="facebook" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-bold mb-6 text-compass-teal">Quick Links</h3>
+                        <ul class="space-y-4">
+                            <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Home</a></li>
+                            <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">About Us</a></li>
+                            <li><a href="services.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Our Services</a></li>
+                            <li><a href="team.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Our People</a></li>
+                            <li><a href="partnerships.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Partnerships</a></li>
+                            <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Contact Us</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold mb-6 text-compass-teal">Legal</h3>
+                        <ul class="space-y-4">
+                            <li><a href="privacy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                            <li><a href="terms.html" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                            <li><a href="cookies.html" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                    <p>&copy; <span class="year-span"></span> Compass Consult (Employability & Skills) Ltd. All rights reserved.</p>
+                    <div class="mt-4 md:mt-0 flex items-center gap-2">
+                        <span>Website created by Jake Gibbons.</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <script>
+        lucide.createIcons();
+        document.querySelectorAll('.year-span').forEach(el => el.textContent = new Date().getFullYear());
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => { document.getElementById('mobile-menu').classList.toggle('hidden'); });
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); }); });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
+
+

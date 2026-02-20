@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Library - Compass Consult</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                    colors: {
+                        compass: { 
+                            purple: '#483086', 
+                            lightPurple: '#6a4eb8',
+                            teal: '#2da8b4', 
+                            lightTeal: '#4fd3e0',
+                            dark: '#1e1b2e', 
+                            light: '#f8f9fc' 
+                        }
+                    },
+                    backgroundImage: { 'hero-gradient': 'linear-gradient(135deg, #483086 0%, #2da8b4 100%)' }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .reveal { opacity: 0; transition: all 0.8s ease-out; transform: translateY(20px); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
+        
+        /* Custom Scrollbar for the grid if needed */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
+
+    <!-- Desktop Sidebar Navigation -->
+    <aside class="hidden lg:flex fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-100 z-50 flex-col p-8 justify-between shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
+        <div>
+            <a href="index.html" class="flex items-center gap-3 cursor-pointer group mb-12">
+                <div class="text-compass-purple transition-transform duration-700 group-hover:rotate-180">
+                    <i data-lucide="compass" class="w-10 h-10 stroke-[1.5]"></i>
+                </div>
+                <div class="flex flex-col justify-center">
+                    <h1 class="text-2xl font-bold leading-none tracking-tight">
+                        <span class="text-compass-purple">Compass</span> <span class="text-compass-teal">Consult</span>
+                    </h1>
+                    <span class="text-[0.6rem] uppercase tracking-wider text-gray-500 font-semibold">(Employability & Skills) Ltd</span>
+                </div>
+            </a>
+            <nav class="space-y-2">
+                <a href="index.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Home</a>
+                <a href="about.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">About us</a>
+                <a href="team.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Meet the Team</a>
+                <a href="services.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Our Services</a>
+                <a href="resources.html" class="nav-link active block py-3 px-4 rounded-lg text-sm font-semibold transition-all hover:bg-gray-50 hover:text-compass-purple">Resource Centre</a>
+                <a href="partnerships.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Partnerships</a>
+            </nav>
+        </div>
+        <div>
+            <a href="contact.html" class="group flex items-center justify-center w-full py-3 px-4 rounded-full bg-compass-purple text-white font-semibold hover:bg-compass-lightPurple shadow-lg hover:shadow-purple-200 transition-all transform hover:-translate-y-0.5">Contact Us <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1"></i></a>
+            <p class="text-xs text-center text-gray-400 mt-6">&copy; <span class="year-span"></span> Compass Consult</p>
+        </div>
+    </aside>
+
+    <!-- Mobile Header Navigation -->
+    <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
+        <div class="px-4 flex justify-between items-center h-20">
+             <a href="index.html" class="flex items-center gap-2">
+                <i data-lucide="compass" class="w-8 h-8 text-compass-purple"></i>
+                <div class="flex flex-col"><span class="font-bold text-gray-900 leading-none"><span class="text-compass-purple">Compass</span> <span class="text-compass-teal">Consult</span></span><span class="text-[0.5rem] uppercase text-gray-500 font-bold">Employability & Skills</span></div>
+             </a>
+             <button id="mobile-menu-btn" class="text-gray-600 p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 py-4 space-y-2">
+                <a href="index.html" class="block py-2 px-3 text-gray-700">Home</a>
+                <a href="about.html" class="block py-2 px-3 text-gray-700">About us</a>
+                <a href="team.html" class="block py-2 px-3 text-gray-700">Meet the Team</a>
+                <a href="services.html" class="block py-2 px-3 text-gray-700">Our Services</a>
+                <a href="resources.html" class="block py-2 px-3 text-compass-purple font-medium bg-purple-50 rounded-md">Resource Centre</a>
+                <a href="partnerships.html" class="block py-2 px-3 text-gray-700">Partnerships</a>
+                <a href="contact.html" class="block py-2 px-3 text-compass-teal">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
+        
+        <!-- Header Section -->
+        <header class="bg-gray-50 pt-32 pb-12 lg:pt-24 lg:pb-12 px-4 sm:px-8 border-b border-gray-200">
+            <div class="max-w-6xl mx-auto">
+                <span class="text-compass-purple font-semibold tracking-wider uppercase text-sm mb-2 block">Knowledge Base</span>
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">Resource Library</h1>
+                <p class="text-gray-600 max-w-2xl">Access our curated collection of whitepapers, guides, and industry reports designed to help you navigate the employability sector.</p>
+                
+                <!-- Search and Filter Controls -->
+                <div class="mt-8 flex flex-col md:flex-row gap-4 items-center justify-between">
+                    <!-- Search Bar -->
+                    <div class="relative w-full md:w-96">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-lucide="search" class="h-5 w-5 text-gray-400"></i>
+                        </div>
+                        <input type="text" id="searchInput" class="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl leading-5 bg-white placeholder-gray-400 focus:outline-none focus:border-compass-purple focus:ring-1 focus:ring-compass-purple sm:text-sm transition-all shadow-sm" placeholder="Search documents...">
+                    </div>
+
+                    <!-- Category Filters -->
+                    <div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar" id="filterContainer">
+                        <button class="filter-btn active px-4 py-2 rounded-full text-sm font-medium bg-compass-purple text-white transition-all shadow-sm whitespace-nowrap" data-filter="all">All Resources</button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap" data-filter="Strategy">Strategy</button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap" data-filter="HR">HR & Team</button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap" data-filter="Funding">Funding</button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap" data-filter="Leadership">Leadership</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Library Grid -->
+        <section class="py-12 bg-white flex-grow px-4 sm:px-8">
+            <div class="max-w-6xl mx-auto">
+                <div id="resourceGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal active">
+                    <!-- Dynamic content will be injected here -->
+                </div>
+                
+                <!-- No Results State -->
+                <div id="noResults" class="hidden text-center py-20">
+                    <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="folder-open" class="w-8 h-8 text-gray-400"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900">No resources found</h3>
+                    <p class="text-gray-500">Try adjusting your search or filter criteria.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-4 gap-12 mb-12">
+                    <div class="col-span-1 md:col-span-2">
+                        <div class="mb-6">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="compass" class="w-8 h-8 text-compass-teal"></i>
+                                <span class="text-2xl font-bold">Compass Consult</span>
+                            </div>
+                            <span class="text-[0.65rem] uppercase tracking-wider text-gray-500 font-semibold block mt-1 ml-10">(Employability & Skills) Ltd</span>
+                        </div>
+                        <p class="text-gray-400 max-w-sm mb-6">
+                            Empowering individuals and businesses with the skills, strategy, and confidence to navigate the modern workforce.
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold mb-6 text-compass-teal">Quick Links</h3>
+                        <ul class="space-y-4">
+                            <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                            <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                            <li><a href="services.html" class="text-gray-400 hover:text-white transition-colors">Our Services</a></li>
+                            <li><a href="partnerships.html" class="text-gray-400 hover:text-white transition-colors">Partnerships</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold mb-6 text-compass-teal">Legal</h3>
+                        <ul class="space-y-4">
+                            <li><a href="privacy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                            <li><a href="terms.html" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                            <li><a href="cookies.html" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                    <p>&copy; <span class="year-span"></span> Compass Consult (Employability & Skills) Ltd. All rights reserved.</p>
+                    <div class="mt-4 md:mt-0">Website created by Jake Gibbons.</div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        document.querySelectorAll('.year-span').forEach(el => el.textContent = new Date().getFullYear());
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => { document.getElementById('mobile-menu').classList.toggle('hidden'); });
+
+        // --- RESOURCE LIBRARY DATA ---
+        // INSTRUCTIONS: 
+        // 1. Add your files to a folder (e.g. 'documents/') in your project.
+        // 2. Add a new object to this list for each file.
+        // 3. Update the 'url' field with the path to your file.
+        
+        const resources = [
+            { 
+                id: 1, 
+                title: "Top 10 Soft Skills for 2026", 
+                category: "HR", 
+                type: "PDF", 
+                size: "2.4 MB", 
+                desc: "A comprehensive guide on emotional intelligence and adaptability.", 
+                icon: "file-text", 
+                color: "purple",
+                url: "documents/soft-skills-guide.pdf" // Update this path
+            },
+            { 
+                id: 2, 
+                title: "Recruitment Funnel Optimization", 
+                category: "Strategy", 
+                type: "PDF", 
+                size: "1.8 MB", 
+                desc: "Strategies to reduce time-to-hire and improve candidate quality.", 
+                icon: "bar-chart-2", 
+                color: "teal",
+                url: "documents/recruitment-funnel.pdf" // Update this path
+            },
+            { 
+                id: 3, 
+                title: "Mastering the STAR Method", 
+                category: "HR", 
+                type: "PDF", 
+                size: "3.1 MB", 
+                desc: "Workbook and templates for behavioral interview preparation.", 
+                icon: "file-check", 
+                color: "indigo",
+                url: "documents/star-method.pdf" // Update this path
+            },
+            { 
+                id: 4, 
+                title: "Bid Management Framework", 
+                category: "Funding", 
+                type: "DOCX", 
+                size: "1.2 MB", 
+                desc: "Templates for structuring successful public sector bids.", 
+                icon: "pen-tool", 
+                color: "orange",
+                url: "documents/bid-framework.docx" // Update this path
+            },
+            { 
+                id: 5, 
+                title: "Leadership in Hybrid Teams", 
+                category: "Leadership", 
+                type: "PDF", 
+                size: "4.5 MB", 
+                desc: "Managing remote and in-office teams effectively.", 
+                icon: "users", 
+                color: "blue",
+                url: "documents/hybrid-leadership.pdf" // Update this path
+            },
+            { 
+                id: 6, 
+                title: "ESG Compliance Checklist", 
+                category: "Strategy", 
+                type: "PDF", 
+                size: "900 KB", 
+                desc: "Ensuring environmental and social governance in contracts.", 
+                icon: "shield-check", 
+                color: "green",
+                url: "documents/esg-checklist.pdf" // Update this path
+            }
+        ];
+
+        // --- RENDER LOGIC (No need to edit below this line) ---
+
+        const grid = document.getElementById('resourceGrid');
+        const noResults = document.getElementById('noResults');
+        const searchInput = document.getElementById('searchInput');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        let currentFilter = 'all';
+
+        // Render Function
+        function renderResources(data) {
+            grid.innerHTML = '';
+            
+            if (data.length === 0) {
+                grid.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                return;
+            }
+            
+            grid.classList.remove('hidden');
+            noResults.classList.add('hidden');
+
+            data.forEach(item => {
+                // Determine color classes
+                let bgClass = `bg-${item.color}-50`;
+                let textClass = `text-${item.color}-600`;
+                // Fallback for custom colors since Tailwind classes need to be safe-listed
+                if(item.color === 'purple') { bgClass = 'bg-purple-50'; textClass = 'text-compass-purple'; }
+                if(item.color === 'teal') { bgClass = 'bg-teal-50'; textClass = 'text-compass-teal'; }
+                
+                const card = document.createElement('div');
+                card.className = `group bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full`;
+                card.innerHTML = `
+                    <div class="h-40 ${bgClass} flex items-center justify-center relative transition-colors">
+                        <i data-lucide="${item.icon}" class="w-12 h-12 ${textClass} opacity-80 transform group-hover:scale-110 transition-transform duration-300"></i>
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-gray-600 px-2 py-1 rounded text-xs font-bold shadow-sm uppercase tracking-wide">${item.type}</div>
+                        <div class="absolute bottom-4 left-4 bg-gray-900/5 text-gray-600 px-2 py-1 rounded text-xs font-semibold">${item.category}</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-compass-purple transition-colors">${item.title}</h3>
+                        <p class="text-gray-500 text-sm mb-4 flex-grow line-clamp-3">${item.desc}</p>
+                        <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-50">
+                            <span class="text-xs text-gray-400 font-medium">${item.size}</span>
+                            <a href="${item.url}" download class="inline-flex items-center text-sm font-semibold text-compass-teal hover:text-compass-purple transition-colors group/link">
+                                <span class="mr-2">Download</span>
+                                <i data-lucide="download" class="w-4 h-4 group-hover/link:translate-y-1 transition-transform"></i> 
+                            </a>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // Filter Logic
+        function filterData() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filtered = resources.filter(item => {
+                const matchesSearch = item.title.toLowerCase().includes(searchTerm) || item.desc.toLowerCase().includes(searchTerm);
+                const matchesCategory = currentFilter === 'all' || item.category === currentFilter;
+                return matchesSearch && matchesCategory;
+            });
+            renderResources(filtered);
+        }
+
+        // Event Listeners
+        searchInput.addEventListener('input', filterData);
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state visuals
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-compass-purple', 'text-white');
+                    b.classList.add('bg-white', 'text-gray-600', 'border-gray-200');
+                });
+                btn.classList.remove('bg-white', 'text-gray-600', 'border-gray-200');
+                btn.classList.add('bg-compass-purple', 'text-white');
+                
+                // Set filter
+                currentFilter = btn.getAttribute('data-filter');
+                filterData();
+            });
+        });
+
+        // Initial Render
+        renderResources(resources);
+
+    </script>
+</body>
+</html>
+
+
