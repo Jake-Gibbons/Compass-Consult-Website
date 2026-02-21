@@ -51,3 +51,40 @@
  * As the project grows, consider extracting to dedicated CSS files
  * Examples: components.css, responsive.css, animations.css
  */
+
+/* Layout fixes to avoid horizontal cutoff / trailing overflow */
+html, body {
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after { box-sizing: inherit; }
+
+/* Allow flex children and constrained containers to shrink instead of forcing overflow */
+main, .max-w-7xl, .max-w-6xl, .max-w-4xl { min-width: 0; }
+.flex > * { min-width: 0; }
+
+/* Ensure media scales within containers */
+img, svg, video { max-width: 100%; height: auto; display: block; }
+
+/* On large screens account for the fixed left sidebar (w-72 / 18rem).
+   Ensure the main content does not become wider than the viewport
+   when a left margin is applied. */
+@media (min-width: 1024px) {
+  main.lg\:ml-72 {
+    margin-left: 18rem; /* matches Tailwind's w-72 */
+    width: calc(100% - 18rem); /* avoid horizontal overflow */
+    padding-left: 0 !important;
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Allow grid/flex children to shrink to avoid horizontal cutoff */
+  .grid > *,
+  .flex > * {
+    min-width: 0;
+  }
+
+  /* Defensive: prevent full-width children from forcing horizontal scroll */
+  body, html { overflow-x: hidden; }
+}

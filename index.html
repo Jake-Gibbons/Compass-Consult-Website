@@ -56,7 +56,15 @@
         .reveal-right { transform: translateX(40px); }
         .reveal.active { opacity: 1; transform: translate(0) scale(1); }
         .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
+        /* Ticker styles */
+        .ticker { overflow: hidden; position: relative; }
+        .ticker-track { display: flex; gap: 2rem; align-items: center; animation: marquee 30s linear infinite; will-change: transform; }
+        .ticker-track img { max-height: 52px; display: block; object-fit: contain; opacity: .98; transition: opacity .2s ease, transform .2s ease; background: transparent; padding: 0; border-radius: 0; box-shadow: none; }
+        .ticker-track img:hover { transform: translateY(-2px); opacity: 1; }
+        .ticker-track:hover { animation-play-state: paused; }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-100%); } }
     </style>
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
@@ -65,7 +73,7 @@
         <div>
             <a href="index.html" class="flex items-center gap-3 cursor-pointer group mb-12">
                 <div class="text-compass-purple transition-transform duration-700 group-hover:rotate-180">
-                    <i data-lucide="compass" class="w-10 h-10 stroke-[1.5]"></i>
+                    <img src="assets/logos/compass_rose.svg" alt="Compass Consult" class="w-10 h-10 object-contain">
                 </div>
                 <div class="flex flex-col justify-center">
                     <h1 class="text-2xl font-bold leading-none tracking-tight">
@@ -97,7 +105,7 @@
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
              <a href="index.html" class="flex items-center gap-2">
-                <i data-lucide="compass" class="w-8 h-8 text-compass-purple"></i>
+                <img src="assets/logos/compass_rose.svg" alt="Compass Consult" class="w-8 h-8 object-contain">
                 <div class="flex flex-col">
                     <span class="font-bold text-gray-900 leading-none"><span class="text-compass-purple">Compass</span> <span class="text-compass-teal">Consult</span></span>
                     <span class="text-[0.5rem] uppercase text-gray-500 font-bold">Employability & Skills</span>
@@ -117,6 +125,48 @@
             </div>
         </div>
     </nav>
+
+    <!-- Top Client Ticker -->
+    <div class="w-full bg-white/40 backdrop-blur-sm border-b border-gray-100 py-3 z-40 mt-20 lg:mt-0">
+        <div class="max-w-7xl mx-auto px-4 flex items-center gap-6">
+            <div class="flex-shrink-0 text-sm font-bold text-gray-600 uppercase tracking-wide">Our Clients</div>
+            <div class="flex-1 ticker">
+                <div class="ticker-track px-2">
+                    <div class="flex items-center space-x-8">
+                        <img src="assets/images/authorities/IMG_2577.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2600.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2601.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2602.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2603.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2604.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2606.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2607.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2608.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2609.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2611.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2612.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2619.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                    <!-- duplicate for seamless loop -->
+                    <div class="flex items-center space-x-8">
+                        <img src="assets/images/authorities/IMG_2577.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2600.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2601.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2602.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2603.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2604.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2606.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2607.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2608.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2609.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2611.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2612.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2619.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Main Content Area -->
     <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
@@ -178,26 +228,7 @@
                 </div>
             </div>
             
-            <!-- Client Ticker -->
-            <div class="relative z-10 w-full py-6 border-y border-gray-100 bg-white/40 backdrop-blur-sm overflow-hidden mt-12">
-                <div class="flex overflow-hidden group">
-                    <div class="flex space-x-12 animate-infinite-scroll px-8">
-                         <div class="flex items-center gap-2 text-gray-400 font-bold text-lg whitespace-nowrap hover:text-compass-purple transition-colors"><i data-lucide="building-2" class="w-5 h-5"></i> UK Government Departments</div>
-                         <div class="flex items-center gap-2 text-gray-400 font-bold text-lg whitespace-nowrap hover:text-compass-teal transition-colors"><i data-lucide="landmark" class="w-5 h-5"></i> Mayoral Combined Authorities</div>
-                         <div class="flex items-center gap-2 text-gray-400 font-bold text-lg whitespace-nowrap hover:text-indigo-600 transition-colors"><i data-lucide="users" class="w-5 h-5"></i> Sub-regional Partnerships</div>
-                         <div class="flex items-center gap-2 text-gray-400 font-bold text-lg whitespace-nowrap hover:text-blue-500 transition-colors"><i data-lucide="map" class="w-5 h-5"></i> Local Authorities</div>
-                         <div class="flex items-center gap-2 text-gray-400 font-bold text-lg whitespace-nowrap hover:text-orange-500 transition-colors"><i data-lucide="lightbulb" class="w-5 h-5"></i> Think Tanks</div>
-                         <div class="flex items-center gap-2 text-gray-400 font-bold text-lg whitespace-nowrap hover:text-red-500 transition-colors"><i data-lucide="graduation-cap" class="w-5 h-5"></i> Training Providers</div>
-                         <!-- Duplicate -->
-                         <div class="flex items-center gap-2 text-gray-400 font-bold text-lg whitespace-nowrap hover:text-compass-purple transition-colors"><i data-lucide="building-2" class="w-5 h-5"></i> UK Government Departments</div>
-                         <div class="flex items-center gap-2 text-gray-400 font-bold text-lg whitespace-nowrap hover:text-compass-teal transition-colors"><i data-lucide="landmark" class="w-5 h-5"></i> Mayoral Combined Authorities</div>
-                         <div class="flex items-center gap-2 text-gray-400 font-bold text-lg whitespace-nowrap hover:text-indigo-600 transition-colors"><i data-lucide="users" class="w-5 h-5"></i> Sub-regional Partnerships</div>
-                         <div class="flex items-center gap-2 text-gray-400 font-bold text-lg whitespace-nowrap hover:text-blue-500 transition-colors"><i data-lucide="map" class="w-5 h-5"></i> Local Authorities</div>
-                         <div class="flex items-center gap-2 text-gray-400 font-bold text-lg whitespace-nowrap hover:text-orange-500 transition-colors"><i data-lucide="lightbulb" class="w-5 h-5"></i> Think Tanks</div>
-                         <div class="flex items-center gap-2 text-gray-400 font-bold text-lg whitespace-nowrap hover:text-red-500 transition-colors"><i data-lucide="graduation-cap" class="w-5 h-5"></i> Training Providers</div>
-                    </div>
-                </div>
-            </div>
+            <!-- (old inline text ticker removed; top ticker now used) -->
         </section>
 
         <!-- CTA Section -->
@@ -218,7 +249,7 @@
                     <div class="col-span-1 md:col-span-2">
                         <div class="mb-6">
                             <div class="flex items-center gap-2">
-                                <i data-lucide="compass" class="w-8 h-8 text-compass-teal"></i>
+                                <img src="assets/logos/compass_rose.svg" alt="Compass Consult" class="w-8 h-8 object-contain">
                                 <span class="text-2xl font-bold">Compass Consult</span>
                             </div>
                             <span class="text-[0.65rem] uppercase tracking-wider text-gray-500 font-semibold block mt-1 ml-10">(Employability & Skills) Ltd</span>
@@ -289,6 +320,13 @@
         }, { threshold: 0.1 });
         
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        // Ticker image fallback: if any logo fails to load, replace with site logo
+        document.querySelectorAll('.ticker-track img').forEach(img => {
+            img.addEventListener('error', () => {
+                img.src = 'assets/logos/compass_rose.svg';
+                img.style.maxHeight = '36px';
+            });
+        });
     </script>
 </body>
 </html>
