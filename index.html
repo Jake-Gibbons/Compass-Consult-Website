@@ -48,7 +48,7 @@
         }
     </script>
     <style>
-        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .glass-nav { background: rgba(255, 255, 255, 0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
         .gradient-text { background: linear-gradient(90deg, #483086 0%, #2da8b4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .reveal { opacity: 0; transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
         .reveal-up { transform: translateY(40px); }
@@ -57,12 +57,27 @@
         .reveal.active { opacity: 1; transform: translate(0) scale(1); }
         .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
         /* Ticker styles */
-        .ticker { overflow: hidden; position: relative; }
-        .ticker-track { display: flex; gap: 2rem; align-items: center; animation: marquee 30s linear infinite; will-change: transform; }
-        .ticker-track img { max-height: 52px; display: block; object-fit: contain; opacity: .98; transition: opacity .2s ease, transform .2s ease; background: transparent; padding: 0; border-radius: 0; box-shadow: none; }
+        .ticker { overflow: hidden; position: relative; min-height: 50px; display: flex; align-items: center; }
+        .ticker-track { display: flex; gap: 2rem; align-items: center; animation: marquee 32s linear infinite; will-change: transform; flex-wrap: nowrap; white-space: nowrap; }
+        .ticker-track > div { display: flex; gap: 1.5rem; align-items: center; flex: 0 0 auto; }
+        .ticker-track img { height: 25px !important; max-height: none !important; display: block; object-fit: contain; opacity: .98; transition: opacity .2s ease, transform .2s ease; background: transparent; padding: 0; border-radius: 0; box-shadow: none; flex: 0 0 auto; }
         .ticker-track img:hover { transform: translateY(-2px); opacity: 1; }
         .ticker-track:hover { animation-play-state: paused; }
-        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+        /* animate by half the track width (we duplicate the set) for a seamless loop */
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        @media (max-width: 1024px) {
+            .ticker { min-height: 50px; }
+            .ticker-track img { height: 25px !important; }
+        }
+        @media (max-width: 640px) {
+            .ticker { min-height: 40px; }
+            .ticker-track img { height: 20px !important; }
+        }
+        /* Site logo sizing */
+        .site-logo { display: block; height: auto; max-height: 120px; }
+        @media (max-width: 1024px) { .site-logo { max-height: 80px; } }
+        @media (max-width: 640px) { .site-logo { max-height: 60px; } }
+        /* removed sidebar full-width; keep original sizing */
     </style>
     <link rel="stylesheet" href="css/main.css">
 </head>
@@ -72,24 +87,22 @@
     <aside class="hidden lg:flex fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-100 z-50 flex-col p-8 justify-between shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
         <div>
             <a href="index.html" class="flex items-center gap-3 cursor-pointer group mb-12">
-                <div class="text-compass-purple transition-transform duration-700 group-hover:rotate-180">
-                    <img src="assets/logos/compass_rose.svg" alt="Compass Consult" class="w-10 h-10 object-contain">
+                <div class="text-compass-purple transition-transform duration-700">
+                    <img src="assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
                 </div>
                 <div class="flex flex-col justify-center">
-                    <h1 class="text-2xl font-bold leading-none tracking-tight">
-                        <span class="text-compass-purple">Compass</span> <span class="text-compass-teal">Consult</span>
-                    </h1>
-                    <span class="text-[0.6rem] uppercase tracking-wider text-gray-500 font-semibold">(Employability & Skills) Ltd</span>
+                    <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
                 </div>
             </a>
 
             <nav class="space-y-2">
                 <a href="index.html" class="nav-link active block py-3 px-4 rounded-lg text-sm font-semibold transition-all hover:bg-gray-50 hover:text-compass-purple">Home</a>
                 <a href="about.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">About us</a>
-                <a href="team.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Meet the Team</a>
                 <a href="services.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Our Services</a>
-                <a href="resources.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Resource Centre</a>
+                <a href="team.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Meet the Team</a>
                 <a href="partnerships.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Partnerships</a>
+                <a href="resources.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Resource Library</a>
+                <a href="latest-news.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Latest News & Events</a>
             </nav>
         </div>
 
@@ -105,10 +118,9 @@
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
              <a href="index.html" class="flex items-center gap-2">
-                <img src="assets/logos/compass_rose.svg" alt="Compass Consult" class="w-8 h-8 object-contain">
+                <img src="assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
                 <div class="flex flex-col">
-                    <span class="font-bold text-gray-900 leading-none"><span class="text-compass-purple">Compass</span> <span class="text-compass-teal">Consult</span></span>
-                    <span class="text-[0.5rem] uppercase text-gray-500 font-bold">Employability & Skills</span>
+                    <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
                 </div>
              </a>
              <button id="mobile-menu-btn" class="text-gray-600 p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
@@ -117,10 +129,11 @@
             <div class="px-4 py-4 space-y-2">
                 <a href="index.html" class="block py-2 px-3 text-compass-purple font-medium bg-purple-50 rounded-md">Home</a>
                 <a href="about.html" class="block py-2 px-3 text-gray-700 hover:text-compass-purple">About us</a>
-                <a href="team.html" class="block py-2 px-3 text-gray-700 hover:text-compass-purple">Meet the Team</a>
                 <a href="services.html" class="block py-2 px-3 text-gray-700 hover:text-compass-purple">Our Services</a>
-                <a href="resources.html" class="block py-2 px-3 text-gray-700 hover:text-compass-purple">Resource Centre</a>
+                <a href="team.html" class="block py-2 px-3 text-gray-700 hover:text-compass-purple">Meet the Team</a>
                 <a href="partnerships.html" class="block py-2 px-3 text-gray-700 hover:text-compass-purple">Partnerships</a>
+                <a href="resources.html" class="block py-2 px-3 text-gray-700 hover:text-compass-purple">Resource Library</a>
+                <a href="latest-news.html" class="block py-2 px-3 text-gray-700 hover:text-compass-purple">Latest News & Events</a>
                 <a href="contact.html" class="block py-2 px-3 text-compass-teal font-medium">Contact Us</a>
             </div>
         </div>
@@ -128,40 +141,40 @@
 
     <!-- Top Client Ticker -->
     <div class="w-full bg-white/40 backdrop-blur-sm border-b border-gray-100 py-3 z-40 mt-20 lg:mt-0">
-        <div class="max-w-7xl mx-auto px-4 flex items-center gap-6">
-            <div class="flex-shrink-0 text-sm font-bold text-gray-600 uppercase tracking-wide">Our Clients</div>
+        <div class="flex items-center gap-6 px-4 lg:pl-80">
+            <div class="flex-shrink-0 text-sm font-bold text-gray-600 uppercase tracking-wide hidden sm:block">Our Clients</div>
             <div class="flex-1 ticker">
                 <div class="ticker-track px-2">
                     <div class="flex items-center space-x-8">
-                        <img src="assets/images/authorities/IMG_2577.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2600.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2601.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2602.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2603.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2604.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2606.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2607.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2608.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2609.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2611.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2612.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2619.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2577.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2600.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2601.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2602.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2603.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2604.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2606.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2607.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2608.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2609.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2611.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2612.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2619.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
                     </div>
                     <!-- duplicate for seamless loop -->
                     <div class="flex items-center space-x-8">
-                        <img src="assets/images/authorities/IMG_2577.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2600.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2601.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2602.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2603.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2604.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2606.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2607.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2608.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2609.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2611.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2612.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
-                        <img src="assets/images/authorities/IMG_2619.PNG" alt="client" class="h-10 object-contain opacity-80 hover:opacity-100 transition-opacity">
+                        <img src="assets/images/authorities/IMG_2577.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2600.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2601.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2602.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2603.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2604.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2606.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2607.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2608.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2609.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2611.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2612.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="assets/images/authorities/IMG_2619.PNG" alt="client" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
                     </div>
                 </div>
             </div>
@@ -179,8 +192,8 @@
             <div class="absolute top-0 -right-4 w-72 h-72 bg-teal-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000 pointer-events-none"></div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div class="space-y-8 reveal reveal-left active">
+                <div class="grid gap-12 items-center place-items-center text-center">
+                    <div class="space-y-8 reveal active">
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 border border-purple-200 text-compass-purple text-sm font-semibold">
                             <span class="relative flex h-2 w-2">
                               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
@@ -205,26 +218,8 @@
                         </div>
                     </div>
                     
-                    <div class="relative lg:h-[500px] flex items-center justify-center reveal reveal-right active">
-                       <div class="relative w-full max-w-md aspect-square animate-float">
-                            <div class="absolute inset-0 bg-gradient-to-tr from-compass-purple to-compass-teal rounded-full opacity-10 blur-3xl animate-pulse"></div>
-                            <div class="relative bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-white/50 transform rotate-3 transition-transform duration-500 hover:rotate-0 hover:scale-105">
-                                <div class="flex items-center gap-4 mb-6">
-                                    <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-compass-purple"><i data-lucide="map" class="w-6 h-6"></i></div>
-                                    <div><h3 class="font-bold text-gray-900">Mobilisation Ready</h3><p class="text-sm text-gray-500">Contract Implementation</p></div>
-                                </div>
-                                <div class="space-y-4">
-                                    <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center text-compass-teal text-xs"><i data-lucide="check" class="w-3 h-3"></i></div><span class="text-sm font-medium text-gray-700">Supply Chain Set-up</span></div>
-                                    <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center text-compass-purple text-xs"><i data-lucide="check" class="w-3 h-3"></i></div><span class="text-sm font-medium text-gray-700">Governance & Systems</span></div>
-                                    <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-500 text-xs"><i data-lucide="check" class="w-3 h-3"></i></div><span class="text-sm font-medium text-gray-700">Journey Design</span></div>
-                                </div>
-                                <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
-                                     <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Status</span>
-                                     <span class="px-2 py-1 rounded bg-green-100 text-green-700 text-xs font-bold">Audit Ready</span>
-                                </div>
-                            </div>
-                       </div>
-                    </div>
+                    <!-- Mobilisation Ready card removed -->
+                    
                 </div>
             </div>
             
@@ -249,20 +244,19 @@
                     <div class="col-span-1 md:col-span-2">
                         <div class="mb-6">
                             <div class="flex items-center gap-2">
-                                <img src="assets/logos/compass_rose.svg" alt="Compass Consult" class="w-8 h-8 object-contain">
-                                <span class="text-2xl font-bold">Compass Consult</span>
+                                <img src="assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
+                                <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
                             </div>
-                            <span class="text-[0.65rem] uppercase tracking-wider text-gray-500 font-semibold block mt-1 ml-10">(Employability & Skills) Ltd</span>
                         </div>
                         <p class="text-gray-400 max-w-sm mb-6">
-                            Empowering individuals and businesses with the skills, strategy, and confidence to navigate the modern workforce.
+                            Empowering public, private and third sector organizations, to navigate the world of employability and skills.
                         </p>
                         <div class="flex space-x-4">
                             <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <i data-lucide="linkedin" class="w-5 h-5"></i>
                             </a>
                             <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
-                                <i data-lucide="twitter" class="w-5 h-5"></i>
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.6l-5.1-6.72-5.87 6.72h-3.31l7.78-8.835L.254 2.25h6.6l4.915 6.468L18.244 2.25zM17.15 19.83h1.828L6.122 4.137H4.231L17.15 19.83z"/></svg>
                             </a>
                             <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <i data-lucide="facebook" class="w-5 h-5"></i>
@@ -276,8 +270,10 @@
                             <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Home</a></li>
                             <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">About Us</a></li>
                             <li><a href="services.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Our Services</a></li>
-                            <li><a href="team.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Our People</a></li>
+                            <li><a href="team.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Meet the Team</a></li>
                             <li><a href="partnerships.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Partnerships</a></li>
+                            <li><a href="resources.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Resource Library</a></li>
+                            <li><a href="latest-news.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Latest News & Events</a></li>
                             <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Contact Us</a></li>
                         </ul>
                     </div>
@@ -295,7 +291,7 @@
                 <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
                     <p>&copy; <span class="year-span"></span> Compass Consult (Employability & Skills) Ltd. All rights reserved.</p>
                     <div class="mt-4 md:mt-0 flex items-center gap-2">
-                        <span>Website created by Jake Gibbons.</span>
+                        <a href="https://www.linkedin.com/in/jakegibbons-1994/overlay/contact-info/" target="_blank" rel="noopener noreferrer" class="hover:text-compass-teal transition-colors">Website created by Jake Gibbons.</a>
                     </div>
                 </div>
             </div>
@@ -323,8 +319,8 @@
         // Ticker image fallback: if any logo fails to load, replace with site logo
         document.querySelectorAll('.ticker-track img').forEach(img => {
             img.addEventListener('error', () => {
-                img.src = 'assets/logos/compass_rose.svg';
-                img.style.maxHeight = '36px';
+                img.src = 'assets/logos/Logo.png';
+                img.style.maxHeight = '100px';
             });
         });
     </script>

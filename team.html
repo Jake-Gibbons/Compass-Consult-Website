@@ -32,6 +32,11 @@
         .reveal { opacity: 0; transition: all 1s cubic-bezier(0.5, 0, 0, 1); transform: translateY(20px); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
+        .compass-icon-spin:hover { transform: rotate(180deg); transition: transform 0.8s; }
+        /* Site logo sizing */
+        .site-logo { display: block; height: auto; max-height: 120px; }
+        @media (max-width: 1024px) { .site-logo { max-height: 80px; } }
+        @media (max-width: 640px) { .site-logo { max-height: 60px; } }
     </style>
     <link rel="stylesheet" href="css/main.css">
 </head>
@@ -41,22 +46,20 @@
         <div>
             <a href="index.html" class="flex items-center gap-3 cursor-pointer group mb-12">
                 <div class="text-compass-purple transition-transform duration-700 group-hover:rotate-180">
-                    <img src="assets/logos/compass_rose.svg" alt="Compass Consult" class="w-10 h-10 object-contain">
+                    <img src="assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
                 </div>
                 <div class="flex flex-col justify-center">
-                    <h1 class="text-2xl font-bold leading-none tracking-tight">
-                        <span class="text-compass-purple">Compass</span> <span class="text-compass-teal">Consult</span>
-                    </h1>
-                    <span class="text-[0.6rem] uppercase tracking-wider text-gray-500 font-semibold">(Employability & Skills) Ltd</span>
+                    <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
                 </div>
             </a>
             <nav class="space-y-2">
                 <a href="index.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Home</a>
                 <a href="about.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">About us</a>
-                <a href="team.html" class="nav-link active block py-3 px-4 rounded-lg text-sm font-semibold transition-all hover:bg-gray-50 hover:text-compass-purple">Meet the Team</a>
                 <a href="services.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Our Services</a>
-                <a href="resources.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Resource Centre</a>
+                <a href="team.html" class="nav-link active block py-3 px-4 rounded-lg text-sm font-semibold transition-all hover:bg-gray-50 hover:text-compass-purple">Meet the Team</a>
                 <a href="partnerships.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Partnerships</a>
+                <a href="resources.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Resource Library</a>
+                <a href="latest-news.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Latest News & Events</a>
             </nav>
         </div>
         <div>
@@ -69,7 +72,9 @@
         <div class="px-4 flex justify-between items-center h-20">
              <a href="index.html" class="flex items-center gap-2">
                 <img src="assets/logos/compass_rose.svg" alt="Compass Consult" class="w-8 h-8 object-contain">
-                <div class="flex flex-col"><span class="font-bold text-gray-900 leading-none"><span class="text-compass-purple">Compass</span> <span class="text-compass-teal">Consult</span></span><span class="text-[0.5rem] uppercase text-gray-500 font-bold">Employability & Skills</span></div>
+                <div class="flex flex-col">
+                    <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
+                </div>
              </a>
              <button id="mobile-menu-btn" class="text-gray-600 p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
         </div>
@@ -121,20 +126,19 @@
                     <div class="col-span-1 md:col-span-2">
                         <div class="mb-6">
                             <div class="flex items-center gap-2">
-                                <img src="assets/logos/compass_rose.svg" alt="Compass Consult" class="w-8 h-8 object-contain">
-                                <span class="text-2xl font-bold">Compass Consult</span>
+                                <img src="assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
+                                <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
                             </div>
-                            <span class="text-[0.65rem] uppercase tracking-wider text-gray-500 font-semibold block mt-1 ml-10">(Employability & Skills) Ltd</span>
                         </div>
                         <p class="text-gray-400 max-w-sm mb-6">
-                            Empowering individuals and businesses with the skills, strategy, and confidence to navigate the modern workforce.
+                            Empowering public, private and third sector organizations, to navigate the world of employability and skills.
                         </p>
                         <div class="flex space-x-4">
                             <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <i data-lucide="linkedin" class="w-5 h-5"></i>
                             </a>
                             <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
-                                <i data-lucide="twitter" class="w-5 h-5"></i>
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.6l-5.1-6.72-5.87 6.72h-3.31l7.78-8.835L.254 2.25h6.6l4.915 6.468L18.244 2.25zM17.15 19.83h1.828L6.122 4.137H4.231L17.15 19.83z"/></svg>
                             </a>
                             <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <i data-lucide="facebook" class="w-5 h-5"></i>
