@@ -32,7 +32,6 @@
         .reveal { opacity: 0; transition: all 1s; transform: translateY(20px); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
-        .compass-icon-spin:hover { transform: rotate(180deg); transition: transform 0.8s; }
         /* Site logo sizing */
         .site-logo { display: block; height: auto; max-height: 120px; }
         @media (max-width: 1024px) { .site-logo { max-height: 80px; } }
@@ -45,7 +44,7 @@
     <aside class="hidden lg:flex fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-100 z-50 flex-col p-8 justify-between shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
         <div>
             <a href="index.html" class="flex items-center gap-3 cursor-pointer group mb-12">
-                <div class="text-compass-purple transition-transform duration-700 group-hover:rotate-180">
+                <div class="text-compass-purple transition-transform duration-700">
                     <img src="assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
                 </div>
                 <div class="flex flex-col justify-center">
@@ -99,34 +98,23 @@
 
         <section class="py-20 bg-white flex-grow">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 reveal active">
-                     <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 flex flex-col items-center justify-center text-center h-40 hover:bg-white hover:shadow-lg transition-all group">
-                         <i data-lucide="building-2" class="w-8 h-8 text-gray-400 mb-3 group-hover:text-compass-purple transition-colors"></i><span class="font-bold text-gray-800 text-sm md:text-base">UK Government Departments</span>
-                     </div>
-                     <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 flex flex-col items-center justify-center text-center h-40 hover:bg-white hover:shadow-lg transition-all group">
-                         <i data-lucide="landmark" class="w-8 h-8 text-gray-400 mb-3 group-hover:text-compass-teal transition-colors"></i><span class="font-bold text-gray-800 text-sm md:text-base">Mayoral Combined Authorities</span>
-                     </div>
-                     <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 flex flex-col items-center justify-center text-center h-40 hover:bg-white hover:shadow-lg transition-all group">
-                         <i data-lucide="users" class="w-8 h-8 text-gray-400 mb-3 group-hover:text-indigo-600 transition-colors"></i><span class="font-bold text-gray-800 text-sm md:text-base">Sub-regional Partnerships</span>
-                     </div>
-                     <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 flex flex-col items-center justify-center text-center h-40 hover:bg-white hover:shadow-lg transition-all group">
-                         <i data-lucide="map" class="w-8 h-8 text-gray-400 mb-3 group-hover:text-blue-500 transition-colors"></i><span class="font-bold text-gray-800 text-sm md:text-base">Local Authorities</span>
-                     </div>
-                     <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 flex flex-col items-center justify-center text-center h-40 hover:bg-white hover:shadow-lg transition-all group">
-                         <i data-lucide="lightbulb" class="w-8 h-8 text-gray-400 mb-3 group-hover:text-orange-500 transition-colors"></i><span class="font-bold text-gray-800 text-sm md:text-base">Think Tanks</span>
-                     </div>
-                     <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 flex flex-col items-center justify-center text-center h-40 hover:bg-white hover:shadow-lg transition-all group">
-                         <i data-lucide="graduation-cap" class="w-8 h-8 text-gray-400 mb-3 group-hover:text-red-500 transition-colors"></i><span class="font-bold text-gray-800 text-sm md:text-base">Training Providers & Colleges</span>
-                     </div>
-                     <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 flex flex-col items-center justify-center text-center h-40 hover:bg-white hover:shadow-lg transition-all group">
-                         <i data-lucide="briefcase" class="w-8 h-8 text-gray-400 mb-3 group-hover:text-green-500 transition-colors"></i><span class="font-bold text-gray-800 text-sm md:text-base">SMEs</span>
-                     </div>
-                     <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 flex flex-col items-center justify-center text-center h-40 hover:bg-white hover:shadow-lg transition-all group">
-                         <i data-lucide="globe" class="w-8 h-8 text-gray-400 mb-3 group-hover:text-purple-600 transition-colors"></i><span class="font-bold text-gray-800 text-sm md:text-base">Multi-national PLCs</span>
-                     </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 reveal active">
+                    <a href="https://www.aelp.org.uk/" target="_blank" rel="noopener noreferrer" class="bg-gray-50 p-6 rounded-xl border border-gray-100 flex flex-col items-center justify-center text-center h-40 hover:bg-white hover:shadow-lg transition-all group cursor-pointer block">
+                        <img src="assets/images/partners/aelp.png" alt="AELP" class="h-20 object-contain mb-3 transition-transform group-hover:scale-105">
+                    </a>
+                    <a href="https://ersa.org.uk/" target="_blank" rel="noopener noreferrer" class="bg-gray-50 p-6 rounded-xl border border-gray-100 flex flex-col items-center justify-center text-center h-40 hover:bg-white hover:shadow-lg transition-all group cursor-pointer block">
+                        <img src="assets/images/partners/ersa.png" alt="ERSA" class="h-20 object-contain mb-3 transition-transform group-hover:scale-105">
+                    </a>
+                    <a href="https://www.myiep.uk/" target="_blank" rel="noopener noreferrer" class="bg-gray-50 p-6 rounded-xl border border-gray-100 flex flex-col items-center justify-center text-center h-40 hover:bg-white hover:shadow-lg transition-all group cursor-pointer block">
+                        <img src="assets/images/partners/iep.png" alt="IEP" class="h-20 object-contain mb-3 transition-transform group-hover:scale-105">
+                    </a>
+                    <a href="https://www.rec.uk.com/" target="_blank" rel="noopener noreferrer" class="bg-gray-50 p-6 rounded-xl border border-gray-100 flex flex-col items-center justify-center text-center h-40 hover:bg-white hover:shadow-lg transition-all group cursor-pointer block">
+                        <img src="assets/images/partners/rec.jpg" alt="REC" class="h-20 object-contain mb-3 mix-blend-multiply transition-transform group-hover:scale-105">
+                    </a>
                 </div>
             </div>
         </section>
+
 
         <!-- Footer -->
         <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
