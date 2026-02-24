@@ -32,6 +32,17 @@
         .reveal { opacity: 0; transition: all 1s cubic-bezier(0.5, 0, 0, 1); transform: translateY(20px); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
+        /* Bio animation */
+        .bio-full {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.7s ease-out, opacity 0.5s ease-in-out;
+        }
+        .bio-full.show {
+            max-height: 1000px; /* Adjust as needed, large enough for content */
+            opacity: 1;
+        }
         /* Site logo sizing */
         .site-logo { display: block; height: auto; max-height: 120px; }
         @media (max-width: 1024px) { .site-logo { max-height: 80px; } }
@@ -85,6 +96,7 @@
                 <a href="services.html" class="block py-2 px-3 text-gray-700">Our Services</a>
                 <a href="resources.html" class="block py-2 px-3 text-gray-700">Resource Centre</a>
                 <a href="partnerships.html" class="block py-2 px-3 text-gray-700">Partnerships</a>
+                <a href="latest-news.html" class="block py-2 px-3 text-gray-700">Latest News & Events</a>
                 <a href="contact.html" class="block py-2 px-3 text-compass-teal">Contact Us</a>
             </div>
         </div>
@@ -102,15 +114,27 @@
                     <!-- Jon Smith -->
                     <div class="text-center group max-w-sm">
                         <div class="w-40 h-40 rounded-full bg-gray-200 mx-auto mb-6 overflow-hidden border-4 border-purple-50 group-hover:border-compass-purple transition-colors duration-300">
-                            <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400 group-hover:text-compass-purple transition-colors">
-                                <i data-lucide="user" class="w-20 h-20"></i>
-                            </div>
+                            <img src="assets/images/team/jon.png" alt="Jon Smith" class="w-full h-full object-cover">
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-900 group-hover:text-compass-purple transition-colors">Jon Smith</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 group-hover:text-compass-purple transition-colors">Jon Smith CMgr FCMI FIEP FCIPD</h3>
                         <p class="text-compass-teal font-medium mb-4 text-lg">Managing Director</p>
-                        <p class="text-gray-500 max-w-xs mx-auto mb-6">Expert in strategic organizational development with 15 years in the public sector.</p>
+                        <div class="text-gray-500 text-sm leading-relaxed text-left space-y-4 mb-6" id="jon-bio">
+                            <p id="jon-bio-summary">Jon has been a senior leader within employability, skills, health and justice for over 20 years, working across the private, public and charity sectors on over 100 different contracts.</p>
+                            <div id="jon-bio-full" class="bio-full space-y-4">
+                                <p>Since the start of 2025, Jon consulted with various combined authorities and London sub-regional partnerships on how to navigate the world of devolution, supporting teams to commission and mobilise both Connect to Work and Trailblazer programmes. Due to the success of this, he founded Compass in January 2026.</p>
+                                <p>Prior to this, Jon was a director at Serco, responsible for the Restart programme and before that, held several senior management roles at Shaw Trust, over 7 years. He has also worked as a commissioner in London and managed youth and adult employment and skills contracts that stretch back to the days of Employment Zone, New Deal and Youth Training Schemes.</p>
+                                <p>As a member of the DWP Steering Group for the Work & Health Programme design and devolution, Jon helped to inform policy for the early planning of devolved employment support back in 2016.</p>
+                                <p>A long-time friend and Fellow of the IEP, Jon held a non-executive director role on their board for 7 years, leading on shaping and growing the Fellowship offer.</p>
+                                <p>An advocate of lifelong learning and continuous professional development, Jon is a Charted Fellow of both the CIPD and CMI.</p>
+                            </div>
+                            <button id="jon-read-more-btn" class="text-compass-purple font-semibold hover:underline text-sm">Read More</button>
+                        </div>
+                        <div class="flex justify-center gap-4 mt-4">
+                            <img src="assets/images/team/cipdFellow.png" alt="CIPD Fellow Badge" class="h-20">
+                            <img src="assets/images/team/iepFellow.png" alt="IEP Fellow Badge" class="h-20">
+                        </div>
                         <div class="flex justify-center gap-4">
-                            <a href="https://www.linkedin.com/in/jon-smith-cmgr-fcmi-fiep-5a1b3b5b/" target="_blank" class="text-gray-400 hover:text-compass-purple hover:scale-110 transition-transform"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+                            <a href="https://www.linkedin.com/in/compassconsultcces/" target="_blank" class="text-gray-400 hover:text-compass-purple hover:scale-110 transition-transform"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
                             <a href="mailto:jon.smith@compassconsultes.com" class="text-gray-400 hover:text-compass-purple hover:scale-110 transition-transform"><i data-lucide="mail" class="w-6 h-6"></i></a>
                         </div>
                     </div>
@@ -148,7 +172,7 @@
                             Empowering public, private and third sector organizations, to navigate the world of employability and skills.
                         </p>
                         <div class="flex space-x-4">
-                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                            <a href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <i data-lucide="linkedin" class="w-5 h-5"></i>
                             </a>
                             <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
@@ -166,8 +190,10 @@
                             <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Home</a></li>
                             <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">About Us</a></li>
                             <li><a href="services.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Our Services</a></li>
-                            <li><a href="team.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Our People</a></li>
+                            <li><a href="team.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Meet the Team</a></li>
                             <li><a href="partnerships.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Partnerships</a></li>
+                            <li><a href="resources.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Resource Library</a></li>
+                            <li><a href="latest-news.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Latest News & Events</a></li>
                             <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Contact Us</a></li>
                         </ul>
                     </div>
@@ -192,6 +218,7 @@
         </footer>
     </main>
 
+    <script src="js/main.js"></script>
     <script>
         lucide.createIcons();
         document.querySelectorAll('.year-span').forEach(el => el.textContent = new Date().getFullYear());

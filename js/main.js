@@ -14,11 +14,39 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('Compass Consult Website loaded');
   
   // Initialize features
+  initializeBioReadMore();
   // initializeNavigation();
   // initializeAnimations();
   // initializeCounters();
   // initializeScrollEffects();
 });
+
+// =====================
+// Bio Read More
+// =====================
+
+/**
+ * Initialize "Read More" functionality for bios
+ */
+function initializeBioReadMore() {
+  const readMoreBtn = document.getElementById('jon-read-more-btn');
+  const bioFull = document.getElementById('jon-bio-full');
+  const bioSummary = document.getElementById('jon-bio-summary');
+
+  if (readMoreBtn && bioFull && bioSummary) {
+    readMoreBtn.addEventListener('click', () => {
+      if (!bioFull.classList.contains('show')) {
+        bioFull.classList.add('show');
+        bioSummary.style.display = 'none';
+        readMoreBtn.textContent = 'Read Less';
+      } else {
+        bioFull.classList.remove('show');
+        bioSummary.style.display = 'block';
+        readMoreBtn.textContent = 'Read More';
+      }
+    });
+  }
+}
 
 // =====================
 // Navigation Functions

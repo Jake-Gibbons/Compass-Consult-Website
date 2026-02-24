@@ -60,18 +60,18 @@
         .ticker { overflow: hidden; position: relative; min-height: 50px; display: flex; align-items: center; }
         .ticker-track { display: flex; gap: 2rem; align-items: center; animation: marquee 32s linear infinite; will-change: transform; flex-wrap: nowrap; white-space: nowrap; }
         .ticker-track > div { display: flex; gap: 1.5rem; align-items: center; flex: 0 0 auto; }
-        .ticker-track img { height: 25px !important; max-height: none !important; display: block; object-fit: contain; opacity: .98; transition: opacity .2s ease, transform .2s ease; background: transparent; padding: 0; border-radius: 0; box-shadow: none; flex: 0 0 auto; }
+        .ticker-track img { height: 35px !important; max-height: none !important; display: block; object-fit: contain; opacity: .98; transition: opacity .2s ease, transform .2s ease; background: transparent; padding: 0; border-radius: 0; box-shadow: none; flex: 0 0 auto; max-width: 120px; width: auto; }
         .ticker-track img:hover { transform: translateY(-2px); opacity: 1; }
         .ticker-track:hover { animation-play-state: paused; }
         /* animate by half the track width (we duplicate the set) for a seamless loop */
         @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         @media (max-width: 1024px) {
             .ticker { min-height: 50px; }
-            .ticker-track img { height: 25px !important; }
+            .ticker-track img { height: 35px !important; }
         }
         @media (max-width: 640px) {
             .ticker { min-height: 40px; }
-            .ticker-track img { height: 20px !important; }
+            .ticker-track img { height: 30px !important; }
         }
         /* Site logo sizing */
         .site-logo { display: block; height: auto; max-height: 120px; }
@@ -252,7 +252,7 @@
                             Empowering public, private and third sector organizations, to navigate the world of employability and skills.
                         </p>
                         <div class="flex space-x-4">
-                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                            <a href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <i data-lucide="linkedin" class="w-5 h-5"></i>
                             </a>
                             <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
