@@ -122,10 +122,8 @@
                     <!-- Category Filters -->
                     <div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar" id="filterContainer">
                         <button class="filter-btn active px-4 py-2 rounded-full text-sm font-medium bg-compass-purple text-white transition-all shadow-sm whitespace-nowrap" data-filter="all">All Resources</button>
-                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap" data-filter="Strategy">Strategy</button>
-                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap" data-filter="HR">HR & Team</button>
-                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap" data-filter="Funding">Funding</button>
-                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap" data-filter="Leadership">Leadership</button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap" data-filter="Factsheets">Factsheets</button>
+                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap" data-filter="Blogs">Blogs</button>
                     </div>
                 </div>
             </div>
@@ -135,63 +133,6 @@
         <section class="py-12 bg-white flex-grow px-4 sm:px-8">
             <div class="max-w-6xl mx-auto">
                 <div id="resourceGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal active">
-                    <!-- New documents added here -->
-                    <div class="resource-card" data-category="Strategy">
-                        <a href="docs/pdf/ConnectToWork.pdf" target="_blank" class="block bg-white p-6 rounded-xl border border-gray-200 hover:border-compass-purple hover:shadow-lg transition-all h-full flex flex-col">
-                            <h3 class="font-bold text-gray-900 mb-2">Connect To Work</h3>
-                            <p class="text-gray-500 text-sm mb-4 flex-grow">A guide to the Connect To Work programme.</p>
-                            <span class="text-compass-purple font-semibold text-sm">Download PDF</span>
-                        </a>
-                    </div>
-                    <div class="resource-card" data-category="Funding">
-                        <a href="docs/pdf/LocalGrowthFund.pdf" target="_blank" class="block bg-white p-6 rounded-xl border border-gray-200 hover:border-compass-purple hover:shadow-lg transition-all h-full flex flex-col">
-                            <h3 class="font-bold text-gray-900 mb-2">Local Growth Fund</h3>
-                            <p class="text-gray-500 text-sm mb-4 flex-grow">An overview of the Local Growth Fund.</p>
-                            <span class="text-compass-purple font-semibold text-sm">Download PDF</span>
-                        </a>
-                    </div>
-                    <div class="resource-card" data-category="Strategy">
-                        <a href="docs/pdf/GetBritainWorking.pdf" target="_blank" class="block bg-white p-6 rounded-xl border border-gray-200 hover:border-compass-purple hover:shadow-lg transition-all h-full flex flex-col">
-                            <h3 class="font-bold text-gray-900 mb-2">Get Britain Working</h3>
-                            <p class="text-gray-500 text-sm mb-4 flex-grow">Insights into the Get Britain Working initiative.</p>
-                            <span class="text-compass-purple font-semibold text-sm">Download PDF</span>
-                        </a>
-                    </div>
-                    <div class="resource-card" data-category="Strategy">
-                        <a href="docs/pdf/Post16ES.pdf" target="_blank" class="block bg-white p-6 rounded-xl border border-gray-200 hover:border-compass-purple hover:shadow-lg transition-all h-full flex flex-col">
-                            <h3 class="font-bold text-gray-900 mb-2">Post-16 Employability & Skills</h3>
-                            <p class="text-gray-500 text-sm mb-4 flex-grow">A review of post-16 employability and skills programmes.</p>
-                            <span class="text-compass-purple font-semibold text-sm">Download PDF</span>
-                        </a>
-                    </div>
-                    <div class="resource-card" data-category="Strategy">
-                        <a href="docs/pdf/IntegratedSettlements.pdf" target="_blank" class="block bg-white p-6 rounded-xl border border-gray-200 hover:border-compass-purple hover:shadow-lg transition-all h-full flex flex-col">
-                            <h3 class="font-bold text-gray-900 mb-2">Integrated Settlements</h3>
-                            <p class="text-gray-500 text-sm mb-4 flex-grow">Analysis of integrated settlement strategies.</p>
-                            <span class="text-compass-purple font-semibold text-sm">Download PDF</span>
-                        </a>
-                    </div>
-                    <div class="resource-card" data-category="Strategy">
-                        <a href="docs/pdf/TestLearnGrow.pdf" target="_blank" class="block bg-white p-6 rounded-xl border border-gray-200 hover:border-compass-purple hover:shadow-lg transition-all h-full flex flex-col">
-                            <h3 class="font-bold text-gray-900 mb-2">Test, Learn, and Grow</h3>
-                            <p class="text-gray-500 text-sm mb-4 flex-grow">A paper on the Test, Learn, and Grow model.</p>
-                            <span class="text-compass-purple font-semibold text-sm">Download PDF</span>
-                        </a>
-                    </div>
-                    <div class="resource-card" data-category="Strategy">
-                        <a href="docs/pdf/LocalGovReorg.pdf" target="_blank" class="block bg-white p-6 rounded-xl border border-gray-200 hover:border-compass-purple hover:shadow-lg transition-all h-full flex flex-col">
-                            <h3 class="font-bold text-gray-900 mb-2">Local Government Reorganization</h3>
-                            <p class="text-gray-500 text-sm mb-4 flex-grow">Understanding local government reorganization.</p>
-                            <span class="text-compass-purple font-semibold text-sm">Download PDF</span>
-                        </a>
-                    </div>
-                    <div class="resource-card" data-category="Strategy">
-                        <a href="docs/pdf/YouthGuaranteeTrailblazers.pdf" target="_blank" class="block bg-white p-6 rounded-xl border border-gray-200 hover:border-compass-purple hover:shadow-lg transition-all h-full flex flex-col">
-                            <h3 class="font-bold text-gray-900 mb-2">Youth Guarantee Trailblazers</h3>
-                            <p class="text-gray-500 text-sm mb-4 flex-grow">Exploring the Youth Guarantee Trailblazers programme.</p>
-                            <span class="text-compass-purple font-semibold text-sm">Download PDF</span>
-                        </a>
-                    </div>
                     <!-- Dynamic content will be injected here -->
                 </div>
                 
@@ -270,69 +211,102 @@
         const resources = [
             { 
                 id: 1, 
-                title: "Top 10 Soft Skills for 2026", 
-                category: "HR", 
+                title: "Connect To Work", 
+                category: "Factsheets", 
                 type: "PDF", 
-                size: "2.4 MB", 
-                desc: "A comprehensive guide on emotional intelligence and adaptability.", 
+                size: "179 KB", 
+                desc: "A guide to the Connect To Work programme.", 
                 icon: "file-text", 
                 color: "purple",
-                url: "documents/soft-skills-guide.pdf" // Update this path
+                url: "docs/pdf/ConnectToWork.pdf"
             },
             { 
                 id: 2, 
-                title: "Recruitment Funnel Optimization", 
-                category: "Strategy", 
+                title: "Get Britain Working", 
+                category: "Factsheets", 
                 type: "PDF", 
-                size: "1.8 MB", 
-                desc: "Strategies to reduce time-to-hire and improve candidate quality.", 
-                icon: "bar-chart-2", 
-                color: "teal",
-                url: "documents/recruitment-funnel.pdf" // Update this path
+                size: "131 KB", 
+                desc: "Insights into the Get Britain Working initiative.", 
+                icon: "file-text", 
+                color: "purple",
+                url: "docs/pdf/GetBritainWorking.pdf"
             },
             { 
                 id: 3, 
-                title: "Mastering the STAR Method", 
-                category: "HR", 
+                title: "Integrated Settlements", 
+                category: "Factsheets", 
                 type: "PDF", 
-                size: "3.1 MB", 
-                desc: "Workbook and templates for behavioral interview preparation.", 
-                icon: "file-check", 
-                color: "indigo",
-                url: "documents/star-method.pdf" // Update this path
+                size: "122 KB", 
+                desc: "Analysis of integrated settlement strategies.", 
+                icon: "file-text", 
+                color: "purple",
+                url: "docs/pdf/IntegratedSettlements.pdf"
             },
             { 
                 id: 4, 
-                title: "Bid Management Framework", 
-                category: "Funding", 
-                type: "DOCX", 
-                size: "1.2 MB", 
-                desc: "Templates for structuring successful public sector bids.", 
-                icon: "pen-tool", 
-                color: "orange",
-                url: "documents/bid-framework.docx" // Update this path
+                title: "Local Government Reorganization", 
+                category: "Factsheets", 
+                type: "PDF", 
+                size: "130 KB", 
+                desc: "Understanding local government reorganization.", 
+                icon: "file-text", 
+                color: "purple",
+                url: "docs/pdf/LocalGovReorg.pdf"
             },
             { 
                 id: 5, 
-                title: "Leadership in Hybrid Teams", 
-                category: "Leadership", 
+                title: "Local Growth Fund", 
+                category: "Factsheets", 
                 type: "PDF", 
-                size: "4.5 MB", 
-                desc: "Managing remote and in-office teams effectively.", 
-                icon: "users", 
-                color: "blue",
-                url: "documents/hybrid-leadership.pdf" // Update this path
+                size: "187 KB", 
+                desc: "An overview of the Local Growth Fund.", 
+                icon: "file-text", 
+                color: "purple",
+                url: "docs/pdf/LocalGrowthFund.pdf"
             },
             { 
                 id: 6, 
-                title: "ESG Compliance Checklist", 
-                category: "Strategy", 
+                title: "Post-16 Employability & Skills", 
+                category: "Factsheets", 
                 type: "PDF", 
-                size: "900 KB", 
-                desc: "Ensuring environmental and social governance in contracts.", 
-                icon: "shield-check", 
-                color: "green",
-                url: "documents/esg-checklist.pdf" // Update this path
+                size: "181 KB", 
+                desc: "A review of post-16 employability and skills programmes.", 
+                icon: "file-text", 
+                color: "purple",
+                url: "docs/pdf/Post16ES.pdf"
+            },
+            { 
+                id: 7, 
+                title: "Test, Learn, and Grow", 
+                category: "Factsheets", 
+                type: "PDF", 
+                size: "158 KB", 
+                desc: "A paper on the Test, Learn, and Grow model.", 
+                icon: "file-text", 
+                color: "purple",
+                url: "docs/pdf/TestLearnGrow.pdf"
+            },
+            { 
+                id: 8, 
+                title: "Youth Guarantee Trailblazers", 
+                category: "Factsheets", 
+                type: "PDF", 
+                size: "148 KB", 
+                desc: "Exploring the Youth Guarantee Trailblazers programme.", 
+                icon: "file-text", 
+                color: "purple",
+                url: "docs/pdf/YouthGuaranteeTrailblazers.pdf"
+            },
+            { 
+                id: 9, 
+                title: "Placeholder Blog 1", 
+                category: "Blogs", 
+                type: "Article", 
+                size: "N/A", 
+                desc: "This is a placeholder for a blog post.", 
+                icon: "file-text", 
+                color: "indigo",
+                url: "#"
             }
         ];
 
