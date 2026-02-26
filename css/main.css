@@ -88,3 +88,53 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   /* Defensive: prevent full-width children from forcing horizontal scroll */
   body, html { overflow-x: hidden; }
 }
+
+/* Strong visible focus states for keyboard navigation */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(72, 48, 134, 0.45);
+  outline-offset: 2px;
+}
+
+/* Prevent background scrolling when mobile menu is open */
+body.menu-open {
+  overflow: hidden;
+}
+
+/* Hide horizontal scrollbars where utility class is used */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ensure hidden bio content stays hidden across pages */
+.bio-full[hidden] {
+  display: none !important;
+}
+
+/* Respect user reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
