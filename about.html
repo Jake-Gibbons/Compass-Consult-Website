@@ -34,7 +34,7 @@
         }
     </script>
     <style>
-        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .glass-nav { background: rgba(255, 255, 255, 0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
         .reveal { opacity: 0; transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
         .reveal-up { transform: translateY(40px); }
         .reveal.active { opacity: 1; transform: translate(0) scale(1); }
@@ -82,7 +82,7 @@
                     <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
                 </div>
              </a>
-             <button id="mobile-menu-btn" class="text-gray-600 p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
+             <button type="button" id="mobile-menu-btn" class="text-gray-600 p-2" aria-label="Toggle mobile menu"><i data-lucide="menu" class="w-6 h-6"></i></button>
         </div>
         <div id="mobile-menu" class="hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
             <div class="px-4 py-4 space-y-2">
