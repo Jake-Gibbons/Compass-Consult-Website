@@ -6,6 +6,15 @@
     <title>Meet the Team - Compass Consult</title>
     <meta name="description" content="Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.">
     <meta name="theme-color" content="#483086">
+    <!-- SEO and Social Sharing -->
+    <meta property="og:title" content="Meet the Team - Compass Consult">
+    <meta property="og:description" content="Meet the expert team at Compass Consult.">
+    <meta property="og:image" content="https://www.compassconsult.co.uk/assets/logos/Logo.png">
+    <meta property="og:url" content="https://www.compassconsult.co.uk/team.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Meet the Team - Compass Consult">
+    <meta name="twitter:description" content="Meet the expert team at Compass Consult.">
+    <meta name="twitter:image" content="https://www.compassconsult.co.uk/assets/logos/Logo.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
@@ -34,7 +43,7 @@
         }
     </script>
     <style>
-        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .glass-nav { background: rgba(255, 255, 255, 0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
         .reveal { opacity: 0; transition: all 1s cubic-bezier(0.5, 0, 0, 1); transform: translateY(20px); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
@@ -55,6 +64,7 @@
         @media (max-width: 640px) { .site-logo { max-height: 60px; } }
     </style>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
@@ -79,7 +89,7 @@
             </nav>
         </div>
         <div>
-            <a href="contact.html" class="group flex items-center justify-center w-full py-3 px-4 rounded-full bg-compass-purple text-white font-semibold hover:bg-compass-lightPurple shadow-lg hover:shadow-purple-200 transition-all transform hover:-translate-y-0.5">Contact Us <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1"></i></a>
+            <a href="contact.html" class="group flex items-center justify-center w-full py-3 px-4 rounded-full bg-compass-purple text-white font-semibold hover:bg-compass-lightPurple shadow-lg hover:shadow-purple-200 transition-all transform hover:-translate-y-0.5 contact-button-animation">Contact Us <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1"></i></a>
             <p class="text-xs text-center text-gray-400 mt-6">&copy; <span class="year-span"></span> Compass Consult</p>
         </div>
     </aside>
@@ -92,7 +102,7 @@
                     <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
                 </div>
              </a>
-             <button id="mobile-menu-btn" class="text-gray-600 p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
+             <button type="button" id="mobile-menu-btn" class="text-gray-600 p-2" aria-label="Toggle mobile menu"><i data-lucide="menu" class="w-6 h-6"></i></button>
         </div>
         <div id="mobile-menu" class="hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
             <div class="px-4 py-4 space-y-2">
@@ -136,8 +146,8 @@
                             <button id="jon-read-more-btn" class="text-compass-purple font-semibold hover:underline text-sm">Read More</button>
                         </div>
                         <div class="flex justify-center gap-4">
-                            <a href="https://www.linkedin.com/in/compassconsultcces/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-compass-purple hover:scale-110 transition-transform"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
-                            <a href="mailto:jon.smith@compassconsultes.com" class="text-gray-400 hover:text-compass-purple hover:scale-110 transition-transform"><i data-lucide="mail" class="w-6 h-6"></i></a>
+                            <a href="https://www.linkedin.com/in/compassconsultcces/" target="_blank" rel="noopener noreferrer" aria-label="Jon Smith LinkedIn" title="Jon Smith LinkedIn" class="text-gray-400 hover:text-compass-purple hover:scale-110 transition-transform"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+                            <a href="mailto:jon.smith@compassconsultes.com" aria-label="Email Jon Smith" title="Email Jon Smith" class="text-gray-400 hover:text-compass-purple hover:scale-110 transition-transform"><i data-lucide="mail" class="w-6 h-6"></i></a>
                         </div>
                     </div>
 
@@ -152,7 +162,7 @@
                         <p class="text-compass-teal font-medium mb-4 text-lg">Executive Assistant to the Managing Director</p>
                         <p class="text-gray-500 max-w-xs mx-auto mb-6 text-sm leading-relaxed">Michelle has a background in office management and administration, as well as spending several years in the employability sector, managing caseloads of participants on DWP and Combined Authority commissioned programmes. Michelle supports the smooth running of Compass Consult and brings a wealth of experience to the organisation.</p>
                         <div class="flex justify-center gap-4">
-                            <a href="mailto:info@compassconsultes.com" class="text-gray-400 hover:text-compass-purple hover:scale-110 transition-transform"><i data-lucide="mail" class="w-6 h-6"></i></a>
+                            <a href="mailto:info@compassconsultes.com" aria-label="Email Compass Consult" title="Email Compass Consult" class="text-gray-400 hover:text-compass-purple hover:scale-110 transition-transform"><i data-lucide="mail" class="w-6 h-6"></i></a>
                         </div>
                     </div>
                 </div>
@@ -174,13 +184,13 @@
                             Empowering public, private and third sector organizations, to navigate the world of employability and skills.
                         </p>
                         <div class="flex space-x-4">
-                            <a href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                            <a href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <i data-lucide="linkedin" class="w-5 h-5"></i>
                             </a>
-                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                            <a href="#" aria-label="Social profile" title="Social profile" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.6l-5.1-6.72-5.87 6.72h-3.31l7.78-8.835L.254 2.25h6.6l4.915 6.468L18.244 2.25zM17.15 19.83h1.828L6.122 4.137H4.231L17.15 19.83z"/></svg>
                             </a>
-                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                            <a href="#" aria-label="Social profile" title="Social profile" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <i data-lucide="facebook" class="w-5 h-5"></i>
                             </a>
                         </div>
@@ -195,7 +205,7 @@
                             <li><a href="team.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Meet the Team</a></li>
                             <li><a href="partnerships.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Partnerships</a></li>
                             <li><a href="resources.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Resource Library</a></li>
-                            <li><a href="latest-news.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Latest News & Events</a></li>
+                            <li><a href="events.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Latest News & Events</a></li>
                             <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Contact Us</a></li>
                         </ul>
                     </div>
@@ -222,6 +232,7 @@
     </main>
 
     <script src="js/main.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </body>
 </html>
 

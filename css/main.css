@@ -24,6 +24,168 @@
   box-shadow: 0 20px 25px -5px rgba(45, 168, 180, 0.15);
 }
 
+/* Global interactive micro-animations */
+.site-logo {
+  transition: transform 0.3s ease, filter 0.3s ease;
+  transform-origin: center;
+}
+
+footer .site-logo {
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
+}
+
+a:hover .site-logo,
+a:focus-visible .site-logo {
+  transform: scale(1.03);
+  filter: drop-shadow(0 8px 14px rgba(72, 48, 134, 0.22));
+}
+
+footer a:hover .site-logo,
+footer a:focus-visible .site-logo {
+  filter: brightness(0) invert(1);
+}
+
+#mobile-menu-btn {
+  transition: transform 0.24s ease, color 0.24s ease, background-color 0.24s ease;
+  border-radius: 0.65rem;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#mobile-menu-btn:hover,
+#mobile-menu-btn:focus-visible {
+  transform: scale(1.06);
+  background-color: rgba(72, 48, 134, 0.08);
+  color: #483086;
+}
+
+#mobile-menu-btn.menu-open-state {
+  background-color: rgba(72, 48, 134, 0.12);
+  color: #483086;
+}
+
+#mobile-menu-btn .hamburger-icon {
+  width: 20px;
+  height: 16px;
+  position: relative;
+  display: inline-block;
+}
+
+#mobile-menu-btn .hamburger-icon .bar {
+  width: 20px;
+  height: 2px;
+  border-radius: 9999px;
+  background: currentColor;
+  transition: transform 0.24s ease, opacity 0.2s ease, width 0.24s ease;
+  transform-origin: center;
+  position: absolute;
+  left: 0;
+}
+
+#mobile-menu-btn .hamburger-icon .bar:nth-child(1) {
+  top: 0;
+}
+
+#mobile-menu-btn .hamburger-icon .bar:nth-child(2) {
+  top: 7px;
+}
+
+#mobile-menu-btn .hamburger-icon .bar:nth-child(3) {
+  top: 14px;
+}
+
+#mobile-menu-btn.menu-open-state .hamburger-icon .bar:nth-child(1) {
+  top: 7px;
+  transform: rotate(45deg);
+}
+
+#mobile-menu-btn.menu-open-state .hamburger-icon .bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0.2);
+}
+
+#mobile-menu-btn.menu-open-state .hamburger-icon .bar:nth-child(3) {
+  top: 7px;
+  transform: rotate(-45deg);
+}
+
+#mobile-menu {
+  display: block;
+  opacity: 0;
+  transform: translateY(-10px);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+}
+
+#mobile-menu.menu-open {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.nav-link {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.22s ease, color 0.22s ease, background-color 0.22s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.45rem;
+  height: 2px;
+  border-radius: 9999px;
+  background: currentColor;
+  opacity: 0.5;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.24s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  transform: translateX(2px);
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+}
+
+#mobile-menu a {
+  transition: transform 0.22s ease, color 0.22s ease, background-color 0.22s ease, opacity 0.22s ease;
+  opacity: 0;
+  transform: translateX(-8px);
+}
+
+#mobile-menu.menu-open a {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+#mobile-menu.menu-open a:nth-child(1) { transition-delay: 30ms; }
+#mobile-menu.menu-open a:nth-child(2) { transition-delay: 55ms; }
+#mobile-menu.menu-open a:nth-child(3) { transition-delay: 80ms; }
+#mobile-menu.menu-open a:nth-child(4) { transition-delay: 105ms; }
+#mobile-menu.menu-open a:nth-child(5) { transition-delay: 130ms; }
+#mobile-menu.menu-open a:nth-child(6) { transition-delay: 155ms; }
+#mobile-menu.menu-open a:nth-child(7) { transition-delay: 180ms; }
+#mobile-menu.menu-open a:nth-child(8) { transition-delay: 205ms; }
+
+#mobile-menu.menu-open a:hover,
+#mobile-menu.menu-open a:focus-visible {
+  transform: translateX(4px);
+}
+
 /* Animation Keyframes */
 @keyframes slideInDown {
   from {
@@ -48,6 +210,25 @@
 }
 
 /* Note: Most styles are currently in index.html using Tailwind CSS
+
+.contact-button-animation {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(72, 48, 134, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(72, 48, 134, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(72, 48, 134, 0);
+    }
+}
  * As the project grows, consider extracting to dedicated CSS files
  * Examples: components.css, responsive.css, animations.css
  */
@@ -119,6 +300,77 @@ body.menu-open {
   display: none !important;
 }
 
+.sticky-talk-button {
+  position: fixed;
+  right: 1rem;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 110;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.75rem 1rem;
+  border-radius: 9999px;
+  background: #483086;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.875rem;
+  box-shadow: 0 12px 24px rgba(72, 48, 134, 0.28);
+  text-decoration: none;
+  transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease, background-color 0.2s ease;
+  will-change: opacity, transform;
+}
+
+.sticky-talk-button svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.sticky-talk-button:hover,
+.sticky-talk-button:focus-visible {
+  background: #6a4eb8;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(72, 48, 134, 0.32);
+}
+
+.sticky-talk-button.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px) scale(0.96);
+}
+
+.coming-soon-tooltip {
+  position: absolute;
+  z-index: 120;
+  transform: translate(-50%, calc(-100% - 8px));
+  pointer-events: none;
+  opacity: 0;
+  background: #1f2937;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  transition: opacity 0.18s ease;
+}
+
+.coming-soon-tooltip::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 10px;
+  height: 10px;
+  transform: translateX(-50%) rotate(45deg);
+  background: #1f2937;
+}
+
+.coming-soon-tooltip.show {
+  opacity: 1;
+}
+
 /* Respect user reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
@@ -136,5 +388,20 @@ body.menu-open {
   .reveal {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .site-logo,
+  #mobile-menu-btn,
+  .nav-link,
+  #mobile-menu a,
+  .sticky-talk-button,
+  .coming-soon-tooltip {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .nav-link::after {
+    transition: none !important;
   }
 }

@@ -1,6 +1,6 @@
 <!-- 
     =======================================================================
-    WEBSITE DEVELOPED BY: [Your Name]
+    WEBSITE DEVELOPED BY: Zenith IT
     CLIENT: Compass Consult (Employability & Skills) Ltd
     DATE: 2026
     =======================================================================
@@ -13,6 +13,15 @@
     <title>Privacy Policy - Compass Consult</title>
     <meta name="description" content="Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.">
     <meta name="theme-color" content="#483086">
+    <!-- SEO and Social Sharing -->
+    <meta property="og:title" content="Privacy Policy - Compass Consult">
+    <meta property="og:description" content="Read the privacy policy for the Compass Consult website.">
+    <meta property="og:image" content="https://www.compassconsult.co.uk/assets/logos/Logo.png">
+    <meta property="og:url" content="https://www.compassconsult.co.uk/privacy.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Privacy Policy - Compass Consult">
+    <meta name="twitter:description" content="Read the privacy policy for the Compass Consult website.">
+    <meta name="twitter:image" content="https://www.compassconsult.co.uk/assets/logos/Logo.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
@@ -41,7 +50,7 @@
         }
     </script>
     <style>
-        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .glass-nav { background: rgba(255, 255, 255, 0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
         .reveal { opacity: 0; transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
         .reveal-up { transform: translateY(40px); }
         .reveal.active { opacity: 1; transform: translate(0) scale(1); }
@@ -52,6 +61,7 @@
         @media (max-width: 640px) { .site-logo { max-height: 60px; } }
     </style>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
@@ -89,7 +99,7 @@
                     <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
                 </div>
              </a>
-             <button id="mobile-menu-btn" class="text-gray-600 p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
+             <button type="button" id="mobile-menu-btn" class="text-gray-600 p-2" aria-label="Toggle mobile menu"><i data-lucide="menu" class="w-6 h-6"></i></button>
         </div>
         <div id="mobile-menu" class="hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
             <div class="px-4 py-4 space-y-2">
@@ -160,13 +170,13 @@
                             Empowering public, private and third sector organizations, to navigate the world of employability and skills.
                         </p>
                         <div class="flex space-x-4">
-                            <a href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                            <a href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <i data-lucide="linkedin" class="w-5 h-5"></i>
                             </a>
-                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                            <a href="#" aria-label="Social profile" title="Social profile" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.6l-5.1-6.72-5.87 6.72h-3.31l7.78-8.835L.254 2.25h6.6l4.915 6.468L18.244 2.25zM17.15 19.83h1.828L6.122 4.137H4.231L17.15 19.83z"/></svg>
                             </a>
-                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                            <a href="#" aria-label="Social profile" title="Social profile" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <i data-lucide="facebook" class="w-5 h-5"></i>
                             </a>
                         </div>
@@ -207,6 +217,7 @@
         </footer>
     </main>
     <script src="js/main.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </body>
 </html>
 

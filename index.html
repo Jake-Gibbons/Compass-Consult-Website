@@ -6,6 +6,17 @@
     <title>Home - Compass Consult</title>
     <meta name="description" content="Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.">
     <meta name="theme-color" content="#483086">
+
+    <!-- SEO and Social Sharing -->
+    <meta property="og:title" content="Home - Compass Consult">
+    <meta property="og:description" content="Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.">
+    <meta property="og:image" content="https://www.compassconsult.co.uk/assets/logos/Logo.png">
+    <meta property="og:url" content="https://www.compassconsult.co.uk">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Home - Compass Consult">
+    <meta name="twitter:description" content="Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.">
+    <meta name="twitter:image" content="https://www.compassconsult.co.uk/assets/logos/Logo.png">
+
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
@@ -55,7 +66,7 @@
     </script>
     <style>
         .glass-nav { background: rgba(255, 255, 255, 0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-        .gradient-text { background: linear-gradient(90deg, #483086 0%, #2da8b4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .gradient-text { background: linear-gradient(90deg, #483086 0%, #2da8b4 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
         .reveal { opacity: 0; transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
         .reveal-up { transform: translateY(40px); }
         .reveal-left { transform: translateX(-40px); }
@@ -66,8 +77,8 @@
         .ticker { overflow: hidden; position: relative; min-height: 50px; display: flex; align-items: center; }
         .ticker-track { display: flex; gap: 2rem; align-items: center; animation: marquee 32s linear infinite; will-change: transform; flex-wrap: nowrap; white-space: nowrap; }
         .ticker-track > div { display: flex; gap: 1.5rem; align-items: center; flex: 0 0 auto; }
-        .ticker-track img { height: 35px !important; max-height: none !important; display: block; object-fit: contain; opacity: .98; transition: opacity .2s ease, transform .2s ease; background: transparent; padding: 0; border-radius: 0; box-shadow: none; flex: 0 0 auto; max-width: 120px; width: auto; }
-        .ticker-track img:hover { transform: translateY(-2px); opacity: 1; }
+        .ticker-track img { height: 35px !important; max-height: none !important; display: block; object-fit: contain; opacity: .98; filter: grayscale(100%); transition: opacity .2s ease, transform .2s ease, filter .2s ease; background: transparent; padding: 0; border-radius: 0; box-shadow: none; flex: 0 0 auto; max-width: 120px; width: auto; }
+        .ticker-track img:hover { transform: translateY(-2px); opacity: 1; filter: grayscale(0%); }
         .ticker-track:hover { animation-play-state: paused; }
         /* animate by half the track width (we duplicate the set) for a seamless loop */
         @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -79,6 +90,7 @@
             .ticker { min-height: 40px; }
             .ticker-track img { height: 30px !important; }
         }
+        .dots-bg { background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 30px 30px; }
         /* Site logo sizing */
         .site-logo { display: block; height: auto; max-height: 120px; }
         @media (max-width: 1024px) { .site-logo { max-height: 80px; } }
@@ -86,6 +98,7 @@
         /* removed sidebar full-width; keep original sizing */
     </style>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
@@ -113,7 +126,7 @@
         </div>
 
         <div>
-            <a href="contact.html" class="group flex items-center justify-center w-full py-3 px-4 rounded-full bg-compass-purple text-white font-semibold hover:bg-compass-lightPurple shadow-lg hover:shadow-purple-200 transition-all transform hover:-translate-y-0.5">
+            <a href="contact.html" class="group flex items-center justify-center w-full py-3 px-4 rounded-full bg-compass-purple text-white font-semibold hover:bg-compass-lightPurple shadow-lg hover:shadow-purple-200 transition-all transform hover:-translate-y-0.5 contact-button-animation">
                 Contact Us <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
             </a>
             <p class="text-xs text-center text-gray-400 mt-6">&copy; <span class="year-span"></span> Compass Consult</p>
@@ -191,7 +204,7 @@
     <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
         
         <!-- Hero Section -->
-        <section class="relative pt-32 pb-20 lg:pt-24 lg:pb-32 overflow-hidden w-full flex-grow">
+        <section class="relative pt-20 pb-16 lg:pt-12 lg:pb-20 overflow-hidden w-full flex items-center min-h-[68vh]">
             <!-- Background Decorations -->
             <div class="absolute inset-0 bg-hero-gradient opacity-5 z-0 pointer-events-none"></div>
             <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob pointer-events-none"></div>
@@ -199,7 +212,7 @@
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="grid gap-12 items-center place-items-center text-center">
-                    <div class="space-y-8 reveal active">
+                    <div class="space-y-8" data-aos="fade-up">
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 border border-purple-200 text-compass-purple text-sm font-semibold">
                             <span class="relative flex h-2 w-2">
                               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
@@ -214,7 +227,7 @@
                         <p class="text-lg text-gray-600 leading-relaxed max-w-lg">
                             Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.
                         </p>
-                        <div class="flex flex-col sm:flex-row gap-4">
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                             <a href="services.html" class="group inline-flex justify-center items-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-full text-white bg-compass-purple hover:bg-compass-lightPurple transition-all shadow-lg hover:-translate-y-1">
                                 Our Expertise <i data-lucide="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                             </a>
@@ -235,11 +248,11 @@
         <!-- CTA Section -->
         <section class="py-20 bg-compass-dark relative overflow-hidden">
             <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
-            <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 30px 30px;"></div>
-            <div class="max-w-4xl mx-auto px-4 relative z-10 text-center reveal reveal-up active">
+            <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
+            <div class="max-w-4xl mx-auto px-4 relative z-10 text-center" data-aos="fade-up">
                 <h2 class="text-3xl lg:text-5xl font-bold text-white mb-6">Let's Move Forward</h2>
                 <p class="text-purple-100 text-lg mb-10 max-w-2xl mx-auto">Whatever your starting point, Compass will point you in the right direction.</p>
-                <a href="contact.html" class="px-8 py-4 bg-white text-compass-purple font-bold rounded-full hover:bg-gray-100 transition-all shadow-xl hover:scale-105 active:scale-95 inline-block">Talk to us today</a>
+                <a href="contact.html" class="px-8 py-4 bg-white text-compass-purple font-bold rounded-full hover:bg-gray-100 transition-all shadow-xl hover:scale-105 active:scale-95 inline-block contact-button-animation">Talk to us today</a>
             </div>
         </section>
 
@@ -258,13 +271,13 @@
                             Empowering public, private and third sector organizations, to navigate the world of employability and skills.
                         </p>
                         <div class="flex space-x-4">
-                            <a href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                            <a href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <i data-lucide="linkedin" class="w-5 h-5"></i>
                             </a>
-                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                            <a href="#" aria-label="Social profile" title="Social profile" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.6l-5.1-6.72-5.87 6.72h-3.31l7.78-8.835L.254 2.25h6.6l4.915 6.468L18.244 2.25zM17.15 19.83h1.828L6.122 4.137H4.231L17.15 19.83z"/></svg>
                             </a>
-                            <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                            <a href="#" aria-label="Social profile" title="Social profile" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <i data-lucide="facebook" class="w-5 h-5"></i>
                             </a>
                         </div>
@@ -305,6 +318,7 @@
         </footer>
     </main>
     <script src="js/main.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </body>
 </html>
 

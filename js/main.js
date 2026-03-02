@@ -9,13 +9,113 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeIcons();
   initializeYearAndDate();
   initializeMobileMenu();
+  initializeStickyTalkButton();
   initializeRevealAnimations();
   initializeBioReadMore();
   enhanceExternalLinks();
+  initializeComingSoonSocialLinks();
   connectFormLabels();
   optimizeImages();
   initializeTickerImageFallback();
+  initializeAOS();
 });
+
+function initializeComingSoonSocialLinks() {
+  const pendingSocialLinks = document.querySelectorAll('a[href="#"][aria-label="Social profile"]');
+  let tooltipElement = null;
+  let hideTooltipTimeout = null;
+
+  const ensureTooltip = () => {
+    if (tooltipElement) {
+      return tooltipElement;
+    }
+
+    tooltipElement = document.createElement('div');
+    tooltipElement.className = 'coming-soon-tooltip';
+    tooltipElement.setAttribute('role', 'status');
+    tooltipElement.setAttribute('aria-live', 'polite');
+    tooltipElement.textContent = 'Coming soon';
+    document.body.appendChild(tooltipElement);
+    return tooltipElement;
+  };
+
+  const showTooltip = (anchorElement) => {
+    const tooltip = ensureTooltip();
+    const rect = anchorElement.getBoundingClientRect();
+    const top = window.scrollY + rect.top - 10;
+    const left = window.scrollX + rect.left + rect.width / 2;
+
+    tooltip.style.top = `${top}px`;
+    tooltip.style.left = `${left}px`;
+    tooltip.classList.add('show');
+
+    if (hideTooltipTimeout) {
+      window.clearTimeout(hideTooltipTimeout);
+    }
+
+    hideTooltipTimeout = window.setTimeout(() => {
+      tooltip.classList.remove('show');
+    }, 1200);
+  };
+
+  pendingSocialLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      showTooltip(link);
+    });
+  });
+}
+
+function initializeStickyTalkButton() {
+  if (document.querySelector('.sticky-talk-button')) {
+    return;
+  }
+
+  const path = window.location.pathname.toLowerCase();
+  const isContactPage = path.endsWith('/contact.html') || path === '/contact.html';
+  if (isContactPage) {
+    return;
+  }
+
+  const isHomePage = path.endsWith('/index.html') || path === '/' || path === '/index.html';
+
+  const talkButton = document.createElement('a');
+  talkButton.href = 'contact.html';
+  talkButton.className = `sticky-talk-button${isHomePage ? ' is-hidden' : ''}`;
+  talkButton.setAttribute('aria-label', 'Talk to Compass Consult');
+  talkButton.setAttribute('title', 'Talk to us');
+  talkButton.innerHTML = [
+    '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">',
+    '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="currentColor"></path>',
+    '</svg>',
+    '<span>Talk to Us</span>'
+  ].join('');
+
+  document.body.appendChild(talkButton);
+
+  if (!isHomePage) {
+    return;
+  }
+
+  const updateHomeButtonVisibility = () => {
+    const hasScrolled = window.scrollY > 24;
+    talkButton.classList.toggle('is-hidden', !hasScrolled);
+  };
+
+  updateHomeButtonVisibility();
+  window.addEventListener('scroll', updateHomeButtonVisibility, { passive: true });
+}
+
+function initializeAOS() {
+  if (typeof AOS !== 'undefined') {
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: false
+    });
+  }
+}
 
 function initializeIcons() {
   if (window.lucide && typeof window.lucide.createIcons === 'function') {
@@ -63,17 +163,37 @@ function initializeMobileMenu() {
 
   menuButton.setAttribute('aria-controls', menu.id);
   menuButton.setAttribute('aria-expanded', 'false');
-  menu.hidden = menu.classList.contains('hidden');
+
+  menu.classList.remove('hidden');
+  menu.hidden = false;
+
+  const initializeHamburgerIcon = () => {
+    if (menuButton.querySelector('.hamburger-icon')) {
+      return;
+    }
+
+    menuButton.innerHTML = [
+      '<span class="hamburger-icon" aria-hidden="true">',
+      '<span class="bar"></span>',
+      '<span class="bar"></span>',
+      '<span class="bar"></span>',
+      '</span>'
+    ].join('');
+  };
 
   const setMenuState = (isOpen) => {
-    menu.classList.toggle('hidden', !isOpen);
-    menu.hidden = !isOpen;
+    menu.classList.toggle('menu-open', isOpen);
     menuButton.setAttribute('aria-expanded', String(isOpen));
+    menuButton.setAttribute('aria-label', isOpen ? 'Close mobile menu' : 'Open mobile menu');
+    menuButton.classList.toggle('menu-open-state', isOpen);
     document.body.classList.toggle('menu-open', isOpen);
   };
 
+  initializeHamburgerIcon();
+  setMenuState(false);
+
   const toggleMenu = () => {
-    const isCurrentlyOpen = !menu.classList.contains('hidden');
+    const isCurrentlyOpen = menu.classList.contains('menu-open');
     setMenuState(!isCurrentlyOpen);
   };
 
@@ -90,7 +210,7 @@ function initializeMobileMenu() {
   });
 
   document.addEventListener('click', (event) => {
-    if (menu.classList.contains('hidden')) {
+    if (!menu.classList.contains('menu-open')) {
       return;
     }
 
@@ -183,7 +303,44 @@ function enhanceExternalLinks() {
       }
 
       link.setAttribute('aria-label', label);
+      link.setAttribute('title', label);
+    } else if (!link.getAttribute('title') && link.getAttribute('aria-label')) {
+      link.setAttribute('title', link.getAttribute('aria-label'));
     }
+  });
+
+  const iconOnlyLinks = document.querySelectorAll('a');
+  iconOnlyLinks.forEach((link) => {
+    if (link.getAttribute('aria-label')) {
+      if (!link.getAttribute('title')) {
+        link.setAttribute('title', link.getAttribute('aria-label'));
+      }
+      return;
+    }
+
+    const hasVisibleText = link.textContent.trim().length > 0;
+    const hasIcon = Boolean(link.querySelector('i, svg'));
+    if (hasVisibleText || !hasIcon) {
+      return;
+    }
+
+    const href = link.getAttribute('href') || '';
+    let label = 'Link';
+
+    if (href.includes('linkedin.com')) {
+      label = 'LinkedIn';
+    } else if (href.includes('facebook.com')) {
+      label = 'Facebook';
+    } else if (href.includes('x.com') || href.includes('twitter.com')) {
+      label = 'X profile';
+    } else if (href.startsWith('mailto:')) {
+      label = 'Email';
+    } else if (href === '#') {
+      label = 'Social profile';
+    }
+
+    link.setAttribute('aria-label', label);
+    link.setAttribute('title', label);
   });
 }
 
@@ -211,6 +368,14 @@ function connectFormLabels() {
       }
 
       label.setAttribute('for', field.id);
+
+      if (!field.getAttribute('aria-label')) {
+        field.setAttribute('aria-label', label.textContent.trim());
+      }
+
+      if (!field.getAttribute('title')) {
+        field.setAttribute('title', label.textContent.trim());
+      }
     });
   });
 }
