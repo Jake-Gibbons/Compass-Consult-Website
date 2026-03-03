@@ -57,6 +57,18 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .swipe-cue-arrow {
+            display: inline-block;
+            animation: swipe-cue-arrow 1.4s ease-out infinite;
+        }
+
+        @keyframes swipe-cue-arrow {
+            0% { opacity: 0; transform: translateX(0); }
+            30% { opacity: 1; transform: translateX(2px); }
+            100% { opacity: 0; transform: translateX(12px); }
+        }
+
     </style>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -135,13 +147,24 @@
                         <input type="text" id="searchInput" class="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl leading-5 bg-white placeholder-gray-400 focus:outline-none focus:border-compass-purple focus:ring-1 focus:ring-compass-purple sm:text-sm transition-all shadow-sm" placeholder="Search documents...">
                     </div>
 
-                    <!-- Category Filters -->
-                    <div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar" id="filterContainer">
-                        <button class="filter-btn active px-4 py-2 rounded-full text-sm font-medium bg-compass-purple text-white transition-all shadow-sm whitespace-nowrap" data-filter="all">All Resources</button>
-                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap" data-filter="Factsheets">Factsheets</button>
-                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap" data-filter="Blogs">Blogs</button>
-                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap" data-filter="Whitepapers">Whitepapers</button>
-                        <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap" data-filter="Other">Other</button>
+                    <!-- Category Filters + Size Control -->
+                    <div class="w-full md:w-auto flex flex-col gap-2">
+                        <div class="relative">
+                            <div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar" id="filterContainer">
+                                <button class="filter-btn active px-4 py-2 rounded-full text-sm font-medium bg-compass-purple text-white transition-all shadow-sm whitespace-nowrap flex-shrink-0" data-filter="all">All Resources</button>
+                                <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap flex-shrink-0" data-filter="Factsheets">Factsheets</button>
+                                <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap flex-shrink-0" data-filter="Blogs">Blogs</button>
+                                <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap flex-shrink-0" data-filter="Whitepapers">Whitepapers</button>
+                                <button class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all whitespace-nowrap flex-shrink-0" data-filter="Other">Other</button>
+                            </div>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-gray-50 to-transparent md:hidden"></div>
+                        </div>
+                        <p class="text-xs text-gray-500 opacity-90 mt-1 md:hidden flex items-center justify-center gap-1">Swipe to see more filters <span class="swipe-cue-arrow opacity-90" aria-hidden="true">→</span></p>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-500 font-medium">Size:</span>
+                            <button id="sizeLargeBtn" type="button" class="size-btn px-3 py-1.5 rounded-full text-xs font-medium bg-compass-purple text-white transition-all">Large</button>
+                            <button id="sizeSmallBtn" type="button" class="size-btn px-3 py-1.5 rounded-full text-xs font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all">Small</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -356,11 +379,19 @@
         const noResults = document.getElementById('noResults');
         const searchInput = document.getElementById('searchInput');
         const filterBtns = document.querySelectorAll('.filter-btn');
+        const sizeLargeBtn = document.getElementById('sizeLargeBtn');
+        const sizeSmallBtn = document.getElementById('sizeSmallBtn');
         let currentFilter = 'all';
+        let currentSize = 'large';
 
         // Render Function
         function renderResources(data) {
             grid.innerHTML = '';
+
+            const isSmall = currentSize === 'small';
+            grid.className = isSmall
+                ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 reveal active'
+                : 'grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal active';
             
             if (data.length === 0) {
                 grid.classList.add('hidden');
@@ -380,21 +411,23 @@
                 if(item.color === 'teal') { bgClass = 'bg-teal-50'; textClass = 'text-compass-teal'; }
                 
                 const card = document.createElement('div');
-                card.className = `group bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full`;
+                card.className = isSmall
+                    ? 'group bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col h-full'
+                    : 'group bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full';
                 card.innerHTML = `
-                    <div class="h-40 ${bgClass} flex items-center justify-center relative transition-colors">
-                        <i data-lucide="${item.icon}" class="w-12 h-12 ${textClass} opacity-80 transform group-hover:scale-110 transition-transform duration-300"></i>
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-gray-600 px-2 py-1 rounded text-xs font-bold shadow-sm uppercase tracking-wide">${item.type}</div>
-                        <div class="absolute bottom-4 left-4 bg-gray-900/5 text-gray-600 px-2 py-1 rounded text-xs font-semibold">${item.category}</div>
+                    <div class="${isSmall ? 'h-28' : 'h-40'} ${bgClass} flex items-center justify-center relative transition-colors">
+                        <i data-lucide="${item.icon}" class="${isSmall ? 'w-9 h-9' : 'w-12 h-12'} ${textClass} opacity-80 transform group-hover:scale-110 transition-transform duration-300"></i>
+                        <div class="absolute ${isSmall ? 'top-2 right-2 text-[10px]' : 'top-4 right-4 text-xs'} bg-white/90 backdrop-blur-sm text-gray-600 px-2 py-1 rounded font-bold shadow-sm uppercase tracking-wide">${item.type}</div>
+                        <div class="absolute ${isSmall ? 'bottom-2 left-2 text-[10px]' : 'bottom-4 left-4 text-xs'} bg-gray-900/5 text-gray-600 px-2 py-1 rounded font-semibold">${item.category}</div>
                     </div>
-                    <div class="p-6 flex-grow flex flex-col">
-                        <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-compass-purple transition-colors">${item.title}</h3>
-                        <p class="text-gray-500 text-sm mb-4 flex-grow line-clamp-3">${item.desc}</p>
-                        <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-50">
+                    <div class="${isSmall ? 'p-4' : 'p-6'} flex-grow flex flex-col">
+                        <h3 class="${isSmall ? 'text-base mb-1' : 'text-lg mb-2'} font-bold text-gray-900 leading-tight group-hover:text-compass-purple transition-colors">${item.title}</h3>
+                        <p class="text-gray-500 ${isSmall ? 'text-xs mb-3 line-clamp-2' : 'text-sm mb-4 line-clamp-3'} flex-grow">${item.desc}</p>
+                        <div class="flex items-center justify-between mt-auto ${isSmall ? 'pt-3' : 'pt-4'} border-t border-gray-50">
                             <span class="text-xs text-gray-400 font-medium">${item.size}</span>
-                            <a href="${item.url}" download class="inline-flex items-center text-sm font-semibold text-compass-teal hover:text-compass-purple transition-colors group/link">
+                            <a href="${item.url}" download class="inline-flex items-center ${isSmall ? 'text-xs' : 'text-sm'} font-semibold text-compass-teal hover:text-compass-purple transition-colors group/link">
                                 <span class="mr-2">Download</span>
-                                <i data-lucide="download" class="w-4 h-4 group-hover/link:translate-y-1 transition-transform"></i> 
+                                <i data-lucide="download" class="${isSmall ? 'w-3.5 h-3.5' : 'w-4 h-4'} group-hover/link:translate-y-1 transition-transform"></i> 
                             </a>
                         </div>
                     </div>
@@ -434,8 +467,36 @@
             });
         });
 
+        // Size Toggle Logic
+        if (sizeLargeBtn && sizeSmallBtn) {
+            const updateSizeButtons = () => {
+                [sizeLargeBtn, sizeSmallBtn].forEach(b => {
+                    b.classList.remove('bg-compass-purple', 'text-white');
+                    b.classList.add('bg-white', 'text-gray-600', 'border', 'border-gray-200');
+                });
+
+                const activeBtn = currentSize === 'large' ? sizeLargeBtn : sizeSmallBtn;
+                activeBtn.classList.remove('bg-white', 'text-gray-600', 'border', 'border-gray-200');
+                activeBtn.classList.add('bg-compass-purple', 'text-white');
+            };
+
+            sizeLargeBtn.addEventListener('click', () => {
+                currentSize = 'large';
+                updateSizeButtons();
+                filterData();
+            });
+
+            sizeSmallBtn.addEventListener('click', () => {
+                currentSize = 'small';
+                updateSizeButtons();
+                filterData();
+            });
+
+            updateSizeButtons();
+        }
+
         // Initial Render
-        renderResources(resources);
+        filterData();
 
     </script>
 </body>
