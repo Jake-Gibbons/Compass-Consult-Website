@@ -67,8 +67,9 @@ function initializeComingSoonSocialLinks() {
 }
 
 function initializeStickyTalkButton() {
-  if (document.querySelector('.sticky-talk-button')) {
-    return;
+  const talkButton = document.querySelector('.sticky-talk-button');
+  if (talkButton) {
+    return; // Already initialized
   }
 
   const path = window.location.pathname.toLowerCase();
@@ -79,31 +80,40 @@ function initializeStickyTalkButton() {
 
   const isHomePage = path.endsWith('/index.html') || path === '/' || path === '/index.html';
 
-  const talkButton = document.createElement('a');
-  talkButton.href = 'contact.html';
-  talkButton.className = `sticky-talk-button${isHomePage ? ' is-hidden' : ''}`;
-  talkButton.setAttribute('aria-label', 'Talk to Compass Consult');
-  talkButton.setAttribute('title', 'Talk to us');
-  talkButton.innerHTML = [
+  const newTalkButton = document.createElement('a');
+  newTalkButton.href = 'contact.html';
+  newTalkButton.className = `sticky-talk-button${isHomePage ? ' is-hidden' : ''}`;
+  newTalkButton.setAttribute('aria-label', 'Talk to Compass Consult');
+  newTalkButton.setAttribute('title', 'Talk to us');
+  newTalkButton.innerHTML = [
     '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">',
     '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="currentColor"></path>',
     '</svg>',
     '<span>Talk to Us</span>'
   ].join('');
 
-  document.body.appendChild(talkButton);
+  document.body.appendChild(newTalkButton);
 
-  if (!isHomePage) {
-    return;
+  if (isHomePage) {
+    const updateHomeButtonVisibility = () => {
+        const hasScrolled = window.scrollY > 24;
+        newTalkButton.classList.toggle('is-hidden', !hasScrolled);
+    };
+    updateHomeButtonVisibility();
+    window.addEventListener('scroll', updateHomeButtonVisibility, { passive: true });
   }
 
-  const updateHomeButtonVisibility = () => {
-    const hasScrolled = window.scrollY > 24;
-    talkButton.classList.toggle('is-hidden', !hasScrolled);
-  };
-
-  updateHomeButtonVisibility();
-  window.addEventListener('scroll', updateHomeButtonVisibility, { passive: true });
+  // Logic to lift the button when footer is visible
+  const footer = document.querySelector('footer');
+  if (footer && window.matchMedia('(min-width: 1024px)').matches) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        newTalkButton.classList.toggle('is-lifted', entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(footer);
+  }
 }
 
 function initializeAOS() {

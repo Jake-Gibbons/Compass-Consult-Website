@@ -300,6 +300,15 @@ body.menu-open {
   display: none !important;
 }
 
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
 .sticky-talk-button {
   position: fixed;
   right: 1rem;
@@ -316,8 +325,9 @@ body.menu-open {
   font-size: 0.875rem;
   box-shadow: 0 12px 24px rgba(72, 48, 134, 0.28);
   text-decoration: none;
-  transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease, background-color 0.2s ease;
-  will-change: opacity, transform;
+  transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease, background-color 0.2s ease, bottom 0.3s ease-in-out;
+  will-change: opacity, transform, bottom;
+  animation: bounce-subtle 2.5s ease-in-out infinite;
 }
 
 .sticky-talk-button svg {
@@ -337,6 +347,10 @@ body.menu-open {
   opacity: 0;
   pointer-events: none;
   transform: translateY(12px) scale(0.96);
+}
+
+.sticky-talk-button.is-lifted {
+  bottom: 4rem; /* Lifts the button to avoid footer overlap */
 }
 
 .coming-soon-tooltip {

@@ -109,6 +109,16 @@
 
     <footer class="bg-compass-dark text-white py-12 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 text-center">
+            <h3 class="text-lg font-bold mb-4 text-compass-teal">Newsletter</h3>
+                        <form name="newsletter-subscribe" method="POST" data-netlify="true" netlify data-netlify-honeypot="bot-field" data-netlify-recaptcha="true" class="flex flex-row md:flex-col flex-wrap gap-2 w-full mx-auto mb-6">
+                <input type="hidden" name="form-name" value="newsletter-subscribe" />
+                <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+                <input type="email" name="email" placeholder="Enter your email" required class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-compass-teal focus:border-compass-teal block w-full flex-1 min-w-0 p-2.5 placeholder-gray-400" />
+                <button type="submit" class="bg-compass-teal hover:bg-compass-lightTeal text-white text-sm font-semibold rounded-lg px-4 py-2.5 transition-colors w-auto md:w-full flex-shrink-0">Subscribe</button>
+                <div class="w-full basis-full flex justify-center md:mt-2">
+                    <div data-netlify-recaptcha="true"></div>
+                </div>
+            </form>
             <p class="text-gray-400 text-sm">&copy; <span id="year"></span> Compass Consult (Employability & Skills) Ltd. All rights reserved.</p>
         </div>
     </footer>

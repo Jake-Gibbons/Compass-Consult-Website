@@ -94,6 +94,7 @@
                 <a href="partnerships.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Partnerships</a>
                 <a href="resources.html" class="nav-link active block py-3 px-4 rounded-lg text-sm font-semibold transition-all hover:bg-gray-50 hover:text-compass-purple">Resource Library</a>
                 <a href="events.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Latest News & Events</a>
+                <a href="work-for-us.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Work For Us</a>
             </nav>
         </div>
         <div>
@@ -122,6 +123,7 @@
                 <a href="resources.html" class="block py-2 px-3 text-compass-purple font-medium bg-purple-50 rounded-md">Resource Library</a>
                 <a href="partnerships.html" class="block py-2 px-3 text-gray-700">Partnerships</a>
                 <a href="events.html" class="block py-2 px-3 text-gray-700">Latest News & Events</a>
+                <a href="work-for-us.html" class="block py-2 px-3 text-gray-700">Work For Us</a>
                 <a href="contact.html" class="block py-2 px-3 text-compass-teal">Contact Us</a>
             </div>
         </div>
@@ -218,17 +220,29 @@
                             <li><a href="partnerships.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Partnerships</a></li>
                             <li><a href="resources.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Resource Library</a></li>
                             <li><a href="events.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Latest News & Events</a></li>
+                            <li><a href="work-for-us.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Work For Us</a></li>
                             <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Contact Us</a></li>
                         </ul>
                     </div>
                     <div>
                         <h3 class="text-lg font-bold mb-6 text-compass-teal">Legal</h3>
-                        <ul class="space-y-4">
+                        <ul class="space-y-4 mb-8">
                             <li><a href="privacy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
                             <li><a href="terms.html" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
                             <li><a href="cookies.html" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
                             <li><a href="company-information.html" class="text-gray-400 hover:text-white transition-colors">Company Information</a></li>
                         </ul>
+
+                        <h3 class="text-lg font-bold mb-4 text-compass-teal">Newsletter</h3>
+                        <form name="newsletter-subscribe" method="POST" data-netlify="true" netlify data-netlify-honeypot="bot-field" data-netlify-recaptcha="true" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
+                            <input type="hidden" name="form-name" value="newsletter-subscribe" />
+                            <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+                            <input type="email" name="email" placeholder="Enter your email" required class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-compass-teal focus:border-compass-teal block w-full flex-1 min-w-0 p-2.5 placeholder-gray-400" />
+                            <button type="submit" class="bg-compass-teal hover:bg-compass-lightTeal text-white text-sm font-semibold rounded-lg px-4 py-2.5 transition-colors w-auto md:w-full flex-shrink-0">Subscribe</button>
+                            <div class="w-full basis-full flex justify-center md:mt-2">
+                                <div data-netlify-recaptcha="true"></div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
@@ -250,126 +264,181 @@
         // 3. Update the 'url' field with the path to your file.
         
         const resources = [
-            { 
-                id: 1, 
-                title: "Connect To Work", 
-                category: "Factsheets", 
-                type: "PDF", 
-                size: "179 KB", 
-                desc: "A guide to the Connect To Work programme.", 
-                icon: "file-text", 
+            {
+                id: 1,
+                title: "Connect to Work Programme Factsheet",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Overview of the Connect to Work programme, including delivery focus and target outcomes.",
+                icon: "file-text",
                 color: "purple",
-                url: "docs/pdf/ConnectToWork.pdf"
+                url: "docs/pdf/CCES Connect to Work Programme Factsheet.pdf"
             },
-            { 
-                id: 2, 
-                title: "Get Britain Working", 
-                category: "Factsheets", 
-                type: "PDF", 
-                size: "131 KB", 
-                desc: "Insights into the Get Britain Working initiative.", 
-                icon: "file-text", 
+            {
+                id: 2,
+                title: "DWP Governance Factsheet",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Summary of governance structures, accountability and oversight in the DWP context.",
+                icon: "file-text",
                 color: "purple",
-                url: "docs/pdf/GetBritainWorking.pdf"
+                url: "docs/pdf/CCES DWP Governance Factsheet.pdf"
             },
-            { 
-                id: 3, 
-                title: "Integrated Settlements", 
-                category: "Factsheets", 
-                type: "PDF", 
-                size: "122 KB", 
-                desc: "Analysis of integrated settlement strategies.", 
-                icon: "file-text", 
-                color: "purple",
-                url: "docs/pdf/IntegratedSettlements.pdf"
-            },
-            { 
-                id: 4, 
-                title: "Local Government Reorganization", 
-                category: "Factsheets", 
-                type: "PDF", 
-                size: "130 KB", 
-                desc: "Understanding local government reorganization.", 
-                icon: "file-text", 
-                color: "purple",
-                url: "docs/pdf/LocalGovReorg.pdf"
-            },
-            { 
-                id: 5, 
-                title: "Local Growth Fund", 
-                category: "Factsheets", 
-                type: "PDF", 
-                size: "187 KB", 
-                desc: "An overview of the Local Growth Fund.", 
-                icon: "file-text", 
-                color: "purple",
-                url: "docs/pdf/LocalGrowthFund.pdf"
-            },
-            { 
-                id: 6, 
-                title: "Post-16 Employability & Skills", 
-                category: "Factsheets", 
-                type: "PDF", 
-                size: "181 KB", 
-                desc: "A review of post-16 employability and skills programmes.", 
-                icon: "file-text", 
-                color: "purple",
-                url: "docs/pdf/Post16ES.pdf"
-            },
-            { 
-                id: 7, 
-                title: "Test, Learn, and Grow", 
-                category: "Factsheets", 
-                type: "PDF", 
-                size: "158 KB", 
-                desc: "A paper on the Test, Learn, and Grow model.", 
-                icon: "file-text", 
-                color: "purple",
-                url: "docs/pdf/TestLearnGrow.pdf"
-            },
-            { 
-                id: 8, 
-                title: "Youth Guarantee Trailblazers", 
-                category: "Factsheets", 
-                type: "PDF", 
-                size: "148 KB", 
-                desc: "Exploring the Youth Guarantee Trailblazers programme.", 
-                icon: "file-text", 
-                color: "purple",
-                url: "docs/pdf/YouthGuaranteeTrailblazers.pdf"
-            },
-            { 
-                id: 9, 
-                title: "A Broken System", 
-                category: "Blogs", 
-                type: "PDF", 
-                size: "1.2 MB", 
-                desc: "A blog post discussing the challenges in the current system.", 
-                icon: "file-text", 
-                color: "indigo",
-                url: "docs/pdf/BrokenSystemBlog.pdf"
-            },
-            { 
-                id: 10, 
-                title: "CCES Schools Whitepaper", 
-                category: "Whitepapers", 
-                type: "PDF", 
-                size: "2.3 MB", 
-                desc: "A whitepaper on the CCES model for schools.", 
-                icon: "file-text", 
+            {
+                id: 3,
+                title: "Get Britain Working White Paper Factsheet",
+                category: "Whitepapers",
+                type: "PDF",
+                size: "PDF",
+                desc: "Key points and implications from the Get Britain Working white paper.",
+                icon: "file-text",
                 color: "teal",
-                url: "docs/pdf/CCESSchoolsWhitesheet.pdf"
+                url: "docs/pdf/CCES Get Britain Working White Paper Factsheet.pdf"
             },
-            { 
-                id: 11, 
-                title: "Placeholder Other 1", 
-                category: "Other", 
-                type: "Link", 
-                size: "N/A", 
-                desc: "This is a placeholder for another resource type.", 
-                icon: "link", 
-                color: "gray",
-                url: "#"
+            {
+                id: 4,
+                title: "Greater London Authority Factsheet",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Highlights of employability and skills priorities linked to the Greater London Authority.",
+                icon: "file-text",
+                color: "purple",
+                url: "docs/pdf/CCES Greater London Authority Factsheet.pdf"
+            },
+            {
+                id: 5,
+                title: "Integrated Settlements Factsheet",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Explains integrated settlements and their relevance to local funding and delivery.",
+                icon: "file-text",
+                color: "purple",
+                url: "docs/pdf/CCES Integrated Settlements Factsheet.pdf"
+            },
+            {
+                id: 6,
+                title: "Local Government Reorganisation Factsheet",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Guidance on local government reorganisation and its impact on services and delivery models.",
+                icon: "file-text",
+                color: "purple",
+                url: "docs/pdf/CCES Local Government Reorganisation Factsheet.pdf"
+            },
+            {
+                id: 7,
+                title: "Local Growth Fund Factsheet",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Overview of the Local Growth Fund framework, purpose and potential opportunities.",
+                icon: "file-text",
+                color: "purple",
+                url: "docs/pdf/CCES Local Growth Fund Factsheet.pdf"
+            },
+            {
+                id: 8,
+                title: "Local Growth Fund Factsheet (March 2026)",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Updated March 2026 version with latest Local Growth Fund policy and delivery context.",
+                icon: "file-text",
+                color: "purple",
+                url: "docs/pdf/CCES Local Growth Fund Factsheet March 2026.pdf"
+            },
+            {
+                id: 9,
+                title: "Post-16 Education & Skills White Paper Factsheet",
+                category: "Whitepapers",
+                type: "PDF",
+                size: "PDF",
+                desc: "Summary of major proposals from the Post-16 Education and Skills white paper.",
+                icon: "file-text",
+                color: "teal",
+                url: "docs/pdf/CCES Post-16 Education & Skills White Paper Factsheet.pdf"
+            },
+            {
+                id: 10,
+                title: "Schools White Paper Factsheet",
+                category: "Whitepapers",
+                type: "PDF",
+                size: "PDF",
+                desc: "Key takeaways from the Schools white paper and what they mean for implementation.",
+                icon: "file-text",
+                color: "teal",
+                url: "docs/pdf/CCES Schools White Paper Factsheet.pdf"
+            },
+            {
+                id: 11,
+                title: "Test Learn and Grow Factsheet",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Explains the Test, Learn and Grow approach for piloting and scaling effective practice.",
+                icon: "file-text",
+                color: "purple",
+                url: "docs/pdf/CCES Test Learn and Grow Factsheet.pdf"
+            },
+            {
+                id: 12,
+                title: "Youth Guarantee Advisory Panel Factsheet",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Overview of the Youth Guarantee Advisory Panel and its role in supporting delivery.",
+                icon: "file-text",
+                color: "purple",
+                url: "docs/pdf/CCES Youth Guarantee Advisory Panal Factsheet.pdf"
+            },
+            {
+                id: 13,
+                title: "Youth Guarantee Trailblazer Factsheet",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Summary of Youth Guarantee Trailblazer activity, aims and early delivery insights.",
+                icon: "file-text",
+                color: "purple",
+                url: "docs/pdf/CCES Youth Guarantee Trailblazer Factsheet.pdf"
+            },
+            {
+                id: 14,
+                title: "Jon Smith Broken System Blog Feb 2026",
+                category: "Blogs",
+                type: "PDF",
+                size: "PDF",
+                desc: "Opinion blog exploring structural issues affecting employability and skills delivery.",
+                icon: "file-text",
+                color: "indigo",
+                url: "docs/pdf/Jon Smith Broken System Blog Feb 2026.pdf"
+            },
+            {
+                id: 15,
+                title: "Jon Smith Disability Employment Blog Feb 2026",
+                category: "Blogs",
+                type: "PDF",
+                size: "PDF",
+                desc: "Blog discussion on disability employment challenges and opportunities for better outcomes.",
+                icon: "file-text",
+                color: "indigo",
+                url: "docs/pdf/Jon Smith Disability Employment Blog Feb 2026.pdf"
+            },
+            {
+                id: 16,
+                title: "Jon Smith Youth Unemployment Blog Feb 2026",
+                category: "Blogs",
+                type: "PDF",
+                size: "PDF",
+                desc: "Blog analysis of youth unemployment trends and practical responses to reduce barriers.",
+                icon: "file-text",
+                color: "indigo",
+                url: "docs/pdf/Jon Smith Youth Unemployment Blog Feb 2026.pdf"
             }
         ];
 
@@ -409,23 +478,26 @@
                 // Fallback for custom colors since Tailwind classes need to be safe-listed
                 if(item.color === 'purple') { bgClass = 'bg-purple-50'; textClass = 'text-compass-purple'; }
                 if(item.color === 'teal') { bgClass = 'bg-teal-50'; textClass = 'text-compass-teal'; }
+                const downloadUrl = encodeURI(item.url);
+                const previewUrl = encodeURI(`assets/images/resource-previews/${item.url.split('/').pop()}.png`);
                 
                 const card = document.createElement('div');
                 card.className = isSmall
                     ? 'group bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col h-full'
                     : 'group bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full';
                 card.innerHTML = `
-                    <div class="${isSmall ? 'h-28' : 'h-40'} ${bgClass} flex items-center justify-center relative transition-colors">
-                        <i data-lucide="${item.icon}" class="${isSmall ? 'w-9 h-9' : 'w-12 h-12'} ${textClass} opacity-80 transform group-hover:scale-110 transition-transform duration-300"></i>
-                        <div class="absolute ${isSmall ? 'top-2 right-2 text-[10px]' : 'top-4 right-4 text-xs'} bg-white/90 backdrop-blur-sm text-gray-600 px-2 py-1 rounded font-bold shadow-sm uppercase tracking-wide">${item.type}</div>
-                        <div class="absolute ${isSmall ? 'bottom-2 left-2 text-[10px]' : 'bottom-4 left-4 text-xs'} bg-gray-900/5 text-gray-600 px-2 py-1 rounded font-semibold">${item.category}</div>
+                    <div class="${isSmall ? 'h-28' : 'h-40'} ${bgClass} flex items-center justify-center relative transition-colors overflow-hidden">
+                        <img src="${previewUrl}" alt="${item.title} preview" class="w-full h-full object-contain bg-white" loading="lazy" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
+                        <i data-lucide="${item.icon}" class="hidden ${isSmall ? 'w-9 h-9' : 'w-12 h-12'} ${textClass} opacity-80 transform group-hover:scale-110 transition-transform duration-300"></i>
+                        <div class="absolute z-20 ${isSmall ? 'top-2 right-2 text-[10px]' : 'top-4 right-4 text-xs'} bg-gray-900 text-white px-2.5 py-1 rounded-md font-bold shadow-lg uppercase tracking-wide border border-white/20">${item.type}</div>
+                        <div class="absolute z-20 ${isSmall ? 'bottom-2 left-2 text-[10px]' : 'bottom-4 left-4 text-xs'} bg-compass-purple text-white px-2.5 py-1 rounded-md font-semibold shadow-lg border border-white/20">${item.category}</div>
                     </div>
                     <div class="${isSmall ? 'p-4' : 'p-6'} flex-grow flex flex-col">
                         <h3 class="${isSmall ? 'text-base mb-1' : 'text-lg mb-2'} font-bold text-gray-900 leading-tight group-hover:text-compass-purple transition-colors">${item.title}</h3>
                         <p class="text-gray-500 ${isSmall ? 'text-xs mb-3 line-clamp-2' : 'text-sm mb-4 line-clamp-3'} flex-grow">${item.desc}</p>
                         <div class="flex items-center justify-between mt-auto ${isSmall ? 'pt-3' : 'pt-4'} border-t border-gray-50">
                             <span class="text-xs text-gray-400 font-medium">${item.size}</span>
-                            <a href="${item.url}" download class="inline-flex items-center ${isSmall ? 'text-xs' : 'text-sm'} font-semibold text-compass-teal hover:text-compass-purple transition-colors group/link">
+                            <a href="${downloadUrl}" download class="inline-flex items-center ${isSmall ? 'text-xs' : 'text-sm'} font-semibold text-compass-teal hover:text-compass-purple transition-colors group/link">
                                 <span class="mr-2">Download</span>
                                 <i data-lucide="download" class="${isSmall ? 'w-3.5 h-3.5' : 'w-4 h-4'} group-hover/link:translate-y-1 transition-transform"></i> 
                             </a>
