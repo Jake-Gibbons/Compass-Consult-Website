@@ -270,24 +270,30 @@ function initializeRevealAnimations() {
 }
 
 function initializeBioReadMore() {
-  const readMoreButton = document.getElementById('jon-read-more-btn');
-  const fullBio = document.getElementById('jon-bio-full');
-  const summaryBio = document.getElementById('jon-bio-summary');
+  const bioContainers = document.querySelectorAll('[id$="-bio"]');
 
-  if (!readMoreButton || !fullBio || !summaryBio) {
-    return;
-  }
+  bioContainers.forEach(container => {
+    const name = container.id.replace('-bio', '');
+    const readMoreButton = document.getElementById(`${name}-read-more-btn`);
+    const fullBio = document.getElementById(`${name}-bio-full`);
+    const summaryBio = document.getElementById(`${name}-bio-summary`);
 
-  readMoreButton.setAttribute('aria-controls', 'jon-bio-full');
-  readMoreButton.setAttribute('aria-expanded', String(fullBio.classList.contains('show')));
-  fullBio.hidden = !fullBio.classList.contains('show');
+    if (!readMoreButton || !fullBio || !summaryBio) {
+      return;
+    }
 
-  readMoreButton.addEventListener('click', () => {
-    const isExpanded = fullBio.classList.toggle('show');
-    fullBio.hidden = !isExpanded;
-    summaryBio.hidden = isExpanded;
-    readMoreButton.textContent = isExpanded ? 'Read Less' : 'Read More';
-    readMoreButton.setAttribute('aria-expanded', String(isExpanded));
+    readMoreButton.setAttribute('aria-controls', `${name}-bio-full`);
+    const isAlreadyExpanded = fullBio.classList.contains('show');
+    readMoreButton.setAttribute('aria-expanded', String(isAlreadyExpanded));
+    fullBio.hidden = !isAlreadyExpanded;
+
+    readMoreButton.addEventListener('click', () => {
+      const isExpanded = fullBio.classList.toggle('show');
+      fullBio.hidden = !isExpanded;
+      summaryBio.hidden = isExpanded;
+      readMoreButton.textContent = isExpanded ? 'Read Less' : 'Read More';
+      readMoreButton.setAttribute('aria-expanded', String(isExpanded));
+    });
   });
 }
 
