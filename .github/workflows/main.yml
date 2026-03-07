@@ -1,0 +1,1 @@
+npx sitemap-generator https://www.compassconsult.co.uk -o ./sitemap.xml
