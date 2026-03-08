@@ -1,13 +1,33 @@
 <!DOCTYPE html>
+<!--
+  index.html — Home page
+  Compass Consult (Employability & Skills) Ltd
+
+  This is the main landing page. It contains:
+    - A fixed desktop sidebar with navigation links
+    - A mobile top navigation bar with a hamburger menu
+    - A scrolling client logo ticker strip
+    - Hero section with headline and CTAs
+    - Services overview (3-card grid)
+    - Call-to-action banner
+    - Shared footer with quick links, legal, and newsletter sign-up
+
+  All interactive behaviour (menu toggling, animations, etc.) is handled by
+  /js/main.js which is loaded at the bottom of the page.
+-->
 <html lang="en" class="scroll-smooth overflow-x-hidden">
 <head>
+    <!-- ================================================================
+         Document metadata — charset, viewport, title, description
+         ================================================================ -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Compass Consult</title>
     <meta name="description" content="Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.">
+    <!-- Theme colour used by mobile browsers for the address bar -->
     <meta name="theme-color" content="#483086">
 
-    <!-- SEO and Social Sharing -->
+    <!-- SEO and Social Sharing (Open Graph + Twitter Card) -->
     <meta property="og:title" content="Home - Compass Consult">
     <meta property="og:description" content="Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.">
     <meta property="og:image" content="https://www.compassconsult.co.uk/assets/logos/Logo.png">
@@ -17,13 +37,20 @@
     <meta name="twitter:description" content="Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.">
     <meta name="twitter:image" content="https://www.compassconsult.co.uk/assets/logos/Logo.png">
 
+    <!-- Favicon and PWA web manifest -->
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon/favicon-16x16.png">
     <link rel="manifest" href="/assets/icons/favicon/site.webmanifest">
+
+    <!-- Third-party scripts: Tailwind CSS (utility framework), Lucide icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind configuration — extends the default theme with brand colours,
+         custom keyframes, and the hero gradient background image. -->
     <script>
         tailwind.config = {
             theme: {
@@ -64,6 +91,8 @@
             }
         }
     </script>
+    <!-- Inline styles for page-specific utility classes and component overrides
+         that are not available through Tailwind's default configuration. -->
     <style>
         .glass-nav { background: rgba(255, 255, 255, 0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
         .gradient-text { background: linear-gradient(90deg, #483086 0%, #2da8b4 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
@@ -97,11 +126,18 @@
         @media (max-width: 640px) { .site-logo { max-height: 60px; } }
         /* removed sidebar full-width; keep original sizing */
     </style>
+    <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
     <link rel="stylesheet" href="/css/main.css">
+    <!-- AOS (Animate On Scroll) stylesheet — initialised in /js/main.js -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
+    <!-- ================================================================
+         Desktop Sidebar — visible on screens ≥ 1024 px (lg breakpoint)
+         Contains the site logo, primary navigation links, a Contact CTA,
+         and a dynamic copyright year.
+         ================================================================ -->
     <!-- Desktop Sidebar -->
     <aside class="hidden lg:flex fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-100 z-50 flex-col p-8 justify-between shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
         <div>
@@ -134,6 +170,12 @@
         </div>
     </aside>
 
+    <!-- ================================================================
+         Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
+         Shows the logo and a hamburger button that toggles #mobile-menu.
+         The #mobile-menu div is controlled by initializeMobileMenu() in
+         /js/main.js.
+         ================================================================ -->
     <!-- Mobile Header -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
@@ -160,6 +202,14 @@
         </div>
     </nav>
 
+    <!-- ================================================================
+         Client Logo Ticker Strip
+         A continuously scrolling row of client / authority photos.
+         The ticker-track div is duplicated (two identical sets of images)
+         so the CSS marquee animation loops seamlessly at the midpoint.
+         Image load failures are handled by initializeTickerImageFallback()
+         in /js/main.js.
+         ================================================================ -->
     <!-- Top Client Ticker -->
     <div class="w-full bg-white/40 backdrop-blur-sm border-b border-gray-100 py-3 z-40 mt-20 lg:mt-0">
         <div class="flex items-center gap-6 px-4 lg:pl-80">
@@ -214,9 +264,20 @@
         </div>
     </div>
 
+    <!-- ================================================================
+         Main Content Area
+         On large screens, offset by the sidebar width (lg:ml-72 / 18 rem).
+         Contains all page sections and the footer.
+         ================================================================ -->
     <!-- Main Content Area -->
     <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
         
+        <!-- ================================================================
+             Hero Section
+             Full-viewport-height banner with headline, strapline, and two
+             CTA buttons. AOS fade-up animation on the content block.
+             Animated blob decorations in the background use CSS keyframes.
+             ================================================================ -->
         <!-- Hero Section -->
         <section class="relative pt-20 pb-16 lg:pt-12 lg:pb-20 overflow-hidden w-full flex items-center min-h-[68vh]">
             <!-- Background Decorations -->
@@ -259,6 +320,12 @@
             <!-- (old inline text ticker removed; top ticker now used) -->
         </section>
 
+        <!-- ================================================================
+             Our Services Section
+             Three-column card grid summarising the core service offerings.
+             Each card has a top colour-border and a Lucide icon. A "View
+             All Services" link leads to the full services page.
+             ================================================================ -->
         <!-- Our Services Section -->
         <section class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -296,6 +363,11 @@
             </div>
         </section>
 
+        <!-- ================================================================
+             Call-to-Action Banner
+             Full-width gradient section encouraging visitors to get in touch.
+             Background uses the hero-gradient with a dots overlay for depth.
+             ================================================================ -->
         <!-- CTA Section -->
         <section class="py-20 bg-compass-dark relative overflow-hidden">
             <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
@@ -307,6 +379,16 @@
             </div>
         </section>
 
+        <!-- ================================================================
+             Site Footer
+             Dark-themed footer with four columns:
+               1. Logo + company description + social media icons
+               2. Quick navigation links
+               3. Legal pages + newsletter email sign-up form
+             The .year-span elements are filled dynamically by main.js.
+             Social icons marked href="#" are "coming soon" placeholders.
+             The newsletter form is handled by Netlify Forms.
+             ================================================================ -->
         <!-- Footer -->
         <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -381,7 +463,10 @@
             </div>
         </footer>
     </main>
+    <!-- Page scripts — loaded at the bottom to avoid blocking render -->
+    <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
     <script src="/js/main.js"></script>
+    <!-- AOS runtime — must be loaded after main.js calls AOS.init() -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </body>
 </html>
