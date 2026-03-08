@@ -1,215 +1,158 @@
 # Compass Consult Website - Folder Structure
 
-## Project Organization
+## Project Organisation
 
 ```
 compass-consult-website/
-├── index.html                    # Main homepage
-├── privacy.html                  # Privacy policy page
-├── terms.html                    # Terms of service page
-├── cookie.html                   # Cookie policy page
+├── index.html                    # Main homepage (root entry point)
+│
+├── pages/                        # All secondary HTML pages
+│   ├── about.html                # About us page
+│   ├── company-information.html  # Company information page
+│   ├── contact.html              # Contact page
+│   ├── cookies.html              # Cookie policy page
+│   ├── events.html               # Events page
+│   ├── partnerships.html         # Partnerships page
+│   ├── privacy.html              # Privacy policy page
+│   ├── resources.html            # Resources / downloads page
+│   ├── services.html             # Services page
+│   ├── team.html                 # Team page
+│   ├── terms.html                # Terms of service page
+│   └── work-for-us.html          # Careers / vacancies page
 │
 ├── css/                          # Stylesheets
-│   ├── main.css                  # Main styles (future extraction)
-│   ├── components.css            # Component-specific styles
-│   └── responsive.css            # Mobile/responsive styles
+│   └── main.css                  # Main stylesheet
 │
 ├── js/                           # JavaScript files
-│   ├── main.js                   # Main script (future extraction)
-│   ├── animations.js             # Animation utilities
-│   ├── interactions.js           # User interaction handlers
-│   └── utils.js                  # Helper functions
+│   └── main.js                   # Main script
 │
 ├── assets/                       # Static assets
 │   ├── images/                   # Website images
-│   │   ├── hero/                 # Hero section images
+│   │   ├── authorities/          # Local authority event photos
+│   │   ├── events/               # Event images
+│   │   ├── partners/             # Partner organisation logos
+│   │   ├── resource-previews/    # PDF preview thumbnails
 │   │   ├── team/                 # Team member photos
-│   │   ├── clients/              # Client logos
-│   │   ├── services/             # Service images
-│   │   └── misc/                 # Other images
+│   │   └── work-for-us/          # Work-for-us section images
 │   ├── icons/                    # Icon files
-│   │   ├── svg/                  # SVG icons
-│   │   └── favicon/              # Favicon files
+│   │   └── favicon/              # Favicon files & web manifest
 │   ├── logos/                    # Brand logos
-│   │   ├── compass-dark.svg      # Dark mode logo
-│   │   ├── compass-light.svg     # Light mode logo
-│   │   └── compass-icon.svg      # Icon-only logo
-│   ├── fonts/                    # Custom font files
-│   └── downloads/                # Downloadable resources (PDFs, etc.)
-│
-├── pages/                        # Additional page templates
-│   ├── blog/                     # Blog pages
-│   ├── services/                 # Service detail pages
-│   ├── case-studies/             # Case study pages
-│   └── about/                    # Extended about pages
+│   │   ├── Logo.png              # Main site logo
+│   │   ├── compass_rose.png      # Compass rose image
+│   │   └── compass_rose.svg      # Compass rose SVG
+│   └── downloads/                # Downloadable resources
+│       ├── factsheets/           # PDF factsheets and blog PDFs
+│       └── vacancies/            # Job description PDFs
 │
 ├── data/                         # Data files
-│   ├── team.json                 # Team member data
-│   ├── services.json             # Services data
 │   ├── clients.json              # Client information
-│   └── testimonials.json         # Client testimonials
+│   ├── services.json             # Services data
+│   └── team.json                 # Team member data
 │
 ├── docs/                         # Documentation
-│   ├── DEVELOPMENT.md            # Development guidelines
 │   ├── DEPLOYMENT.md             # Deployment instructions
-│   ├── API.md                    # API documentation
-│   └── COMPONENTS.md             # Component documentation
-│
-├── dist/                         # Build output (production files)
-│   ├── index.html
-│   ├── css/
-│   └── js/
+│   └── DEVELOPMENT.md            # Development guidelines
 │
 ├── .github/                      # GitHub configuration
 │   └── workflows/                # GitHub Actions workflows
-│       ├── deploy.yml            # Deployment workflow
-│       └── tests.yml             # Testing workflow
+│       ├── main.yml              # Sitemap & robots.txt generator
+│       ├── Compass-Consult-Website-build.yaml  # IONOS build workflow
+│       ├── Compass-Consult-Website-orchestration.yaml
+│       └── deploy-to-ionos.yaml  # IONOS deployment workflow
 │
 ├── .gitignore                    # Git ignore rules
 ├── package.json                  # Project metadata & scripts
+├── sitemap.xml                   # XML sitemap
+├── robots.txt                    # Robots directives
 ├── README.md                     # Project overview
-├── STRUCTURE.md                  # This file
-└── LICENSE                       # License file
+└── STRUCTURE.md                  # This file
 ```
 
 ---
 
 ## Folder Descriptions
 
-### **Root Level Files**
-- `index.html` - Main landing page with hero, services, about, and contact sections
-- `privacy.html` - Privacy policy compliance page
-- `terms.html` - Terms of service page
-- `cookie.html` - Cookie policy page
+### **Root Level**
+- `index.html` — Main landing page (hero, services, about, contact sections)
+- `pages/` — All other HTML pages, organised in one dedicated directory
 
 ### **css/**
-Stylesheets directory
-- `main.css` - Global styles and utility classes
-- `components.css` - Reusable component styles
-- `responsive.css` - Media queries and breakpoints
+Single stylesheet for the entire site.
+- `main.css` — Global styles, component styles, and responsive breakpoints
 
 ### **js/**
-JavaScript functionality
-- `main.js` - Core functionality and initialization
-- `animations.js` - Animation handlers and utilities
-- `interactions.js` - Event listeners and user interactions
-- `utils.js` - Helper functions and utilities
+JavaScript functionality.
+- `main.js` — Core functionality, animations, interactions, and utilities
 
 ### **assets/**
-Static media and resources
-- **images/** - All website images organized by purpose
-- **icons/** - SVG and icon files
-- **logos/** - Brand logos in various formats
-- **fonts/** - Custom font files (if needed beyond Google Fonts)
-- **downloads/** - PDFs, whitepapers, and downloadable resources
+All static media and downloadable files.
 
-### **pages/**
-Additional page templates and sections
-- Organized by feature/section for future expansion
-- Supports modular page structure
+- **images/** — Website images organised by purpose
+  - `authorities/` — Photos from local authority visits/events
+  - `events/` — Event photography and artwork
+  - `partners/` — Partner and accreditation logos
+  - `resource-previews/` — PNG thumbnail previews of PDF downloads
+  - `team/` — Team member profile photos and fellowship badges
+  - `work-for-us/` — Accreditation badges for the careers page
+
+- **icons/favicon/** — Browser icons and the PWA web manifest
+
+- **logos/** — Brand identity assets (logo, compass rose)
+
+- **downloads/** — Files available for visitors to download
+  - `factsheets/` — Policy factsheets and thought-leadership blog PDFs
+  - `vacancies/` — Job description PDFs
 
 ### **data/**
-JSON files for dynamic content
-- Enables easy content management without database
-- Team, services, clients, testimonials stored here
+JSON files for dynamic content rendering via inline JavaScript.
+- `clients.json` — Client organisation data
+- `services.json` — Service descriptions and details
+- `team.json` — Team member biographies
 
 ### **docs/**
-Documentation for developers
-- Development setup and guidelines
-- Deployment procedures
-- API and component documentation
-
-### **dist/**
-Production-ready build output
-- Minified and optimized files
-- Generated from source files
+Developer documentation.
+- `DEVELOPMENT.md` — Local development setup and coding guidelines
+- `DEPLOYMENT.md` — Deployment procedures and environment notes
 
 ### **.github/**
-GitHub-specific configuration
-- GitHub Actions for CI/CD
-- Automated testing and deployment workflows
+GitHub-specific configuration and CI/CD automation.
+- `main.yml` — Auto-generates `sitemap.xml` and `robots.txt` on push to `main`
+- Build and deployment workflows for IONOS hosting
 
 ---
 
-## Setup Instructions
+## URL Structure
 
-### 1. Project Files Organization
-Move your current files appropriately:
-```bash
-# Keep in root
-index.html (main page)
-privacy.html
-terms.html
-cookie.html
+All pages use absolute root-relative paths internally. The URL layout is:
 
-# Extract CSS (when ready)
-# Move inline styles from HTML to css/main.css
-
-# Extract JS (when ready)
-# Move script logic to js/ folder
-```
-
-### 2. Add Missing Files
-Create these recommended files:
-```bash
-touch package.json       # Project metadata
-touch .gitignore         # Git configuration
-touch LICENSE            # Project license
-```
-
-### 3. Structure for Growth
-As the site grows:
-- Add blog posts to `pages/blog/`
-- Add team photos to `assets/images/team/`
-- Store client data in `data/clients.json`
-- Update documentation in `docs/`
+| File | URL |
+|------|-----|
+| `index.html` | `https://compassconsult.co.uk/` |
+| `pages/about.html` | `https://compassconsult.co.uk/pages/about` |
+| `pages/services.html` | `https://compassconsult.co.uk/pages/services` |
+| `pages/team.html` | `https://compassconsult.co.uk/pages/team` |
+| … | … |
 
 ---
 
 ## Best Practices
 
 ✅ **Do:**
-- Keep assets organized by type and purpose
+- Keep assets organised by type and purpose
 - Use semantic file names (descriptive and lowercase)
 - Maintain consistent folder structure
 - Document new components/features
 - Use data files for dynamic content
+- Use absolute root-relative paths (`/pages/`, `/assets/`, `/css/`) in HTML
 
 ❌ **Don't:**
 - Mix different file types in one folder
-- Use vague file names (e.g., "new.css", "temp.js")
-- Store large images directly in assets (use CDN)
+- Use vague file names (e.g., `new.css`, `temp.js`)
+- Store large images directly in `assets/` (use CDN for production)
 - Commit build output to version control
-- Mix business logic with presentation
+- Use relative paths in HTML (breaks when pages are nested in subdirectories)
 
 ---
 
-## Future Enhancements
-
-As the website scales:
-1. **Setup build tools** (Webpack, Gulp, etc.)
-2. **Implement CSS preprocessor** (SASS/SCSS)
-3. **Add testing suite** (Jest, Cypress)
-4. **Create component library** (Storybook)
-5. **Setup CI/CD pipeline** (GitHub Actions)
-6. **Add static site generator** (optional, for blog)
-
----
-
-## Quick Command Reference
-
-```bash
-# View entire structure
-tree -I 'node_modules' -L 3
-
-# View only directories
-find . -type d -maxdepth 2
-
-# List all HTML files
-find . -name "*.html"
-```
-
----
-
-**Last Updated:** 15 February 2026  
+**Last Updated:** March 2026  
 **Project:** Compass Consult Website
