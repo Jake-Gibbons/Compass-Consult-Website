@@ -29,16 +29,26 @@ jobs:
           <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
           XMLEOF
 
-          # Find all HTML files, convert to URLs, and append to sitemap
-          for file in $(find . -maxdepth 1 -name "*.html" | sort); do
-            filename=$(basename "$file")
-            if [ "$filename" = "index.html" ]; then
-              url="${BASE_URL}/"
-            else
-              # Strip .html extension
-              slug="${filename%.html}"
-              url="${BASE_URL}/${slug}"
+          # Add index.html at root
+          for file in $(find . -maxdepth 1 -name "index.html" | sort); do
+            url="${BASE_URL}/"
+            LASTMOD=$(git log -1 --format="%cs" -- "$file" 2>/dev/null)
+            if [ -z "$LASTMOD" ]; then
+              LASTMOD="$TODAY"
             fi
+            echo "  <url>" >> sitemap.xml
+            echo "    <loc>${url}</loc>" >> sitemap.xml
+            echo "    <lastmod>${LASTMOD}</lastmod>" >> sitemap.xml
+            echo "    <changefreq>monthly</changefreq>" >> sitemap.xml
+            echo "  </url>" >> sitemap.xml
+          done
+
+          # Add all pages in pages/ directory
+          for file in $(find ./pages -maxdepth 1 -name "*.html" | sort); do
+            filename=$(basename "$file")
+            # Strip .html extension for clean URL
+            slug="${filename%.html}"
+            url="${BASE_URL}/pages/${slug}"
 
             # Get last commit date for this file
             LASTMOD=$(git log -1 --format="%cs" -- "$file" 2>/dev/null)

@@ -81,7 +81,7 @@ function initializeStickyTalkButton() {
   const isHomePage = path.endsWith('/index.html') || path === '/' || path === '/index.html';
 
   const newTalkButton = document.createElement('a');
-  newTalkButton.href = 'contact.html';
+  newTalkButton.href = '/pages/contact.html';
   newTalkButton.className = `sticky-talk-button${isHomePage ? ' is-hidden' : ''}`;
   newTalkButton.setAttribute('aria-label', 'Talk to Compass Consult');
   newTalkButton.setAttribute('title', 'Talk to us');
@@ -413,7 +413,7 @@ function optimizeImages() {
 function initializeTickerImageFallback() {
   document.querySelectorAll('.ticker-track img').forEach((image) => {
     image.addEventListener('error', () => {
-      image.src = 'assets/logos/Logo.png';
+      image.src = '/assets/logos/Logo.png';
       image.style.maxHeight = '100px';
     });
   });
