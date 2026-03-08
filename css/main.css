@@ -1,21 +1,53 @@
-/* Main Stylesheet
- * This file would contain extracted styles from inline Tailwind
- * Currently using Tailwind CSS via CDN in HTML
- * 
- * Custom styles can be added here as needed
- */
+/* ==========================================================================
+   Main Stylesheet — Compass Consult Website
+   ==========================================================================
+   This file contains all custom CSS for the site.
+   Tailwind CSS utility classes are applied directly in HTML via CDN and
+   handle the majority of layout and spacing. This file supplements Tailwind
+   with site-specific components, animations, and overrides.
 
-/* Color Variables */
+   Table of Contents
+   -----------------
+   1.  CSS Custom Properties (colour palette)
+   2.  Utility shadow helpers
+   3.  Site logo transitions
+   4.  Mobile menu button (hamburger)
+   5.  Mobile menu panel animations
+   6.  Desktop navigation link underline effect
+   7.  Animation keyframes (slideInDown, fadeInUp)
+   8.  Layout — overflow and box-sizing resets
+   9.  Layout — large-screen sidebar offset
+   10. Accessibility — focus styles
+   11. Mobile menu — body scroll lock
+   12. Scrollbar utility
+   13. Bio expand/collapse helper
+   14. Bounce keyframe
+   15. Sticky "Talk to Us" floating button
+   16. "Coming soon" tooltip
+   17. Reduced-motion overrides
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS Custom Properties — Brand colour palette
+   --------------------------------------------------------------------------
+   Centralised colour tokens used throughout the site. Updating a value here
+   propagates automatically to every rule that references the variable.
+   -------------------------------------------------------------------------- */
 :root {
-  --color-primary: #483086;
-  --color-primary-light: #6a4eb8;
-  --color-secondary: #2da8b4;
-  --color-secondary-light: #4fd3e0;
-  --color-dark: #1e1b2e;
-  --color-light: #f8f9fc;
+  --color-primary: #483086;       /* Compass purple — primary brand colour    */
+  --color-primary-light: #6a4eb8; /* Lighter purple for hover states           */
+  --color-secondary: #2da8b4;     /* Compass teal — secondary accent colour   */
+  --color-secondary-light: #4fd3e0; /* Lighter teal for hover states           */
+  --color-dark: #1e1b2e;          /* Near-black for dark backgrounds           */
+  --color-light: #f8f9fc;         /* Off-white page background                 */
 }
 
-/* Utility Classes */
+/* --------------------------------------------------------------------------
+   2. Utility shadow helpers
+   --------------------------------------------------------------------------
+   Custom box-shadow helpers that match the brand colour palette, offered as
+   utility classes alongside Tailwind's built-in shadows.
+   -------------------------------------------------------------------------- */
 .shadow-lg-purple {
   box-shadow: 0 20px 25px -5px rgba(72, 48, 134, 0.15);
 }
@@ -24,12 +56,19 @@
   box-shadow: 0 20px 25px -5px rgba(45, 168, 180, 0.15);
 }
 
-/* Global interactive micro-animations */
+/* --------------------------------------------------------------------------
+   3. Site logo transitions
+   --------------------------------------------------------------------------
+   Smooth scale and filter transitions on the logo, applied on hover/focus
+   of its parent anchor. The footer version of the logo is inverted to white
+   so it reads correctly against the dark background.
+   -------------------------------------------------------------------------- */
 .site-logo {
   transition: transform 0.3s ease, filter 0.3s ease;
   transform-origin: center;
 }
 
+/* Invert footer logo to white for legibility on the dark footer background */
 footer .site-logo {
   filter: brightness(0) invert(1);
   opacity: 0.95;
@@ -41,11 +80,18 @@ a:focus-visible .site-logo {
   filter: drop-shadow(0 8px 14px rgba(72, 48, 134, 0.22));
 }
 
+/* Keep footer logo white on hover — don't restore the default purple shadow */
 footer a:hover .site-logo,
 footer a:focus-visible .site-logo {
   filter: brightness(0) invert(1);
 }
 
+/* --------------------------------------------------------------------------
+   4. Mobile menu button (hamburger)
+   --------------------------------------------------------------------------
+   Styles the #mobile-menu-btn toggle button and its three-bar hamburger icon.
+   The bars animate into an × (close) shape when `.menu-open-state` is added.
+   -------------------------------------------------------------------------- */
 #mobile-menu-btn {
   transition: transform 0.24s ease, color 0.24s ease, background-color 0.24s ease;
   border-radius: 0.65rem;
@@ -63,11 +109,13 @@ footer a:focus-visible .site-logo {
   color: #483086;
 }
 
+/* Active (open) state — highlight the button to indicate the menu is open */
 #mobile-menu-btn.menu-open-state {
   background-color: rgba(72, 48, 134, 0.12);
   color: #483086;
 }
 
+/* Hamburger icon container */
 #mobile-menu-btn .hamburger-icon {
   width: 20px;
   height: 16px;
@@ -75,6 +123,7 @@ footer a:focus-visible .site-logo {
   display: inline-block;
 }
 
+/* Individual bars */
 #mobile-menu-btn .hamburger-icon .bar {
   width: 20px;
   height: 2px;
@@ -86,6 +135,7 @@ footer a:focus-visible .site-logo {
   left: 0;
 }
 
+/* Default positions of the three bars */
 #mobile-menu-btn .hamburger-icon .bar:nth-child(1) {
   top: 0;
 }
@@ -98,6 +148,7 @@ footer a:focus-visible .site-logo {
   top: 14px;
 }
 
+/* Close (×) state — bars 1 and 3 rotate to form an X; bar 2 fades out */
 #mobile-menu-btn.menu-open-state .hamburger-icon .bar:nth-child(1) {
   top: 7px;
   transform: rotate(45deg);
@@ -113,6 +164,15 @@ footer a:focus-visible .site-logo {
   transform: rotate(-45deg);
 }
 
+/* --------------------------------------------------------------------------
+   5. Mobile menu panel animations
+   --------------------------------------------------------------------------
+   The #mobile-menu panel uses opacity + translateY to slide in smoothly.
+   JavaScript toggles `.menu-open` to trigger the transition.
+   Staggered transition-delays on child links create a cascade effect.
+   -------------------------------------------------------------------------- */
+
+/* Hidden (default) state */
 #mobile-menu {
   display: block;
   opacity: 0;
@@ -122,6 +182,7 @@ footer a:focus-visible .site-logo {
   transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
 }
 
+/* Visible (open) state */
 #mobile-menu.menu-open {
   opacity: 1;
   transform: translateY(0);
@@ -129,12 +190,19 @@ footer a:focus-visible .site-logo {
   pointer-events: auto;
 }
 
+/* --------------------------------------------------------------------------
+   6. Desktop navigation link underline effect
+   --------------------------------------------------------------------------
+   A thin underline pseudo-element scales in from the left on hover/focus,
+   and remains visible for the currently-active route (`.active`).
+   -------------------------------------------------------------------------- */
 .nav-link {
   position: relative;
   overflow: hidden;
   transition: transform 0.22s ease, color 0.22s ease, background-color 0.22s ease;
 }
 
+/* The underline is drawn with a ::after pseudo-element */
 .nav-link::after {
   content: '';
   position: absolute;
@@ -155,12 +223,14 @@ footer a:focus-visible .site-logo {
   transform: translateX(2px);
 }
 
+/* Expand underline on hover, focus, and for the active page link */
 .nav-link:hover::after,
 .nav-link:focus-visible::after,
 .nav-link.active::after {
   transform: scaleX(1);
 }
 
+/* Staggered slide-in for menu links when the panel opens */
 #mobile-menu a {
   transition: transform 0.22s ease, color 0.22s ease, background-color 0.22s ease, opacity 0.22s ease;
   opacity: 0;
@@ -172,6 +242,7 @@ footer a:focus-visible .site-logo {
   transform: translateX(0);
 }
 
+/* Each link enters slightly after the previous one for a cascading effect */
 #mobile-menu.menu-open a:nth-child(1) { transition-delay: 30ms; }
 #mobile-menu.menu-open a:nth-child(2) { transition-delay: 55ms; }
 #mobile-menu.menu-open a:nth-child(3) { transition-delay: 80ms; }
@@ -181,12 +252,19 @@ footer a:focus-visible .site-logo {
 #mobile-menu.menu-open a:nth-child(7) { transition-delay: 180ms; }
 #mobile-menu.menu-open a:nth-child(8) { transition-delay: 205ms; }
 
+/* Nudge individual links right on hover for a subtle tactile feel */
 #mobile-menu.menu-open a:hover,
 #mobile-menu.menu-open a:focus-visible {
   transform: translateX(4px);
 }
 
-/* Animation Keyframes */
+/* --------------------------------------------------------------------------
+   7. Animation keyframes
+   --------------------------------------------------------------------------
+   Reusable keyframe animations available to any element on the site.
+   -------------------------------------------------------------------------- */
+
+/* Slide content in from above */
 @keyframes slideInDown {
   from {
     opacity: 0;
@@ -198,6 +276,7 @@ footer a:focus-visible .site-logo {
   }
 }
 
+/* Fade content in while rising from below */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -233,7 +312,12 @@ footer a:focus-visible .site-logo {
  * Examples: components.css, responsive.css, animations.css
  */
 
-/* Layout fixes to avoid horizontal cutoff / trailing overflow */
+/* --------------------------------------------------------------------------
+   8. Layout — overflow and box-sizing resets
+   --------------------------------------------------------------------------
+   Prevent horizontal scrollbar on narrow viewports. All elements use
+   border-box sizing so padding does not unexpectedly expand element widths.
+   -------------------------------------------------------------------------- */
 html, body {
   overflow-x: hidden;
   box-sizing: border-box;
@@ -248,9 +332,14 @@ main, .max-w-7xl, .max-w-6xl, .max-w-4xl { min-width: 0; }
 /* Ensure media scales within containers */
 img, svg, video { max-width: 100%; height: auto; display: block; }
 
-/* On large screens account for the fixed left sidebar (w-72 / 18rem).
-   Ensure the main content does not become wider than the viewport
-   when a left margin is applied. */
+/* --------------------------------------------------------------------------
+   9. Layout — large-screen sidebar offset
+   --------------------------------------------------------------------------
+   When the fixed left sidebar (w-72 / 18 rem) is visible, offset <main>
+   content so it does not sit underneath the sidebar. Tailwind's lg:ml-72
+   class handles the margin; this rule prevents the content from exceeding
+   the remaining viewport width and triggering horizontal scroll.
+   -------------------------------------------------------------------------- */
 @media (min-width: 1024px) {
   main.lg\:ml-72 {
     margin-left: 18rem; /* matches Tailwind's w-72 */
@@ -270,7 +359,13 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
   body, html { overflow-x: hidden; }
 }
 
-/* Strong visible focus states for keyboard navigation */
+/* --------------------------------------------------------------------------
+   10. Accessibility — focus styles
+   --------------------------------------------------------------------------
+   Provide a strong, brand-coloured focus ring for keyboard users. The ring
+   uses the compass-purple colour at partial opacity so it does not appear
+   overly harsh while still being clearly visible against any background.
+   -------------------------------------------------------------------------- */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -280,26 +375,48 @@ textarea:focus-visible {
   outline-offset: 2px;
 }
 
-/* Prevent background scrolling when mobile menu is open */
+/* --------------------------------------------------------------------------
+   11. Mobile menu — body scroll lock
+   --------------------------------------------------------------------------
+   When the mobile menu is open, prevent the page content behind it from
+   scrolling by setting overflow: hidden on <body>.
+   JavaScript toggles the `.menu-open` class on <body>.
+   -------------------------------------------------------------------------- */
 body.menu-open {
   overflow: hidden;
 }
 
-/* Hide horizontal scrollbars where utility class is used */
+/* --------------------------------------------------------------------------
+   12. Scrollbar utility
+   --------------------------------------------------------------------------
+   `.no-scrollbar` hides the scrollbar in the client ticker strip while
+   keeping the content scrollable via JavaScript or touch swipe.
+   -------------------------------------------------------------------------- */
 .no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  -ms-overflow-style: none;  /* Internet Explorer / Edge legacy */
+  scrollbar-width: none;     /* Firefox */
 }
 
 .no-scrollbar::-webkit-scrollbar {
-  display: none;
+  display: none; /* Chrome, Safari, Opera */
 }
 
-/* Ensure hidden bio content stays hidden across pages */
+/* --------------------------------------------------------------------------
+   13. Bio expand/collapse helper
+   --------------------------------------------------------------------------
+   Ensure the full-bio section stays hidden when the `hidden` HTML attribute
+   is present. This overrides any accidental CSS display rules.
+   -------------------------------------------------------------------------- */
 .bio-full[hidden] {
   display: none !important;
 }
 
+/* --------------------------------------------------------------------------
+   14. Bounce keyframe
+   --------------------------------------------------------------------------
+   A subtle vertical bounce used on the sticky "Talk to Us" button to draw
+   attention without being distracting.
+   -------------------------------------------------------------------------- */
 @keyframes bounce-subtle {
   0%, 100% {
     transform: translateY(0);
@@ -309,9 +426,21 @@ body.menu-open {
   }
 }
 
+/* --------------------------------------------------------------------------
+   15. Sticky "Talk to Us" floating button
+   --------------------------------------------------------------------------
+   A fixed-position CTA that follows the user as they scroll. It is injected
+   into the DOM by initializeStickyTalkButton() in main.js.
+
+   States:
+   - Default     — visible in the bottom-right corner
+   - .is-hidden  — invisible (opacity 0) with a slight downward offset
+   - .is-lifted  — raised above the footer on desktop to avoid overlap
+   -------------------------------------------------------------------------- */
 .sticky-talk-button {
   position: fixed;
   right: 1rem;
+  /* env(safe-area-inset-bottom) ensures the button clears the home-bar on iOS */
   bottom: max(1rem, env(safe-area-inset-bottom));
   z-index: 110;
   display: inline-flex;
@@ -343,19 +472,31 @@ body.menu-open {
   box-shadow: 0 16px 28px rgba(72, 48, 134, 0.32);
 }
 
+/* Hidden state — used on the homepage until the user scrolls */
 .sticky-talk-button.is-hidden {
   opacity: 0;
   pointer-events: none;
   transform: translateY(12px) scale(0.96);
 }
 
+/* Lifted state — moves button up on desktop when footer is in view */
 .sticky-talk-button.is-lifted {
   bottom: 4rem; /* Lifts the button to avoid footer overlap */
 }
 
+/* --------------------------------------------------------------------------
+   16. "Coming soon" tooltip
+   --------------------------------------------------------------------------
+   A small floating tooltip displayed above social-media icon links that do
+   not yet have a destination URL. Injected once by main.js and toggled with
+   the `.show` class.
+
+   The ::after pseudo-element creates the downward-pointing caret arrow.
+   -------------------------------------------------------------------------- */
 .coming-soon-tooltip {
   position: absolute;
   z-index: 120;
+  /* Centre horizontally above the anchor; position above it with an 8 px gap */
   transform: translate(-50%, calc(-100% - 8px));
   pointer-events: none;
   opacity: 0;
@@ -370,6 +511,7 @@ body.menu-open {
   transition: opacity 0.18s ease;
 }
 
+/* Downward-pointing caret arrow */
 .coming-soon-tooltip::after {
   content: '';
   position: absolute;
@@ -385,7 +527,13 @@ body.menu-open {
   opacity: 1;
 }
 
-/* Respect user reduced motion preference */
+/* --------------------------------------------------------------------------
+   17. Reduced-motion overrides
+   --------------------------------------------------------------------------
+   Respects the `prefers-reduced-motion: reduce` media query by disabling all
+   transitions, animations, and smooth scrolling. Reveal elements are shown
+   immediately without the fade/slide-in effect.
+   -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
     scroll-behavior: auto;
@@ -399,11 +547,13 @@ body.menu-open {
     transition-duration: 0.01ms !important;
   }
 
+  /* Show revealed elements immediately without animation */
   .reveal {
     opacity: 1 !important;
     transform: none !important;
   }
 
+  /* Disable all component-specific transitions and animations */
   .site-logo,
   #mobile-menu-btn,
   .nav-link,
