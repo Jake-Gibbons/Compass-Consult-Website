@@ -1,5 +1,90 @@
-npx
-sitemap-generator
-https://www.compassconsult.co.uk
--o
-./sitemap.xml
+name: Generate Sitemap and Robots
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  generate-sitemap-and-robots:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      BASE_URL: https://compassconsult.co.uk
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate sitemap.xml
+        run: |
+          TODAY=$(date -u +"%Y-%m-%d")
+
+          cat > sitemap.xml << 'XMLEOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+          XMLEOF
+
+          # Find all HTML files, convert to URLs, and append to sitemap
+          for file in $(find . -maxdepth 1 -name "*.html" | sort); do
+            filename=$(basename "$file")
+            if [ "$filename" = "index.html" ]; then
+              url="${BASE_URL}/"
+            else
+              # Strip .html extension
+              slug="${filename%.html}"
+              url="${BASE_URL}/${slug}"
+            fi
+
+            # Get last commit date for this file
+            LASTMOD=$(git log -1 --format="%cs" -- "$file" 2>/dev/null)
+            if [ -z "$LASTMOD" ]; then
+              LASTMOD="$TODAY"
+            fi
+
+            echo "  <url>" >> sitemap.xml
+            echo "    <loc>${url}</loc>" >> sitemap.xml
+            echo "    <lastmod>${LASTMOD}</lastmod>" >> sitemap.xml
+            # All pages on this static site share a monthly update cadence
+            echo "    <changefreq>monthly</changefreq>" >> sitemap.xml
+            echo "  </url>" >> sitemap.xml
+          done
+
+          echo "</urlset>" >> sitemap.xml
+
+          # Remove leading whitespace from the heredoc-generated header
+          sed -i 's/^[[:space:]]*//' sitemap.xml
+
+          echo "Generated sitemap.xml:"
+          cat sitemap.xml
+
+      - name: Generate robots.txt
+        run: |
+          cat > robots.txt << EOF
+          User-agent: *
+          Allow: /
+
+          Sitemap: ${BASE_URL}/sitemap.xml
+          EOF
+
+          # Remove leading whitespace added by heredoc indentation
+          sed -i 's/^[[:space:]]*//' robots.txt
+
+          echo "Generated robots.txt:"
+          cat robots.txt
+
+      - name: Commit and push sitemap and robots.txt
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml robots.txt
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: update sitemap.xml and robots.txt [skip ci]"
+            git push
+          fi
