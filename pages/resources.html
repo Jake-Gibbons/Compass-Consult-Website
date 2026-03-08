@@ -133,7 +133,7 @@
     <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
         
         <!-- Header Section -->
-        <header class="bg-gray-50 pt-32 pb-12 lg:pt-24 lg:pb-12 px-4 sm:px-8 border-b border-gray-200">
+        <header class="bg-gray-50 pt-32 pb-12 lg:pt-24 lg:pb-12 px-4 sm:px-8 border-b border-gray-200" data-aos="fade-in">
             <div class="max-w-6xl mx-auto">
                 <span class="text-compass-purple font-semibold tracking-wider uppercase text-sm mb-2 block">Knowledge Base</span>
                 <h1 class="text-4xl font-bold text-gray-900 mb-4">Resource Library</h1>
@@ -175,7 +175,7 @@
         <!-- Library Grid -->
         <section class="py-12 bg-white flex-grow px-4 sm:px-8">
             <div class="max-w-6xl mx-auto">
-                <div id="resourceGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal active">
+                <div id="resourceGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" data-aos="fade-up">
                     <!-- Dynamic content will be injected here -->
                 </div>
                 
@@ -459,8 +459,8 @@
 
             const isSmall = currentSize === 'small';
             grid.className = isSmall
-                ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 reveal active'
-                : 'grid md:grid-cols-2 lg:grid-cols-3 gap-6 reveal active';
+                ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'
+                : 'grid md:grid-cols-2 lg:grid-cols-3 gap-6';
             
             if (data.length === 0) {
                 grid.classList.add('hidden');
