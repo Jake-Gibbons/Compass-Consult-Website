@@ -498,9 +498,12 @@
             grid.innerHTML = '';
 
             const isSmall = currentSize === 'small';
-            grid.className = isSmall
-                ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'
-                : 'grid md:grid-cols-2 lg:grid-cols-3 gap-6';
+            // Update only the grid layout classes, preserving AOS and other classes
+            const smallClasses = ['grid-cols-1', 'sm:grid-cols-2', 'md:grid-cols-3', 'lg:grid-cols-4', 'gap-4'];
+            const largeClasses = ['md:grid-cols-2', 'lg:grid-cols-3', 'gap-6'];
+            smallClasses.forEach(cls => grid.classList.remove(cls));
+            largeClasses.forEach(cls => grid.classList.remove(cls));
+            (isSmall ? smallClasses : largeClasses).forEach(cls => grid.classList.add(cls));
             
             if (data.length === 0) {
                 grid.classList.add('hidden');
