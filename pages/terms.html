@@ -1,33 +1,369 @@
-# Terms of Service
+<!-- 
+    =======================================================================
+    WEBSITE DEVELOPED BY: Zenith IT
+    CLIENT: Compass Consult (Employability & Skills) Ltd
+    DATE: 2026
+    =======================================================================
+-->
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Zenith IT">
+    <title>Terms of Service - Compass Consult</title>
+    <meta name="description" content="Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.">
+    <meta name="theme-color" content="#483086">
+    <!-- SEO and Social Sharing -->
+    <meta property="og:title" content="Terms of Service - Compass Consult">
+    <meta property="og:description" content="Read the terms of service for the Compass Consult website.">
+    <meta property="og:image" content="https://www.compassconsult.co.uk/assets/logos/Logo.png">
+    <meta property="og:url" content="https://www.compassconsult.co.uk/pages/terms.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Terms of Service - Compass Consult">
+    <meta name="twitter:description" content="Read the terms of service for the Compass Consult website.">
+    <meta name="twitter:image" content="https://www.compassconsult.co.uk/assets/logos/Logo.png">
+    <!-- Favicon and PWA web manifest -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/icons/favicon/site.webmanifest">
+    <!-- Third-party scripts: Tailwind CSS (utility framework), Lucide icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind configuration — extends the default theme with brand colours
+         and the hero gradient background image. -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                    colors: {
+                        compass: {
+                            purple: '#483086',
+                            lightPurple: '#6a4eb8',
+                            teal: '#2da8b4',
+                            lightTeal: '#4fd3e0',
+                            dark: '#1e1b2e',
+                            light: '#f8f9fc'
+                        }
+                    },
+                    backgroundImage: { 'hero-gradient': 'linear-gradient(135deg, #483086 0%, #2da8b4 100%)' }
+                }
+            }
+        }
+    </script>
+    <!-- Inline styles for page-specific utility classes and component overrides
+         that are not available through Tailwind's default configuration. -->
+    <style>
+        .glass-nav { background: rgba(255, 255, 255, 0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+        .reveal { opacity: 0; transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal-up { transform: translateY(40px); }
+        .reveal.active { opacity: 1; transform: translate(0) scale(1); }
+        .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
+        /* Site logo sizing */
+        .site-logo { display: block; height: auto; max-height: 120px; }
+        @media (max-width: 1024px) { .site-logo { max-height: 80px; } }
+        @media (max-width: 640px) { .site-logo { max-height: 60px; } }
+    </style>
+    <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- AOS (Animate On Scroll) stylesheet — initialised in /js/main.js -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+<body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
-## Introduction
-Welcome to Compass Consult. By using our services, you are agreeing to these terms. Please read them carefully.
+    <!-- ================================================================
+         Desktop Sidebar — visible on screens ≥ 1024 px (lg breakpoint)
+         Contains the site logo, primary navigation links, a Contact CTA,
+         and a dynamic copyright year.
+         ================================================================ -->
+    <aside class="hidden lg:flex fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-100 z-50 flex-col p-8 justify-between shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
+        <div>
+            <a href="/index.html" class="flex items-center gap-3 cursor-pointer group mb-12">
+                <div class="text-compass-purple transition-transform duration-700">
+                    <img src="/assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
+                </div>
+                <div class="flex flex-col justify-center">
+                    <span class="sr-only">Compass Consult (Employability &amp; Skills) Ltd</span>
+                </div>
+            </a>
+            <nav class="space-y-2">
+                <a href="/index.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Home</a>
+                <a href="/pages/about.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">About us</a>
+                <a href="/pages/services.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Our Services</a>
+                <a href="/pages/team.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Meet the Team</a>
+                <a href="/pages/partnerships.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Partnerships</a>
+                <a href="/pages/resources.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Resource Library</a>
+                <a href="/pages/events.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Latest News &amp; Events</a>
+                <a href="/pages/work-for-us.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Work For Us</a>
+            </nav>
+        </div>
+        <div>
+            <a href="/pages/contact.html" class="group flex items-center justify-center w-full py-3 px-4 rounded-full bg-compass-purple text-white font-semibold hover:bg-compass-lightPurple shadow-lg hover:shadow-purple-200 transition-all transform hover:-translate-y-0.5">Contact Us <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1"></i></a>
+            <p class="text-xs text-center text-gray-400 mt-6">&copy; <span class="year-span"></span> Compass Consult</p>
+        </div>
+    </aside>
 
-## Acceptance of Terms
-By accessing or using our services, you agree to be bound by these terms and our privacy policy. If you disagree with any part of these terms, you may not use our services.
+    <!-- ================================================================
+         Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
+         Shows the logo and a hamburger button that toggles #mobile-menu.
+         The #mobile-menu div is controlled by initializeMobileMenu() in
+         /js/main.js.
+         ================================================================ -->
+    <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
+        <div class="px-4 flex justify-between items-center h-20">
+             <a href="/index.html" class="flex items-center gap-2">
+                <img src="/assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
+                <div class="flex flex-col">
+                    <span class="sr-only">Compass Consult (Employability &amp; Skills) Ltd</span>
+                </div>
+             </a>
+             <button type="button" id="mobile-menu-btn" class="text-gray-600 p-2" aria-label="Toggle mobile menu"><i data-lucide="menu" class="w-6 h-6"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 py-4 space-y-2">
+                <a href="/index.html" class="block py-2 px-3 text-gray-700">Home</a>
+                <a href="/pages/about.html" class="block py-2 px-3 text-gray-700">About us</a>
+                <a href="/pages/services.html" class="block py-2 px-3 text-gray-700">Our Services</a>
+                <a href="/pages/team.html" class="block py-2 px-3 text-gray-700">Meet the Team</a>
+                <a href="/pages/partnerships.html" class="block py-2 px-3 text-gray-700">Partnerships</a>
+                <a href="/pages/resources.html" class="block py-2 px-3 text-gray-700">Resource Library</a>
+                <a href="/pages/events.html" class="block py-2 px-3 text-gray-700">Latest News &amp; Events</a>
+                <a href="/pages/work-for-us.html" class="block py-2 px-3 text-gray-700">Work For Us</a>
+                <a href="/pages/contact.html" class="block py-2 px-3 text-compass-teal">Contact Us</a>
+            </div>
+        </div>
+    </nav>
 
-## Services Provided
-Compass Consult provides consulting services in various fields. Our services include, but are not limited to:
-- Business strategy consulting  
-- Market analysis  
-- Operational improvements  
+    <!-- ================================================================
+         Main Content Area
+         On large screens, offset by the sidebar width (lg:ml-72 / 18 rem).
+         Contains all page sections and the footer.
+         ================================================================ -->
+    <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
+        <header class="bg-gray-50 pt-32 pb-16 lg:pt-24 text-center" data-aos="fade-in">
+            <h1 class="text-4xl font-bold text-gray-900">Terms of Service</h1>
+        </header>
 
-## User Obligations
-You agree to use our services only for lawful purposes and in accordance with these terms. You must not:
-- Use the services in any way that violates any applicable federal, state, local, or international law or regulation  
-- Engage in any conduct that restricts or inhibits anyone's use or enjoyment of the services  
+        <section class="py-20 bg-white flex-grow">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <p class="text-sm text-gray-500 mb-8">Last Updated: <span id="date"></span></p>
 
-## Intellectual Property
-All content, trademarks, and other intellectual property rights in our services are owned by or licensed to us. You may not use, reproduce, or distribute any content without our express written permission.
+                <div class="space-y-8 bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100" data-aos="fade-up">
 
-## Limitation of Liability
-To the fullest extent permitted by law, Compass Consult will not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or in connection with the use of our services.
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">1. Acceptance of Terms</h2>
+                        <p class="leading-relaxed mb-4">
+                            By accessing or using the Compass Consult website at <a href="https://www.compassconsult.co.uk" class="text-compass-teal underline hover:text-compass-purple transition-colors">www.compassconsult.co.uk</a> (the "Site"), you confirm that you are at least 18 years of age and agree to be legally bound by these Terms of Service ("Terms") and our <a href="/pages/privacy.html" class="text-compass-teal underline hover:text-compass-purple transition-colors">Privacy Policy</a>.
+                        </p>
+                        <p class="leading-relaxed">
+                            If you do not agree with any part of these Terms, you must not use this Site. Compass Consult (Employability &amp; Skills) Ltd ("we," "us," or "our") reserves the right to modify these Terms at any time. Your continued use of the Site following the posting of any changes constitutes acceptance of those changes.
+                        </p>
+                    </section>
 
-## Changes to Terms
-We may revise these terms at any time. Your continued use of the services after such changes constitutes your acceptance of the new terms.
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">2. Use Licence</h2>
+                        <p class="leading-relaxed mb-4">
+                            Permission is granted to temporarily access and view the materials on this Site for personal, non-commercial, informational purposes only. This is the grant of a licence, not a transfer of title. Under this licence you may not:
+                        </p>
+                        <ul class="list-disc pl-5 space-y-2 mb-4">
+                            <li>Modify or copy the materials without express written permission from Compass Consult;</li>
+                            <li>Use the materials for any commercial purpose or for any public display;</li>
+                            <li>Attempt to decompile or reverse engineer any software contained on the Site;</li>
+                            <li>Remove any copyright, trademark, or other proprietary notices from the materials;</li>
+                            <li>Transfer the materials to another person or "mirror" the materials on any other server;</li>
+                            <li>Use automated tools (scrapers, bots, or similar) to extract content from the Site.</li>
+                        </ul>
+                        <p class="leading-relaxed">
+                            This licence shall automatically terminate if you violate any of these restrictions and may be terminated by Compass Consult at any time. Upon terminating your viewing of these materials or the termination of this licence, you must destroy any downloaded materials in your possession.
+                        </p>
+                    </section>
 
-## Governing Law
-These terms are governed by the laws of the jurisdiction in which Compass Consult operates.
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">3. Disclaimer</h2>
+                        <p class="leading-relaxed mb-4">
+                            The materials on this Site are provided on an "as is" basis. Compass Consult makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation:
+                        </p>
+                        <ul class="list-disc pl-5 space-y-2 mb-4">
+                            <li>Implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property;</li>
+                            <li>That the Site will be available uninterrupted, timely, secure, or error-free;</li>
+                            <li>That the results obtained from use of the Site or its content will be accurate or reliable;</li>
+                            <li>That defects in the operation or functionality of any software provided as part of the Site will be corrected.</li>
+                        </ul>
+                        <p class="leading-relaxed">
+                            The information on this Site is intended as general guidance only and does not constitute professional legal, financial, or regulatory advice. Always seek independent professional advice tailored to your specific circumstances.
+                        </p>
+                    </section>
 
-## Contact Us
-If you have any questions about these terms, please contact us at support@compassconsult.com.
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">4. Limitation of Liability</h2>
+                        <p class="leading-relaxed mb-4">
+                            To the fullest extent permitted by applicable law, in no event shall Compass Consult (Employability &amp; Skills) Ltd, its directors, employees, agents, or licensors be liable for any:
+                        </p>
+                        <ul class="list-disc pl-5 space-y-2 mb-4">
+                            <li>Indirect, incidental, special, consequential, or punitive damages;</li>
+                            <li>Loss of profits, revenue, data, goodwill, or other intangible losses;</li>
+                            <li>Damages resulting from your access to or use of (or inability to access or use) the Site or its content;</li>
+                            <li>Damages resulting from any conduct or content of any third party on the Site.</li>
+                        </ul>
+                        <p class="leading-relaxed">
+                            Nothing in these Terms shall limit or exclude our liability for death or personal injury caused by our negligence, fraud or fraudulent misrepresentation, or any other liability that cannot be excluded by law.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">5. Intellectual Property Rights</h2>
+                        <p class="leading-relaxed mb-4">
+                            All content on this Site — including but not limited to text, graphics, logos, images, audio clips, downloads, and software — is the property of Compass Consult (Employability &amp; Skills) Ltd or its content suppliers and is protected by UK and international copyright laws.
+                        </p>
+                        <p class="leading-relaxed mb-4">
+                            The Compass Consult name, logo, and all related product and service names, design marks, and slogans are trademarks of Compass Consult (Employability &amp; Skills) Ltd. You must not use such marks without our prior written permission.
+                        </p>
+                        <p class="leading-relaxed">
+                            You may print or download extracts from this Site for your personal use only, provided that you acknowledge the source and our status (and that of any identified contributors) as the authors of the content.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">6. User Submissions &amp; Rights</h2>
+                        <p class="leading-relaxed mb-4">
+                            Any enquiry, feedback, comment, suggestion, or other material you submit to us through this Site (collectively, "Submissions") shall be treated as non-confidential and non-proprietary, except where we have agreed otherwise in writing.
+                        </p>
+                        <p class="leading-relaxed mb-4">
+                            By submitting content through our contact forms or any other interactive feature, you grant Compass Consult a non-exclusive, royalty-free, worldwide licence to use, reproduce, modify, adapt, publish, and display such content for the purposes of providing and improving our services.
+                        </p>
+                        <p class="leading-relaxed">
+                            You represent and warrant that you own or control all rights in the Submissions you provide, that the Submissions are accurate, that use of the Submissions does not violate these Terms, and that the Submissions will not cause injury to any person or entity.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">7. Links &amp; External Sites</h2>
+                        <p class="leading-relaxed mb-4">
+                            This Site may contain links to third-party websites or resources. These links are provided for your convenience only. We have no control over the contents of those sites or resources and accept no responsibility for them or for any loss or damage that may arise from your use of them.
+                        </p>
+                        <p class="leading-relaxed">
+                            If you decide to access any of the third-party websites linked to from this Site, you do so entirely at your own risk and subject to the terms and conditions of use for such websites.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">8. Modifications to Terms</h2>
+                        <p class="leading-relaxed mb-4">
+                            We reserve the right to revise these Terms of Service at any time without notice. By using this Site you are agreeing to be bound by the then-current version of these Terms.
+                        </p>
+                        <p class="leading-relaxed">
+                            We will endeavour to notify users of significant changes by updating the "Last Updated" date at the top of this page. We recommend you review these Terms periodically to ensure you are aware of any changes.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">9. Governing Law</h2>
+                        <p class="leading-relaxed mb-4">
+                            These Terms of Service and any dispute or claim arising out of or in connection with them (including non-contractual disputes or claims) shall be governed by and construed in accordance with the laws of England and Wales.
+                        </p>
+                        <p class="leading-relaxed">
+                            You and we both agree to submit to the exclusive jurisdiction of the courts of England and Wales to resolve any legal matter arising from these Terms or your use of the Site, except where mandatory local laws in your jurisdiction require otherwise.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">10. Contact for Legal Support</h2>
+                        <p class="leading-relaxed mb-4">
+                            If you have any questions, concerns, or requests regarding these Terms of Service, please contact us:
+                        </p>
+                        <address class="not-italic leading-relaxed text-gray-600">
+                            <strong>Compass Consult (Employability &amp; Skills) Ltd</strong><br>
+                            Email: <a href="mailto:info@compassconsult.co.uk" class="text-compass-teal underline hover:text-compass-purple transition-colors">info@compassconsult.co.uk</a><br>
+                            Website: <a href="https://www.compassconsult.co.uk" class="text-compass-teal underline hover:text-compass-purple transition-colors">www.compassconsult.co.uk</a>
+                        </address>
+                    </section>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-4 gap-12 mb-12">
+                    <div class="col-span-1 md:col-span-2">
+                        <div class="mb-6">
+                            <div class="flex items-center gap-2">
+                                <img src="/assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
+                                <span class="sr-only">Compass Consult (Employability &amp; Skills) Ltd</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 max-w-sm mb-6">
+                            Empowering public, private and third sector organizations, to navigate the world of employability and skills.
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                                <i data-lucide="linkedin" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" aria-label="Social profile" title="Social profile" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.6l-5.1-6.72-5.87 6.72h-3.31l7.78-8.835L.254 2.25h6.6l4.915 6.468L18.244 2.25zM17.15 19.83h1.828L6.122 4.137H4.231L17.15 19.83z"/></svg>
+                            </a>
+                            <a href="#" aria-label="Social profile" title="Social profile" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                                <i data-lucide="facebook" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold mb-6 text-compass-teal">Quick Links</h3>
+                        <ul class="space-y-4">
+                            <li><a href="/index.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Home</a></li>
+                            <li><a href="/pages/about.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">About Us</a></li>
+                            <li><a href="/pages/services.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Our Services</a></li>
+                            <li><a href="/pages/team.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Meet the Team</a></li>
+                            <li><a href="/pages/partnerships.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Partnerships</a></li>
+                            <li><a href="/pages/resources.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Resource Library</a></li>
+                            <li><a href="/pages/events.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Latest News &amp; Events</a></li>
+                            <li><a href="/pages/work-for-us.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Work For Us</a></li>
+                            <li><a href="/pages/contact.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Contact Us</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold mb-6 text-compass-teal">Legal</h3>
+                        <ul class="space-y-4 mb-8">
+                            <li><a href="/pages/privacy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                            <li><a href="/pages/terms.html" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                            <li><a href="/pages/cookies.html" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
+                            <li><a href="/pages/company-information.html" class="text-gray-400 hover:text-white transition-colors">Company Information</a></li>
+                        </ul>
+
+                        <h3 class="text-lg font-bold mb-4 text-compass-teal">Newsletter</h3>
+                        <form name="newsletter-subscribe" method="POST" data-netlify="true" netlify data-netlify-honeypot="bot-field" data-netlify-recaptcha="true" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
+                            <input type="hidden" name="form-name" value="newsletter-subscribe" />
+                            <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+                            <input type="email" name="email" placeholder="Enter your email" required class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-compass-teal focus:border-compass-teal block w-full flex-1 min-w-0 p-2.5 placeholder-gray-400" />
+                            <button type="submit" class="bg-compass-teal hover:bg-compass-lightTeal text-white text-sm font-semibold rounded-lg px-4 py-2.5 transition-colors w-auto md:w-full flex-shrink-0">Subscribe</button>
+                            <div class="w-full basis-full flex justify-center md:mt-2">
+                                <div data-netlify-recaptcha="true"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                    <p>&copy; <span class="year-span"></span> Compass Consult (Employability &amp; Skills) Ltd. All rights reserved.</p>
+                    <div class="mt-4 md:mt-0 flex items-center gap-2">
+                        <a href="https://www.linkedin.com/in/jakegibbons-1994/overlay/contact-info/" target="_blank" rel="noopener noreferrer" class="hover:text-compass-teal transition-colors">Website created by Zenith IT.</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Page scripts — loaded at the bottom to avoid blocking render -->
+    <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
+    <script src="/js/main.js"></script>
+    <!-- AOS runtime — must be loaded after the DOM is ready -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+</body>
+</html>

@@ -6,7 +6,7 @@
     =======================================================================
 -->
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,10 +43,14 @@
                     colors: {
                         compass: {
                             purple: '#483086',
+                            lightPurple: '#6a4eb8',
                             teal: '#2da8b4',
+                            lightTeal: '#4fd3e0',
                             dark: '#1e1b2e',
+                            light: '#f8f9fc'
                         }
-                    }
+                    },
+                    backgroundImage: { 'hero-gradient': 'linear-gradient(135deg, #483086 0%, #2da8b4 100%)' }
                 }
             }
         }
@@ -54,83 +58,274 @@
     <!-- Inline styles for page-specific utility classes and component overrides
          that are not available through Tailwind's default configuration. -->
     <style>
-        .glass-nav { background: rgba(255, 255, 255, 0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .glass-nav { background: rgba(255, 255, 255, 0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+        .reveal { opacity: 0; transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal-up { transform: translateY(40px); }
+        .reveal.active { opacity: 1; transform: translate(0) scale(1); }
+        .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
+        /* Site logo sizing */
+        .site-logo { display: block; height: auto; max-height: 120px; }
+        @media (max-width: 1024px) { .site-logo { max-height: 80px; } }
+        @media (max-width: 640px) { .site-logo { max-height: 60px; } }
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
     <link rel="stylesheet" href="/css/main.css">
     <!-- AOS (Animate On Scroll) stylesheet — initialised in /js/main.js -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
-<body class="font-sans text-gray-600 bg-gray-50 antialiased flex flex-col min-h-screen">
+<body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
-    <nav class="fixed w-full z-50 glass-nav">
-        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <a href="/index.html" class="flex items-center gap-3 group">
-                    <div class="text-compass-purple transition-transform duration-700">
-                        <img src="/assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
-                    </div>
-                    <div class="flex flex-col justify-center">
-                        <h1 class="text-xl font-bold leading-none tracking-tight">
-                            <span class="text-compass-purple">Compass</span> <span class="text-compass-teal">Consult</span>
-                        </h1>
-                    </div>
-                </a>
-                <a href="/index.html" class="text-sm font-semibold text-compass-purple hover:text-compass-teal transition-colors flex items-center gap-2">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Home
-                </a>
+    <!-- ================================================================
+         Desktop Sidebar — visible on screens ≥ 1024 px (lg breakpoint)
+         Contains the site logo, primary navigation links, a Contact CTA,
+         and a dynamic copyright year.
+         ================================================================ -->
+    <aside class="hidden lg:flex fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-100 z-50 flex-col p-8 justify-between shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
+        <div>
+            <a href="/index.html" class="flex items-center gap-3 cursor-pointer group mb-12">
+                <div class="text-compass-purple transition-transform duration-700">
+                    <img src="/assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
+                </div>
+                <div class="flex flex-col justify-center">
+                    <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
+                </div>
+            </a>
+            <nav class="space-y-2">
+                <a href="/index.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Home</a>
+                <a href="/pages/about.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">About us</a>
+                <a href="/pages/services.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Our Services</a>
+                <a href="/pages/team.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Meet the Team</a>
+                <a href="/pages/partnerships.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Partnerships</a>
+                <a href="/pages/resources.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Resource Library</a>
+                <a href="/pages/events.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Latest News &amp; Events</a>
+                <a href="/pages/work-for-us.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Work For Us</a>
+            </nav>
+        </div>
+        <div>
+            <a href="/pages/contact.html" class="group flex items-center justify-center w-full py-3 px-4 rounded-full bg-compass-purple text-white font-semibold hover:bg-compass-lightPurple shadow-lg hover:shadow-purple-200 transition-all transform hover:-translate-y-0.5">Contact Us <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1"></i></a>
+            <p class="text-xs text-center text-gray-400 mt-6">&copy; <span class="year-span"></span> Compass Consult</p>
+        </div>
+    </aside>
+
+    <!-- ================================================================
+         Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
+         Shows the logo and a hamburger button that toggles #mobile-menu.
+         The #mobile-menu div is controlled by initializeMobileMenu() in
+         /js/main.js.
+         ================================================================ -->
+    <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
+        <div class="px-4 flex justify-between items-center h-20">
+             <a href="/index.html" class="flex items-center gap-2">
+                <img src="/assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
+                <div class="flex flex-col">
+                    <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
+                </div>
+             </a>
+             <button type="button" id="mobile-menu-btn" class="text-gray-600 p-2" aria-label="Toggle mobile menu"><i data-lucide="menu" class="w-6 h-6"></i></button>
+        </div>
+        <div id="mobile-menu" class="hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 py-4 space-y-2">
+                <a href="/index.html" class="block py-2 px-3 text-gray-700">Home</a>
+                <a href="/pages/about.html" class="block py-2 px-3 text-gray-700">About us</a>
+                <a href="/pages/services.html" class="block py-2 px-3 text-gray-700">Our Services</a>
+                <a href="/pages/team.html" class="block py-2 px-3 text-gray-700">Meet the Team</a>
+                <a href="/pages/partnerships.html" class="block py-2 px-3 text-gray-700">Partnerships</a>
+                <a href="/pages/resources.html" class="block py-2 px-3 text-gray-700">Resource Library</a>
+                <a href="/pages/events.html" class="block py-2 px-3 text-gray-700">Latest News &amp; Events</a>
+                <a href="/pages/work-for-us.html" class="block py-2 px-3 text-gray-700">Work For Us</a>
+                <a href="/pages/contact.html" class="block py-2 px-3 text-compass-teal">Contact Us</a>
             </div>
         </div>
     </nav>
 
-    <main class="flex-grow pt-32 pb-20">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-4xl font-bold text-gray-900 mb-8" data-aos="fade-in">Cookie Policy</h1>
-            <p class="text-sm text-gray-500 mb-8">Last Updated: <span id="date"></span></p>
+    <!-- ================================================================
+         Main Content Area
+         On large screens, offset by the sidebar width (lg:ml-72 / 18 rem).
+         Contains all page sections and the footer.
+         ================================================================ -->
+    <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
+        <header class="bg-gray-50 pt-32 pb-16 lg:pt-24 text-center" data-aos="fade-in">
+            <h1 class="text-4xl font-bold text-gray-900">Cookie Policy</h1>
+        </header>
 
-            <div class="space-y-8 bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100" data-aos="fade-up">
-                <section>
-                    <h2 class="text-xl font-bold text-compass-purple mb-4">1. What Are Cookies?</h2>
-                    <p class="leading-relaxed mb-4">
-                        Cookies are small text files that are placed on your computer or mobile device by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site.
-                    </p>
-                </section>
+        <section class="py-20 bg-white flex-grow">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <p class="text-sm text-gray-500 mb-8">Last Updated: <span id="date"></span></p>
 
-                <section>
-                    <h2 class="text-xl font-bold text-compass-purple mb-4">2. How We Use Cookies</h2>
-                    <p class="leading-relaxed mb-4">We use cookies for the following purposes:</p>
-                    <ul class="list-disc pl-5 space-y-2">
-                        <li><strong>Essential Cookies:</strong> These are necessary for the website to function (e.g., secure log-in, session management).</li>
-                        <li><strong>Performance Cookies:</strong> These allow us to recognize and count the number of visitors and to see how visitors move around our website when they are using it.</li>
-                        <li><strong>Functionality Cookies:</strong> These are used to recognize you when you return to our website, enabling us to personalize our content for you.</li>
-                    </ul>
-                </section>
+                <div class="space-y-8 bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100" data-aos="fade-up">
 
-                <section>
-                    <h2 class="text-xl font-bold text-compass-purple mb-4">3. Managing Cookies</h2>
-                    <p class="leading-relaxed mb-4">
-                        Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set, visit <a href="https://www.aboutcookies.org" target="_blank" rel="noopener noreferrer" class="text-compass-teal underline">www.aboutcookies.org</a> or <a href="https://www.allaboutcookies.org" target="_blank" rel="noopener noreferrer" class="text-compass-teal underline">www.allaboutcookies.org</a>.
-                    </p>
-                </section>
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">1. What Are Cookies?</h2>
+                        <p class="leading-relaxed mb-4">
+                            Cookies are small text files that are stored on your computer or mobile device when you visit a website. They are widely used to make websites work more efficiently, remember your preferences, and provide information to the website owner.
+                        </p>
+                        <p class="leading-relaxed">
+                            When you visit the Compass Consult website, our server may place cookies on your browser to help us deliver a better, more personalised experience. Cookies do not give us access to your computer or any information about you other than the data you choose to share with us.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">2. How We Use Cookies</h2>
+                        <p class="leading-relaxed mb-4">We use cookies for the following purposes:</p>
+                        <ul class="list-disc pl-5 space-y-3">
+                            <li>
+                                <strong>Essential Cookies:</strong> These are strictly necessary for the website to function correctly. They enable core features such as page navigation, access to secure areas, and form submission. The website cannot function properly without these cookies, and they cannot be switched off.
+                            </li>
+                            <li>
+                                <strong>Performance Cookies:</strong> These cookies collect anonymous information about how visitors use our website — for example, which pages are visited most often and whether any error messages are received. All information collected is aggregated and therefore anonymous. We use this data solely to improve how our website works.
+                            </li>
+                            <li>
+                                <strong>Functionality Cookies:</strong> These cookies allow the website to remember choices you make (such as language preferences or text size) and provide enhanced, more personal features. They may be set by us or by third-party providers whose services we have added to our pages.
+                            </li>
+                            <li>
+                                <strong>Marketing &amp; Targeting Cookies:</strong> These cookies may be set through our site by our advertising partners. They may be used to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information but are based on uniquely identifying your browser and internet device.
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">3. Cookie Duration &amp; Storage</h2>
+                        <p class="leading-relaxed mb-4">Cookies can remain on your device for different periods of time depending on their type:</p>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>Session Cookies:</strong> These are temporary cookies that expire when you close your browser. They are used to manage your session while you are using our website.</li>
+                            <li><strong>Persistent Cookies:</strong> These remain on your device for a set period specified in the cookie, or until you delete them manually. They are activated each time you visit the website that created that particular cookie.</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">4. Third-Party Cookies</h2>
+                        <p class="leading-relaxed mb-4">
+                            In some cases, we use cookies provided by trusted third parties. The following third-party services may set cookies on our website:
+                        </p>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>Google Analytics:</strong> We use Google Analytics to understand how visitors engage with our website. This service may set performance and analytics cookies. You can opt out of Google Analytics tracking by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" class="text-compass-teal underline hover:text-compass-purple transition-colors">Google Analytics Opt-out Browser Add-on</a>.</li>
+                            <li><strong>Netlify:</strong> Our website is hosted on Netlify, which may set technical cookies related to form submissions and site functionality.</li>
+                            <li><strong>Embedded Content:</strong> Pages on this site may include embedded content (e.g. videos, maps). Embedded content from other websites behaves in the exact same way as if you had visited those websites and may set their own cookies.</li>
+                        </ul>
+                        <p class="leading-relaxed mt-4">
+                            We do not have access to or control over cookies set by third-party providers. You should check the respective privacy policies of these third parties for more information about how they use cookies.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">5. Your Cookie Choices</h2>
+                        <p class="leading-relaxed mb-4">
+                            You have the right to decide whether to accept or reject cookies. You can exercise your cookie preferences by adjusting the settings in your web browser to refuse some or all cookies. Please note that if you choose to block cookies, some parts of our website may not function properly or become inaccessible.
+                        </p>
+                        <p class="leading-relaxed">
+                            Where required by law, we will ask for your consent before placing non-essential cookies on your device. You may withdraw your consent at any time by clearing your browser's cookies and adjusting your browser settings.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">6. Cookie Management</h2>
+                        <p class="leading-relaxed mb-4">
+                            Most web browsers allow you to manage cookies through their settings. The following links provide instructions for the most popular browsers:
+                        </p>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer" class="text-compass-teal underline hover:text-compass-purple transition-colors">Google Chrome</a></li>
+                            <li><a href="https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences" target="_blank" rel="noopener noreferrer" class="text-compass-teal underline hover:text-compass-purple transition-colors">Mozilla Firefox</a></li>
+                            <li><a href="https://support.apple.com/en-gb/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer" class="text-compass-teal underline hover:text-compass-purple transition-colors">Apple Safari</a></li>
+                            <li><a href="https://support.microsoft.com/en-us/windows/manage-cookies-in-microsoft-edge-view-allow-block-delete-and-use-168dab11-0753-043d-7c16-ede5947fc64d" target="_blank" rel="noopener noreferrer" class="text-compass-teal underline hover:text-compass-purple transition-colors">Microsoft Edge</a></li>
+                        </ul>
+                        <p class="leading-relaxed mt-4">
+                            For more general information about cookies, including how to see what cookies have been set and how to manage and delete them, visit <a href="https://www.aboutcookies.org" target="_blank" rel="noopener noreferrer" class="text-compass-teal underline hover:text-compass-purple transition-colors">www.aboutcookies.org</a> or <a href="https://www.allaboutcookies.org" target="_blank" rel="noopener noreferrer" class="text-compass-teal underline hover:text-compass-purple transition-colors">www.allaboutcookies.org</a>.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">7. Contact for Privacy Enquiries</h2>
+                        <p class="leading-relaxed mb-4">
+                            If you have any questions or concerns about our use of cookies or this Cookie Policy, please contact us:
+                        </p>
+                        <address class="not-italic leading-relaxed text-gray-600">
+                            <strong>Compass Consult (Employability &amp; Skills) Ltd</strong><br>
+                            Email: <a href="mailto:info@compassconsult.co.uk" class="text-compass-teal underline hover:text-compass-purple transition-colors">info@compassconsult.co.uk</a><br>
+                            Website: <a href="https://www.compassconsult.co.uk" class="text-compass-teal underline hover:text-compass-purple transition-colors">www.compassconsult.co.uk</a>
+                        </address>
+                        <p class="leading-relaxed mt-4">
+                            We may update this Cookie Policy from time to time. Any changes will be posted on this page with an updated revision date. We encourage you to review this policy periodically to stay informed about how we use cookies.
+                        </p>
+                    </section>
+
+                </div>
             </div>
-        </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-4 gap-12 mb-12">
+                    <div class="col-span-1 md:col-span-2">
+                        <div class="mb-6">
+                            <div class="flex items-center gap-2">
+                                <img src="/assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
+                                <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 max-w-sm mb-6">
+                            Empowering public, private and third sector organizations, to navigate the world of employability and skills.
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                                <i data-lucide="linkedin" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" aria-label="Social profile" title="Social profile" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.6l-5.1-6.72-5.87 6.72h-3.31l7.78-8.835L.254 2.25h6.6l4.915 6.468L18.244 2.25zM17.15 19.83h1.828L6.122 4.137H4.231L17.15 19.83z"/></svg>
+                            </a>
+                            <a href="#" aria-label="Social profile" title="Social profile" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                                <i data-lucide="facebook" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold mb-6 text-compass-teal">Quick Links</h3>
+                        <ul class="space-y-4">
+                            <li><a href="/index.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Home</a></li>
+                            <li><a href="/pages/about.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">About Us</a></li>
+                            <li><a href="/pages/services.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Our Services</a></li>
+                            <li><a href="/pages/team.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Meet the Team</a></li>
+                            <li><a href="/pages/partnerships.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Partnerships</a></li>
+                            <li><a href="/pages/resources.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Resource Library</a></li>
+                            <li><a href="/pages/events.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Latest News &amp; Events</a></li>
+                            <li><a href="/pages/work-for-us.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Work For Us</a></li>
+                            <li><a href="/pages/contact.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Contact Us</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold mb-6 text-compass-teal">Legal</h3>
+                        <ul class="space-y-4 mb-8">
+                            <li><a href="/pages/privacy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                            <li><a href="/pages/terms.html" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                            <li><a href="/pages/cookies.html" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
+                            <li><a href="/pages/company-information.html" class="text-gray-400 hover:text-white transition-colors">Company Information</a></li>
+                        </ul>
+
+                        <h3 class="text-lg font-bold mb-4 text-compass-teal">Newsletter</h3>
+                        <form name="newsletter-subscribe" method="POST" data-netlify="true" netlify data-netlify-honeypot="bot-field" data-netlify-recaptcha="true" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
+                            <input type="hidden" name="form-name" value="newsletter-subscribe" />
+                            <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+                            <input type="email" name="email" placeholder="Enter your email" required class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-compass-teal focus:border-compass-teal block w-full flex-1 min-w-0 p-2.5 placeholder-gray-400" />
+                            <button type="submit" class="bg-compass-teal hover:bg-compass-lightTeal text-white text-sm font-semibold rounded-lg px-4 py-2.5 transition-colors w-auto md:w-full flex-shrink-0">Subscribe</button>
+                            <div class="w-full basis-full flex justify-center md:mt-2">
+                                <div data-netlify-recaptcha="true"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                    <p>&copy; <span class="year-span"></span> Compass Consult (Employability &amp; Skills) Ltd. All rights reserved.</p>
+                    <div class="mt-4 md:mt-0 flex items-center gap-2">
+                        <a href="https://www.linkedin.com/in/jakegibbons-1994/overlay/contact-info/" target="_blank" rel="noopener noreferrer" class="hover:text-compass-teal transition-colors">Website created by Zenith IT.</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </main>
 
-    <footer class="bg-compass-dark text-white py-12 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <h3 class="text-lg font-bold mb-4 text-compass-teal">Newsletter</h3>
-                        <form name="newsletter-subscribe" method="POST" data-netlify="true" netlify data-netlify-honeypot="bot-field" data-netlify-recaptcha="true" class="flex flex-row md:flex-col flex-wrap gap-2 w-full mx-auto mb-6">
-                <input type="hidden" name="form-name" value="newsletter-subscribe" />
-                <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
-                <input type="email" name="email" placeholder="Enter your email" required class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-compass-teal focus:border-compass-teal block w-full flex-1 min-w-0 p-2.5 placeholder-gray-400" />
-                <button type="submit" class="bg-compass-teal hover:bg-compass-lightTeal text-white text-sm font-semibold rounded-lg px-4 py-2.5 transition-colors w-auto md:w-full flex-shrink-0">Subscribe</button>
-                <div class="w-full basis-full flex justify-center md:mt-2">
-                    <div data-netlify-recaptcha="true"></div>
-                </div>
-            </form>
-            <p class="text-gray-400 text-sm">&copy; <span id="year"></span> Compass Consult (Employability & Skills) Ltd. All rights reserved.</p>
-        </div>
-    </footer>
     <!-- Page scripts — loaded at the bottom to avoid blocking render -->
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
     <script src="/js/main.js"></script>
