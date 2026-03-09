@@ -1,0 +1,69 @@
+# data/
+
+This folder contains JSON data files used by the HTML pages. Content is
+loaded via inline `<script>` blocks in the relevant page and rendered into
+the DOM, allowing editors to update content without modifying HTML directly.
+
+---
+
+## Files
+
+### `clients.json`
+
+An array of client organisation objects displayed in the client ticker
+strip on `index.html`.
+
+| Field | Type | Description |
+|---|---|---|
+| `id` | number | Unique identifier |
+| `name` | string | Organisation name |
+| `industry` | string | Industry sector |
+| `icon` | string | Lucide icon name |
+| `logo` | string | Path to logo image (relative to site root) |
+| `description` | string | Short description |
+
+---
+
+### `services.json`
+
+An array of service objects for the services page and homepage summary.
+
+| Field | Type | Description |
+|---|---|---|
+| `id` | number | Unique identifier |
+| `name` | string | Service display name |
+| `slug` | string | URL-safe identifier (for future routing) |
+| `icon` | string | Lucide icon name |
+| `color` | string | Tailwind colour keyword (e.g. `purple`, `teal`) |
+| `description` | string | Short description shown in cards |
+| `fullDescription` | string | Longer description for the detail view |
+| `features` | string[] | Bullet-point feature list |
+| `price` | string | Pricing summary (e.g. `"From £99"`) |
+| `duration` | string | Typical delivery duration |
+
+---
+
+### `team.json`
+
+An array of team member objects for the team page.
+
+| Field | Type | Description |
+|---|---|---|
+| `id` | number | Unique identifier |
+| `name` | string | Full name |
+| `role` | string | Job title |
+| `bio` | string | Short biography summary |
+| `image` | string | Path to profile photo (relative to site root) |
+| `email` | string | Contact email address |
+| `linkedin` | string | Full LinkedIn profile URL |
+| `expertise` | string[] | List of specialist skill areas |
+
+---
+
+## Adding or Updating Content
+
+1. Open the relevant JSON file.
+2. Add or modify the object, following the field schema above.
+3. Update the corresponding HTML page if new fields have been added.
+4. Validate your JSON (e.g. with [jsonlint.com](https://jsonlint.com/))
+   before committing.

@@ -23,13 +23,18 @@
     <meta name="twitter:title" content="Cookie Policy - Compass Consult">
     <meta name="twitter:description" content="Read the cookie policy for the Compass Consult website.">
     <meta name="twitter:image" content="https://www.compassconsult.co.uk/assets/logos/Logo.png">
+    <!-- Favicon and PWA web manifest -->
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon/favicon-16x16.png">
     <link rel="manifest" href="/assets/icons/favicon/site.webmanifest">
+    <!-- Third-party scripts: Tailwind CSS (utility framework), Lucide icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind configuration — extends the default theme with brand colours
+         and the hero gradient background image. -->
     <script>
         tailwind.config = {
             theme: {
@@ -46,10 +51,14 @@
             }
         }
     </script>
+    <!-- Inline styles for page-specific utility classes and component overrides
+         that are not available through Tailwind's default configuration. -->
     <style>
         .glass-nav { background: rgba(255, 255, 255, 0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0,0,0,0.05); }
     </style>
+    <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
     <link rel="stylesheet" href="/css/main.css">
+    <!-- AOS (Animate On Scroll) stylesheet — initialised in /js/main.js -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased flex flex-col min-h-screen">
@@ -122,7 +131,10 @@
             <p class="text-gray-400 text-sm">&copy; <span id="year"></span> Compass Consult (Employability & Skills) Ltd. All rights reserved.</p>
         </div>
     </footer>
+    <!-- Page scripts — loaded at the bottom to avoid blocking render -->
+    <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
     <script src="/js/main.js"></script>
+    <!-- AOS runtime — must be loaded after the DOM is ready -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </body>
 </html>
