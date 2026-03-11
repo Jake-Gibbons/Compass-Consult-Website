@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+a<!DOCTYPE html>
 <!--
   index.html — Home page
   Compass Consult (Employability & Skills) Ltd
@@ -139,8 +139,8 @@
          and a dynamic copyright year.
          ================================================================ -->
     <!-- Desktop Sidebar -->
-    <aside class="hidden lg:flex fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-100 z-50 flex-col p-8 justify-between shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
-        <div>
+    <aside class="hidden lg:flex fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-100 z-50 flex-col shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
+        <div class="overflow-y-auto flex-1 flex flex-col p-8">
             <a href="/index.html" class="flex items-center gap-3 cursor-pointer group mb-12">
                 <div class="text-compass-purple transition-transform duration-700">
                     <img src="/assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
@@ -162,11 +162,11 @@
             </nav>
         </div>
 
-        <div>
+        <div class="border-t border-gray-100 p-8">
             <a href="/pages/contact.html" class="group flex items-center justify-center w-full py-3 px-4 rounded-full bg-compass-purple text-white font-semibold hover:bg-compass-lightPurple shadow-lg hover:shadow-purple-200 transition-all transform hover:-translate-y-0.5 contact-button-animation">
                 Contact Us <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
             </a>
-            <p class="text-xs text-center text-gray-400 mt-6">&copy; <span class="year-span"></span> Compass Consult</p>
+            <p class="text-xs text-center text-gray-400 mt-6">&copy; <span class="year-span"></span> Compass Consult (Employability & Skills) Lt</p>
         </div>
     </aside>
 
@@ -321,44 +321,92 @@
         </section>
 
         <!-- ================================================================
-             Our Services Section
-             Three-column card grid summarising the core service offerings.
-             Each card has a top colour-border and a Lucide icon. A "View
-             All Services" link leads to the full services page.
+             Who We Help + Our Services Section
+             Combined two-column layout to reduce repetitive card grids.
              ================================================================ -->
-        <!-- Our Services Section -->
-        <section class="py-20 bg-white">
+        <section class="py-20 bg-gray-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900">Our Services</h2>
-                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">We provide a range of specialist support to help organisations thrive.</p>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900">Who We Help & How We Support</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.</p>
                 </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                    <!-- Mobilisation -->
-                    <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-compass-purple hover:shadow-xl transition-shadow group" data-aos="fade-up" data-aos-delay="100">
-                        <div class="w-14 h-14 bg-purple-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-100 transition-colors"><i data-lucide="rocket" class="w-8 h-8 text-compass-purple"></i></div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Mobilisation & Implementation</h3>
-                        <p class="text-sm text-gray-600">Successful launch and delivery of complex contracts, from journey design to supply chain setup.</p>
+
+                <div class="grid lg:grid-cols-2 gap-10 items-start">
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-md p-8" data-aos="fade-right">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6">Who We Help</h3>
+                        <div class="space-y-4">
+                            <div class="rounded-xl border border-purple-100 bg-purple-50/40 p-5 flex items-start gap-4">
+                                <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center shrink-0"><i data-lucide="building-2" class="w-5 h-5 text-compass-purple"></i></div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Public Sector Organisations</h4>
+                                    <p class="text-sm text-gray-600 mt-1">Support with delivery, funding compliance, stakeholder scrutiny and performance outcomes.</p>
+                                </div>
+                            </div>
+                            <div class="rounded-xl border border-teal-100 bg-teal-50/40 p-5 flex items-start gap-4">
+                                <div class="w-10 h-10 bg-teal-50 rounded-lg flex items-center justify-center shrink-0"><i data-lucide="briefcase-business" class="w-5 h-5 text-compass-teal"></i></div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Private Sector Providers</h4>
+                                    <p class="text-sm text-gray-600 mt-1">Hands-on support for mobilisation and implementation of complex contracts, from journey design to supply chain setup.</p>
+                                </div>
+                            </div>
+                            <div class="rounded-xl border border-indigo-100 bg-indigo-50/40 p-5 flex items-start gap-4">
+                                <div class="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center shrink-0"><i data-lucide="heart-handshake" class="w-5 h-5 text-indigo-500"></i></div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Third-Sector Organisations</h4>
+                                    <p class="text-sm text-gray-600 mt-1">Practical guidance to strengthen delivery models, governance and partnerships while maintaining quality and impact.</p>
+                                </div>
+                            </div>
+                            <div class="rounded-xl border border-orange-100 bg-orange-50/40 p-5 flex items-start gap-4">
+                                <div class="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center shrink-0"><i data-lucide="handshake" class="w-5 h-5 text-orange-500"></i></div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Commissioners, Employers & Partners</h4>
+                                    <p class="text-sm text-gray-600 mt-1">Strengthening relationships with commissioners, employers and partners to ensure programmes succeed in practice.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Partnership -->
-                    <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-compass-teal hover:shadow-xl transition-shadow group" data-aos="fade-up" data-aos-delay="200">
-                        <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-teal-100 transition-colors"><i data-lucide="handshake" class="w-8 h-8 text-compass-teal"></i></div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Partnership Engagement</h3>
-                        <p class="text-sm text-gray-600">Strengthening relationships with commissioners, employers, and partners to ensure programmes succeed.</p>
-                    </div>
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-md p-8" data-aos="fade-left">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6">Our Services</h3>
+                        <div class="space-y-4 mb-8">
+                            <article class="rounded-xl border border-purple-100 bg-purple-50/40 p-5">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="rocket" class="w-5 h-5 text-compass-purple mt-0.5"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">Mobilisation & Implementation</h4>
+                                        <p class="text-sm text-gray-600 mt-1">Successful launch and delivery of complex contracts, from journey design to supply chain setup.</p>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="rounded-xl border border-teal-100 bg-teal-50/40 p-5">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="handshake" class="w-5 h-5 text-compass-teal mt-0.5"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">Partnership Engagement</h4>
+                                        <p class="text-sm text-gray-600 mt-1">Strengthening relationships with commissioners, employers and partners to ensure programmes succeed.</p>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="rounded-xl border border-indigo-100 bg-indigo-50/40 p-5">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="trending-up" class="w-5 h-5 text-indigo-500 mt-0.5"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">Growth & Transformation</h4>
+                                        <p class="text-sm text-gray-600 mt-1">Structural reviews and cultural change to help organisations evolve and meet new challenges.</p>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
 
-                    <!-- Transformation -->
-                    <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-indigo-500 hover:shadow-xl transition-shadow group" data-aos="fade-up" data-aos-delay="300">
-                        <div class="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-indigo-100 transition-colors"><i data-lucide="trending-up" class="w-8 h-8 text-indigo-500"></i></div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">Growth & Transformation</h3>
-                        <p class="text-sm text-gray-600">Structural reviews and cultural change to help organisations evolve and meet new challenges.</p>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <a href="/pages/services.html" class="group inline-flex justify-center items-center px-6 py-3 border border-transparent text-sm font-semibold rounded-full text-white bg-compass-purple hover:bg-compass-lightPurple transition-all shadow-lg hover:-translate-y-0.5">
+                                View All Services <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                            <a href="/pages/contact.html" class="inline-flex justify-center items-center px-6 py-3 border border-gray-200 text-sm font-semibold rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-all hover:-translate-y-0.5 hover:shadow-md hover:border-compass-teal">
+                                Discuss Your Organisation
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="text-center" data-aos="fade-up">
-                    <a href="/pages/services.html" class="group inline-flex justify-center items-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-full text-white bg-compass-purple hover:bg-compass-lightPurple transition-all shadow-lg hover:-translate-y-1">
-                        View All Services <i data-lucide="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
                 </div>
             </div>
         </section>
