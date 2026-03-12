@@ -165,9 +165,11 @@ See the table of contents at the top of `main.css` for a full section list.
 
 ### Data Files (`data/`)
 
-JSON files are consumed by inline `<script>` blocks in the HTML pages.
-They store team member details, service descriptions, and client info so
-content can be updated without touching the HTML.
+JSON files store team member details, service descriptions, and client
+information as a single source of truth for the site's content. When
+updating content, edit both the JSON file and the corresponding HTML page
+to keep them in sync. See [`data/README.md`](data/README.md) for the
+full field schema for each file.
 
 ---
 

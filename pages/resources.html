@@ -95,6 +95,9 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
+    <!-- Skip navigation — allows keyboard users to bypass the navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
 
     <!-- Desktop Sidebar Navigation -->
     <!-- ================================================================
@@ -167,7 +170,7 @@
          On large screens, offset by the sidebar width (lg:ml-72 / 18 rem).
          Contains all page sections and the footer.
          ================================================================ -->
-    <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
+    <main id="main-content" class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
         
         <!-- Header Section -->
         <header class="bg-gray-50 pt-32 pb-12 lg:pt-24 lg:pb-12 px-4 sm:px-8 border-b border-gray-200" data-aos="fade-in">
