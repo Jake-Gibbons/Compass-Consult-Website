@@ -36,13 +36,23 @@
 
 ```
 ├── index.html              # Main homepage
-├── privacy.html            # Privacy policy
-├── terms.html              # Terms of service
-├── cookie.html             # Cookie policy
+├── pages/                  # Secondary HTML pages
+│   ├── about.html          # About us
+│   ├── company-information.html # Company details
+│   ├── contact.html        # Contact form
+│   ├── cookies.html        # Cookie policy
+│   ├── events.html         # News & events
+│   ├── partnerships.html   # Partnerships & accreditations
+│   ├── privacy.html        # Privacy policy (GDPR)
+│   ├── resources.html      # Downloadable resource library
+│   ├── services.html       # Full services listing
+│   ├── team.html           # Team profiles
+│   ├── terms.html          # Terms of service
+│   └── work-for-us.html    # Careers / vacancies
 ├── css/                    # Stylesheets
 ├── js/                     # JavaScript files
-├── assets/                 # Images, icons, fonts
-├── data/                   # JSON data files
+├── assets/                 # Images, icons, fonts, downloads
+├── data/                   # JSON content files (team, services, clients)
 └── docs/                   # Documentation
 ```
 
@@ -166,27 +176,28 @@ elements.forEach(el => {
 ## Common Tasks
 
 ### Adding a New Page
-1. Create new HTML file in root or `pages/` folder
-2. Copy header/nav from index.html
-3. Create main content section
-4. Copy footer from index.html
-5. Update navigation links
+1. Create new HTML file in `pages/` folder (or root for top-level pages)
+2. Copy the `<head>`, skip link (`<a href="#main-content" class="skip-link">`), sidebar `<aside>`, mobile `<nav>`, and `<footer>` from an existing page (e.g. `pages/about.html`)
+3. Add `id="main-content"` to the `<main>` element
+4. Create the main content section
+5. Update the `nav-link.active` class in the sidebar and mobile menu to highlight the new page
+6. Add a link to the new page in every other page's sidebar and mobile menu
+7. Add an entry to `sitemap.xml`
 
 ### Adding Team Member
-1. Add image to `/assets/images/team/`
-2. Update `data/team.json` with member details
-3. Update team section in HTML (or implement JSON loading)
+1. Add photo to `/assets/images/team/`
+2. Update `data/team.json` with member details (schema reference: `data/README.md`)
+3. Add a new team card in `pages/team.html`, following the structure of existing cards
 
 ### Adding New Service
-1. Add to `data/services.json`
-2. Update services section in index.html
-3. Create service icon if needed
-4. Add service page if detailed page needed
+1. Update `data/services.json` with the new service entry
+2. Add the service card to `pages/services.html`
+3. Add a summary card to the homepage (`index.html`) services section if appropriate
 
 ### Adding Client
-1. Add logo to `/assets/logos/`
-2. Update `data/clients.json`
-3. Update clients section carousel
+1. Add client photo or logo to `/assets/images/authorities/` (photos) or `/assets/logos/` (logos)
+2. Update `data/clients.json` with the client details
+3. Add an `<img>` tag to the ticker strip in `index.html` (both the original and the duplicate set)
 
 ---
 

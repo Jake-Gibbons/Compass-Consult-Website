@@ -1,8 +1,12 @@
 # data/
 
-This folder contains JSON data files used by the HTML pages. Content is
-loaded via inline `<script>` blocks in the relevant page and rendered into
-the DOM, allowing editors to update content without modifying HTML directly.
+This folder contains JSON data files that serve as a single source of truth
+for the site's structured content. These files define the schemas for team
+members, services, and client organisations.
+
+> **Note:** Content in these JSON files is currently mirrored as hardcoded
+> HTML in the corresponding pages. When updating content, edit both the JSON
+> file **and** the relevant HTML page to keep them consistent.
 
 ---
 
