@@ -1,4 +1,4 @@
-a<!DOCTYPE html>
+<!DOCTYPE html>
 <!--
   index.html — Home page
   Compass Consult (Employability & Skills) Ltd
@@ -303,10 +303,10 @@ a<!DOCTYPE html>
                             Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.
                         </p>
                         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                            <a href="/pages/services.html" class="group inline-flex justify-center items-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-full text-white bg-compass-purple hover:bg-compass-lightPurple transition-all shadow-lg hover:-translate-y-1">
+                            <a href="/pages/services.html" class="group inline-flex justify-center items-center px-8 py-3.5 border border-gray-200 text-base font-semibold rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-all hover:-translate-y-1 hover:shadow-md hover:border-compass-teal">
                                 Our Expertise <i data-lucide="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                             </a>
-                            <a href="/pages/contact.html" class="inline-flex justify-center items-center px-8 py-3.5 border border-gray-200 text-base font-semibold rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-all hover:-translate-y-1 hover:shadow-md hover:border-compass-teal">
+                            <a href="/pages/contact.html" class="inline-flex justify-center items-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-full text-white bg-compass-purple hover:bg-compass-lightPurple transition-all shadow-lg hover:-translate-y-1">
                                 Talk to Us
                             </a>
                         </div>
@@ -327,14 +327,13 @@ a<!DOCTYPE html>
         <section class="py-20 bg-gray-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900">Who We Help & How We Support</h2>
-                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.</p>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.</p>
                 </div>
 
-                <div class="grid lg:grid-cols-2 gap-10 items-start">
-                    <div class="bg-white rounded-2xl border border-gray-100 shadow-md p-8" data-aos="fade-right">
+                <div class="grid lg:grid-cols-2 gap-10">
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-md p-8 h-full flex flex-col" data-aos="fade-right">
                         <h3 class="text-2xl font-bold text-gray-900 mb-6">Who We Help</h3>
-                        <div class="space-y-4">
+                        <div class="space-y-4 mb-8">
                             <div class="rounded-xl border border-purple-100 bg-purple-50/40 p-5 flex items-start gap-4">
                                 <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center shrink-0"><i data-lucide="building-2" class="w-5 h-5 text-compass-purple"></i></div>
                                 <div>
@@ -364,14 +363,18 @@ a<!DOCTYPE html>
                                 </div>
                             </div>
                         </div>
+
+                        <a href="/pages/contact.html" class="mt-auto inline-flex justify-center items-center px-6 py-3 border border-transparent text-sm font-semibold rounded-full text-white bg-compass-purple hover:bg-compass-lightPurple transition-all shadow-lg hover:-translate-y-0.5 w-full sm:w-auto">
+                            Talk to Us
+                        </a>
                     </div>
 
-                    <div class="bg-white rounded-2xl border border-gray-100 shadow-md p-8" data-aos="fade-left">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-6">Our Services</h3>
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-md p-8 h-full flex flex-col" data-aos="fade-left">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6">How We Support</h3>
                         <div class="space-y-4 mb-8">
                             <article class="rounded-xl border border-purple-100 bg-purple-50/40 p-5">
-                                <div class="flex items-start gap-3">
-                                    <i data-lucide="rocket" class="w-5 h-5 text-compass-purple mt-0.5"></i>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center shrink-0"><i data-lucide="rocket" class="w-5 h-5 text-compass-purple"></i></div>
                                     <div>
                                         <h4 class="font-semibold text-gray-900">Mobilisation & Implementation</h4>
                                         <p class="text-sm text-gray-600 mt-1">Successful launch and delivery of complex contracts, from journey design to supply chain setup.</p>
@@ -379,8 +382,8 @@ a<!DOCTYPE html>
                                 </div>
                             </article>
                             <article class="rounded-xl border border-teal-100 bg-teal-50/40 p-5">
-                                <div class="flex items-start gap-3">
-                                    <i data-lucide="handshake" class="w-5 h-5 text-compass-teal mt-0.5"></i>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-teal-50 rounded-lg flex items-center justify-center shrink-0"><i data-lucide="handshake" class="w-5 h-5 text-compass-teal"></i></div>
                                     <div>
                                         <h4 class="font-semibold text-gray-900">Partnership Engagement</h4>
                                         <p class="text-sm text-gray-600 mt-1">Strengthening relationships with commissioners, employers and partners to ensure programmes succeed.</p>
@@ -388,24 +391,28 @@ a<!DOCTYPE html>
                                 </div>
                             </article>
                             <article class="rounded-xl border border-indigo-100 bg-indigo-50/40 p-5">
-                                <div class="flex items-start gap-3">
-                                    <i data-lucide="trending-up" class="w-5 h-5 text-indigo-500 mt-0.5"></i>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center shrink-0"><i data-lucide="trending-up" class="w-5 h-5 text-indigo-500"></i></div>
                                     <div>
                                         <h4 class="font-semibold text-gray-900">Growth & Transformation</h4>
                                         <p class="text-sm text-gray-600 mt-1">Structural reviews and cultural change to help organisations evolve and meet new challenges.</p>
                                     </div>
                                 </div>
                             </article>
+                            <article class="rounded-xl border border-amber-100 bg-amber-50/40 p-5">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center shrink-0"><i data-lucide="sparkles" class="w-5 h-5 text-amber-500"></i></div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">And Many More</h4>
+                                        <p class="text-sm text-gray-600 mt-1">From tailored advisory support to practical delivery solutions, we offer a wider range of support shaped around your organisation's needs.</p>
+                                    </div>
+                                </div>
+                            </article>
                         </div>
 
-                        <div class="flex flex-col sm:flex-row gap-3">
-                            <a href="/pages/services.html" class="group inline-flex justify-center items-center px-6 py-3 border border-transparent text-sm font-semibold rounded-full text-white bg-compass-purple hover:bg-compass-lightPurple transition-all shadow-lg hover:-translate-y-0.5">
-                                View All Services <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                            </a>
-                            <a href="/pages/contact.html" class="inline-flex justify-center items-center px-6 py-3 border border-gray-200 text-sm font-semibold rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-all hover:-translate-y-0.5 hover:shadow-md hover:border-compass-teal">
-                                Discuss Your Organisation
-                            </a>
-                        </div>
+                        <a href="/pages/services.html" class="group mt-auto inline-flex justify-center items-center px-6 py-3 border border-gray-200 text-sm font-semibold rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-all hover:-translate-y-0.5 hover:shadow-md hover:border-compass-teal w-full sm:w-auto">
+                            View Our Services <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -423,7 +430,7 @@ a<!DOCTYPE html>
             <div class="max-w-4xl mx-auto px-4 relative z-10 text-center" data-aos="fade-up">
                 <h2 class="text-3xl lg:text-5xl font-bold text-white mb-6">Let's Move Forward</h2>
                 <p class="text-purple-100 text-lg mb-10 max-w-2xl mx-auto">Whatever your starting point, Compass will point you in the right direction.</p>
-                <a href="/pages/contact.html" class="px-8 py-4 bg-white text-compass-purple font-bold rounded-full hover:bg-gray-100 transition-all shadow-xl hover:scale-105 active:scale-95 inline-block contact-button-animation">Talk to us today</a>
+                <a href="/pages/contact.html" class="px-8 py-4 bg-compass-purple text-white font-bold rounded-full hover:bg-compass-lightPurple transition-all shadow-xl hover:scale-105 active:scale-95 inline-block contact-button-animation">Talk to us today</a>
             </div>
         </section>
 
@@ -487,6 +494,7 @@ a<!DOCTYPE html>
                             <li><a href="/pages/terms.html" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
                             <li><a href="/pages/cookies.html" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
                             <li><a href="/pages/company-information.html" class="text-gray-400 hover:text-white transition-colors">Company Information</a></li>
+                            <li><a href="/pages/sitemap.html" class="text-gray-400 hover:text-white transition-colors">Sitemap</a></li>
                         </ul>
                         
                         <h3 class="text-lg font-bold mb-4 text-compass-teal">Newsletter</h3>
