@@ -1,57 +1,48 @@
 <!--
-  company-information.html — Company Information page
+  sitemap.html — HTML Sitemap page
   Compass Consult (Employability & Skills) Ltd
 
-  Displays the official company registration details:
-  - Company name and registration number
-  - Registered office address
-
-  All interactive behaviour (menu toggling, animations, accessibility
-  enhancements, etc.) is handled by /js/main.js which is loaded at
-  the bottom of the page.
+  Human-friendly sitemap containing links to all major pages.
 -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Information - Compass Consult</title>
-    <meta name="description" content="Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.">
+    <title>Sitemap - Compass Consult</title>
+    <meta name="description" content="Browse all key pages on the Compass Consult website.">
     <meta name="theme-color" content="#483086">
-    <!-- SEO and Social Sharing -->
-    <meta property="og:title" content="Company Information - Compass Consult">
-    <meta property="og:description" content="Find company information for Compass Consult.">
+
+    <meta property="og:title" content="HTML Sitemap - Compass Consult">
+    <meta property="og:description" content="Browse all key pages on the Compass Consult website.">
     <meta property="og:image" content="https://www.compassconsult.co.uk/assets/logos/Logo.png">
-    <meta property="og:url" content="https://www.compassconsult.co.uk/pages/company-information.html">
+    <meta property="og:url" content="https://www.compassconsult.co.uk/pages/sitemap.html">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Company Information - Compass Consult">
-    <meta name="twitter:description" content="Find company information for Compass Consult.">
+    <meta name="twitter:title" content="HTML Sitemap - Compass Consult">
+    <meta name="twitter:description" content="Browse all key pages on the Compass Consult website.">
     <meta name="twitter:image" content="https://www.compassconsult.co.uk/assets/logos/Logo.png">
-    <!-- Favicon and PWA web manifest -->
+
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon/favicon-16x16.png">
     <link rel="manifest" href="/assets/icons/favicon/site.webmanifest">
-    <!-- Third-party scripts: Tailwind CSS (utility framework), Lucide icons -->
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Tailwind configuration — extends the default theme with brand colours
-         and the hero gradient background image. -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
                     colors: {
-                        compass: { 
-                            purple: '#483086', 
+                        compass: {
+                            purple: '#483086',
                             lightPurple: '#6a4eb8',
-                            teal: '#2da8b4', 
+                            teal: '#2da8b4',
                             lightTeal: '#4fd3e0',
-                            dark: '#1e1b2e', 
-                            light: '#f8f9fc' 
+                            dark: '#1e1b2e',
+                            light: '#f8f9fc'
                         }
                     },
                     backgroundImage: { 'hero-gradient': 'linear-gradient(135deg, #483086 0%, #2da8b4 100%)' }
@@ -59,34 +50,18 @@
             }
         }
     </script>
-    <!-- Inline styles for page-specific utility classes and component overrides
-         that are not available through Tailwind's default configuration. -->
     <style>
         .glass-nav { background: rgba(255, 255, 255, 0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-        .reveal { opacity: 0; transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
-        .reveal-up { transform: translateY(40px); }
-        .reveal.active { opacity: 1; transform: translate(0) scale(1); }
         .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
-        /* Site logo sizing */
         .site-logo { display: block; height: auto; max-height: 120px; }
         @media (max-width: 1024px) { .site-logo { max-height: 80px; } }
         @media (max-width: 640px) { .site-logo { max-height: 60px; } }
     </style>
-    <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
     <link rel="stylesheet" href="/css/main.css">
-    <!-- AOS (Animate On Scroll) stylesheet — initialised in /js/main.js -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
-    <!-- Skip navigation — allows keyboard users to bypass the navigation -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-
-    <!-- ================================================================
-         Desktop Sidebar — visible on screens ≥ 1024 px (lg breakpoint)
-         Contains the site logo, primary navigation links, a Contact CTA,
-         and a dynamic copyright year.
-         ================================================================ -->
     <aside class="hidden lg:flex fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-100 z-50 flex-col p-8 justify-between shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
         <div>
             <a href="/index.html" class="flex items-center gap-3 cursor-pointer group mb-12">
@@ -114,12 +89,6 @@
         </div>
     </aside>
 
-    <!-- ================================================================
-         Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
-         Shows the logo and a hamburger button that toggles #mobile-menu.
-         The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.js.
-         ================================================================ -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
              <a href="/index.html" class="flex items-center gap-2">
@@ -145,36 +114,48 @@
         </div>
     </nav>
 
-    <!-- ================================================================
-         Main Content Area
-         On large screens, offset by the sidebar width (lg:ml-72 / 18 rem).
-         Contains all page sections and the footer.
-         ================================================================ -->
-    <main id="main-content" class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
+    <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
         <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center" data-aos="fade-in">
             <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
             <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
             <div class="relative z-10 px-4 sm:px-6 lg:px-8 pt-12 lg:pt-0">
-                <h1 class="text-4xl font-bold text-white">Company Information</h1>
+                <h1 class="text-4xl font-bold text-white">Sitemap</h1>
+                <p class="mt-4 text-purple-100">Find every key page in one place.</p>
             </div>
         </header>
 
         <section class="py-20 bg-white flex-grow">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="space-y-8 bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100" data-aos="fade-up">
-                    <section>
-                        <h2 class="text-xl font-bold text-compass-purple mb-4">Company Details</h2>
-                        <ul class="list-disc pl-5 space-y-2">
-                            <li><strong>Company Name:</strong> Compass Consult (Employability & Skills) Ltd</li>
-                            <li><strong>Company Registration Number:</strong> 16973082</li>
-                            <li><strong>Registered Office:</strong> Stirling House 1 Outrams Wharf, Little Eaton, Derby, England, DE21 5EL</li>
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 gap-8" data-aos="fade-up">
+                    <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">Main Pages</h2>
+                        <ul class="space-y-3">
+                            <li><a href="/index.html" class="text-compass-teal hover:text-compass-purple transition-colors">Home</a></li>
+                            <li><a href="/pages/about.html" class="text-compass-teal hover:text-compass-purple transition-colors">About Us</a></li>
+                            <li><a href="/pages/services.html" class="text-compass-teal hover:text-compass-purple transition-colors">Our Services</a></li>
+                            <li><a href="/pages/team.html" class="text-compass-teal hover:text-compass-purple transition-colors">Meet the Team</a></li>
+                            <li><a href="/pages/partnerships.html" class="text-compass-teal hover:text-compass-purple transition-colors">Partnerships</a></li>
+                            <li><a href="/pages/resources.html" class="text-compass-teal hover:text-compass-purple transition-colors">Resource Library</a></li>
+                            <li><a href="/pages/events.html" class="text-compass-teal hover:text-compass-purple transition-colors">Latest News & Events</a></li>
+                            <li><a href="/pages/work-for-us.html" class="text-compass-teal hover:text-compass-purple transition-colors">Work For Us</a></li>
+                            <li><a href="/pages/contact.html" class="text-compass-teal hover:text-compass-purple transition-colors">Contact Us</a></li>
                         </ul>
-                    </section>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+                        <h2 class="text-xl font-bold text-compass-purple mb-4">Legal & Info</h2>
+                        <ul class="space-y-3">
+                            <li><a href="/pages/privacy.html" class="text-compass-teal hover:text-compass-purple transition-colors">Privacy Policy</a></li>
+                            <li><a href="/pages/terms.html" class="text-compass-teal hover:text-compass-purple transition-colors">Terms of Service</a></li>
+                            <li><a href="/pages/cookies.html" class="text-compass-teal hover:text-compass-purple transition-colors">Cookie Policy</a></li>
+                            <li><a href="/pages/company-information.html" class="text-compass-teal hover:text-compass-purple transition-colors">Company Information</a></li>
+                            <li><a href="/sitemap.xml" class="text-compass-teal hover:text-compass-purple transition-colors">XML Sitemap</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Footer -->
         <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid md:grid-cols-4 gap-12 mb-12">
@@ -188,34 +169,17 @@
                         <p class="text-gray-400 max-w-sm mb-6">
                             Empowering public, private and third sector organizations, to navigate the world of employability and skills.
                         </p>
-                        <div class="flex space-x-4">
-                            <a href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
-                                <i data-lucide="linkedin" class="w-5 h-5"></i>
-                            </a>
-                            <a href="#" aria-label="Social profile" title="Social profile" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
-                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.6l-5.1-6.72-5.87 6.72h-3.31l7.78-8.835L.254 2.25h6.6l4.915 6.468L18.244 2.25zM17.15 19.83h1.828L6.122 4.137H4.231L17.15 19.83z"/></svg>
-                            </a>
-                            <a href="#" aria-label="Social profile" title="Social profile" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
-                                <i data-lucide="facebook" class="w-5 h-5"></i>
-                            </a>
-                        </div>
                     </div>
-                    
+
                     <div>
                         <h3 class="text-lg font-bold mb-6 text-compass-teal">Quick Links</h3>
                         <ul class="space-y-4">
                             <li><a href="/index.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Home</a></li>
                             <li><a href="/pages/about.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">About Us</a></li>
                             <li><a href="/pages/services.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Our Services</a></li>
-                            <li><a href="/pages/team.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Meet the Team</a></li>
-                            <li><a href="/pages/partnerships.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Partnerships</a></li>
-                            <li><a href="/pages/resources.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Resource Library</a></li>
-                            <li><a href="/pages/events.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Latest News & Events</a></li>
-                            <li><a href="/pages/work-for-us.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Work For Us</a></li>
                             <li><a href="/pages/contact.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Contact Us</a></li>
                         </ul>
                     </div>
-
 
                     <div>
                         <h3 class="text-lg font-bold mb-6 text-compass-teal">Legal</h3>
@@ -226,33 +190,17 @@
                             <li><a href="/pages/company-information.html" class="text-gray-400 hover:text-white transition-colors">Company Information</a></li>
                             <li><a href="/pages/sitemap.html" class="text-gray-400 hover:text-white transition-colors">Sitemap</a></li>
                         </ul>
-                        
-                        <h3 class="text-lg font-bold mb-4 text-compass-teal">Newsletter</h3>
-                                                <form name="newsletter-subscribe" method="POST" data-netlify="true" netlify data-netlify-honeypot="bot-field" data-netlify-recaptcha="true" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
-                            <input type="hidden" name="form-name" value="newsletter-subscribe" />
-                            <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
-                            <input type="email" name="email" placeholder="Enter your email" required class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-compass-teal focus:border-compass-teal block w-full flex-1 min-w-0 p-2.5 placeholder-gray-400" />
-                            <button type="submit" class="bg-compass-teal hover:bg-compass-lightTeal text-white text-sm font-semibold rounded-lg px-4 py-2.5 transition-colors w-auto md:w-full flex-shrink-0">Subscribe</button>
-                            <div class="w-full basis-full flex justify-center md:mt-2">
-                                <div data-netlify-recaptcha="true"></div>
-                            </div>
-                        </form>
                     </div>
                 </div>
-                
+
                 <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
                     <p>&copy; <span class="year-span"></span> Compass Consult (Employability & Skills) Ltd. All rights reserved.</p>
-                    <div class="mt-4 md:mt-0 flex items-center gap-2">
-                        <a href="https://www.linkedin.com/in/jakegibbons-1994/overlay/contact-info/" target="_blank" rel="noopener noreferrer" class="hover:text-compass-teal transition-colors">Website created by Zenith IT.</a>
-                    </div>
                 </div>
             </div>
         </footer>
     </main>
-    <!-- Page scripts — loaded at the bottom to avoid blocking render -->
-    <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
+
     <script src="/js/main.js"></script>
-    <!-- AOS runtime — must be loaded after the DOM is ready -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 </body>
 </html>

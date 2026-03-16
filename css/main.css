@@ -57,6 +57,12 @@
   box-shadow: 0 20px 25px -5px rgba(45, 168, 180, 0.15);
 }
 
+/* Reusable dotted overlay background used in gradient hero/header sections */
+.dots-bg {
+  background-image: radial-gradient(#fff 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
 /* --------------------------------------------------------------------------
    3. Site logo transitions
    --------------------------------------------------------------------------
@@ -373,7 +379,6 @@ body.menu-open {
    -------------------------------------------------------------------------- */
 .no-scrollbar {
   -ms-overflow-style: none;  /* Internet Explorer / Edge legacy */
-  scrollbar-width: none;     /* Firefox */
 }
 
 .no-scrollbar::-webkit-scrollbar {
