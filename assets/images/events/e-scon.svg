@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Employment and Skills Convention 2026</title>
+  <desc id="desc">Event graphic for the Employment and Skills Convention on Thursday 2 July 2026 in Manchester.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f5f7fb" />
+      <stop offset="100%" stop-color="#e8eef8" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)" />
+
+  <g opacity="0.15">
+    <circle cx="90" cy="520" r="44" fill="#1f4f63" />
+    <circle cx="165" cy="535" r="60" fill="#ef8f52" />
+    <circle cx="270" cy="532" r="52" fill="#ef8f52" />
+    <circle cx="360" cy="523" r="44" fill="#1f4f63" />
+    <circle cx="475" cy="530" r="62" fill="#ef8f52" />
+    <circle cx="590" cy="520" r="50" fill="#1f4f63" />
+    <circle cx="705" cy="535" r="64" fill="#ef8f52" />
+    <circle cx="825" cy="522" r="48" fill="#1f4f63" />
+    <circle cx="940" cy="535" r="60" fill="#ef8f52" />
+    <circle cx="1060" cy="522" r="48" fill="#1f4f63" />
+  </g>
+
+  <text x="600" y="130" text-anchor="middle" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="54" font-weight="700" fill="#243342">
+    Employment and Skills
+  </text>
+  <text x="600" y="192" text-anchor="middle" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="54" font-weight="700" fill="#243342">
+    Convention 2026
+  </text>
+
+  <rect x="368" y="248" width="464" height="74" rx="18" fill="#1f4f63" />
+  <text x="600" y="298" text-anchor="middle" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="42" font-weight="700" fill="#ffffff">
+    Thursday 2 July 2026
+  </text>
+
+  <rect x="490" y="344" width="220" height="64" rx="16" fill="#1f4f63" />
+  <text x="600" y="387" text-anchor="middle" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="38" font-weight="700" fill="#ffffff">
+    Manchester
+  </text>
+
+  <text x="600" y="620" text-anchor="middle" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="30" font-weight="600" fill="#4b5f73">
+    Learning and Work Institute • Employment and Skills Convention
+  </text>
+</svg>
