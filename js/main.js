@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
   optimizeImages();             // Add async decoding and lazy-loading attributes
   initializeTickerImageFallback(); // Replace broken ticker logos with the site logo
   initializeAOS();              // Start the Animate On Scroll library
+  initializeSidebarScrollIndicator(); // Show/hide sidebar scroll hint
 });
 
 // ---------------------------------------------------------------------------
@@ -785,6 +786,36 @@ function isInViewport(element) {
     rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
+}
+
+// ---------------------------------------------------------------------------
+// Sidebar scroll indicator
+// ---------------------------------------------------------------------------
+
+/**
+ * Shows a fade-gradient and chevron indicator at the bottom of the desktop
+ * sidebar scroll area when there is more content below the visible fold.
+ * The indicator fades out once the user has scrolled to the bottom.
+ */
+function initializeSidebarScrollIndicator() {
+  const scrollArea = document.getElementById('sidebar-scroll-area');
+  const indicator = document.getElementById('sidebar-scroll-indicator');
+
+  if (!scrollArea || !indicator) return;
+
+  /**
+   * Updates indicator visibility based on whether the scroll area has
+   * remaining content below the current scroll position.
+   */
+  const updateIndicator = () => {
+    const atBottom =
+      scrollArea.scrollTop + scrollArea.clientHeight >= scrollArea.scrollHeight - 4;
+    indicator.style.opacity = atBottom ? '0' : '1';
+  };
+
+  // Run once on load, then on every scroll event within the sidebar.
+  updateIndicator();
+  scrollArea.addEventListener('scroll', updateIndicator, { passive: true });
 }
 
 // ---------------------------------------------------------------------------
