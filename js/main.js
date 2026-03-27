@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeIcons();            // Render Lucide SVG icons
   initializeYearAndDate();      // Inject current year / date into placeholders
   initializeMobileMenu();       // Wire up the hamburger navigation
+  initializeSidebarEnhancements(); // Keep sidebar CTA pinned + show overflow hint
   initializeStickyTalkButton(); // Create the floating "Talk to Us" CTA
   initializeRevealAnimations(); // Scroll-triggered reveal animations
   initializeBioReadMore();      // Expandable "Read More" bio sections
@@ -101,6 +102,90 @@ function initializeComingSoonSocialLinks() {
       event.preventDefault();
       showTooltip(link);
     });
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Desktop sidebar enhancements
+// ---------------------------------------------------------------------------
+
+/**
+ * Normalises desktop sidebar behavior across pages by:
+ *  - Pinning the Contact CTA section to the bottom while sidebar content scrolls.
+ *  - Showing a subtle "Scroll for more options" hint only when overflow exists.
+ */
+function initializeSidebarEnhancements() {
+  const desktopSidebars = document.querySelectorAll('aside.hidden.lg\\:flex');
+  if (!desktopSidebars.length) {
+    return;
+  }
+
+  const desktopMediaQuery = window.matchMedia('(min-width: 1024px)');
+
+  desktopSidebars.forEach((sidebar) => {
+    const contactLink = sidebar.querySelector('a[href="/pages/contact.html"]');
+    if (!contactLink) {
+      return;
+    }
+
+    // Normalize sidebar layout so all pages match the index sidebar structure.
+    sidebar.classList.add('sidebar-standard');
+    sidebar.classList.remove('p-8', 'justify-between');
+
+    const sidebarSections = Array.from(sidebar.children).filter(
+      (child) => child.tagName && child.tagName.toLowerCase() === 'div'
+    );
+
+    const ctaContainer = contactLink.closest('div');
+    const mainContainer = sidebarSections.find((section) => section !== ctaContainer);
+    const scrollContainer = mainContainer || sidebar;
+
+    if (mainContainer && mainContainer.parentElement === sidebar) {
+      mainContainer.classList.add('sidebar-main');
+    }
+
+    if (ctaContainer && ctaContainer.parentElement === sidebar) {
+      ctaContainer.classList.add('sidebar-cta');
+    }
+
+    const contactIcon = contactLink.querySelector('i[data-lucide="arrow-right"]');
+    if (contactIcon) {
+      contactIcon.classList.add('transition-transform');
+    }
+
+    let hint = sidebar.querySelector('.sidebar-scroll-hint');
+    if (!hint) {
+      hint = document.createElement('p');
+      hint.className = 'sidebar-scroll-hint';
+      hint.innerHTML =
+        '<svg aria-hidden="true" focusable="false" class="sidebar-scroll-hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
+        '<span>Scroll for more</span>';
+      if (ctaContainer && ctaContainer.parentElement === sidebar) {
+        sidebar.insertBefore(hint, ctaContainer);
+      } else {
+        sidebar.appendChild(hint);
+      }
+    }
+
+    const updateHintVisibility = () => {
+      const hasOverflow = scrollContainer.scrollHeight > scrollContainer.clientHeight + 8;
+      const nearBottom = hasOverflow
+        ? scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight - 12
+        : true;
+      const shouldShow = desktopMediaQuery.matches && hasOverflow && !nearBottom;
+      hint.classList.toggle('is-visible', shouldShow);
+    };
+
+    scrollContainer.addEventListener('scroll', updateHintVisibility, { passive: true });
+    window.addEventListener('resize', updateHintVisibility);
+
+    if (typeof desktopMediaQuery.addEventListener === 'function') {
+      desktopMediaQuery.addEventListener('change', updateHintVisibility);
+    } else if (typeof desktopMediaQuery.addListener === 'function') {
+      desktopMediaQuery.addListener(updateHintVisibility);
+    }
+
+    updateHintVisibility();
   });
 }
 

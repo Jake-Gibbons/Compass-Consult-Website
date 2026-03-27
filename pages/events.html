@@ -67,33 +67,70 @@
         .reveal-up { transform: translateY(40px); }
         .reveal.active { opacity: 1; transform: translate(0) scale(1); }
         .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
-        .event-card { position: relative; }
-        .event-card.is-collapsed { height: 38rem; overflow: hidden; }
+        .event-card { position: relative; display: flex; flex-direction: column; }
+        .event-card.is-collapsed { height: auto; overflow: visible; }
         .event-card.is-collapsed::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 7rem;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff 70%);
-            pointer-events: none;
+            display: none;
+        }
+        .event-card-image {
+            width: 100%;
+            height: 280px;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border: 1px solid #f3e8ff;
+        }
+        .event-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .event-card-summary h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+        .event-card-summary h3 {
+            font-size: 0.95rem;
+            color: #4b5563;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .event-card-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        .event-card-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .event-card-hidden {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #f3f4f6;
+        }
+        .event-card.is-expanded .event-card-hidden {
+            display: block;
         }
         .event-card-toggle {
-            position: absolute;
-            left: 50%;
-            bottom: 1.25rem;
-            transform: translateX(-50%);
-            z-index: 2;
-        }
-        .event-card.is-expanded {
-            height: auto;
-            overflow: visible;
+            position: static;
+            transform: none;
+            margin-top: 1rem;
+            align-self: center;
+            z-index: auto;
         }
         .event-card.is-expanded .event-card-toggle {
             position: static;
             transform: none;
-            margin-top: 1.25rem;
+            margin-top: 1rem;
         }
         /* Site logo sizing */
         .site-logo { display: block; height: auto; max-height: 120px; }
@@ -112,7 +149,7 @@
          Contains the site logo, primary navigation links, a Contact CTA,
          and a dynamic copyright year.
          ================================================================ -->
-    <aside class="hidden lg:flex fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-100 z-50 flex-col p-8 justify-between shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
+    <aside class="hidden lg:flex fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-100 z-50 flex-col overflow-y-auto p-8 justify-between shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
         <div>
             <a href="/index.html" class="flex items-center gap-3 cursor-pointer group mb-12">
                 <div class="text-compass-purple transition-transform duration-700">
@@ -129,7 +166,7 @@
                 <a href="/pages/team.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Meet the Team</a>
                 <a href="/pages/partnerships.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Partnerships</a>
                 <a href="/pages/resources.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Resource Library</a>
-                <a href="/pages/events.html" class="nav-link active block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Events</a>
+                <a href="/pages/events.html" class="nav-link active block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Latest News &amp; Events</a>
                 <a href="/pages/work-for-us.html" class="nav-link block py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple">Work For Us</a>
             </nav>
         </div>
@@ -163,7 +200,7 @@
                 <a href="/pages/services.html" class="block py-2 px-3 text-gray-700">Our Services</a>
                 <a href="/pages/resources.html" class="block py-2 px-3 text-gray-700">Resource Library</a>
                 <a href="/pages/partnerships.html" class="block py-2 px-3 text-gray-700">Partnerships</a>
-                <a href="/pages/events.html" class="block py-2 px-3 text-compass-purple font-medium bg-purple-50 rounded-md">Events</a>
+                <a href="/pages/events.html" class="block py-2 px-3 text-compass-purple font-medium bg-purple-50 rounded-md">Latest News &amp; Events</a>
                 <a href="/pages/work-for-us.html" class="block py-2 px-3 text-gray-700">Work For Us</a>
                 <a href="/pages/contact.html" class="block py-2 px-3 text-compass-teal">Contact Us</a>
             </div>
@@ -176,14 +213,18 @@
          Contains all page sections and the footer.
          ================================================================ -->
     <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
-        <header class="bg-gray-50 pt-32 pb-16 lg:pt-24 text-center" data-aos="fade-in">
-            <h1 class="text-4xl font-bold text-gray-900">Events</h1>
-            <p class="mt-4 text-gray-600">Conferences, networking, and key sector dates.</p>
-            <div class="mt-6 flex justify-center">
-                <button id="eventSortToggle" type="button" class="px-4 py-2 rounded-full text-sm font-medium bg-compass-purple text-white transition-all shadow-sm whitespace-nowrap inline-flex items-center gap-2">
-                    <span id="eventSortLabel">Order: Newest to Oldest</span>
-                    <i data-lucide="arrow-up-down" class="w-4 h-4"></i>
-                </button>
+        <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center" data-aos="fade-in">
+            <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
+            <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
+            <div class="relative z-10 px-4 sm:px-6 lg:px-8 pt-12 lg:pt-0">
+                <h1 class="text-4xl font-bold text-white">Events</h1>
+                <p class="mt-4 text-white/85">Conferences, networking, and key sector dates.</p>
+                <div class="mt-6 flex justify-center">
+                    <button id="eventSortToggle" type="button" class="px-4 py-2 rounded-full text-sm font-medium bg-compass-purple text-white transition-all shadow-sm whitespace-nowrap inline-flex items-center gap-2">
+                        <span id="eventSortLabel">Order: Newest to Oldest</span>
+                        <i data-lucide="arrow-up-down" class="w-4 h-4"></i>
+                    </button>
+                </div>
             </div>
         </header>
 
@@ -194,188 +235,366 @@
                 <div data-aos="fade-up">
                     <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Upcoming Events</h2>
                     <div id="upcoming-events-list" class="space-y-12">
+                        <article data-event-date="2026-12-07T09:00:00" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100">
+                            <div class="event-card-image">
+                                <img src="/assets/images/events/baseliverpool.webp" alt="16th European Supported Employment Conference Liverpool 2026" />
+                            </div>
+                            <div class="event-card-summary">
+                                <h2>16th European Supported Employment Conference</h2>
+                                <h3>The Art of the Possible: Connecting the Dots</h3>
+                                <div class="event-card-details">
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Mon 7 Dec - Tue 8 Dec 2026</span>
+                                    </div>
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>ACC, Liverpool</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="event-card-hidden text-gray-700 space-y-4">
+                                <p>BASE, in partnership with the Association for Supported Employment Europe (ASEE), is hosting the 16th European Supported Employment Conference in Liverpool.</p>
+                                <p>This year&#39;s conference combines the strengths of BASE&#39;s annual event with best practice, innovation and research from across Europe and beyond.</p>
+                                <p>With an expected 750 delegates per day, this two-day event offers major opportunities to learn, connect, and help shape the future of supported employment and inclusive recruitment.</p>
+                                <p>Delegate tickets, including early-bird offers, and sponsorship packages are launching this month.</p>
+                                <div class="flex flex-wrap items-center gap-4 mt-4">
+                                    <a href="https://lnkd.in/egjuE2hy" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Event updates and tickets <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <span class="text-xs text-gray-400">#SupportedEmploymentEurope #InclusiveRecruitment #LiverpoolEvents</span>
+                                </div>
+                            </div>
+                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+                        </article>
+
+                        <article data-event-date="2026-07-16T09:00:00" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100">
+                            <div class="event-card-image">
+                                <img src="/assets/images/events/connectionsforprosperity.webp" alt="Centre for the New Midlands CFP26 conference at Edgbaston Stadium" />
+                            </div>
+                            <div class="event-card-summary">
+                                <h2>CFP26: Centre for the New Midlands Annual Conference</h2>
+                                <h3>The 4th Annual Conference</h3>
+                                <div class="event-card-details">
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Thu 16 Jul 2026</span>
+                                    </div>
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Edgbaston Stadium</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="event-card-hidden text-gray-700 space-y-4">
+                                <p>CFP26 will bring together around 250 of the region&#39;s key stakeholders to explore major questions shaping the Midlands.</p>
+                                <p>Primary research areas include Housing and Communities, Digital environment, Employability and Skills, and Infrastructure.</p>
+                                <p>As with other Centre for the New Midlands major events, feedback gathered now will help inform the conference steering group and shape the day&#39;s content.</p>
+                                <div class="flex flex-wrap items-center gap-4 mt-4">
+                                    <a href="https://lnkd.in/ecg9ryqj" target="_blank" rel="noopener noreferrer" class="text-cyan-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Share your thoughts <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <span class="text-xs text-gray-400">#CFP26 #newmidlands #policy #devolution #conference #network #birmingham #wolverhampton #coventry #ideas #housing #skills #infrastructure #digital</span>
+                                </div>
+                            </div>
+                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+                        </article>
+
+                        <article class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100">
+                            <div class="event-card-image">
+                                <img src="/assets/images/events/sercoersaawards.webp" alt="ERSA Annual Conference and Employability Awards" />
+                            </div>
+                            <div class="event-card-summary">
+                                <h2>ERSA Annual Conference</h2>
+                                <h3>Supported by headline sponsor Serco</h3>
+                                <div class="event-card-details">
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="megaphone" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Date to be announced. Save the date!</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="event-card-hidden text-gray-700 space-y-4">
+                                <p>Save the date for the Employment Related Services Association (ERSA) annual conference.</p>
+                                <p>Building on the successful 2025 conference, ERSA will bring more discussion, debate, solutions, good practice, innovation, networking and information sharing.</p>
+                                <p>That evening, ERSA will showcase the sector at The Employability Awards, with new categories to be announced.</p>
+                                <p>Organisations interested in becoming the awards headline sponsor are encouraged to get in touch with ERSA.</p>
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <span class="text-xs text-gray-400">#work #skills #engagement #GetBritainWorking #PathwaysToWork</span>
+                                </div>
+                            </div>
+                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+                        </article>
+
                         <article data-event-date="2026-07-02T00:00:00" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100">
-                            <div class="flex flex-col md:flex-row md:gap-8 items-start">
-                                  <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 h-64 rounded-lg border border-indigo-100 overflow-hidden bg-white">
-                                      <img src="/assets/images/events/e-scon.svg" alt="Employment and Skills Convention 2026" class="w-full h-full object-cover" />
+                            <div class="event-card-image">
+                                <img src="/assets/images/events/escon.webp" alt="Employment and Skills Convention 2026" />
+                            </div>
+                            <div class="event-card-summary">
+                                <h2>The Employment and Skills Convention is back!</h2>
+                                <h3>Supporting Learning and Work Institute</h3>
+                                <div class="event-card-details">
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Thu 2 Jul 2026</span>
+                                    </div>
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="globe" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Online</span>
+                                    </div>
                                 </div>
-                                <div class="w-full md:w-2/3">
-                                    <h2 class="text-3xl font-bold text-gray-900 mb-2">The Employment and Skills Convention is back!</h2>
-                                    <h3 class="text-xl text-indigo-600 font-semibold mb-4">Supporting Learning and Work Institute</h3>
-
-                                    <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
-                                        <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-4 h-4"></i> Thu 2 Jul 2026</span>
-                                        <span class="flex items-center gap-1"><i data-lucide="globe" class="w-4 h-4"></i> Online</span>
-                                    </div>
-
-                                    <div class="prose max-w-none text-gray-700 space-y-4">
-                                        <p>We&#39;re pleased to be supporting Learning and Work Institute on this event, exploring how to grow opportunity and unlock potential in a changing workforce.</p>
-                                        <p>This major annual event for the employment and skills sectors brings together delegates from across central and local government, employers, providers, and third sector organisations to tackle key issues in policy and practice.</p>
-                                        <p><strong>📆 2 July<br>🕑 All day</strong></p>
-                                        <div class="flex flex-wrap items-center gap-4">
-                                            <a href="https://ow.ly/5gAi50YlT42" target="_blank" rel="noopener noreferrer" class="text-indigo-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Don&#39;t miss out! Register now <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7432439722246901760/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 text-sm font-bold hover:underline inline-flex items-center gap-1">View LinkedIn Post <i data-lucide="external-link" class="w-3 h-3"></i></a>
-                                        </div>
-                                        <div class="mt-6">
-                                            <span class="text-xs text-gray-400">#EmpSkills26 #employment #skills #learning #growth #jobs #goodwork</span>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="event-card-hidden text-gray-700 space-y-4">
+                                <p>We&#39;re pleased to be supporting Learning and Work Institute on this event, exploring how to grow opportunity and unlock potential in a changing workforce.</p>
+                                <p>This major annual event for the employment and skills sectors brings together delegates from across central and local government, employers, providers, and third sector organisations to tackle key issues in policy and practice.</p>
+                                <p><strong>📆 2 July<br>🕑 All day</strong></p>
+                                <div class="flex flex-wrap items-center gap-4 mt-4">
+                                    <a href="https://ow.ly/5gAi50YlT42" target="_blank" rel="noopener noreferrer" class="text-indigo-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Don&#39;t miss out! Register now <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
+                                    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7432439722246901760/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 text-sm font-bold hover:underline inline-flex items-center gap-1">View LinkedIn Post <i data-lucide="external-link" class="w-3 h-3"></i></a>
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <span class="text-xs text-gray-400">#EmpSkills26 #employment #skills #learning #growth #jobs #goodwork</span>
                                 </div>
                             </div>
                             <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
                         </article>
 
-                        <article data-event-date="2026-03-12T00:00:00" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100">
-                            <div class="flex flex-col md:flex-row md:gap-8 items-start">
-                                <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-blue-50 h-64 flex flex-col items-center justify-center rounded-lg border border-blue-100">
-                                     <i data-lucide="calendar" class="w-16 h-16 text-blue-600 mb-2"></i>
-                                     <span class="text-blue-600 font-bold text-lg">12 Mar 2026</span>
-                                     <span class="text-gray-500 text-sm">Manchester</span>
+                        <article data-event-date="2026-05-21T13:00:00" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100">
+                            <div class="event-card-image">
+                                <img src="/assets/images/events/iepcardiff.webp" alt="IEP Talks Live Cardiff 2026" />
+                            </div>
+                            <div class="event-card-summary">
+                                <h2>IEP Talks Live and Networking Dinner</h2>
+                                <h3>Spend the afternoon learning. Spend the evening connecting.</h3>
+                                <div class="event-card-details">
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Thu 21 May 2026</span>
+                                    </div>
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Museum of Cardiff, The Old Library</span>
+                                    </div>
                                 </div>
-                                <div class="w-full md:w-2/3">
-                                    <h2 class="text-3xl font-bold text-gray-900 mb-2">IEP Manchester Networking Day</h2>
-                                    <h3 class="text-xl text-blue-600 font-semibold mb-4">Connect, Contribute & Shape the Future</h3>
-                                    
-                                    <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
-                                        <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-4 h-4"></i> Thu 12 Mar 2026</span>
-                                        <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-4 h-4"></i> Manchester Hall</span>
-                                    </div>
-
-                                    <div class="prose max-w-none text-gray-700 space-y-4">
-                                        <p>Spend the day with the IEP connecting with peers, exchanging ideas and exploring what’s next for the employability profession, all at the stunning Manchester Hall.</p>
-                                        
-                                        <div class="grid md:grid-cols-2 gap-6 mt-6">
-                                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                                                <h4 class="font-bold text-gray-900 mb-1">🎤 IEP Talks Live</h4>
-                                                <p class="text-xs text-gray-500 mb-2">Sponsored by Occupational Awards Limited</p>
-                                                <p class="text-sm font-semibold mb-2">🕐 1:00 PM – 4:30 PM</p>
-                                                <p class="text-sm mb-4">Insightful speakers, engaging discussion and valuable networking in an interactive afternoon session.</p>
-                                                <a href="https://lnkd.in/eHc7GmZ4" target="_blank" rel="noopener noreferrer" class="text-blue-600 text-sm font-bold hover:underline flex items-center gap-1">Register Here <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                            </div>
-                                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                                                <h4 class="font-bold text-gray-900 mb-1">🍽️ IEP Fellows Dinner</h4>
-                                                <p class="text-xs text-gray-500 mb-2">Sponsored by CogniSoft Ltd</p>
-                                                <p class="text-sm font-semibold mb-2">🕡 6:30 PM – 10:30 PM</p>
-                                                <p class="text-sm mb-4">An exclusive evening for Fellows, senior leaders and sector experts to continue conversations in a relaxed setting.</p>
-                                                <a href="https://lnkd.in/eah75ZFw" target="_blank" rel="noopener noreferrer" class="text-blue-600 text-sm font-bold hover:underline flex items-center gap-1">Book Your Place <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                            </div>
-                                        </div>
-
-                                        <div class="mt-6">
-                                            <span class="text-xs text-gray-400">#IEP #EmployabilityProfessionals #Leadership #Networking</span>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="event-card-hidden text-gray-700 space-y-4">
+                                <p>IEP Talks Live is coming to Cardiff on 21 May 2026, sponsored by The BUSY Group, with seminars, speed networking and valuable peer discussion, free for IEP Members.</p>
+                                <p>Then join the IEP Networking Dinner, where like-minded professionals gather for an evening of thoughtful, future-focused conversation and relationship building.</p>
+                                <p>If you&#39;re passionate about shaping the future of employability, this is one not to miss.</p>
+                                <div class="flex flex-wrap items-center gap-4 mt-4">
+                                    <a href="https://lnkd.in/gTbY5_K7" target="_blank" rel="noopener noreferrer" class="text-violet-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Book IEP Talks Live <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
+                                    <a href="https://lnkd.in/g7dFN9rD" target="_blank" rel="noopener noreferrer" class="text-violet-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Book IEP Networking Dinner <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <span class="text-xs text-gray-400">#IEPTalksLive #IEPFellows #EmployabilitySector #ProfessionalDevelopment #CardiffEvents #SkillsLeadership</span>
                                 </div>
                             </div>
                             <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
                         </article>
+
+                        
 
                         <article data-event-date="2026-04-23T00:00:00" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100">
-                            <div class="flex flex-col md:flex-row md:gap-8 items-start">
-                                <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-yellow-50 h-64 flex flex-col items-center justify-center rounded-lg border border-yellow-100">
-                                     <i data-lucide="calendar" class="w-16 h-16 text-yellow-600 mb-2"></i>
-                                     <span class="text-yellow-600 font-bold text-lg">23 Apr 2026</span>
-                                     <span class="text-gray-500 text-sm">Save the Date</span>
-                                </div>
-                                <div class="w-full md:w-2/3">
-                                    <h2 class="text-3xl font-bold text-gray-900 mb-2">IEP Talks Live & Fellows Dinner</h2>
-                                    <h3 class="text-xl text-yellow-600 font-semibold mb-4">Birmingham</h3>
-                                    
-                                    <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
-                                        <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-4 h-4"></i> Thu 23 Apr 2026</span>
-                                        <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-4 h-4"></i> Birmingham</span>
+                            <div class="event-card-image bg-yellow-50 h-64 flex flex-col items-center justify-center rounded-lg border border-yellow-100">
+                                <i data-lucide="calendar" class="w-16 h-16 text-yellow-600 mb-2"></i>
+                                <span class="text-yellow-600 font-bold text-lg">23 Apr 2026</span>
+                                <span class="text-gray-500 text-sm">Save the Date</span>
+                            </div>
+                            <div class="event-card-summary">
+                                <h2>IEP Talks Live & Fellows Dinner</h2>
+                                <h3>Birmingham</h3>
+                                <div class="event-card-details">
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Thu 23 Apr 2026</span>
                                     </div>
-
-                                    <div class="prose max-w-none text-gray-700 space-y-4">
-                                        <p>The popular IEP networking events are coming to Birmingham. Further details to be announced soon.</p>
-                                        <p>Save the date for another great opportunity to connect with employability professionals from across the region.</p>
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Birmingham</span>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="event-card-hidden text-gray-700 space-y-4">
+                                <p>The popular IEP networking events are coming to Birmingham. Further details to be announced soon.</p>
+                                <p>Save the date for another great opportunity to connect with employability professionals from across the region.</p>
                             </div>
                             <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
                         </article>
 
-                        <article data-event-date="2026-03-10T09:00:00" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100">
-                            <div class="flex flex-col md:flex-row md:gap-8 items-start">
-                                  <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 h-64 rounded-lg border border-emerald-100 overflow-hidden bg-white">
-                                      <img src="/assets/images/events/venturefest.webp" alt="Venturefest West Midlands 2026" class="w-full h-full object-cover" />
-                                  </div>
-                                <div class="w-full md:w-2/3">
-                                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Venturefest West Midlands 2026</h2>
-                                    <h3 class="text-xl text-emerald-600 font-semibold mb-4">Innovation, Growth & Collaboration</h3>
-                                    
-                                    <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
-                                        <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-4 h-4"></i> Tue 10 Mar 2026, 9:00 AM - 5:00 PM</span>
-                                        <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-4 h-4"></i> Billy Wright Stand, Molineux Stadium, Wolverhampton</span>
-                                    </div>
 
-                                    <div class="prose max-w-none text-gray-700 space-y-4">
-                                        <p>Join Venturefest West Midlands 2026 to connect with innovators, entrepreneurs and partners shaping the regional growth ecosystem at the Billy Wright Stand, Molineux Stadium.</p>
-                                        <a href="https://www.eventbrite.co.uk/e/venturefest-west-midlands-2026-tickets-1978881034444?aff=linkedinbusinessstaticimage" target="_blank" rel="noopener noreferrer" class="text-emerald-600 text-sm font-bold hover:underline flex items-center gap-1">Register on Eventbrite <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
                     </div>
                 </div>
 
                 <!-- Past Events -->
                 <div class="pt-12 border-t border-gray-100" data-aos="fade-up">
                     <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Past Events</h2>
-                    <div id="past-events-list" class="space-y-12">
-                        <article data-event-date="2026-03-04T11:00:00" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
-                               <div class="flex flex-col md:flex-row md:gap-8 items-start">
-                                  <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 h-64 rounded-lg border border-sky-100 overflow-hidden bg-white">
-                                      <img src="/assets/images/events/iepwales.jpeg" alt="Connecting Wales – Work, Health and Skills" class="w-full h-full object-cover" />
-                                  </div>
-                                <div class="w-full md:w-2/3">
-                                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Connecting Wales – Work, Health and Skills</h2>
-                                    <h3 class="text-xl text-sky-600 font-semibold mb-4">Hosted by the Institute of Employability Professionals</h3>
-
-                                    <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
-                                        <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-4 h-4"></i> Wed 4 Mar 2026, 11:00 AM - 12:30 PM</span>
-                                        <span class="flex items-center gap-1"><i data-lucide="link" class="w-4 h-4"></i> Online (Microsoft Teams)</span>
+                    <div id="past-events-list" class="space-y-8">
+                        <article data-event-date="2026-03-12T00:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+                            <div class="event-card-image" style="height: 220px; background-color: #dbeafe; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="calendar" class="w-12 h-12 text-blue-600"></i>
+                            </div>
+                            <div class="event-card-summary">
+                                <h2 style="font-size: 1.25rem;">IEP Manchester Networking Day</h2>
+                                <h3 style="font-size: 0.9rem;">Connect, Contribute & Shape the Future</h3>
+                                <div class="event-card-details">
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Thu 12 Mar 2026</span>
                                     </div>
-
-                                    <div class="prose max-w-none text-gray-700 space-y-4">
-                                        <p>New research from Learning and Work Institute, undertaken with Serco, explores practical and evidence-based employability approaches to strengthen outcomes in Wales and close long-standing support gaps.</p>
-                                        <p><strong>The session focused on improving employment outcomes for:</strong></p>
-                                        <ul>
-                                            <li>Women</li>
-                                            <li>People from minority ethnic backgrounds</li>
-                                            <li>Disabled people</li>
-                                            <li>Individuals with long-term health conditions</li>
-                                        </ul>
-                                        <p>The discussion examined what these findings mean for employability stakeholders and how they can support a more inclusive and effective system.</p>
-                                        <a href="https://lnkd.in/gRTRa_iR" target="_blank" rel="noopener noreferrer" class="text-sky-600 text-sm font-bold hover:underline flex items-center gap-1">Register here <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Manchester Hall</span>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="event-card-hidden text-gray-700 space-y-4">
+                                <p>Spend the day with the IEP connecting with peers, exchanging ideas and exploring what's next for the employability profession, all at the stunning Manchester Hall.</p>
+                                <div class="grid md:grid-cols-2 gap-4 mt-4">
+                                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                                        <h4 class="font-bold text-gray-900 mb-1">🎤 IEP Talks Live</h4>
+                                        <p class="text-xs text-gray-500 mb-2">Sponsored by Occupational Awards Limited</p>
+                                        <p class="text-sm font-semibold mb-2">🕐 1:00 PM – 4:30 PM</p>
+                                        <p class="text-sm mb-4">Insightful speakers, engaging discussion and valuable networking in an interactive afternoon session.</p>
+                                        <a href="https://lnkd.in/eHc7GmZ4" target="_blank" rel="noopener noreferrer" class="text-blue-600 text-sm font-bold hover:underline flex items-center gap-1">Register Here <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
+                                    </div>
+                                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                                        <h4 class="font-bold text-gray-900 mb-1">🍽️ IEP Fellows Dinner</h4>
+                                        <p class="text-xs text-gray-500 mb-2">Sponsored by CogniSoft Ltd</p>
+                                        <p class="text-sm font-semibold mb-2">🕡 6:30 PM – 10:30 PM</p>
+                                        <p class="text-sm mb-4">An exclusive evening for Fellows, senior leaders and sector experts to continue conversations in a relaxed setting.</p>
+                                        <a href="https://lnkd.in/eah75ZFw" target="_blank" rel="noopener noreferrer" class="text-blue-600 text-sm font-bold hover:underline flex items-center gap-1">Book Your Place <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
+                                    </div>
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <span class="text-xs text-gray-400">#IEP #EmployabilityProfessionals #Leadership #Networking</span>
                                 </div>
                             </div>
                             <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
                         </article>
 
-                        <article data-event-date="2026-02-24T00:00:00" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
-                            <div class="flex flex-col md:flex-row md:gap-8 items-start">
-                                <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-teal-50 h-64 flex flex-col items-center justify-center rounded-lg border border-teal-100">
-                                     <i data-lucide="calendar" class="w-16 h-16 text-compass-teal mb-2"></i>
-                                     <span class="text-compass-teal font-bold text-lg">24 Feb 2026</span>
-                                     <span class="text-gray-500 text-sm">Attended</span>
-                                </div>
-                                <div class="w-full md:w-2/3">
-                                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Annual Apprenticeships Conference 2026</h2>
-                                    <h3 class="text-xl text-compass-teal font-semibold mb-4">Millennium Point, Birmingham</h3>
-                                    
-                                    <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
-                                        <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-4 h-4"></i> Tue 24 Feb 2026</span>
-                                        <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-4 h-4"></i> Millennium Point, Birmingham</span>
-                                    </div>
 
-                                    <div class="prose max-w-none text-gray-700 space-y-4">
-                                        <p>Our Managing Director, <strong>Jon Smith (CMgr FCMI FIEP)</strong>, attended the Annual Apprenticeships Conference 2026.</p>
-                                        <p>As a key event in the skills calendar, the conference brings together apprenticeship providers, employers, and policymakers to shape the future of vocational training.</p>
+
+
+                        <article data-event-date="2026-03-19T09:30:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+                            <div class="event-card-image" style="height: 220px;">
+                                <img src="/assets/images/events/ieptalkssweden.webp" alt="IEP Talks Live Sweden Stockholm 2026" />
+                            </div>
+                            <div class="event-card-summary">
+                                <h2 style="font-size: 1.25rem;">IEP Stockholm</h2>
+                                <h3 style="font-size: 0.9rem;">Learn by day, connect by night</h3>
+                                <div class="event-card-details">
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Thu 19 Mar 2026</span>
+                                    </div>
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Sjofartshuset, Skeppsbron 10, Stockholm</span>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="event-card-hidden text-gray-700 space-y-4">
+                                <p><strong>IEP Talks Live Sweden</strong><br>09:30 - 18:00</p>
+                                <p>An engaging daytime event featuring expert speakers, sector discussion, refreshments and lunch.</p>
+                                <p><strong>Tickets:</strong> Non-members 950 SEK. Free for IEP members (daytime event only). IEP member organisations receive two free daytime places per organisation.</p>
+                                <p><strong>IEP Fellows Dinner Sweden</strong><br>19:00 - 22:00</p>
+                                <p>An evening event for Fellows and senior professionals to reflect, build relationships and connect in an informal, inspiring setting. Limited places are available and early booking is advised.</p>
+                                <p>Programme and speaker details coming soon.</p>
+                                <div class="flex flex-wrap items-center gap-4 mt-4">
+                                    <a href="https://lnkd.in/gb3YGH3M" target="_blank" rel="noopener noreferrer" class="text-rose-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Book IEP Talks Live <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
+                                    <a href="https://lnkd.in/gcAtWWTH" target="_blank" rel="noopener noreferrer" class="text-rose-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Book Fellows Dinner <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
+                                </div>
+                                <p>Questions about tickets? Contact <a href="mailto:amy.lucas@iemployability.org" class="text-rose-600 hover:underline">amy.lucas@iemployability.org</a>.</p>
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <span class="text-xs text-gray-400">#IEP #IEPSweden #IEPSverige #IEPTalksLive #Employability #Arbetsmarknad #ProfessionalNetworking</span>
+                                </div>
+                            </div>
+                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+                        </article>
+
+                        
+
+                        <article data-event-date="2026-03-10T09:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+                            <div class="event-card-image" style="height: 220px;">
+                                <img src="/assets/images/events/venturefest.webp" alt="Venturefest West Midlands 2026" />
+                            </div>
+                            <div class="event-card-summary">
+                                <h2 style="font-size: 1.25rem;">Venturefest West Midlands 2026</h2>
+                                <h3 style="font-size: 0.9rem;">Innovation, Growth & Collaboration</h3>
+                                <div class="event-card-details">
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Tue 10 Mar 2026, 9:00 AM - 5:00 PM</span>
+                                    </div>
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Billy Wright Stand, Molineux Stadium, Wolverhampton</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="event-card-hidden text-gray-700 space-y-4">
+                                <p>Join Venturefest West Midlands 2026 to connect with innovators, entrepreneurs and partners shaping the regional growth ecosystem at the Billy Wright Stand, Molineux Stadium.</p>
+                                <div class="flex flex-wrap items-center gap-4 mt-4">
+                                    <a href="https://www.eventbrite.co.uk/e/venturefest-west-midlands-2026-tickets-1978881034444?aff=linkedinbusinessstaticimage" target="_blank" rel="noopener noreferrer" class="text-emerald-600 text-sm font-bold hover:underline flex items-center gap-1">Register on Eventbrite <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
+                                </div>
+                            </div>
+                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+                        </article>
+
+                        <article data-event-date="2026-03-04T11:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+                            <div class="event-card-image" style="height: 220px; border-radius: 0.5rem; border: 1px solid #e0f2fe; overflow: hidden; background-color: white;">
+                                <img src="/assets/images/events/iepwales.webp" alt="Connecting Wales – Work, Health and Skills" class="w-full h-full object-cover" />
+                            </div>
+                            <div class="event-card-summary">
+                                <h2>Connecting Wales – Work, Health and Skills</h2>
+                                <h3 style="font-size: 0.95rem; color: #0369a1;">Hosted by the Institute of Employability Professionals</h3>
+                                <div class="event-card-details">
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Wed 4 Mar 2026, 11:00 AM - 12:30 PM</span>
+                                    </div>
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="link" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Online (Microsoft Teams)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="event-card-hidden text-gray-700 space-y-4">
+                                <p>New research from Learning and Work Institute, undertaken with Serco, explores practical and evidence-based employability approaches to strengthen outcomes in Wales and close long-standing support gaps.</p>
+                                <p><strong>The session focused on improving employment outcomes for:</strong></p>
+                                <ul class="list-disc list-inside">
+                                    <li>Women</li>
+                                    <li>People from minority ethnic backgrounds</li>
+                                    <li>Disabled people</li>
+                                    <li>Individuals with long-term health conditions</li>
+                                </ul>
+                                <p>The discussion examined what these findings mean for employability stakeholders and how they can support a more inclusive and effective system.</p>
+                                <a href="https://lnkd.in/gRTRa_iR" target="_blank" rel="noopener noreferrer" class="text-sky-600 text-sm font-bold hover:underline flex items-center gap-1">Register here <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
+                            </div>
+                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+                        </article>
+
+                        <article data-event-date="2026-02-24T00:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+                            <div class="event-card-image" style="height: 220px; background-color: #f0fdfa; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="calendar" class="w-12 h-12 text-teal-600"></i>
+                            </div>
+                            <div class="event-card-summary">
+                                <h2>Annual Apprenticeships Conference 2026</h2>
+                                <h3 style="font-size: 0.95rem; color: #0d9488;">Millennium Point, Birmingham</h3>
+                                <div class="event-card-details">
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Tue 24 Feb 2026</span>
+                                    </div>
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Millennium Point, Birmingham</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="event-card-hidden text-gray-700 space-y-4">
+                                <p>Our Managing Director, <strong>Jon Smith (CMgr FCMI FIEP)</strong>, attended the Annual Apprenticeships Conference 2026.</p>
+                                <p>As a key event in the skills calendar, the conference brings together apprenticeship providers, employers, and policymakers to shape the future of vocational training.</p>
                             </div>
                             <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
                         </article>
@@ -383,7 +602,7 @@
                         <article data-event-date="2026-02-26T00:00:00" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
                             <div class="flex flex-col md:flex-row md:gap-8 items-start">
                                   <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 h-64 rounded-lg border border-indigo-100 overflow-hidden bg-white">
-                                      <img src="/assets/images/events/workmatters.jpeg" alt="Work Foundation NEET event" class="w-full h-full object-cover" />
+                                      <img src="/assets/images/events/workmatters.webp" alt="Work Foundation NEET event" class="w-full h-full object-cover" />
                                   </div>
                                 <div class="w-full md:w-2/3">
                                     <h2 class="text-3xl font-bold text-gray-900 mb-2">NEET Trends and Youth Labour Market Discussion</h2>
@@ -406,19 +625,25 @@
                             <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
                         </article>
 
-                        <article class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
-                            <div class="flex flex-col md:flex-row md:gap-8 items-start">
-                                  <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 h-64 rounded-lg border border-cyan-100 overflow-hidden bg-white">
-                                      <img src="/assets/images/events/youthgaruntee.jpeg" alt="Youth Guarantee webinar" class="w-full h-full object-cover" />
-                                  </div>
-                                <div class="w-full md:w-2/3">
-                                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Central London Forward Youth Guarantee Market Warming Webinar</h2>
-                                    <h3 class="text-xl text-cyan-600 font-semibold mb-4">Hosted by Joshua Dearman and Jon Smith CMgr FCMI FIEP FCIPD</h3>
-
-                                    <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
-                                        <span class="flex items-center gap-1"><i data-lucide="users" class="w-4 h-4"></i> 56 participants</span>
-                                        <span class="flex items-center gap-1"><i data-lucide="link" class="w-4 h-4"></i> Online webinar</span>
+                        <article class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+                            <div class="event-card-image" style="height: 220px; border-radius: 0.5rem; border: 1px solid #cffafe; overflow: hidden; background-color: white;">
+                                <img src="/assets/images/events/youthgaruntee.webp" alt="Youth Guarantee webinar" class="w-full h-full object-cover" />
+                            </div>
+                            <div class="event-card-summary">
+                                <h2>Central London Forward Youth Guarantee Market Warming Webinar</h2>
+                                <h3 style="font-size: 0.95rem; color: #0891b2;">Hosted by Joshua Dearman and Jon Smith CMgr FCMI FIEP FCIPD</h3>
+                                <div class="event-card-details">
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="users" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>56 participants</span>
                                     </div>
+                                    <div class="event-card-detail-item">
+                                        <i data-lucide="link" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Online webinar</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="event-card-hidden text-gray-700 space-y-4">
 
                                     <div class="prose max-w-none text-gray-700 space-y-4">
                                         <p>We were pleased to welcome 56 participants to Central London Forward’s Youth Guarantee Market Warming Webinar, bringing together charities, social enterprises and commercial organisations to share delivery plans and explore provider engagement opportunities.</p>
@@ -430,8 +655,6 @@
                                             <li>How organisations can deliver employability, skills and wellbeing support for young people facing complex barriers</li>
                                         </ul>
                                         <a href="https://lnkd.in/gh5bUQmx" target="_blank" rel="noopener noreferrer" class="text-cyan-600 text-sm font-bold hover:underline flex items-center gap-1">Watch the full webinar session <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                    </div>
-                                </div>
                             </div>
                             <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
                         </article>
@@ -479,13 +702,13 @@
                         </p>
                         <div class="flex space-x-4">
                             <a href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
-                                <i data-lucide="linkedin" class="w-5 h-5"></i>
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6.94 8.5H3.56V19.5H6.94V8.5ZM5.25 3C4.17 3 3.5 3.72 3.5 4.66C3.5 5.58 4.15 6.32 5.21 6.32H5.23C6.33 6.32 7 5.58 7 4.66C6.98 3.72 6.33 3 5.25 3ZM20.5 13.19C20.5 9.81 18.69 8.24 16.28 8.24C14.33 8.24 13.46 9.31 12.97 10.06V8.5H9.59C9.63 9.53 9.59 19.5 9.59 19.5H12.97V13.36C12.97 13.03 13 12.7 13.09 12.46C13.35 11.8 13.94 11.11 14.95 11.11C16.26 11.11 16.79 12.11 16.79 13.57V19.5H20.17V13.19H20.5Z"/></svg>
                             </a>
                             <a href="#" aria-label="Social profile" title="Social profile" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.6l-5.1-6.72-5.87 6.72h-3.31l7.78-8.835L.254 2.25h6.6l4.915 6.468L18.244 2.25zM17.15 19.83h1.828L6.122 4.137H4.231L17.15 19.83z"/></svg>
                             </a>
                             <a href="#" aria-label="Social profile" title="Social profile" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
-                                <i data-lucide="facebook" class="w-5 h-5"></i>
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13.5 8.5V6.75C13.5 6.06 14.06 5.5 14.75 5.5H16.5V2.5H14.25C11.63 2.5 9.5 4.63 9.5 7.25V8.5H7V11.5H9.5V21.5H13.5V11.5H16.25L16.75 8.5H13.5Z"/></svg>
                             </a>
                         </div>
                     </div>
@@ -604,11 +827,10 @@
                 const toggleButton = card.querySelector('.event-card-toggle');
                 if (!toggleButton) return;
 
+                const hiddenContent = card.querySelector('.event-card-hidden');
                 const icon = toggleButton.querySelector('i');
-                const hasOverflow = card.scrollHeight > card.clientHeight + 2;
-
-                if (!hasOverflow) {
-                    card.classList.remove('is-collapsed');
+                
+                if (!hiddenContent) {
                     toggleButton.classList.add('hidden');
                     return;
                 }
@@ -616,6 +838,12 @@
                 toggleButton.addEventListener('click', () => {
                     const isExpanded = card.classList.toggle('is-expanded');
                     card.classList.toggle('is-collapsed', !isExpanded);
+
+                    if (isExpanded) {
+                        hiddenContent.style.maxHeight = hiddenContent.scrollHeight + 'px';
+                    } else {
+                        hiddenContent.style.maxHeight = '0';
+                    }
 
                     toggleButton.firstChild.textContent = isExpanded ? 'Show less ' : 'Read more ';
 

@@ -574,3 +574,98 @@ body.menu-open {
     transition: none !important;
   }
 }
+
+/* --------------------------------------------------------------------------
+   18. Event card expand/collapse
+   --------------------------------------------------------------------------
+   Styles for the event cards with collapsible content. Hidden content is
+   initially hidden and revealed when the is-expanded class is applied.
+   -------------------------------------------------------------------------- */
+.event-card {
+  overflow: hidden;
+}
+
+.event-card-hidden {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.event-card.is-expanded .event-card-hidden {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   19. Desktop sidebar CTA + scroll hint
+   -------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  .sidebar-standard {
+    padding: 0 !important;
+    justify-content: flex-start !important;
+  }
+
+  .sidebar-main {
+    overflow-y: auto;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  .sidebar-cta {
+    position: sticky;
+    bottom: 0;
+    margin-top: 0;
+    padding: 2rem;
+    border-top: 1px solid #f3f4f6;
+    background: linear-gradient(to top, #ffffff 78%, rgba(255, 255, 255, 0));
+    z-index: 2;
+  }
+
+  @keyframes hint-bob {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(4px); }
+  }
+
+  @keyframes hint-pulse-opacity {
+    0%, 100% { opacity: 0.9; }
+    50%       { opacity: 0.45; }
+  }
+
+  .sidebar-scroll-hint {
+    position: sticky;
+    bottom: 6.75rem;
+    z-index: 1;
+    margin: 0;
+    padding: 0.2rem 0;
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: rgba(72, 48, 134, 0.72);
+    opacity: 0;
+    transform: translateY(4px);
+    pointer-events: none;
+    transition: opacity 0.28s ease, transform 0.28s ease;
+  }
+
+  .sidebar-scroll-hint.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    animation:
+      hint-bob 1.6s ease-in-out 0.3s infinite,
+      hint-pulse-opacity 1.6s ease-in-out 0.3s infinite;
+  }
+
+  .sidebar-scroll-hint span {
+    display: block;
+  }
+
+  .sidebar-scroll-hint-icon {
+    display: block;
+    margin: 0 auto 2px;
+    width: 14px;
+    height: 14px;
+  }
+}
