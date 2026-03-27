@@ -78,6 +78,9 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
+    <!-- Skip navigation — allows keyboard users to bypass the navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
 
     <!-- ================================================================
          Desktop Sidebar — visible on screens ≥ 1024 px (lg breakpoint)
@@ -147,7 +150,7 @@
          On large screens, offset by the sidebar width (lg:ml-72 / 18 rem).
          Contains all page sections and the footer.
          ================================================================ -->
-    <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
+    <main id="main-content" class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
         <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center" data-aos="fade-in">
             <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
             <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>

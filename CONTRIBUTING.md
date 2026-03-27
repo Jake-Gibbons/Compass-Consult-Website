@@ -62,13 +62,15 @@ All Pull Requests should target the `main` branch.
 ### Adding a New Page
 
 1. Create a new `.html` file in `pages/` (or root for top-level pages).
-2. Copy the `<head>`, sidebar `<aside>`, mobile `<nav>`, and `<footer>`
+2. Copy the `<head>`, skip link, sidebar `<aside>`, mobile `<nav>`, and `<footer>`
    from an existing page (e.g. `pages/about.html`) to keep the structure
    consistent.
-3. Update the `nav-link.active` class in the sidebar and mobile menu to
+3. Ensure `<main id="main-content" ...>` has the `id="main-content"` attribute
+   so the skip link target is present.
+4. Update the `nav-link.active` class in the sidebar and mobile menu to
    highlight the new page.
-4. Add a link to the new page in every other page's sidebar and mobile menu.
-5. Add an entry to `sitemap.xml`.
+5. Add a link to the new page in every other page's sidebar and mobile menu.
+6. Add an entry to `sitemap.xml`.
 
 ### Updating Content
 
@@ -143,6 +145,8 @@ All Pull Requests should target the `main` branch.
 
 - All interactive elements must be reachable by keyboard.
 - Use `aria-label` or visible text for icon-only buttons and links.
+- Decorative images (e.g. background illustrations, duplicated ticker images)
+  should use `alt=""` and `role="presentation"` to hide them from screen readers.
 - Respect `prefers-reduced-motion` — do not add new animations without
   adding a corresponding rule in the reduced-motion media query block in
   `main.css`.
@@ -183,7 +187,7 @@ Before opening a Pull Request, verify the following:
 
 - [ ] Tested locally in Chrome, Firefox, and Safari
 - [ ] Tested on mobile (or with DevTools responsive mode)
-- [ ] All new images have `alt` attributes
+- [ ] All new images have `alt` attributes (use `alt=""` for decorative images)
 - [ ] No broken internal links
 - [ ] New JavaScript functions have JSDoc comments
 - [ ] New CSS rules have inline comments
@@ -191,6 +195,8 @@ Before opening a Pull Request, verify the following:
 - [ ] Copyright year spans use `<span class="year-span"></span>`
 - [ ] `sitemap.xml` updated if a new page was added
 - [ ] No `console.log` statements in committed code
+- [ ] New pages include the skip navigation link (`<a href="#main-content" class="skip-link">`)
+  and `id="main-content"` on the `<main>` element
 
 ---
 
