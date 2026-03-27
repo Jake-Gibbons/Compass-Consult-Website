@@ -38,5 +38,9 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "dependencies": {
+    "@netlify/blobs": "^10.7.4",
+    "@netlify/functions": "^5.1.5"
+  }
 }

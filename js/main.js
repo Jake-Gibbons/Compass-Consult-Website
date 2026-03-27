@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeTickerImageFallback(); // Replace broken ticker logos with the site logo
   initializeAOS();              // Start the Animate On Scroll library
   initializeSidebarScrollIndicator(); // Show/hide sidebar scroll hint
+  initializeNewsletterForm();        // Newsletter subscription via Blobs API
 });
 
 // ---------------------------------------------------------------------------
@@ -816,6 +817,69 @@ function initializeSidebarScrollIndicator() {
   // Run once on load, then on every scroll event within the sidebar.
   updateIndicator();
   scrollArea.addEventListener('scroll', updateIndicator, { passive: true });
+}
+
+// ---------------------------------------------------------------------------
+// Newsletter subscription form
+// ---------------------------------------------------------------------------
+
+/**
+ * Intercepts the newsletter subscription form and submits the email address
+ * to the /api/subscribers endpoint backed by Netlify Blobs, providing inline
+ * feedback to the user.
+ */
+function initializeNewsletterForm() {
+  const form = document.querySelector('form[name="newsletter-subscribe"]');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const emailInput = form.querySelector('input[name="email"]');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const email = emailInput.value.trim();
+
+    if (!email) return;
+
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Subscribing...';
+    submitBtn.disabled = true;
+
+    try {
+      const res = await fetch('/api/subscribers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        submitBtn.textContent = 'Subscribed!';
+        submitBtn.classList.remove('bg-compass-teal', 'hover:bg-compass-lightTeal');
+        submitBtn.classList.add('bg-green-600');
+        emailInput.value = '';
+        setTimeout(() => {
+          submitBtn.textContent = originalText;
+          submitBtn.classList.remove('bg-green-600');
+          submitBtn.classList.add('bg-compass-teal', 'hover:bg-compass-lightTeal');
+          submitBtn.disabled = false;
+        }, 3000);
+      } else {
+        submitBtn.textContent = data.error || 'Error';
+        setTimeout(() => {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }, 3000);
+      }
+    } catch {
+      submitBtn.textContent = 'Error — try again';
+      setTimeout(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }, 3000);
+    }
+  });
 }
 
 // ---------------------------------------------------------------------------
