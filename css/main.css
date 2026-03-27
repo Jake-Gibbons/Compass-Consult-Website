@@ -71,8 +71,15 @@
    so it reads correctly against the dark background.
    -------------------------------------------------------------------------- */
 .site-logo {
+  max-height: 2.75rem;
+  width: auto;
   transition: transform 0.3s ease, filter 0.3s ease;
   transform-origin: center;
+}
+
+/* Sidebar logo — larger and centred */
+aside .site-logo {
+  max-height: 4rem;
 }
 
 /* Invert footer logo to white for legibility on the dark footer background */
@@ -609,6 +616,7 @@ body.menu-open {
   .sidebar-standard {
     padding: 0 !important;
     justify-content: flex-start !important;
+    overflow-x: hidden;
   }
 
   .sidebar-main {
@@ -617,6 +625,25 @@ body.menu-open {
     display: flex;
     flex-direction: column;
     padding: 2rem;
+  }
+
+  /* index.html sidebar: outer wrapper gets sidebar-main but content lives in
+     #sidebar-scroll-area — zero outer padding to avoid a double-gap, and give
+     the scroll area its own padding so it fills the full height flush. */
+  .sidebar-main:has(#sidebar-scroll-area) {
+    padding: 0;
+    overflow-y: visible;
+  }
+
+  #sidebar-scroll-area {
+    padding: 2rem;
+  }
+
+  /* Centre the logo anchor and remove the phantom gap from the empty sr-only div */
+  aside a.group {
+    width: 100%;
+    justify-content: center;
+    gap: 0;
   }
 
   .sidebar-cta {
