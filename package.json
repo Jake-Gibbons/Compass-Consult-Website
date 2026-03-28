@@ -18,8 +18,9 @@
   "scripts": {
     "dev": "http-server",
     "serve": "http-server -p 8000 -c-1",
-    "build": "npm run build:css && npm run build:assets",
+    "build": "npm run build:css && npm run build:lucide && npm run build:assets",
     "build:css": "tailwindcss -i ./css/input.css -o ./css/tailwind.min.css --minify",
+    "build:lucide": "node scripts/build-lucide.mjs",
     "build:assets": "node scripts/version-assets.mjs",
     "watch:css": "tailwindcss -i ./css/input.css -o ./css/tailwind.min.css --watch",
     "test": "echo 'Test script to be configured'",

@@ -79,10 +79,14 @@ async function removeOldVersions(relPath) {
   const parsed = path.parse(relPath);
   const absDir = path.join(ROOT, parsed.dir);
   const entries = await fs.readdir(absDir);
-  const oldRegex = new RegExp(`^${parsed.name}\\.[a-f0-9]{8}\\${parsed.ext.replace('.', '\\.')}$`);
 
   await Promise.all(entries.map(async (entry) => {
-    if (oldRegex.test(entry)) {
+    if (!entry.startsWith(`${parsed.name}.`) || !entry.endsWith(parsed.ext)) {
+      return;
+    }
+
+    const hashPart = entry.slice(parsed.name.length + 1, -parsed.ext.length);
+    if (/^[a-f0-9]{8}$/.test(hashPart)) {
       await fs.unlink(path.join(absDir, entry));
     }
   }));
