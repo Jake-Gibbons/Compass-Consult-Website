@@ -3,6 +3,9 @@ import globals from "globals";
 
 export default [
   {
+    ignores: ["js/aos.min.js", "js/lucide.min.js"],
+  },
+  {
     files: ["js/**/*.js"],
     languageOptions: {
       ecmaVersion: 2022,

@@ -1,6 +1,71 @@
 [build]
   publish = "."
+  command = "npm run build:css"
 
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
+
+# ---------------------------------------------------------------------------
+# Cache headers — long-lived for hashed/versioned assets, short for HTML
+# ---------------------------------------------------------------------------
+
+# HTML pages — must always revalidate so updates are reflected immediately
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/pages/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# CSS / JS — long cache (1 year); Netlify deploy hashes make these safe
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Images — long cache
+[[headers]]
+  for = "/assets/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/assets/logos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/assets/icons/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# Fonts cached for 1 year
+[[headers]]
+  for = "/assets/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# Downloads
+[[headers]]
+  for = "/assets/downloads/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Security headers — applied globally
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+

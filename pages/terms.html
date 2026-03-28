@@ -28,33 +28,14 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon/favicon-16x16.png">
     <link rel="manifest" href="/assets/icons/favicon/site.webmanifest">
-    <!-- Third-party scripts: Tailwind CSS (utility framework), Lucide icons -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Preload LCP image (logo) for faster paint -->
+    <link rel="preload" href="/assets/logos/Logo.png" as="image">
     <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Tailwind configuration — extends the default theme with brand colours
-         and the hero gradient background image. -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
-                    colors: {
-                        compass: {
-                            purple: '#483086',
-                            lightPurple: '#6a4eb8',
-                            teal: '#2da8b4',
-                            lightTeal: '#4fd3e0',
-                            dark: '#1e1b2e',
-                            light: '#f8f9fc'
-                        }
-                    },
-                    backgroundImage: { 'hero-gradient': 'linear-gradient(135deg, #483086 0%, #2da8b4 100%)' }
-                }
-            }
-        }
-    </script>
+    <!-- Pre-built Tailwind CSS (replaces CDN runtime — 47 KB vs 3 MB) -->
+    <link rel="stylesheet" href="/css/tailwind.min.css">
     <!-- Inline styles for page-specific utility classes and component overrides
          that are not available through Tailwind's default configuration. -->
     <style>
@@ -71,7 +52,7 @@
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
     <link rel="stylesheet" href="/css/main.css">
     <!-- AOS (Animate On Scroll) stylesheet — initialised in /js/main.js -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="/css/aos.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
     <!-- Skip navigation — allows keyboard users to bypass the navigation -->
@@ -366,8 +347,9 @@
 
     <!-- Page scripts — loaded at the bottom to avoid blocking render -->
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
-    <script src="/js/main.js"></script>
-    <!-- AOS runtime — must be loaded after the DOM is ready -->
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script defer src="/js/lucide.min.js"></script>
+    <script defer src="/js/main.js"></script>
+    <!-- AOS runtime — must be loaded before DOMContentLoaded -->
+    <script defer src="/js/aos.min.js"></script>
 </body>
 </html>

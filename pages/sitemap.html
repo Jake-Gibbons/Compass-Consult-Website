@@ -26,30 +26,15 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon/favicon-16x16.png">
     <link rel="manifest" href="/assets/icons/favicon/site.webmanifest">
+    <!-- Preload LCP image (logo) for faster paint -->
+    <link rel="preload" href="/assets/logos/Logo.png" as="image">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
-                    colors: {
-                        compass: {
-                            purple: '#483086',
-                            lightPurple: '#6a4eb8',
-                            teal: '#2da8b4',
-                            lightTeal: '#4fd3e0',
-                            dark: '#1e1b2e',
-                            light: '#f8f9fc'
-                        }
-                    },
-                    backgroundImage: { 'hero-gradient': 'linear-gradient(135deg, #483086 0%, #2da8b4 100%)' }
-                }
-            }
-        }
-    </script>
+    <!-- Pre-built Tailwind CSS (replaces CDN runtime — 47 KB vs 3 MB) -->
+    <link rel="stylesheet" href="/css/tailwind.min.css">
     <style>
         .glass-nav { background: rgba(255, 255, 255, 0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
         .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
@@ -58,7 +43,7 @@
         @media (max-width: 640px) { .site-logo { max-height: 60px; } }
     </style>
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="/css/aos.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
@@ -230,7 +215,8 @@
         </footer>
     </main>
 
-    <script src="/js/main.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script defer src="/js/lucide.min.js"></script>
+    <script defer src="/js/main.js"></script>
+    <script defer src="/js/aos.min.js"></script>
 </body>
 </html>

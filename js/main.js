@@ -955,7 +955,7 @@ function initializeContactForm() {
         if (successEl) {
           successEl.classList.remove('hidden');
           // Re-render icons for the check-circle in the success message
-          if (window.lucide) lucide.createIcons();
+          if (window.lucide) window.lucide.createIcons();
         }
       } else {
         throw new Error('Submission failed');
