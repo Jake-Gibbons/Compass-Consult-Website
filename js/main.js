@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeAOS();              // Start the Animate On Scroll library
   initializeSidebarScrollIndicator(); // Show/hide sidebar scroll hint
   initializeNewsletterForm();        // Newsletter subscription via Blobs API
+  initializeContactForm();           // Contact enquiry form via Netlify Forms
 });
 
 // ---------------------------------------------------------------------------
@@ -878,6 +879,91 @@ function initializeNewsletterForm() {
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
       }, 3000);
+    }
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Contact enquiry form (Netlify Forms)
+// ---------------------------------------------------------------------------
+
+/**
+ * Handles the contact enquiry form with client-side validation and AJAX
+ * submission via Netlify Forms. Shows inline success/error messages.
+ */
+function initializeContactForm() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  const fields = [
+    { name: 'name', validate: (v) => v.trim().length > 0 },
+    { name: 'email', validate: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+    { name: 'message', validate: (v) => v.trim().length > 0 }
+  ];
+
+  // Clear error on input
+  fields.forEach(({ name }) => {
+    const input = form.querySelector(`[name="${name}"]`);
+    if (!input) return;
+    input.addEventListener('input', () => {
+      input.classList.remove('border-red-400');
+      const err = form.querySelector(`[data-error="${name}"]`);
+      if (err) err.classList.add('hidden');
+    });
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Validate
+    let valid = true;
+    fields.forEach(({ name, validate }) => {
+      const input = form.querySelector(`[name="${name}"]`);
+      const err = form.querySelector(`[data-error="${name}"]`);
+      if (!input) return;
+      if (!validate(input.value)) {
+        valid = false;
+        input.classList.add('border-red-400');
+        if (err) err.classList.remove('hidden');
+      } else {
+        input.classList.remove('border-red-400');
+        if (err) err.classList.add('hidden');
+      }
+    });
+
+    if (!valid) return;
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+
+    // Hide any previous error
+    const errorEl = document.getElementById('contact-error');
+    if (errorEl) errorEl.classList.add('hidden');
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+      });
+
+      if (response.ok) {
+        form.classList.add('hidden');
+        const successEl = document.getElementById('contact-success');
+        if (successEl) {
+          successEl.classList.remove('hidden');
+          // Re-render icons for the check-circle in the success message
+          if (window.lucide) lucide.createIcons();
+        }
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch {
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+      if (errorEl) errorEl.classList.remove('hidden');
     }
   });
 }
