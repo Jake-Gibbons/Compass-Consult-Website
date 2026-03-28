@@ -1,1 +1,36 @@
-{"name":"","short_name":"","icons":[{"src":"/assets/icons/favicon/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},{"src":"/assets/icons/favicon/android-chrome-512x512.png","sizes":"512x512","type":"image/png"}],"theme_color":"#ffffff","background_color":"#ffffff","display":"standalone"}
+{
+	"id": "/",
+	"name": "Compass Consult",
+	"short_name": "Compass",
+	"description": "Compass Consult supports organisations navigating employability and skills.",
+	"start_url": "/index.html",
+	"scope": "/",
+	"display": "standalone",
+	"orientation": "portrait-primary",
+	"theme_color": "#483086",
+	"background_color": "#483086",
+	"icons": [
+		{
+			"src": "/assets/icons/favicon/android-chrome-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "/assets/icons/favicon/android-chrome-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		},
+		{
+			"src": "/assets/icons/favicon/maskable-icon-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "maskable"
+		},
+		{
+			"src": "/assets/icons/favicon/maskable-icon-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
+		}
+	]
+}

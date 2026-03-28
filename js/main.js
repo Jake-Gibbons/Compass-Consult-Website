@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeSidebarScrollIndicator(); // Show/hide sidebar scroll hint
   initializeNewsletterForm();        // Newsletter subscription via Blobs API
   initializeContactForm();           // Contact enquiry form via Netlify Forms
+  registerServiceWorker();           // Enable installability/offline shell support
 });
 
 // ---------------------------------------------------------------------------
@@ -711,6 +712,21 @@ function initializeTickerImageFallback() {
     image.addEventListener('error', () => {
       image.src = '/assets/logos/optimized/Logo-320.webp';
       image.style.maxHeight = '100px';
+    });
+  });
+}
+
+/**
+ * Registers the PWA service worker for installability and offline support.
+ */
+function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) {
+    return;
+  }
+
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {
+      // Gracefully degrade when service worker registration is unavailable.
     });
   });
 }

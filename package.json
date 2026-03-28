@@ -20,6 +20,7 @@
     "serve": "http-server -p 8000 -c-1",
     "build": "npm run build:css && npm run build:lucide && npm run build:assets",
     "optimize:images": "node scripts/optimize-images.mjs",
+    "generate:pwa-icons": "node scripts/generate-pwa-icons.mjs",
     "build:css": "tailwindcss -i ./css/input.css -o ./css/tailwind.min.css --minify",
     "build:lucide": "node scripts/build-lucide.mjs",
     "build:assets": "node scripts/version-assets.mjs",
