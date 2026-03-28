@@ -13,7 +13,7 @@
     - Shared footer with quick links, legal, and newsletter sign-up
 
   All interactive behaviour (menu toggling, animations, etc.) is handled by
-  /js/main.329bee05.js which is loaded at the bottom of the page.
+  /js/main.451f575d.js which is loaded at the bottom of the page.
 -->
 <html lang="en" class="scroll-smooth overflow-x-hidden">
 <head>
@@ -43,7 +43,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon/favicon-16x16.png">
     <link rel="manifest" href="/assets/icons/favicon/site.webmanifest">
     <!-- Preload LCP image (logo) for faster paint -->
-    <link rel="preload" href="/assets/logos/Logo.webp" as="image" type="image/webp">
+    <link rel="preload" href="/assets/logos/optimized/Logo-640.webp" as="image" type="image/webp" imagesrcset="/assets/logos/optimized/Logo-320.webp 320w, /assets/logos/optimized/Logo-640.webp 640w, /assets/logos/optimized/Logo-960.webp 960w" imagesizes="(max-width: 640px) 180px, (max-width: 1024px) 240px, 280px">
 
     <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,7 +52,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"></noscript>
     <!-- Pre-built Tailwind CSS (replaces CDN runtime — 47 KB vs 3 MB) -->
-    <link rel="stylesheet" href="/css/tailwind.min.bd1a79cf.css">
+    <link rel="stylesheet" href="/css/tailwind.min.c9224163.css">
 
     <!-- Inline styles for page-specific utility classes and component overrides
          that are not available through Tailwind's default configuration. -->
@@ -90,7 +90,7 @@
         /* removed sidebar full-width; keep original sizing */
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
-    <link rel="stylesheet" href="/css/main.673a1c68.css">
+    <link rel="stylesheet" href="/css/main.9eabb048.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
     <!-- Skip navigation — allows keyboard users to bypass the navigation -->
@@ -108,7 +108,7 @@
             <div id="sidebar-scroll-area" class="overflow-y-auto h-full flex flex-col">
                 <a href="/index.html" class="flex items-center gap-3 cursor-pointer group mb-12">
                     <div class="text-compass-purple transition-transform duration-700">
-                        <img src="/assets/logos/Logo.webp" width="3231" height="1212" alt="Compass Consult" class="site-logo object-contain">
+                        <img src="/assets/logos/optimized/Logo-640.webp" srcset="/assets/logos/optimized/Logo-320.webp 320w, /assets/logos/optimized/Logo-640.webp 640w, /assets/logos/optimized/Logo-960.webp 960w" sizes="(max-width: 640px) 180px, (max-width: 1024px) 240px, 280px" width="960" height="360" alt="Compass Consult" class="site-logo object-contain" loading="eager" fetchpriority="high">
                     </div>
                     <div class="flex flex-col justify-center">
                         <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
@@ -144,13 +144,13 @@
          Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
          Shows the logo and a hamburger button that toggles #mobile-menu.
          The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.329bee05.js.
+         /js/main.451f575d.js.
          ================================================================ -->
     <!-- Mobile Header -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
              <a href="/index.html" class="flex items-center gap-2">
-                <img src="/assets/logos/Logo.webp" width="3231" height="1212" alt="Compass Consult" class="site-logo object-contain">
+                <img src="/assets/logos/optimized/Logo-640.webp" srcset="/assets/logos/optimized/Logo-320.webp 320w, /assets/logos/optimized/Logo-640.webp 640w, /assets/logos/optimized/Logo-960.webp 960w" sizes="(max-width: 640px) 180px, (max-width: 1024px) 240px, 280px" width="960" height="360" alt="Compass Consult" class="site-logo object-contain" loading="eager" fetchpriority="high">
                 <div class="flex flex-col">
                     <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
                 </div>
@@ -178,7 +178,7 @@
          The ticker-track div is duplicated (two identical sets of images)
          so the CSS marquee animation loops seamlessly at the midpoint.
          Image load failures are handled by initializeTickerImageFallback()
-         in /js/main.329bee05.js.
+         in /js/main.451f575d.js.
          ================================================================ -->
     <!-- Top Client Ticker -->
     <div class="w-full bg-white/40 backdrop-blur-sm border-b border-gray-100 py-3 z-40 mt-20 lg:mt-0">
@@ -187,47 +187,47 @@
             <div class="flex-1 ticker">
                 <div class="ticker-track px-2">
                     <div class="flex items-center space-x-8">
-                        <img src="/assets/images/authorities/IMG_2620.webp" width="33" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2621.webp" width="52" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2622.webp" width="79" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2624.webp" width="111" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2626.webp" width="35" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2627.webp" width="120" height="32" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2577.webp" width="41" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2600.webp" width="120" height="9" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2601.webp" width="73" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2602.webp" width="70" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2603.webp" width="88" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2604.webp" width="113" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2606.webp" width="58" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2607.webp" width="59" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2608.webp" width="42" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2609.webp" width="68" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2611.webp" width="106" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2612.webp" width="55" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2619.webp" width="101" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2620.webp" width="33" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2621.webp" width="52" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2622.webp" width="79" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2624.webp" width="111" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2626.webp" width="35" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2627.webp" width="120" height="32" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2577.webp" width="41" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2600.webp" width="120" height="9" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2601.webp" width="73" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2602.webp" width="70" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2603.webp" width="88" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2604.webp" width="113" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2606.webp" width="58" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2607.webp" width="59" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2608.webp" width="42" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2609.webp" width="68" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2611.webp" width="106" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2612.webp" width="55" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2619.webp" width="101" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
                     </div>
                     <!-- duplicate for seamless loop -->
                     <div class="flex items-center space-x-8">
-                        <img src="/assets/images/authorities/IMG_2620.webp" width="33" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2621.webp" width="52" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2622.webp" width="79" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2624.webp" width="111" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2626.webp" width="35" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2627.webp" width="120" height="32" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2577.webp" width="41" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2600.webp" width="120" height="9" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2601.webp" width="73" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2602.webp" width="70" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2603.webp" width="88" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2604.webp" width="113" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2606.webp" width="58" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2607.webp" width="59" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2608.webp" width="42" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2609.webp" width="68" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2611.webp" width="106" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2612.webp" width="55" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
-                        <img src="/assets/images/authorities/IMG_2619.webp" width="101" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2620.webp" width="33" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2621.webp" width="52" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2622.webp" width="79" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2624.webp" width="111" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2626.webp" width="35" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2627.webp" width="120" height="32" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2577.webp" width="41" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2600.webp" width="120" height="9" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2601.webp" width="73" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2602.webp" width="70" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2603.webp" width="88" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2604.webp" width="113" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2606.webp" width="58" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2607.webp" width="59" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2608.webp" width="42" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2609.webp" width="68" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2611.webp" width="106" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2612.webp" width="55" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
+                        <img src="/assets/images/authorities/ticker/IMG_2619.webp" width="101" height="35" alt="" role="presentation" class="object-contain opacity-80 hover:opacity-100 transition-opacity ticker-logo">
                     </div>
                 </div>
             </div>
@@ -421,7 +421,7 @@
                     <div class="col-span-1 md:col-span-2">
                         <div class="mb-6">
                             <div class="flex items-center gap-2">
-                                <img src="/assets/logos/Logo.webp" width="3231" height="1212" alt="Compass Consult" class="site-logo object-contain">
+                                <img src="/assets/logos/optimized/Logo-640.webp" srcset="/assets/logos/optimized/Logo-320.webp 320w, /assets/logos/optimized/Logo-640.webp 640w, /assets/logos/optimized/Logo-960.webp 960w" sizes="(max-width: 640px) 180px, (max-width: 1024px) 240px, 280px" width="960" height="360" alt="Compass Consult" class="site-logo object-contain" loading="lazy" fetchpriority="low">
                                 <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
                             </div>
                         </div>
@@ -489,7 +489,7 @@
     <!-- Page scripts — loaded at the bottom to avoid blocking render -->
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
     <script defer src="/js/lucide.min.c00d9c4e.js"></script>
-    <script defer src="/js/main.329bee05.js"></script>
+    <script defer src="/js/main.451f575d.js"></script>
 </body>
 </html>
 

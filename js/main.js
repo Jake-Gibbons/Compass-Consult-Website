@@ -688,6 +688,11 @@ function optimizeImages() {
     if (!image.hasAttribute('loading') && index > 2) {
       image.setAttribute('loading', 'lazy');
     }
+
+    if (image.closest('.ticker-track')) {
+      image.setAttribute('loading', 'lazy');
+      image.setAttribute('fetchpriority', 'low');
+    }
   });
 }
 
@@ -704,7 +709,7 @@ function optimizeImages() {
 function initializeTickerImageFallback() {
   document.querySelectorAll('.ticker-track img').forEach((image) => {
     image.addEventListener('error', () => {
-      image.src = '/assets/logos/Logo.webp';
+      image.src = '/assets/logos/optimized/Logo-320.webp';
       image.style.maxHeight = '100px';
     });
   });

@@ -100,6 +100,20 @@ footer a:focus-visible .site-logo {
   filter: brightness(0) invert(1);
 }
 
+/* Improve footer contrast for Lighthouse accessibility checks */
+footer .bg-compass-teal {
+  background-color: #0f7d87;
+}
+
+footer .bg-compass-teal:hover,
+footer .bg-compass-teal:focus-visible {
+  background-color: #0b6770;
+}
+
+footer .text-gray-500 {
+  color: #cbd5e1;
+}
+
 /* --------------------------------------------------------------------------
    4. Mobile menu button (hamburger)
    --------------------------------------------------------------------------
