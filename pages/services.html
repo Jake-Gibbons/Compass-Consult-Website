@@ -7,7 +7,7 @@
   - Call-to-action section
 
   All interactive behaviour (menu toggling, animations, accessibility
-  enhancements, etc.) is handled by /js/main.js which is loaded at
+  enhancements, etc.) is handled by /js/main.1b7aa838.js which is loaded at
   the bottom of the page.
 -->
 <!DOCTYPE html>
@@ -37,9 +37,11 @@
     <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"></noscript>
     <!-- Pre-built Tailwind CSS (replaces CDN runtime — 47 KB vs 3 MB) -->
-    <link rel="stylesheet" href="/css/tailwind.min.css">
+    <link rel="stylesheet" href="/css/tailwind.min.38d98ea7.css">
     <!-- Inline styles for page-specific utility classes and component overrides
          that are not available through Tailwind's default configuration. -->
     <style>
@@ -53,9 +55,7 @@
         @media (max-width: 640px) { .site-logo { max-height: 60px; } }
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
-    <link rel="stylesheet" href="/css/main.css">
-    <!-- AOS (Animate On Scroll) stylesheet — initialised in /js/main.js -->
-    <link rel="stylesheet" href="/css/aos.css">
+    <link rel="stylesheet" href="/css/main.1118d5df.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
@@ -95,7 +95,7 @@
          Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
          Shows the logo and a hamburger button that toggles #mobile-menu.
          The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.js.
+         /js/main.1b7aa838.js.
          ================================================================ -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
@@ -128,7 +128,7 @@
          Contains all page sections and the footer.
          ================================================================ -->
     <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
-        <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center" data-aos="fade-in">
+        <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center">
             <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
             <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
             <div class="relative z-10 px-4 sm:px-6 lg:px-8 pt-12 lg:pt-0">
@@ -141,7 +141,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Mobilisation -->
-                    <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-compass-purple hover:shadow-xl transition-shadow group" data-aos="fade-up" data-aos-delay="0">
+                    <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-compass-purple hover:shadow-xl transition-shadow group" data-aos-delay="0">
                         <div class="w-14 h-14 bg-purple-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-100 transition-colors"><i data-lucide="rocket" class="w-8 h-8 text-compass-purple"></i></div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Mobilisation & Implementation</h3>
                         <p class="text-sm text-gray-600 mb-4">Successful launch and delivery of complex contracts.</p>
@@ -152,42 +152,42 @@
                     </div>
 
                     <!-- Partnership -->
-                    <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-compass-teal hover:shadow-xl transition-shadow group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-compass-teal hover:shadow-xl transition-shadow group" data-aos-delay="100">
                         <div class="w-14 h-14 bg-teal-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-teal-100 transition-colors"><i data-lucide="handshake" class="w-8 h-8 text-compass-teal"></i></div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Partnership Engagement</h3>
                         <p class="text-sm text-gray-600 mb-4">Strengthening relationships with commissioners, employers, and partners to ensure programmes succeed in practice.</p>
                     </div>
 
                     <!-- Transformation -->
-                    <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-indigo-500 hover:shadow-xl transition-shadow group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-indigo-500 hover:shadow-xl transition-shadow group" data-aos-delay="200">
                         <div class="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-indigo-100 transition-colors"><i data-lucide="trending-up" class="w-8 h-8 text-indigo-500"></i></div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Growth & Transformation</h3>
                         <p class="text-sm text-gray-600 mb-4">Structural reviews and cultural change to help organisations evolve and meet new challenges.</p>
                     </div>
 
                     <!-- HR -->
-                    <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-blue-500 hover:shadow-xl transition-shadow group" data-aos="fade-up" data-aos-delay="0">
+                    <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-blue-500 hover:shadow-xl transition-shadow group" data-aos-delay="0">
                         <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-100 transition-colors"><i data-lucide="users-2" class="w-8 h-8 text-blue-500"></i></div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3">HR & Workforce Development</h3>
                         <p class="text-sm text-gray-600 mb-4">Strategies to build capability, leadership strength and high-performing teams for complex environments.</p>
                     </div>
 
                     <!-- Quality -->
-                    <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-red-400 hover:shadow-xl transition-shadow group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-red-400 hover:shadow-xl transition-shadow group" data-aos-delay="100">
                         <div class="w-14 h-14 bg-red-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-red-100 transition-colors"><i data-lucide="shield-check" class="w-8 h-8 text-red-500"></i></div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Quality, Compliance & Risk</h3>
                         <p class="text-sm text-gray-600 mb-4">Safeguarding, health & safety, environmental management, audit readiness and performance improvement.</p>
                     </div>
 
                     <!-- Bid Management -->
-                    <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-orange-400 hover:shadow-xl transition-shadow group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-orange-400 hover:shadow-xl transition-shadow group" data-aos-delay="200">
                         <div class="w-14 h-14 bg-orange-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-orange-100 transition-colors"><i data-lucide="pen-tool" class="w-8 h-8 text-orange-500"></i></div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Bid Management</h3>
                         <p class="text-sm text-gray-600 mb-4">End-to-end bid lifecycle support -- from opportunity identification to submission and mobilisation.</p>
                     </div>
 
                     <!-- Governance -->
-                    <div class="md:col-span-2 lg:col-span-3 bg-white rounded-xl shadow-md p-8 border-t-4 border-gray-700 flex flex-col md:flex-row items-center gap-6 group" data-aos="fade-up">
+                    <div class="md:col-span-2 lg:col-span-3 bg-white rounded-xl shadow-md p-8 border-t-4 border-gray-700 flex flex-col md:flex-row items-center gap-6 group">
                          <div class="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-gray-200 transition-colors"><i data-lucide="scale" class="w-8 h-8 text-gray-700"></i></div>
                          <div>
                             <h3 class="text-xl font-bold text-gray-900 mb-2">Governance & Systems</h3>
@@ -275,10 +275,8 @@
     </main>
     <!-- Page scripts — loaded at the bottom to avoid blocking render -->
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
-    <script defer src="/js/lucide.min.js"></script>
-    <script defer src="/js/main.js"></script>
-    <!-- AOS runtime — must be loaded before DOMContentLoaded -->
-    <script defer src="/js/aos.min.js"></script>
+    <script defer src="/js/lucide.min.f5dd239b.js"></script>
+    <script defer src="/js/main.1b7aa838.js"></script>
 </body>
 </html>
 

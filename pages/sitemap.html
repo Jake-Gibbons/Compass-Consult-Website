@@ -32,9 +32,11 @@
     <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"></noscript>
     <!-- Pre-built Tailwind CSS (replaces CDN runtime — 47 KB vs 3 MB) -->
-    <link rel="stylesheet" href="/css/tailwind.min.css">
+    <link rel="stylesheet" href="/css/tailwind.min.38d98ea7.css">
     <style>
         .glass-nav { background: rgba(255, 255, 255, 0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
         .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
@@ -42,8 +44,7 @@
         @media (max-width: 1024px) { .site-logo { max-height: 80px; } }
         @media (max-width: 640px) { .site-logo { max-height: 60px; } }
     </style>
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/aos.css">
+    <link rel="stylesheet" href="/css/main.1118d5df.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
@@ -100,7 +101,7 @@
     </nav>
 
     <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
-        <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center" data-aos="fade-in">
+        <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center">
             <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
             <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
             <div class="relative z-10 px-4 sm:px-6 lg:px-8 pt-12 lg:pt-0">
@@ -111,7 +112,7 @@
 
         <section class="py-20 bg-white flex-grow">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid md:grid-cols-2 gap-8" data-aos="fade-up">
+                <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
                         <h2 class="text-xl font-bold text-compass-purple mb-4">Main Pages</h2>
                         <ul class="space-y-3">
@@ -215,8 +216,7 @@
         </footer>
     </main>
 
-    <script defer src="/js/lucide.min.js"></script>
-    <script defer src="/js/main.js"></script>
-    <script defer src="/js/aos.min.js"></script>
+    <script defer src="/js/lucide.min.f5dd239b.js"></script>
+    <script defer src="/js/main.1b7aa838.js"></script>
 </body>
 </html>

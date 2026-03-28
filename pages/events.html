@@ -7,7 +7,7 @@
   - Links to external coverage and event details
 
   All interactive behaviour (menu toggling, animations, accessibility
-  enhancements, etc.) is handled by /js/main.js which is loaded at
+  enhancements, etc.) is handled by /js/main.1b7aa838.js which is loaded at
   the bottom of the page.
 -->
 <!DOCTYPE html>
@@ -37,9 +37,11 @@
     <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"></noscript>
     <!-- Pre-built Tailwind CSS (replaces CDN runtime — 47 KB vs 3 MB) -->
-    <link rel="stylesheet" href="/css/tailwind.min.css">
+    <link rel="stylesheet" href="/css/tailwind.min.38d98ea7.css">
     <!-- Inline styles for page-specific utility classes and component overrides
          that are not available through Tailwind's default configuration. -->
     <style>
@@ -119,9 +121,7 @@
         @media (max-width: 640px) { .site-logo { max-height: 60px; } }
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
-    <link rel="stylesheet" href="/css/main.css">
-    <!-- AOS (Animate On Scroll) stylesheet — initialised in /js/main.js -->
-    <link rel="stylesheet" href="/css/aos.css">
+    <link rel="stylesheet" href="/css/main.1118d5df.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
@@ -161,7 +161,7 @@
          Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
          Shows the logo and a hamburger button that toggles #mobile-menu.
          The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.js.
+         /js/main.1b7aa838.js.
          ================================================================ -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
@@ -194,7 +194,7 @@
          Contains all page sections and the footer.
          ================================================================ -->
     <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
-        <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center" data-aos="fade-in">
+        <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center">
             <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
             <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
             <div class="relative z-10 px-4 sm:px-6 lg:px-8 pt-12 lg:pt-0">
@@ -213,7 +213,7 @@
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
                 <!-- Upcoming Events -->
-                <div data-aos="fade-up">
+                <div>
                     <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Upcoming Events</h2>
                     <div id="upcoming-events-list" class="space-y-12">
                         <article data-event-date="2026-12-07T09:00:00" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100">
@@ -405,7 +405,7 @@
                 </div>
 
                 <!-- Past Events -->
-                <div class="pt-12 border-t border-gray-100" data-aos="fade-up">
+                <div class="pt-12 border-t border-gray-100">
                     <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Past Events</h2>
                     <div id="past-events-list" class="space-y-8">
                         <article data-event-date="2026-03-12T00:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
@@ -643,7 +643,7 @@
             </div>
         </section>
                 <!-- News -->
-                <div class="pt-12 border-t border-gray-100" data-aos="fade-up">
+                <div class="pt-12 border-t border-gray-100">
                     <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">News</h2>
                     <div class="space-y-12">
                         <article class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
@@ -742,8 +742,8 @@
     </main>
     <!-- Page scripts — loaded at the bottom to avoid blocking render -->
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
-    <script defer src="/js/lucide.min.js"></script>
-    <script defer src="/js/main.js"></script>
+    <script defer src="/js/lucide.min.f5dd239b.js"></script>
+    <script defer src="/js/main.1b7aa838.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const parseEventDate = (card) => {
@@ -837,7 +837,5 @@
             });
         });
     </script>
-    <!-- AOS runtime — must be loaded before DOMContentLoaded -->
-    <script defer src="/js/aos.min.js"></script>
 </body>
 </html>

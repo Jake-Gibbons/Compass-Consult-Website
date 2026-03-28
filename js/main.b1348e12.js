@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   connectFormLabels();          // Associate <label> elements with their <input> partners
   optimizeImages();             // Add async decoding and lazy-loading attributes
   initializeTickerImageFallback(); // Replace broken ticker logos with the site logo
+  initializeAOS();              // Start the Animate On Scroll library
   initializeSidebarScrollIndicator(); // Show/hide sidebar scroll hint
   initializeNewsletterForm();        // Newsletter subscription via Blobs API
   initializeContactForm();           // Contact enquiry form via Netlify Forms
@@ -257,6 +258,29 @@ function initializeStickyTalkButton() {
       { threshold: 0.1 }
     );
     observer.observe(footer);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// AOS (Animate On Scroll) initialisation
+// ---------------------------------------------------------------------------
+
+/**
+ * Initialises the AOS library if it has been loaded on the page.
+ * AOS animates elements as they scroll into the viewport.
+ * Settings used:
+ *  - duration 800 ms — smooth but snappy
+ *  - once: true — each element animates only the first time it appears
+ *  - mirror: false — elements do not re-animate when scrolling back up
+ */
+function initializeAOS() {
+  if (typeof AOS !== 'undefined') {
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: false
+    });
   }
 }
 

@@ -7,7 +7,7 @@
   - AOS fade-in animations on both columns
 
   All interactive behaviour (menu toggling, animations, accessibility
-  enhancements, etc.) is handled by /js/main.js which is loaded at
+  enhancements, etc.) is handled by /js/main.1b7aa838.js which is loaded at
   the bottom of the page.
 -->
 <!DOCTYPE html>
@@ -39,9 +39,11 @@
     <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"></noscript>
     <!-- Pre-built Tailwind CSS (replaces CDN runtime — 47 KB vs 3 MB) -->
-    <link rel="stylesheet" href="/css/tailwind.min.css">
+    <link rel="stylesheet" href="/css/tailwind.min.38d98ea7.css">
     <!-- Inline styles for page-specific utility classes and component overrides
          that are not available through Tailwind's default configuration. -->
     <style>
@@ -56,9 +58,7 @@
         @media (max-width: 640px) { .site-logo { max-height: 60px; } }
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
-    <link rel="stylesheet" href="/css/main.css">
-    <!-- AOS (Animate On Scroll) stylesheet — initialised in /js/main.js -->
-    <link rel="stylesheet" href="/css/aos.css">
+    <link rel="stylesheet" href="/css/main.1118d5df.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
@@ -98,7 +98,7 @@
          Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
          Shows the logo and a hamburger button that toggles #mobile-menu.
          The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.js.
+         /js/main.1b7aa838.js.
          ================================================================ -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
@@ -131,7 +131,7 @@
          Contains all page sections and the footer.
          ================================================================ -->
     <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
-        <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center" data-aos="fade-in">
+        <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center">
             <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
             <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
             <div class="relative z-10 px-4 sm:px-6 lg:px-8 pt-12 lg:pt-0">
@@ -143,7 +143,7 @@
         <section class="py-20 bg-white flex-grow">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid md:grid-cols-2 gap-16 items-center">
-                    <div data-aos="fade-right">
+                    <div>
                          <span class="text-compass-purple font-semibold tracking-wider uppercase text-sm mb-2 block">Why Compass?</span>
                          <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
                          <div class="h-1.5 w-20 bg-gradient-to-r from-compass-purple to-compass-teal rounded-full mb-8"></div>
@@ -152,7 +152,7 @@
                          <p class="text-lg text-gray-600 font-medium">We don’t just advise. We work alongside you to implement solutions that deliver measurable impact for UK citizens.</p>
                     </div>
                     
-                    <div class="grid gap-6" data-aos="fade-left">
+                    <div class="grid gap-6">
                         <div class="group p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-purple-100 hover:shadow-xl transition-all duration-300">
                             <div class="flex items-start gap-4">
                                 <div class="w-10 h-10 rounded-lg bg-purple-100 text-compass-purple flex items-center justify-center flex-shrink-0"><img src="/assets/logos/Logo.png" alt="Compass" class="w-full h-full object-contain p-1"></div>
@@ -253,10 +253,8 @@
     </main>
     <!-- Page scripts — loaded at the bottom to avoid blocking render -->
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
-    <script defer src="/js/lucide.min.js"></script>
-    <script defer src="/js/main.js"></script>
-    <!-- AOS runtime — must be loaded before DOMContentLoaded -->
-    <script defer src="/js/aos.min.js"></script>
+    <script defer src="/js/lucide.min.f5dd239b.js"></script>
+    <script defer src="/js/main.1b7aa838.js"></script>
 </body>
 </html>
 
