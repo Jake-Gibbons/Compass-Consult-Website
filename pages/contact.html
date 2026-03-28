@@ -7,7 +7,7 @@
   - Contact details and social links
 
   All interactive behaviour (menu toggling, animations, accessibility
-  enhancements, etc.) is handled by /js/main.1b7aa838.js which is loaded at
+  enhancements, etc.) is handled by /js/main.329bee05.js which is loaded at
   the bottom of the page.
 -->
 <!DOCTYPE html>
@@ -35,7 +35,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon/favicon-16x16.png">
     <link rel="manifest" href="/assets/icons/favicon/site.webmanifest">
     <!-- Preload LCP image (logo) for faster paint -->
-    <link rel="preload" href="/assets/logos/Logo.png" as="image">
+    <link rel="preload" href="/assets/logos/Logo.webp" as="image" type="image/webp">
     <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +43,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"></noscript>
     <!-- Pre-built Tailwind CSS (replaces CDN runtime — 47 KB vs 3 MB) -->
-    <link rel="stylesheet" href="/css/tailwind.min.38d98ea7.css">
+    <link rel="stylesheet" href="/css/tailwind.min.bd1a79cf.css">
     <!-- Inline styles for page-specific utility classes and component overrides
          that are not available through Tailwind's default configuration. -->
     <style>
@@ -57,7 +57,7 @@
         @media (max-width: 640px) { .site-logo { max-height: 60px; } }
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
-    <link rel="stylesheet" href="/css/main.1118d5df.css">
+    <link rel="stylesheet" href="/css/main.673a1c68.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
@@ -70,7 +70,7 @@
         <div>
             <a href="/index.html" class="flex items-center gap-3 cursor-pointer group mb-12">
                 <div class="text-compass-purple transition-transform duration-700">
-                    <img src="/assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
+                    <img src="/assets/logos/Logo.webp" width="3231" height="1212" alt="Compass Consult" class="site-logo object-contain">
                 </div>
                 <div class="flex flex-col justify-center">
                     <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
@@ -97,12 +97,12 @@
          Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
          Shows the logo and a hamburger button that toggles #mobile-menu.
          The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.1b7aa838.js.
+         /js/main.329bee05.js.
          ================================================================ -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
              <a href="/index.html" class="flex items-center gap-2">
-                <img src="/assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
+                <img src="/assets/logos/Logo.webp" width="3231" height="1212" alt="Compass Consult" class="site-logo object-contain">
                 <div class="flex flex-col">
                     <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
                 </div>
@@ -220,7 +220,7 @@
                     <div class="col-span-1 md:col-span-2">
                         <div class="mb-6">
                             <div class="flex items-center gap-2">
-                                <img src="/assets/logos/Logo.png" alt="Compass Consult" class="site-logo object-contain">
+                                <img src="/assets/logos/Logo.webp" width="3231" height="1212" alt="Compass Consult" class="site-logo object-contain">
                                 <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
                             </div>
                         </div>
@@ -267,15 +267,12 @@
                         </ul>
                         
                         <h3 class="text-lg font-bold mb-4 text-compass-teal">Newsletter</h3>
-                        <form name="newsletter-subscribe" method="POST" data-netlify="true" netlify data-netlify-honeypot="bot-field" data-netlify-recaptcha="true" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
+                        <form name="newsletter-subscribe" method="POST" data-netlify="true" netlify data-netlify-honeypot="bot-field" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
                             <input type="hidden" name="form-name" value="newsletter-subscribe" />
                             <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
                             <input type="email" name="email" placeholder="Enter your email" required class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-compass-teal focus:border-compass-teal block w-full flex-1 min-w-0 p-2.5 placeholder-gray-400" />
                             <button type="submit" class="bg-compass-teal hover:bg-compass-lightTeal text-white text-sm font-semibold rounded-lg px-4 py-2.5 transition-colors w-auto md:w-full flex-shrink-0">Subscribe</button>
-                            <div class="w-full basis-full flex justify-center md:mt-2">
-                                <div data-netlify-recaptcha="true"></div>
-                            </div>
-                        </form>
+</form>
                     </div>
                 </div>
                 
@@ -291,7 +288,7 @@
     <!-- Page scripts — loaded at the bottom to avoid blocking render -->
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
     <script defer src="/js/lucide.min.c00d9c4e.js"></script>
-    <script defer src="/js/main.1b7aa838.js"></script>
+    <script defer src="/js/main.329bee05.js"></script>
 </body>
 </html>
 
