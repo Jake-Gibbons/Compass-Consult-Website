@@ -927,258 +927,6 @@ function registerServiceWorker() {
   });
 }
 
-const RECAPTCHA_SITE_KEY = '6LdnkKEqAAAAAPvyqoRAmjXxvE6evlb5z-5Ol90Y';
-
-let recaptchaScriptPromise;
-let captchaModal;
-
-function getRecaptchaApi() {
-  if (!window.grecaptcha) {
-    return null;
-  }
-
-  if (typeof window.grecaptcha.render === 'function') {
-    return window.grecaptcha;
-  }
-
-  if (
-    window.grecaptcha.enterprise &&
-    typeof window.grecaptcha.enterprise.render === 'function' &&
-    typeof window.grecaptcha.enterprise.reset === 'function'
-  ) {
-    return {
-      render: window.grecaptcha.enterprise.render.bind(window.grecaptcha.enterprise),
-      reset: window.grecaptcha.enterprise.reset.bind(window.grecaptcha.enterprise)
-    };
-  }
-
-  return null;
-}
-
-function waitForRecaptchaApi(timeoutMs = 8000) {
-  return new Promise((resolve, reject) => {
-    const startedAt = Date.now();
-
-    const check = () => {
-      const api = getRecaptchaApi();
-      if (api) {
-        resolve(api);
-        return;
-      }
-
-      if (Date.now() - startedAt >= timeoutMs) {
-        reject(new Error('reCAPTCHA loaded but is not ready yet. Please try again.'));
-        return;
-      }
-
-      window.setTimeout(check, 100);
-    };
-
-    check();
-  });
-}
-
-function loadRecaptchaApi() {
-  const activeApi = getRecaptchaApi();
-  if (activeApi) {
-    return Promise.resolve(activeApi);
-  }
-
-  if (recaptchaScriptPromise) {
-    return recaptchaScriptPromise;
-  }
-
-  recaptchaScriptPromise = new Promise((resolve, reject) => {
-    const existingScript = document.querySelector('script[data-recaptcha-api]');
-    if (existingScript) {
-      waitForRecaptchaApi()
-        .then(resolve)
-        .catch(() => {
-          existingScript.addEventListener('load', () => {
-            waitForRecaptchaApi().then(resolve).catch(reject);
-          }, { once: true });
-          existingScript.addEventListener('error', () => reject(new Error('Could not load reCAPTCHA.')), { once: true });
-        });
-      return;
-    }
-
-    const sources = [
-      'https://www.google.com/recaptcha/api.js?render=explicit',
-      'https://www.recaptcha.net/recaptcha/api.js?render=explicit'
-    ];
-
-    const tryLoad = (index) => {
-      if (index >= sources.length) {
-        reject(new Error('Could not load reCAPTCHA.'));
-        return;
-      }
-
-      const script = document.createElement('script');
-      script.src = sources[index];
-      script.async = true;
-      script.defer = true;
-      script.dataset.recaptchaApi = 'true';
-      script.addEventListener('load', () => {
-        waitForRecaptchaApi().then(resolve).catch(() => {
-          script.remove();
-          tryLoad(index + 1);
-        });
-      }, { once: true });
-      script.addEventListener('error', () => {
-        script.remove();
-        tryLoad(index + 1);
-      }, { once: true });
-      document.head.appendChild(script);
-    };
-
-    tryLoad(0);
-  });
-
-  return recaptchaScriptPromise;
-}
-
-function ensureCaptchaModal() {
-  if (captchaModal) {
-    return captchaModal;
-  }
-
-  const overlay = document.createElement('div');
-  overlay.className = 'captcha-modal hidden';
-  overlay.innerHTML = [
-    '<div class="captcha-modal__backdrop" data-captcha-close="true"></div>',
-    '<div class="captcha-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="captcha-modal-title" tabindex="-1">',
-    '<button type="button" class="captcha-modal__close" aria-label="Close verification dialog" data-captcha-close="true">',
-    '<span aria-hidden="true">&times;</span>',
-    '</button>',
-    '<p class="captcha-modal__eyebrow">Security check</p>',
-    '<h2 id="captcha-modal-title" class="captcha-modal__title"></h2>',
-    '<p class="captcha-modal__message"></p>',
-    '<div class="captcha-modal__widget"></div>',
-    '<p class="captcha-modal__status" aria-live="polite"></p>',
-    '<div class="captcha-modal__actions">',
-    '<button type="button" class="captcha-modal__button captcha-modal__button--secondary" data-captcha-close="true">Cancel</button>',
-    '<button type="button" class="captcha-modal__button captcha-modal__button--primary" disabled>Continue</button>',
-    '</div>',
-    '</div>'
-  ].join('');
-
-  document.body.appendChild(overlay);
-
-  const dialog = overlay.querySelector('.captcha-modal__dialog');
-  const title = overlay.querySelector('.captcha-modal__title');
-  const message = overlay.querySelector('.captcha-modal__message');
-  const widget = overlay.querySelector('.captcha-modal__widget');
-  const status = overlay.querySelector('.captcha-modal__status');
-  const confirmButton = overlay.querySelector('.captcha-modal__button--primary');
-  const closeButtons = overlay.querySelectorAll('[data-captcha-close="true"]');
-
-  captchaModal = {
-    overlay,
-    dialog,
-    title,
-    message,
-    widget,
-    status,
-    confirmButton,
-    closeButtons,
-    widgetId: null,
-    token: '',
-    onConfirm: null,
-    originalButtonText: 'Continue'
-  };
-
-  const close = () => {
-    overlay.classList.add('hidden');
-    document.body.classList.remove('captcha-modal-open');
-    captchaModal.token = '';
-    captchaModal.onConfirm = null;
-    captchaModal.confirmButton.disabled = true;
-    captchaModal.confirmButton.textContent = captchaModal.originalButtonText;
-    captchaModal.status.textContent = '';
-    if (window.grecaptcha && captchaModal.widgetId !== null) {
-      window.grecaptcha.reset(captchaModal.widgetId);
-    }
-  };
-
-  closeButtons.forEach((button) => {
-    button.addEventListener('click', close);
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && !overlay.classList.contains('hidden')) {
-      close();
-    }
-  });
-
-  confirmButton.addEventListener('click', async () => {
-    if (!captchaModal.onConfirm || !captchaModal.token) {
-      return;
-    }
-
-    confirmButton.disabled = true;
-    confirmButton.textContent = 'Submitting...';
-    status.textContent = 'Submitting your request...';
-
-    try {
-      await captchaModal.onConfirm(captchaModal.token);
-      close();
-    } catch (error) {
-      confirmButton.disabled = false;
-      confirmButton.textContent = captchaModal.originalButtonText;
-      status.textContent = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
-    }
-  });
-
-  return captchaModal;
-}
-
-async function requestCaptchaConfirmation({ title, message, confirmLabel, onConfirm }) {
-  const modal = ensureCaptchaModal();
-
-  modal.title.textContent = title;
-  modal.message.textContent = message;
-  modal.status.textContent = 'Loading verification challenge...';
-  modal.originalButtonText = confirmLabel;
-  modal.confirmButton.textContent = confirmLabel;
-  modal.confirmButton.disabled = true;
-  modal.token = '';
-  modal.onConfirm = onConfirm;
-  modal.overlay.classList.remove('hidden');
-  document.body.classList.add('captcha-modal-open');
-
-  try {
-    const recaptcha = await loadRecaptchaApi();
-
-    if (modal.widgetId === null) {
-      modal.widgetId = recaptcha.render(modal.widget, {
-        sitekey: RECAPTCHA_SITE_KEY,
-        callback: (token) => {
-          modal.token = token;
-          modal.status.textContent = 'Verification complete. You can continue.';
-          modal.confirmButton.disabled = false;
-        },
-        'expired-callback': () => {
-          modal.token = '';
-          modal.status.textContent = 'Verification expired. Please tick the checkbox again.';
-          modal.confirmButton.disabled = true;
-        },
-        'error-callback': () => {
-          modal.token = '';
-          modal.status.textContent = 'Verification failed to load. Please try again.';
-          modal.confirmButton.disabled = true;
-        }
-      });
-    } else {
-      recaptcha.reset(modal.widgetId);
-    }
-
-    modal.status.textContent = 'Please complete the reCAPTCHA checkbox to continue.';
-    modal.dialog.focus();
-  } catch (error) {
-    modal.status.textContent = error instanceof Error ? error.message : 'Could not load reCAPTCHA.';
-  }
-}
-
 // ---------------------------------------------------------------------------
 // Utility helpers — exposed on window.CompassConsult
 // ---------------------------------------------------------------------------
@@ -1291,52 +1039,41 @@ function initializeNewsletterForm() {
         return;
       }
 
-      await requestCaptchaConfirmation({
-        title: 'Confirm your subscription',
-        message: 'Complete the security check, then confirm to subscribe to Compass Consult updates.',
-        confirmLabel: 'Subscribe',
-        onConfirm: async (captchaToken) => {
-          const originalText = submitBtn.textContent;
-          submitBtn.textContent = 'Subscribing...';
-          submitBtn.disabled = true;
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Subscribing...';
+      submitBtn.disabled = true;
 
-          try {
-            const formData = new FormData(form);
-            formData.set('email', email);
-            if (captchaToken) {
-              formData.set('g-recaptcha-response', captchaToken);
-            }
+      try {
+        const formData = new FormData(form);
+        formData.set('email', email);
 
-            const res = await fetch('/', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-              body: new URLSearchParams(formData).toString(),
-            });
+        const res = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData).toString(),
+        });
 
-            if (!res.ok) {
-              throw new Error('Subscription failed.');
-            }
-
-            submitBtn.textContent = 'Subscribed!';
-            submitBtn.classList.remove('bg-compass-teal', 'hover:bg-compass-lightTeal');
-            submitBtn.classList.add('bg-green-600');
-            emailInput.value = '';
-            setTimeout(() => {
-              submitBtn.textContent = originalText;
-              submitBtn.classList.remove('bg-green-600');
-              submitBtn.classList.add('bg-compass-teal', 'hover:bg-compass-lightTeal');
-              submitBtn.disabled = false;
-            }, 3000);
-          } catch (error) {
-            submitBtn.textContent = error instanceof Error ? error.message : 'Error';
-            setTimeout(() => {
-              submitBtn.textContent = originalText;
-              submitBtn.disabled = false;
-            }, 3000);
-            throw error;
-          }
+        if (!res.ok) {
+          throw new Error('Subscription failed.');
         }
-      });
+
+        submitBtn.textContent = 'Subscribed!';
+        submitBtn.classList.remove('bg-compass-teal', 'hover:bg-compass-lightTeal');
+        submitBtn.classList.add('bg-green-600');
+        emailInput.value = '';
+        setTimeout(() => {
+          submitBtn.textContent = originalText;
+          submitBtn.classList.remove('bg-green-600');
+          submitBtn.classList.add('bg-compass-teal', 'hover:bg-compass-lightTeal');
+          submitBtn.disabled = false;
+        }, 3000);
+      } catch (error) {
+        submitBtn.textContent = error instanceof Error ? error.message : 'Error';
+        setTimeout(() => {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }, 3000);
+      }
     });
   });
 }
@@ -1391,47 +1128,38 @@ function initializeContactForm() {
 
     if (!valid) return;
 
-    await requestCaptchaConfirmation({
-      title: 'Confirm your enquiry',
-      message: 'Complete the security check, then confirm to send your message to Compass Consult.',
-      confirmLabel: 'Send message',
-      onConfirm: async (captchaToken) => {
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Sending...';
-        submitBtn.disabled = true;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
 
-        const errorEl = document.getElementById('contact-error');
-        if (errorEl) errorEl.classList.add('hidden');
+    const errorEl = document.getElementById('contact-error');
+    if (errorEl) errorEl.classList.add('hidden');
 
-        try {
-          const formData = new FormData(form);
-          formData.set('g-recaptcha-response', captchaToken);
+    try {
+      const formData = new FormData(form);
 
-          const response = await fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(formData).toString()
-          });
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString()
+      });
 
-          if (!response.ok) {
-            throw new Error('Submission failed');
-          }
-
-          form.classList.add('hidden');
-          const successEl = document.getElementById('contact-success');
-          if (successEl) {
-            successEl.classList.remove('hidden');
-            if (window.lucide) window.lucide.createIcons();
-          }
-        } catch (error) {
-          submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
-          if (errorEl) errorEl.classList.remove('hidden');
-          throw (error instanceof Error ? error : new Error('Submission failed'));
-        }
+      if (!response.ok) {
+        throw new Error('Submission failed');
       }
-    });
+
+      form.classList.add('hidden');
+      const successEl = document.getElementById('contact-success');
+      if (successEl) {
+        successEl.classList.remove('hidden');
+        if (window.lucide) window.lucide.createIcons();
+      }
+    } catch {
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+      if (errorEl) errorEl.classList.remove('hidden');
+    }
   });
 }
 

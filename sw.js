@@ -1,7 +1,5 @@
-const CACHE_VERSION = 'compass-static-v1';
+const CACHE_VERSION = 'compass-static-v2';
 const APP_SHELL_ASSETS = [
-  '/',
-  '/index.html',
   '/assets/icons/favicon/site.webmanifest',
   '/assets/icons/favicon/android-chrome-192x192.png',
   '/assets/icons/favicon/android-chrome-512x512.png',

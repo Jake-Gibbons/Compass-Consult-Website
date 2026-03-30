@@ -7,7 +7,7 @@
   - Links to external coverage and event details
 
   All interactive behaviour (menu toggling, animations, accessibility
-  enhancements, etc.) is handled by /js/main.a5e45a55.js which is loaded at
+  enhancements, etc.) is handled by /js/main.cec5024d.js which is loaded at
   the bottom of the page.
 -->
 <!DOCTYPE html>
@@ -121,7 +121,7 @@
         @media (max-width: 640px) { .site-logo { max-height: 60px; } }
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
-    <link rel="stylesheet" href="/css/main.8fcbaca0.css">
+    <link rel="stylesheet" href="/css/main.2ca7df91.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
@@ -161,7 +161,7 @@
          Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
          Shows the logo and a hamburger button that toggles #mobile-menu.
          The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.a5e45a55.js.
+         /js/main.cec5024d.js.
          ================================================================ -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
@@ -740,7 +740,7 @@
     <!-- Page scripts — loaded at the bottom to avoid blocking render -->
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
     <script defer src="/js/lucide.min.c00d9c4e.js"></script>
-    <script defer src="/js/main.a5e45a55.js"></script>
+    <script defer src="/js/main.cec5024d.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const parseEventDate = (card) => {
