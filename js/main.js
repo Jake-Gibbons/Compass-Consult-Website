@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   optimizeImages();             // Add async decoding and lazy-loading attributes
   initializeTickerImageFallback(); // Replace broken ticker logos with the site logo
   initializeSidebarScrollIndicator(); // Show/hide sidebar scroll hint
-  initializeNewsletterForm();        // Newsletter subscription via Blobs API
+  initializeNewsletterForm();        // Newsletter subscription via Netlify Forms
   initializeContactForm();           // Contact enquiry form via Netlify Forms
   registerServiceWorker();           // Enable installability/offline shell support
 });
@@ -1196,8 +1196,7 @@ function initializeSidebarScrollIndicator() {
 
 /**
  * Intercepts the newsletter subscription form and submits the email address
- * to the /api/subscribers endpoint backed by Netlify Blobs, providing inline
- * feedback to the user.
+ * to Netlify Forms, providing inline feedback to the user.
  */
 function initializeNewsletterForm() {
   const forms = document.querySelectorAll('form[name="newsletter-subscribe"]');
@@ -1227,16 +1226,20 @@ function initializeNewsletterForm() {
           submitBtn.disabled = true;
 
           try {
-            const res = await fetch('/api/subscribers', {
+            const formData = new FormData(form);
+            formData.set('email', email);
+            if (captchaToken) {
+              formData.set('g-recaptcha-response', captchaToken);
+            }
+
+            const res = await fetch('/', {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ email, captchaToken }),
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: new URLSearchParams(formData).toString(),
             });
 
-            const data = await res.json();
-
             if (!res.ok) {
-              throw new Error(data.error || 'Subscription failed.');
+              throw new Error('Subscription failed.');
             }
 
             submitBtn.textContent = 'Subscribed!';
