@@ -41,6 +41,202 @@
   --color-secondary-light: #4fd3e0; /* Lighter teal for hover states           */
   --color-dark: #1e1b2e;          /* Near-black for dark backgrounds           */
   --color-light: #f8f9fc;         /* Off-white page background                 */
+  --motion-snappy: 210ms cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-smooth: 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  --dial-button-spring: 1.012;
+  --dial-card-lift: 1;
+  --dial-hero-intensity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Global interactive motion layer
+   -------------------------------------------------------------------------- */
+.interactive-anim {
+  transition:
+    transform var(--motion-snappy),
+    box-shadow var(--motion-snappy),
+    background-color var(--motion-snappy),
+    color var(--motion-snappy),
+    border-color var(--motion-snappy),
+    opacity var(--motion-snappy),
+    filter var(--motion-snappy);
+  will-change: transform;
+}
+
+.interactive-anim:hover,
+.interactive-anim:focus-visible {
+  transform: translateY(-2px);
+}
+
+.interactive-anim.is-pressed {
+  transform: translateY(0) scale(0.985);
+}
+
+.interactive-anim--text:hover,
+.interactive-anim--text:focus-visible {
+  transform: translateX(4px);
+}
+
+.interactive-anim--button:hover,
+.interactive-anim--button:focus-visible {
+  transform: translateY(-2px) scale(var(--dial-button-spring));
+  box-shadow: 0 14px 28px rgba(72, 48, 134, 0.18);
+}
+
+.interactive-anim--menu:hover,
+.interactive-anim--menu:focus-visible {
+  transform: translateX(5px);
+}
+
+.interactive-anim--link:hover,
+.interactive-anim--link:focus-visible {
+  transform: translateY(-1px);
+}
+
+.interactive-card {
+  --card-lift: -4px;
+  --card-shadow: 0 18px 32px rgba(15, 23, 42, 0.1);
+  transition: transform var(--motion-smooth), box-shadow var(--motion-smooth), border-color var(--motion-smooth);
+}
+
+.interactive-card:hover,
+.interactive-card:focus-within {
+  transform: translateY(var(--card-lift));
+  box-shadow: var(--card-shadow);
+}
+
+.interactive-tone-dramatic.interactive-anim--button:hover,
+.interactive-tone-dramatic.interactive-anim--button:focus-visible {
+  transform: translateY(-3px) scale(1.018);
+}
+
+.interactive-tone-restrained.interactive-anim--button:hover,
+.interactive-tone-restrained.interactive-anim--button:focus-visible {
+  transform: translateY(-1px) scale(1.002);
+  box-shadow: 0 10px 18px rgba(15, 23, 42, 0.08);
+}
+
+.interactive-tone-dramatic.interactive-anim--link:hover,
+.interactive-tone-dramatic.interactive-anim--link:focus-visible {
+  transform: translateY(-2px);
+}
+
+.interactive-tone-restrained.interactive-anim--link:hover,
+.interactive-tone-restrained.interactive-anim--link:focus-visible {
+  transform: none;
+}
+
+/* Form controls: subtle lift and border glow for hover/focus feedback */
+input,
+select,
+textarea {
+  transition:
+    border-color var(--motion-snappy),
+    box-shadow var(--motion-snappy),
+    background-color var(--motion-snappy),
+    transform var(--motion-snappy);
+}
+
+.interactive-form-control:hover {
+  background-color: rgba(255, 255, 255, 0.98);
+}
+
+.interactive-form-control:focus {
+  transform: translateY(-1px) scale(1.005);
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: rgba(72, 48, 134, 0.35);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 4px rgba(72, 48, 134, 0.14);
+}
+
+/* Staggered card reveals managed by initializeStaggeredCardReveal() */
+.motion-enter {
+  --motion-enter-distance: 18px;
+  --motion-enter-scale: 0.99;
+  opacity: 0;
+  transform: translateY(var(--motion-enter-distance)) scale(var(--motion-enter-scale));
+  transition:
+    opacity var(--motion-smooth) var(--motion-enter-delay, 0ms),
+    transform var(--motion-smooth) var(--motion-enter-delay, 0ms),
+    box-shadow var(--motion-smooth);
+}
+
+.motion-enter.is-in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.motion-tone-dramatic {
+  --motion-enter-distance: 28px;
+  --motion-enter-scale: 0.972;
+  --card-lift: -8px;
+  --card-shadow: 0 28px 48px rgba(15, 23, 42, 0.16);
+}
+
+.motion-tone-restrained {
+  --motion-enter-distance: 10px;
+  --motion-enter-scale: 0.996;
+  --card-lift: -2px;
+  --card-shadow: 0 14px 24px rgba(15, 23, 42, 0.08);
+}
+
+/* Slightly richer easing profile on desktop for premium feel */
+@media (min-width: 1024px) {
+  :root {
+    --motion-snappy: 270ms cubic-bezier(0.2, 0.9, 0.2, 1);
+    --motion-smooth: 460ms cubic-bezier(0.19, 1, 0.22, 1);
+    --dial-button-spring: 1.016;
+    --dial-card-lift: 1.1;
+    --dial-hero-intensity: 1.14;
+  }
+
+  .motion-enter {
+    --motion-enter-distance: 24px;
+    --motion-enter-scale: 0.982;
+  }
+
+  .interactive-card:hover,
+  .interactive-card:focus-within {
+    --card-lift: calc(-6px * var(--dial-card-lift));
+    --card-shadow: 0 24px 42px rgba(15, 23, 42, 0.14);
+  }
+
+  .motion-tone-dramatic {
+    --motion-enter-distance: calc(28px * var(--dial-hero-intensity));
+    --motion-enter-scale: 0.968;
+    --card-lift: calc(-8px * var(--dial-hero-intensity));
+    --card-shadow: 0 32px 56px rgba(15, 23, 42, 0.18);
+  }
+
+  .interactive-tone-dramatic.interactive-anim--button:hover,
+  .interactive-tone-dramatic.interactive-anim--button:focus-visible {
+    transform: translateY(-4px) scale(1.022);
+    box-shadow: 0 20px 36px rgba(72, 48, 134, 0.24);
+  }
+}
+
+/* Keep motion punchy on touch devices */
+@media (max-width: 767px) {
+  :root {
+    --motion-snappy: 170ms cubic-bezier(0.22, 1, 0.36, 1);
+    --motion-smooth: 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .interactive-anim:hover,
+  .interactive-anim:focus-visible,
+  .interactive-anim--button:hover,
+  .interactive-anim--button:focus-visible {
+    transform: translateY(-1px);
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -204,16 +400,16 @@ footer .text-gray-500 {
 #mobile-menu {
   display: block;
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-12px) scale(0.98);
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+  transition: opacity var(--motion-snappy), transform var(--motion-smooth), visibility var(--motion-snappy);
 }
 
 /* Visible (open) state */
 #mobile-menu.menu-open {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
   visibility: visible;
   pointer-events: auto;
 }
@@ -414,6 +610,17 @@ body.menu-open {
    -------------------------------------------------------------------------- */
 .bio-full[hidden] {
   display: none !important;
+}
+
+.bio-full {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height var(--motion-smooth), opacity var(--motion-snappy);
+}
+
+.bio-full.show {
+  opacity: 1;
 }
 
 /* --------------------------------------------------------------------------
@@ -729,10 +936,23 @@ body.captcha-modal-open {
   #mobile-menu a,
   .sticky-talk-button,
   .coming-soon-tooltip,
-  .skip-link {
+  .skip-link,
+  .interactive-anim,
+  .interactive-card,
+  .bio-full,
+  .event-card-hidden,
+  .event-card-toggle i,
+  .motion-enter,
+  input,
+  select,
+  textarea {
     transition: none !important;
     transform: none !important;
     animation: none !important;
+  }
+
+  .motion-enter {
+    opacity: 1 !important;
   }
 
   .nav-link::after {
@@ -754,11 +974,21 @@ body.captcha-modal-open {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  transform: translateY(4px);
+  transition: max-height var(--motion-smooth), opacity var(--motion-snappy), transform var(--motion-snappy);
 }
 
 .event-card.is-expanded .event-card-hidden {
   opacity: 1;
+  transform: translateY(0);
+}
+
+.event-card-toggle i {
+  transition: transform var(--motion-snappy);
+}
+
+.event-card.is-expanded .event-card-toggle i {
+  transform: rotate(180deg);
 }
 
 /* --------------------------------------------------------------------------

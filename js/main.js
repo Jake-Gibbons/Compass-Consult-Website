@@ -20,10 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeIcons();            // Render Lucide SVG icons
   initializeYearAndDate();      // Inject current year / date into placeholders
   initializeMobileMenu();       // Wire up the hamburger navigation
+  initializeAOSAnimations();    // Initialize AOS when available on pages that use it
   initializeSidebarEnhancements(); // Keep sidebar CTA pinned + show overflow hint
   initializeStickyTalkButton(); // Create the floating "Talk to Us" CTA
   initializeRevealAnimations(); // Scroll-triggered reveal animations
   initializeBioReadMore();      // Expandable "Read More" bio sections
+  initializeInteractiveMotion(); // Add tactile animation to interactive controls
+  initializeStaggeredCardReveal(); // Stagger section cards as they enter view
   enhanceExternalLinks();       // Add noopener/noreferrer + aria-labels
   initializeComingSoonSocialLinks(); // "Coming soon" tooltip for pending social links
   connectFormLabels();          // Associate <label> elements with their <input> partners
@@ -105,6 +108,33 @@ function initializeComingSoonSocialLinks() {
       event.preventDefault();
       showTooltip(link);
     });
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Optional AOS initialization
+// ---------------------------------------------------------------------------
+
+/**
+ * Initializes Animate On Scroll when a page includes the AOS library.
+ * Safe no-op on pages where AOS is not loaded.
+ */
+function initializeAOSAnimations() {
+  if (!window.AOS || typeof window.AOS.init !== 'function') {
+    return;
+  }
+
+  window.AOS.init({
+    duration: 650,
+    easing: 'ease-out-cubic',
+    once: true,
+    offset: 24
+  });
+
+  window.addEventListener('load', () => {
+    if (typeof window.AOS.refreshHard === 'function') {
+      window.AOS.refreshHard();
+    }
   });
 }
 
@@ -515,16 +545,182 @@ function initializeBioReadMore() {
     readMoreButton.setAttribute('aria-controls', `${name}-bio-full`);
     const isAlreadyExpanded = fullBio.classList.contains('show');
     readMoreButton.setAttribute('aria-expanded', String(isAlreadyExpanded));
-    fullBio.hidden = !isAlreadyExpanded;
+    fullBio.setAttribute('aria-hidden', String(!isAlreadyExpanded));
+    fullBio.style.overflow = 'hidden';
+    fullBio.style.maxHeight = isAlreadyExpanded ? `${fullBio.scrollHeight}px` : '0px';
+    summaryBio.hidden = isAlreadyExpanded;
+
+    readMoreButton.classList.add('interactive-anim', 'interactive-anim--text');
+
+    const syncExpandedHeight = () => {
+      if (fullBio.classList.contains('show')) {
+        fullBio.style.maxHeight = `${fullBio.scrollHeight}px`;
+      }
+    };
+
+    window.addEventListener('resize', debounce(syncExpandedHeight, 120));
 
     readMoreButton.addEventListener('click', () => {
       const isExpanded = fullBio.classList.toggle('show');
-      fullBio.hidden = !isExpanded;
+      fullBio.style.maxHeight = isExpanded ? `${fullBio.scrollHeight}px` : '0px';
+      fullBio.setAttribute('aria-hidden', String(!isExpanded));
       summaryBio.hidden = isExpanded;
       readMoreButton.textContent = isExpanded ? 'Read Less' : 'Read More';
       readMoreButton.setAttribute('aria-expanded', String(isExpanded));
     });
   });
+}
+
+// ---------------------------------------------------------------------------
+// Global interactive motion refresh
+// ---------------------------------------------------------------------------
+
+/**
+ * Applies a consistent motion style to all interactive elements so taps,
+ * clicks, and hover states feel responsive across the site.
+ */
+function initializeInteractiveMotion() {
+  const targets = document.querySelectorAll([
+    'a[href]',
+    'button',
+    '[role="button"]',
+    'input[type="submit"]',
+    'input[type="button"]',
+    '.event-card-toggle',
+    '[id$="-read-more-btn"]'
+  ].join(','));
+
+  targets.forEach((target) => {
+    if (target.classList.contains('interactive-anim')) {
+      return;
+    }
+
+    target.classList.add('interactive-anim');
+
+    const motionTone = getMotionTone(target);
+    target.classList.add(`interactive-tone-${motionTone}`);
+
+    if (target.matches('button, input[type="submit"], input[type="button"], a[class*="btn"], a.rounded-full')) {
+      target.classList.add('interactive-anim--button');
+    } else if (target.matches('#mobile-menu a, .nav-link')) {
+      target.classList.add('interactive-anim--menu');
+    } else if (target.matches('a[href]')) {
+      target.classList.add('interactive-anim--link');
+    }
+
+    if (target.matches('[id$="-read-more-btn"], .event-card-toggle')) {
+      target.classList.add('interactive-anim--text');
+    }
+
+    target.addEventListener('pointerdown', () => {
+      target.classList.add('is-pressed');
+    });
+
+    const release = () => target.classList.remove('is-pressed');
+    target.addEventListener('pointerup', release);
+    target.addEventListener('pointercancel', release);
+    target.addEventListener('pointerleave', release);
+    target.addEventListener('blur', release);
+  });
+
+  document.querySelectorAll('.event-card').forEach((card) => {
+    card.classList.add('interactive-card');
+    card.classList.add(`motion-tone-${getMotionTone(card)}`);
+  });
+
+  document.querySelectorAll('input, select, textarea').forEach((control) => {
+    control.classList.add('interactive-form-control');
+  });
+}
+
+/**
+ * Staggers card-like surfaces into view to make section transitions feel
+ * more intentional on scroll-heavy pages.
+ */
+function initializeStaggeredCardReveal() {
+  const selector = [
+    '.event-card',
+    'section .rounded-2xl',
+    'section article.rounded-xl',
+    'section .shadow-md',
+    '.interactive-card'
+  ].join(',');
+
+  const cards = Array.from(new Set(Array.from(document.querySelectorAll(selector))));
+  if (!cards.length) {
+    return;
+  }
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  cards.forEach((card) => {
+    card.classList.add('motion-enter');
+
+    const motionTone = getMotionTone(card);
+    card.classList.add(`motion-tone-${motionTone}`);
+
+    const nearestSection = card.closest('section');
+    const siblingCards = nearestSection
+      ? Array.from(nearestSection.querySelectorAll(selector))
+      : cards;
+    const localIndex = Math.max(0, siblingCards.indexOf(card));
+    const cadenceMultiplier = motionTone === 'dramatic' ? 1.2 : motionTone === 'restrained' ? 0.85 : 1;
+    const delay = Math.round(Math.min(localIndex, 7) * 65 * cadenceMultiplier);
+
+    card.style.setProperty('--motion-enter-delay', `${delay}ms`);
+  });
+
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    cards.forEach((card) => card.classList.add('is-in-view'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.16, rootMargin: '0px 0px -6% 0px' }
+  );
+
+  cards.forEach((card) => observer.observe(card));
+}
+
+/**
+ * Resolves a motion tone for an element based on the closest layout region.
+ * dramatic: hero/gradient-dark sections
+ * restrained: navigation/footer/utility regions
+ * balanced: default content sections
+ *
+ * @param {Element} element
+ * @returns {'dramatic'|'balanced'|'restrained'}
+ */
+function getMotionTone(element) {
+  const region = element.closest('section, header, footer, nav, aside, main');
+  if (!region) {
+    return 'balanced';
+  }
+
+  const tag = region.tagName.toLowerCase();
+  const classes = (region.className || '').toLowerCase();
+
+  if (tag === 'footer' || tag === 'nav' || tag === 'aside') {
+    return 'restrained';
+  }
+
+  if (
+    classes.includes('bg-compass-dark') ||
+    classes.includes('hero') ||
+    classes.includes('gradient') ||
+    classes.includes('animate-blob')
+  ) {
+    return 'dramatic';
+  }
+
+  return 'balanced';
 }
 
 // ---------------------------------------------------------------------------
