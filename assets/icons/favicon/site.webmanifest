@@ -8,7 +8,7 @@
 	"display": "standalone",
 	"orientation": "portrait-primary",
 	"theme_color": "#483086",
-	"background_color": "#483086",
+	"background_color": "#ffffff",
 	"icons": [
 		{
 			"src": "/assets/icons/favicon/android-chrome-192x192.png",
