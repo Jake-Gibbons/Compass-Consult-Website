@@ -932,9 +932,56 @@ const RECAPTCHA_SITE_KEY = '6LdnkKEqAAAAAPvyqoRAmjXxvE6evlb5z-5Ol90Y';
 let recaptchaScriptPromise;
 let captchaModal;
 
+function getRecaptchaApi() {
+  if (!window.grecaptcha) {
+    return null;
+  }
+
+  if (typeof window.grecaptcha.render === 'function') {
+    return window.grecaptcha;
+  }
+
+  if (
+    window.grecaptcha.enterprise &&
+    typeof window.grecaptcha.enterprise.render === 'function' &&
+    typeof window.grecaptcha.enterprise.reset === 'function'
+  ) {
+    return {
+      render: window.grecaptcha.enterprise.render.bind(window.grecaptcha.enterprise),
+      reset: window.grecaptcha.enterprise.reset.bind(window.grecaptcha.enterprise)
+    };
+  }
+
+  return null;
+}
+
+function waitForRecaptchaApi(timeoutMs = 8000) {
+  return new Promise((resolve, reject) => {
+    const startedAt = Date.now();
+
+    const check = () => {
+      const api = getRecaptchaApi();
+      if (api) {
+        resolve(api);
+        return;
+      }
+
+      if (Date.now() - startedAt >= timeoutMs) {
+        reject(new Error('reCAPTCHA loaded but is not ready yet. Please try again.'));
+        return;
+      }
+
+      window.setTimeout(check, 100);
+    };
+
+    check();
+  });
+}
+
 function loadRecaptchaApi() {
-  if (window.grecaptcha && typeof window.grecaptcha.render === 'function') {
-    return Promise.resolve(window.grecaptcha);
+  const activeApi = getRecaptchaApi();
+  if (activeApi) {
+    return Promise.resolve(activeApi);
   }
 
   if (recaptchaScriptPromise) {
@@ -944,8 +991,14 @@ function loadRecaptchaApi() {
   recaptchaScriptPromise = new Promise((resolve, reject) => {
     const existingScript = document.querySelector('script[data-recaptcha-api]');
     if (existingScript) {
-      existingScript.addEventListener('load', () => resolve(window.grecaptcha), { once: true });
-      existingScript.addEventListener('error', () => reject(new Error('Could not load reCAPTCHA.')), { once: true });
+      waitForRecaptchaApi()
+        .then(resolve)
+        .catch(() => {
+          existingScript.addEventListener('load', () => {
+            waitForRecaptchaApi().then(resolve).catch(reject);
+          }, { once: true });
+          existingScript.addEventListener('error', () => reject(new Error('Could not load reCAPTCHA.')), { once: true });
+        });
       return;
     }
 
@@ -965,7 +1018,12 @@ function loadRecaptchaApi() {
       script.async = true;
       script.defer = true;
       script.dataset.recaptchaApi = 'true';
-      script.addEventListener('load', () => resolve(window.grecaptcha), { once: true });
+      script.addEventListener('load', () => {
+        waitForRecaptchaApi().then(resolve).catch(() => {
+          script.remove();
+          tryLoad(index + 1);
+        });
+      }, { once: true });
       script.addEventListener('error', () => {
         script.remove();
         tryLoad(index + 1);
