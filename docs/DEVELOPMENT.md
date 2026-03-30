@@ -76,7 +76,7 @@
 
 ### 3. Adding JavaScript
 - Extract inline scripts to `js/` folder
-- Keep scripts modular and organized
+- Keep scripts modular and organised
 - Use clear, descriptive function names
 - Comment complex logic
 

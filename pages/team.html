@@ -67,6 +67,7 @@
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
     <link rel="stylesheet" href="/css/main.2ca7df91.css">
+    <link rel="stylesheet" href="/css/aos.1aa8845f.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
@@ -142,7 +143,7 @@
         <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center">
             <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
             <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
-            <div class="relative z-10 px-4 sm:px-6 lg:px-8 pt-12 lg:pt-0">
+            <div class="relative z-10 px-4 sm:px-6 lg:px-8 pt-12 lg:pt-0" data-aos="fade-up">
                 <h1 class="text-4xl font-bold text-white">Meet the Team</h1>
                 <p class="mt-4 text-white/85">The Experts Behind Your Success</p>
             </div>
@@ -152,17 +153,20 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid md:grid-cols-2 gap-12 lg:gap-20 justify-items-center">
                     <!-- Jon Smith -->
-                    <div class="text-center group max-w-sm" data-aos-delay="0">
+                    <div class="text-center group max-w-sm" data-aos="fade-up" data-aos-delay="0">
                         <div class="w-40 h-40 rounded-full bg-gray-200 mx-auto mb-6 overflow-hidden border-4 border-purple-50 group-hover:border-compass-purple transition-colors duration-300">
                             <img src="/assets/images/team/jon.png" alt="Jon Smith" class="w-full h-full object-cover">
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-900 group-hover:text-compass-purple transition-colors">Jon Smith CMgr FCMI FIEP FCIPD</h3>
+                        <h3 class="text-2xl font-bold transition-colors">
+                            <span class="text-gray-900 group-hover:text-compass-purple">Jon Smith</span>
+                            <span class="ml-1 text-lg font-semibold text-compass-teal">CMgr FCMI FIEP FCIPD</span>
+                        </h3>
                         <div class="flex items-center justify-center gap-2 mt-2 mb-3">
                             <img src="/assets/images/team/cmiFellow.png" alt="CMI Fellowship badge" class="h-7 w-auto object-contain" loading="lazy" decoding="async">
                             <img src="/assets/images/team/iepFellow.png" alt="IEP Fellowship badge" class="h-7 w-auto object-contain" loading="lazy" decoding="async">
                             <img src="/assets/images/team/cipdFellow.png" alt="CIPD Fellowship badge" class="h-7 w-auto object-contain" loading="lazy" decoding="async">
                         </div>
-                        <p class="text-compass-teal font-medium mb-4 text-lg">Managing Director</p>
+                        <p class="text-compass-teal font-medium mb-4 text-lg">Chief Executive Officer</p>
                         <div class="text-gray-500 text-sm leading-relaxed text-left space-y-4 mb-6" id="jon-bio">
                             <p id="jon-bio-summary">Jon has been a senior leader within employability, skills, health and justice for over 20 years, working across the private, public and charity sectors on over 100 different contracts.</p>
                             <div id="jon-bio-full" class="bio-full space-y-4">
@@ -181,12 +185,12 @@
                     </div>
 
                     <!-- Michelle Rainey -->
-                    <div class="text-center group max-w-sm" data-aos-delay="100">
+                    <div class="text-center group max-w-sm" data-aos="fade-up" data-aos-delay="100">
                         <div class="w-40 h-40 rounded-full bg-gray-200 mx-auto mb-6 overflow-hidden border-4 border-purple-50 group-hover:border-compass-purple transition-colors duration-300">
                             <img src="/assets/images/team/michelle.jpeg" alt="Michelle Rainey" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 group-hover:text-compass-purple transition-colors">Michelle Rainey</h3>
-                        <p class="text-compass-teal font-medium mb-4 text-lg">Executive Assistant to the Managing Director</p>
+                        <p class="text-compass-teal font-medium mb-4 text-lg">Executive Assistant to the CEO</p>
                         <p class="text-gray-500 max-w-xs mx-auto mb-6 text-sm leading-relaxed">Michelle has a background in office management and administration, as well as spending several years in the employability sector, managing caseloads of participants on DWP and Combined Authority commissioned programmes. Michelle supports the smooth running of Compass Consult and brings a wealth of experience to the organisation.</p>
                         <div class="flex justify-center gap-4">
                             <a href="mailto:info@compassconsultes.com" aria-label="Email Compass Consult" title="Email Compass Consult" class="text-gray-400 hover:text-compass-purple hover:scale-110 transition-transform"><i data-lucide="mail" class="w-6 h-6"></i></a>
@@ -194,7 +198,7 @@
                     </div>
 
                     <!-- Jake Gibbons -->
-                    <div class="text-center group max-w-sm" data-aos-delay="200">
+                    <div class="text-center group max-w-sm" data-aos="fade-up" data-aos-delay="200">
                         <div class="w-40 h-40 rounded-full bg-gray-200 mx-auto mb-6 overflow-hidden border-4 border-purple-50 group-hover:border-compass-purple transition-colors duration-300">
                             <img src="/assets/images/team/jake.png" alt="Jake Gibbons" class="w-full h-full object-cover">
                         </div>
@@ -227,7 +231,7 @@
                             </div>
                         </div>
                         <p class="text-gray-400 max-w-sm mb-6">
-                            Empowering public, private and third sector organizations, to navigate the world of employability and skills.
+                            Empowering public, private and third sector organisations, to navigate the world of employability and skills.
                         </p>
                         <div class="flex space-x-4">
                             <a href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
@@ -290,6 +294,7 @@
 
     <!-- Page scripts — loaded at the bottom to avoid blocking render -->
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
+    <script src="/js/aos.min.a5005b2e.js"></script>
     <script defer src="/js/lucide.min.c00d9c4e.js"></script>
     <script defer src="/js/main.cec5024d.js"></script>
 </body>

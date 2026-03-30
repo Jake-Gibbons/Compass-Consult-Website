@@ -1,6 +1,8 @@
 {
   "tailwind": "/css/tailwind.min.c9224163.css",
   "mainCss": "/css/main.2ca7df91.css",
+  "aosCss": "/css/aos.1aa8845f.css",
   "mainJs": "/js/main.cec5024d.js",
-  "lucideJs": "/js/lucide.min.c00d9c4e.js"
+  "lucideJs": "/js/lucide.min.c00d9c4e.js",
+  "aosJs": "/js/aos.min.a5005b2e.js"
 }

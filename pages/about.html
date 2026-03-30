@@ -59,6 +59,7 @@
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
     <link rel="stylesheet" href="/css/main.2ca7df91.css">
+    <link rel="stylesheet" href="/css/aos.1aa8845f.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
@@ -134,7 +135,7 @@
         <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center">
             <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
             <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
-            <div class="relative z-10 px-4 sm:px-6 lg:px-8 pt-12 lg:pt-0">
+            <div class="relative z-10 px-4 sm:px-6 lg:px-8 pt-12 lg:pt-0" data-aos="fade-up">
                 <h1 class="text-4xl font-bold text-white">About Us</h1>
                 <p class="mt-4 text-white/85">Navigating the Sector with Confidence</p>
             </div>
@@ -143,7 +144,7 @@
         <section class="py-20 bg-white flex-grow">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid md:grid-cols-2 gap-16 items-center">
-                    <div>
+                    <div data-aos="fade-right">
                          <span class="text-compass-purple font-semibold tracking-wider uppercase text-sm mb-2 block">Why Compass?</span>
                          <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
                          <div class="h-1.5 w-20 bg-gradient-to-r from-compass-purple to-compass-teal rounded-full mb-8"></div>
@@ -152,7 +153,7 @@
                          <p class="text-lg text-gray-600 font-medium">We don’t just advise. We work alongside you to implement solutions that deliver measurable impact for UK citizens.</p>
                     </div>
                     
-                    <div class="grid gap-6">
+                    <div class="grid gap-6" data-aos="fade-left" data-aos-delay="100">
                         <div class="group p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-purple-100 hover:shadow-xl transition-all duration-300">
                             <div class="flex items-start gap-4">
                                 <div class="w-10 h-10 rounded-lg bg-purple-100 text-compass-purple flex items-center justify-center flex-shrink-0"><img src="/assets/logos/Logo.webp" width="3231" height="1212" alt="Compass" class="w-full h-full object-contain p-1"></div>
@@ -188,7 +189,7 @@
                             </div>
                         </div>
                         <p class="text-gray-400 max-w-sm mb-6">
-                            Empowering public, private and third sector organizations, to navigate the world of employability and skills.
+                            Empowering public, private and third sector organisations, to navigate the world of employability and skills.
                         </p>
                         <div class="flex space-x-4">
                             <a href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
@@ -250,6 +251,7 @@
     </main>
     <!-- Page scripts — loaded at the bottom to avoid blocking render -->
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
+    <script src="/js/aos.min.a5005b2e.js"></script>
     <script defer src="/js/lucide.min.c00d9c4e.js"></script>
     <script defer src="/js/main.cec5024d.js"></script>
 </body>

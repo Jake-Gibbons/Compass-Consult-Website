@@ -8,8 +8,10 @@ const ROOT = process.cwd();
 const ASSETS = [
   'css/tailwind.min.css',
   'css/main.css',
+  'css/aos.css',
   'js/main.js',
   'js/lucide.min.js',
+  'js/aos.min.js',
 ];
 
 const REF_PATTERNS = [
@@ -29,13 +31,23 @@ const REF_PATTERNS = [
     key: 'lucideJs',
     regex: /\/js\/lucide\.min(?:\.[a-f0-9]{8})?\.js/g,
   },
+  {
+    key: 'aosCss',
+    regex: /\/css\/aos(?:\.[a-f0-9]{8})?\.css/g,
+  },
+  {
+    key: 'aosJs',
+    regex: /\/js\/aos\.min(?:\.[a-f0-9]{8})?\.js/g,
+  },
 ];
 
 const KEY_BY_ASSET = {
   'css/tailwind.min.css': 'tailwind',
   'css/main.css': 'mainCss',
+  'css/aos.css': 'aosCss',
   'js/main.js': 'mainJs',
   'js/lucide.min.js': 'lucideJs',
+  'js/aos.min.js': 'aosJs',
 };
 
 async function getVersionedContent(relPath, sourceContent) {

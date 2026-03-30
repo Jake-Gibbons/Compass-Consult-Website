@@ -91,6 +91,7 @@
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
     <link rel="stylesheet" href="/css/main.2ca7df91.css">
+    <link rel="stylesheet" href="/css/aos.1aa8845f.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
     <!-- Skip navigation — allows keyboard users to bypass the navigation -->
@@ -257,7 +258,7 @@
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="grid gap-12 items-center place-items-center text-center">
-                    <div class="space-y-8">
+                    <div class="space-y-8" data-aos="fade-up">
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 border border-purple-200 text-compass-purple text-sm font-semibold">
                             <span class="relative flex h-2 w-2">
                               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
@@ -296,12 +297,12 @@
              ================================================================ -->
         <section class="py-20 bg-gray-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12">
+                <div class="text-center mb-12" data-aos="fade-up">
                     <p class="text-lg text-gray-600 max-w-3xl mx-auto">Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.</p>
                 </div>
 
                 <div class="grid lg:grid-cols-2 gap-10">
-                    <div class="bg-white rounded-2xl border border-gray-100 shadow-md p-8 h-full flex flex-col">
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-md p-8 h-full flex flex-col" data-aos="fade-up" data-aos-delay="0">
                         <h3 class="text-2xl font-bold text-gray-900 mb-6">Who We Help</h3>
                         <div class="space-y-4 mb-8">
                             <div class="rounded-xl border border-purple-100 bg-purple-50/40 p-5 flex items-start gap-4">
@@ -339,7 +340,7 @@
                         </a>
                     </div>
 
-                    <div class="bg-white rounded-2xl border border-gray-100 shadow-md p-8 h-full flex flex-col">
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-md p-8 h-full flex flex-col" data-aos="fade-up" data-aos-delay="100">
                         <h3 class="text-2xl font-bold text-gray-900 mb-6">How We Support</h3>
                         <div class="space-y-4 mb-8">
                             <article class="rounded-xl border border-purple-100 bg-purple-50/40 p-5">
@@ -397,7 +398,7 @@
         <section class="py-20 bg-compass-dark relative overflow-hidden">
             <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
             <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
-            <div class="max-w-4xl mx-auto px-4 relative z-10 text-center">
+            <div class="max-w-4xl mx-auto px-4 relative z-10 text-center" data-aos="fade-up">
                 <h2 class="text-3xl lg:text-5xl font-bold text-white mb-6">Let's Move Forward</h2>
                 <p class="text-purple-100 text-lg mb-10 max-w-2xl mx-auto">Whatever your starting point, Compass will point you in the right direction.</p>
                 <a href="/pages/contact.html" class="px-8 py-4 bg-compass-purple text-white font-bold rounded-full hover:bg-compass-lightPurple transition-all shadow-xl hover:scale-105 active:scale-95 inline-block contact-button-animation">Talk to us today</a>
@@ -426,7 +427,7 @@
                             </div>
                         </div>
                         <p class="text-gray-400 max-w-sm mb-6">
-                            Empowering public, private and third sector organizations, to navigate the world of employability and skills.
+                            Empowering public, private and third sector organisations, to navigate the world of employability and skills.
                         </p>
                         <div class="flex space-x-4">
                             <a href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
@@ -488,6 +489,7 @@
     </main>
     <!-- Page scripts — loaded at the bottom to avoid blocking render -->
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
+    <script src="/js/aos.min.a5005b2e.js"></script>
     <script defer src="/js/lucide.min.c00d9c4e.js"></script>
     <script defer src="/js/main.cec5024d.js"></script>
 </body>
