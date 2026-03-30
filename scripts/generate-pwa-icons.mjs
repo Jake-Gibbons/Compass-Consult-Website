@@ -5,7 +5,7 @@ const rootDir = new URL('..', import.meta.url).pathname;
 const sourceIcon = join(rootDir, 'assets', 'logos', 'compass_rose.png');
 const outputDir = join(rootDir, 'assets', 'icons', 'favicon');
 
-const brandPurple = '#483086';
+const brandPurple = '#ffffff';
 
 async function createIcon(outputPath, size, logoScale = 0.72) {
   const logoSize = Math.round(size * logoScale);
