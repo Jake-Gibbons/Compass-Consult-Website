@@ -949,14 +949,31 @@ function loadRecaptchaApi() {
       return;
     }
 
-    const script = document.createElement('script');
-    script.src = 'https://www.google.com/recaptcha/api.js?render=explicit';
-    script.async = true;
-    script.defer = true;
-    script.dataset.recaptchaApi = 'true';
-    script.addEventListener('load', () => resolve(window.grecaptcha), { once: true });
-    script.addEventListener('error', () => reject(new Error('Could not load reCAPTCHA.')), { once: true });
-    document.head.appendChild(script);
+    const sources = [
+      'https://www.google.com/recaptcha/api.js?render=explicit',
+      'https://www.recaptcha.net/recaptcha/api.js?render=explicit'
+    ];
+
+    const tryLoad = (index) => {
+      if (index >= sources.length) {
+        reject(new Error('Could not load reCAPTCHA.'));
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = sources[index];
+      script.async = true;
+      script.defer = true;
+      script.dataset.recaptchaApi = 'true';
+      script.addEventListener('load', () => resolve(window.grecaptcha), { once: true });
+      script.addEventListener('error', () => {
+        script.remove();
+        tryLoad(index + 1);
+      }, { once: true });
+      document.head.appendChild(script);
+    };
+
+    tryLoad(0);
   });
 
   return recaptchaScriptPromise;
