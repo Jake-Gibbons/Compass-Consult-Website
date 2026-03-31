@@ -1,13 +1,13 @@
 {
 	"id": "/",
 	"name": "Compass Consult",
-	"short_name": "Compass",
+	"short_name": "Compass Consult",
 	"description": "Compass Consult supports organisations navigating employability and skills.",
 	"start_url": "/index.html",
 	"scope": "/",
 	"display": "standalone",
 	"orientation": "portrait-primary",
-	"theme_color": "#483086",
+	"theme_color": "#ffffff",
 	"background_color": "#ffffff",
 	"icons": [
 		{

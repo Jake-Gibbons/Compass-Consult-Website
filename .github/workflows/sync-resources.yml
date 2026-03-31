@@ -1,0 +1,49 @@
+name: Sync Resource Library
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'assets/downloads/docs/**'
+      - 'scripts/sync-resources.mjs'
+      - 'pages/resources.html'
+      - 'package.json'
+  workflow_dispatch:
+
+jobs:
+  sync-resources:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync resources and previews
+        run: npm run sync:resources
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pages/resources.html assets/images/resource-previews
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: sync resource library entries and previews [skip ci]"
+            git push
+          fi

@@ -33,6 +33,8 @@ async function createIcon(outputPath, size, logoScale = 0.72) {
 }
 
 async function main() {
+  await createIcon(join(outputDir, 'favicon-16x16.png'), 16, 0.80);
+  await createIcon(join(outputDir, 'favicon-32x32.png'), 32, 0.80);
   await createIcon(join(outputDir, 'apple-touch-icon.png'), 180, 0.74);
   await createIcon(join(outputDir, 'android-chrome-192x192.png'), 192, 0.72);
   await createIcon(join(outputDir, 'android-chrome-512x512.png'), 512, 0.72);
