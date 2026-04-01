@@ -1,9 +1,9 @@
 {
   "lighthouseVersion": "13.0.3",
-  "requestedUrl": "https://www.compassconsult.co.uk/index.html",
-  "mainDocumentUrl": "https://www.compassconsult.co.uk/index.html",
+  "requestedUrl": "https://www.compassconsultes.co.uk/index.html",
+  "mainDocumentUrl": "https://www.compassconsultes.co.uk/index.html",
   "finalDisplayedUrl": "about:blank",
-  "finalUrl": "https://www.compassconsult.co.uk/index.html",
+  "finalUrl": "https://www.compassconsultes.co.uk/index.html",
   "fetchTime": "2026-03-28T17:41:42.512Z",
   "gatherMode": "navigation",
   "runtimeError": {

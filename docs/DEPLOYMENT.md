@@ -26,7 +26,7 @@ settings, cache headers, security headers, and serverless function
 configuration are all defined in [`netlify.toml`](../netlify.toml) at
 the repository root.
 
-**Live site:** https://compassconsult.co.uk
+**Live site:** https://compassconsultes.co.uk
 
 ---
 
@@ -77,7 +77,7 @@ Netlify build.
 ### Custom domain
 
 1. Go to **Site Settings → Domain management**.
-2. Click **Add a domain** and enter `compassconsult.co.uk`.
+2. Click **Add a domain** and enter `compassconsultes.co.uk`.
 3. Update the DNS records at your registrar (see [DNS Configuration](#dns-configuration)).
 4. Netlify provisions a free SSL certificate via Let's Encrypt automatically.
 
@@ -193,7 +193,7 @@ No other environment variables are needed for the static site itself.
 
 ## DNS Configuration
 
-Point `compassconsult.co.uk` to Netlify:
+Point `compassconsultes.co.uk` to Netlify:
 
 ```
 Type     Name    Value
@@ -228,12 +228,12 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 After deploying, verify the following:
 
 1. **Verify the live site**
-   - Visit https://compassconsult.co.uk and all page URLs.
+   - Visit https://compassconsultes.co.uk and all page URLs.
    - Test the contact form end-to-end.
    - Verify all images load.
 
 2. **Search Engine Optimisation**
-   - Submit `https://compassconsult.co.uk/sitemap.xml` to
+   - Submit `https://compassconsultes.co.uk/sitemap.xml` to
      [Google Search Console](https://search.google.com/search-console).
    - Submit to [Bing Webmaster Tools](https://www.bing.com/webmasters).
    - Monitor indexing status for any errors.
