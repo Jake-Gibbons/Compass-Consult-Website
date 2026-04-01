@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://compassconsultes.co.uk/sitemap.xml
+Sitemap: https://compassconsult.co.uk/sitemap.xml
