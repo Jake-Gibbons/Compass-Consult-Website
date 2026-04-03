@@ -68,6 +68,20 @@ An array of team member objects for the team page.
 
 1. Open the relevant JSON file.
 2. Add or modify the object, following the field schema above.
-3. Update the corresponding HTML page if new fields have been added.
+3. Update the corresponding HTML page to reflect the change.
 4. Validate your JSON (e.g. with [jsonlint.com](https://jsonlint.com/))
    before committing.
+
+---
+
+## Related
+
+- The **Netlify subscriber function** (`netlify/functions/subscribers.mts`)
+  persists newsletter subscriber data to Netlify Blobs — it does **not**
+  use the JSON files in this folder.
+- For build scripts that consume these files, see `scripts/` and
+  [`docs/DEVELOPMENT.md`](../docs/DEVELOPMENT.md).
+
+---
+
+*Last updated: April 2026*
