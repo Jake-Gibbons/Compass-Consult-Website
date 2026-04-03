@@ -562,13 +562,15 @@
                     ? 'group bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-row'
                     : 'group bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full';
                 card.innerHTML = isSmall ? `
-                    <div class="w-28 flex-shrink-0 ${bgClass} flex items-center justify-center relative transition-colors overflow-hidden">
+                    <div class="w-14 flex-shrink-0 ${bgClass} flex items-center justify-center relative transition-colors overflow-hidden">
                         <img src="${previewUrl}" alt="${item.title} preview" class="w-full h-full object-contain bg-white" loading="lazy" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
-                        <i data-lucide="${item.icon}" class="hidden w-8 h-8 ${textClass} opacity-80 transform group-hover:scale-110 transition-transform duration-300"></i>
-                        <div class="absolute z-20 top-2 right-2 text-[9px] bg-gray-900 text-white px-1.5 py-0.5 rounded font-bold shadow-lg uppercase tracking-wide border border-white/20">${item.type}</div>
-                        <div class="absolute z-20 bottom-2 left-2 text-[9px] bg-compass-purple text-white px-1.5 py-0.5 rounded font-semibold shadow-lg border border-white/20">${item.category}</div>
+                        <i data-lucide="${item.icon}" class="hidden w-5 h-5 ${textClass} opacity-80 transform group-hover:scale-110 transition-transform duration-300"></i>
                     </div>
                     <div class="p-3 flex-grow flex flex-col min-w-0">
+                        <div class="flex items-center gap-1.5 mb-1">
+                            <span class="text-[9px] bg-gray-900 text-white px-1.5 py-0.5 rounded font-bold uppercase tracking-wide">${item.type}</span>
+                            <span class="text-[9px] bg-compass-purple text-white px-1.5 py-0.5 rounded font-semibold">${item.category}</span>
+                        </div>
                         <h3 class="text-sm mb-1 font-bold text-gray-900 leading-tight group-hover:text-compass-purple transition-colors truncate">${item.title}</h3>
                         <p class="text-gray-500 text-xs mb-2 line-clamp-2 flex-grow">${item.desc}</p>
                         <div class="flex items-center justify-between mt-auto pt-2 border-t border-gray-50">
