@@ -569,12 +569,11 @@
                     <div class="p-3 flex-grow flex flex-col min-w-0">
                         <div class="flex items-start justify-between gap-2 mb-1.5">
                             <h3 class="text-sm font-bold text-gray-900 leading-tight group-hover:text-compass-purple transition-colors truncate">${item.title}</h3>
-                            <span class="flex-shrink-0 text-[9px] bg-gray-900 text-white px-1.5 py-0.5 rounded font-bold uppercase tracking-wide">${item.type}</span>
+                            <span class="flex-shrink-0 text-[9px] bg-compass-purple text-white px-1.5 py-0.5 rounded font-semibold">${item.category}</span>
                         </div>
                         <p class="text-gray-500 text-xs mb-3 line-clamp-2 flex-grow">${item.desc}</p>
                         <div class="flex items-center justify-between mt-auto pt-2 border-t border-gray-100 gap-2">
                             <div class="flex items-center gap-1.5 min-w-0">
-                                <span class="text-[9px] bg-compass-purple text-white px-1.5 py-0.5 rounded font-semibold flex-shrink-0">${item.category}</span>
                                 <span class="text-xs text-gray-400 font-medium truncate">${item.size}</span>
                             </div>
                             <a href="${downloadUrl}" download class="inline-flex items-center gap-1 flex-shrink-0 text-xs font-semibold bg-compass-teal text-white px-2.5 py-1.5 rounded-lg hover:bg-compass-purple transition-all duration-200 group/link hover:shadow-md hover:scale-105 active:scale-95">
