@@ -29,9 +29,9 @@ jobs:
           echo "Branches to delete:"
           echo "$BRANCHES"
 
-          for BRANCH in $BRANCHES; do
+          while IFS= read -r BRANCH; do
             echo "Deleting branch: $BRANCH"
-            gh api --method DELETE repos/$REPO/git/refs/heads/$BRANCH && echo "Deleted: $BRANCH" || echo "Failed to delete: $BRANCH"
-          done
+            gh api --method DELETE "repos/$REPO/git/refs/heads/$BRANCH" && echo "Deleted: $BRANCH" || echo "Failed to delete: $BRANCH"
+          done <<< "$BRANCHES"
 
           echo "Branch cleanup complete."
