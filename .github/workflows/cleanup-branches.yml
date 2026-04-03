@@ -1,0 +1,37 @@
+name: Cleanup Branches
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  delete-branches:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Delete all branches except main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          echo "Fetching all branches..."
+          BRANCHES=$(gh api repos/$REPO/branches --paginate --jq '.[].name' | grep -v '^main$')
+
+          if [ -z "$BRANCHES" ]; then
+            echo "No branches to delete. Only 'main' exists."
+            exit 0
+          fi
+
+          echo "Branches to delete:"
+          echo "$BRANCHES"
+
+          for BRANCH in $BRANCHES; do
+            echo "Deleting branch: $BRANCH"
+            gh api --method DELETE repos/$REPO/git/refs/heads/$BRANCH && echo "Deleted: $BRANCH" || echo "Failed to delete: $BRANCH"
+          done
+
+          echo "Branch cleanup complete."
