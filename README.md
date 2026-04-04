@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
 [![Live Site](https://img.shields.io/badge/Live%20Site-compassconsultes.co.uk-teal)](https://compassconsultes.co.uk)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/compass-consult/deploy-status)](https://compassconsultes.co.uk)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/compass-consult/deploy-status)](https://app.netlify.com/sites/compass-consult/deploys)
 
 Official website for **Compass Consult (Employability & Skills) Ltd** — a
 professional consultancy specialising in skills training, employability
