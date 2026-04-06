@@ -17,6 +17,7 @@
 // ---------------------------------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', () => {
+  initializeCookieConsent();     // Ask for consent, persist preferences, and apply cookie-driven UX
   initializeButtonIcons();      // Add icons to text-based buttons before Lucide renders
   initializeIcons();            // Render Lucide SVG icons
   initializeYearAndDate();      // Inject current year / date into placeholders
@@ -38,6 +39,825 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeContactForm();           // Contact enquiry form via Netlify Forms
   registerServiceWorker();           // Enable installability/offline shell support
 });
+
+// ---------------------------------------------------------------------------
+// Cookie consent and preferences
+// ---------------------------------------------------------------------------
+
+const COOKIE_CONSENT_NAME = 'compass_cookie_preferences';
+const COOKIE_LAST_PAGE_NAME = 'compass_last_page';
+const COOKIE_CONSENT_MAX_AGE = 60 * 60 * 24 * 180;
+const COOKIE_HISTORY_MAX_AGE = 60 * 60 * 24 * 30;
+
+/**
+ * Creates the cookie consent banner, preference panel, and site-wide settings
+ * trigger. Preferences are stored in first-party cookies so all static pages
+ * can honour the same decision.
+ */
+function initializeCookieConsent() {
+  ensureCookieConsentStyles();
+  const ui = createCookieConsentUi();
+  if (!ui) {
+    return;
+  }
+
+  const isCookiePolicyPage = canonicalizePath(window.location.pathname) === '/pages/cookies.html';
+  let currentConsent = readStoredCookieConsent();
+
+  const syncForm = (consent) => {
+    const normalizedConsent = normalizeCookieConsent(consent);
+    ui.form.elements.functional.checked = normalizedConsent.functional;
+    ui.form.elements.analytics.checked = normalizedConsent.analytics;
+    ui.form.elements.marketing.checked = normalizedConsent.marketing;
+  };
+
+  const closePanel = () => {
+    ui.overlay.hidden = true;
+    document.body.classList.remove('cc-cookie-lock');
+  };
+
+  const openPanel = () => {
+    syncForm(currentConsent || buildCookieConsent());
+    ui.overlay.hidden = false;
+    document.body.classList.add('cc-cookie-lock');
+    window.setTimeout(() => {
+      ui.form.elements.functional.focus();
+    }, 0);
+  };
+
+  const commitConsent = (nextConsent) => {
+    currentConsent = saveCookieConsent(nextConsent);
+    syncForm(currentConsent);
+    ui.banner.hidden = true;
+    ui.trigger.hidden = !isCookiePolicyPage;
+    closePanel();
+    applyCookieConsent(currentConsent, true);
+  };
+
+  const getPanelConsent = () => {
+    const formData = new FormData(ui.form);
+    return buildCookieConsent({
+      functional: formData.get('functional') === 'on',
+      analytics: formData.get('analytics') === 'on',
+      marketing: formData.get('marketing') === 'on'
+    });
+  };
+
+  ui.bannerManageButton.addEventListener('click', openPanel);
+  ui.trigger.addEventListener('click', openPanel);
+  ui.overlay.addEventListener('click', (event) => {
+    if (event.target === ui.overlay || event.target.hasAttribute('data-cc-close')) {
+      closePanel();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !ui.overlay.hidden) {
+      closePanel();
+    }
+  });
+
+  ui.acceptButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      commitConsent({ functional: true, analytics: true, marketing: true });
+    });
+  });
+
+  ui.rejectButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      commitConsent({ functional: false, analytics: false, marketing: false });
+    });
+  });
+
+  ui.saveButton.addEventListener('click', () => {
+    commitConsent(getPanelConsent());
+  });
+
+  bindCookiePreferenceTriggers(openPanel);
+  syncForm(currentConsent || buildCookieConsent());
+  ui.banner.hidden = Boolean(currentConsent);
+  ui.trigger.hidden = !currentConsent || !isCookiePolicyPage;
+  applyCookieConsent(currentConsent || buildCookieConsent());
+
+  window.CompassConsultCookieConsent = {
+    getPreferences: () => readStoredCookieConsent() || buildCookieConsent(),
+    hasConsent: hasCookieConsent,
+    openPreferences: openPanel,
+    savePreferences: (nextConsent) => commitConsent(nextConsent)
+  };
+}
+
+/**
+ * Injects the styles for the cookie consent UI once per page.
+ */
+function ensureCookieConsentStyles() {
+  if (document.getElementById('cc-cookie-styles')) {
+    return;
+  }
+
+  const style = document.createElement('style');
+  style.id = 'cc-cookie-styles';
+  style.textContent = `
+    .cc-cookie-lock { overflow: hidden; }
+    .cc-cookie-banner,
+    .cc-cookie-trigger,
+    .cc-cookie-overlay {
+      font-family: inherit;
+    }
+    .cc-cookie-banner {
+      position: fixed;
+      left: 1rem;
+      right: 1rem;
+      bottom: 1rem;
+      width: auto;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8rem 1rem;
+      border-radius: 1rem;
+      background: rgba(17, 24, 39, 0.92);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 12px 34px rgba(15, 23, 42, 0.24);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .cc-cookie-banner-copy {
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+    .cc-cookie-banner[hidden],
+    .cc-cookie-trigger[hidden],
+    .cc-cookie-overlay[hidden] {
+      display: none;
+    }
+    .cc-cookie-eyebrow {
+      display: inline-block;
+      margin: 0 0 0.5rem;
+      color: #7dd3fc;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .cc-cookie-title {
+      margin: 0;
+      color: #ffffff;
+      font-size: 1.1rem;
+      line-height: 1.2;
+    }
+    .cc-cookie-text {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+    .cc-cookie-inline-title {
+      color: #ffffff;
+      font-weight: 700;
+    }
+    .cc-cookie-link {
+      color: #67e8f9;
+      text-decoration: underline;
+      text-underline-offset: 0.18rem;
+    }
+    .cc-cookie-actions,
+    .cc-cookie-panel-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .cc-cookie-actions {
+      flex: 0 0 auto;
+      justify-content: flex-end;
+    }
+    .cc-cookie-button {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 0.68rem 0.95rem;
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
+    }
+    .cc-cookie-button:hover,
+    .cc-cookie-button:focus-visible {
+      transform: translateY(-1px);
+      outline: none;
+    }
+    .cc-cookie-button-primary {
+      background: linear-gradient(135deg, #2da8b4 0%, #483086 100%);
+      color: #ffffff;
+      box-shadow: 0 18px 32px rgba(45, 168, 180, 0.24);
+    }
+    .cc-cookie-button-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+    .cc-cookie-button-ghost {
+      background: transparent;
+      color: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+    .cc-cookie-trigger {
+      position: fixed;
+      top: 6rem;
+      right: 1rem;
+      z-index: 80;
+      padding: 0.65rem 0.95rem;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.94);
+      color: #111827;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.16);
+      font: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .cc-cookie-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 95;
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      background: rgba(15, 23, 42, 0.45);
+    }
+    .cc-cookie-panel {
+      width: min(100%, 42rem);
+      max-height: calc(100vh - 2rem);
+      overflow: auto;
+      background: #ffffff;
+      color: #111827;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      box-shadow: 0 30px 90px rgba(15, 23, 42, 0.3);
+    }
+    .cc-cookie-panel-header {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .cc-cookie-panel-title {
+      margin: 0;
+      color: #111827;
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+    .cc-cookie-panel-text {
+      margin: 0.75rem 0 0;
+      color: #4b5563;
+      line-height: 1.65;
+    }
+    .cc-cookie-close {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: #6b7280;
+      font-size: 1.75rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .cc-cookie-options {
+      display: grid;
+      gap: 0.85rem;
+      margin: 1.25rem 0 1.5rem;
+    }
+    .cc-cookie-option {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.9rem;
+      padding: 1rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 1rem;
+      background: #f8fafc;
+      align-items: start;
+    }
+    .cc-cookie-option input {
+      margin-top: 0.3rem;
+      width: 1.1rem;
+      height: 1.1rem;
+      accent-color: #483086;
+    }
+    .cc-cookie-option strong {
+      display: block;
+      color: #111827;
+      margin-bottom: 0.25rem;
+    }
+    .cc-cookie-option p {
+      margin: 0;
+      color: #4b5563;
+      line-height: 1.55;
+    }
+    .cc-cookie-option small {
+      display: inline-block;
+      margin-top: 0.35rem;
+      color: #6b7280;
+    }
+    @media (max-width: 960px) {
+      .cc-cookie-banner {
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
+      .cc-cookie-actions {
+        justify-content: flex-start;
+      }
+    }
+    @media (max-width: 640px) {
+      .cc-cookie-banner {
+        left: 0.75rem;
+        right: 0.75rem;
+        bottom: 0.75rem;
+        width: auto;
+        padding: 0.85rem;
+      }
+      .cc-cookie-trigger {
+        top: 5.75rem;
+        right: 0.75rem;
+      }
+      .cc-cookie-panel {
+        padding: 1.1rem;
+      }
+      .cc-cookie-button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  `;
+
+  document.head.appendChild(style);
+}
+
+/**
+ * Creates the banner, modal panel, and persistent settings trigger.
+ *
+ * @returns {{banner: HTMLElement, bannerManageButton: HTMLButtonElement, trigger: HTMLButtonElement, overlay: HTMLElement, form: HTMLFormElement, saveButton: HTMLButtonElement, acceptButtons: HTMLButtonElement[], rejectButtons: HTMLButtonElement[]}|null}
+ */
+function createCookieConsentUi() {
+  const existingBanner = document.getElementById('cc-cookie-banner');
+  if (existingBanner) {
+    return {
+      banner: existingBanner,
+      bannerManageButton: document.getElementById('cc-cookie-banner-manage'),
+      trigger: document.getElementById('cc-cookie-trigger'),
+      overlay: document.getElementById('cc-cookie-overlay'),
+      form: document.getElementById('cc-cookie-form'),
+      saveButton: document.getElementById('cc-cookie-save'),
+      acceptButtons: Array.from(document.querySelectorAll('[data-cc-accept]')),
+      rejectButtons: Array.from(document.querySelectorAll('[data-cc-reject]'))
+    };
+  }
+
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = [
+    '<section id="cc-cookie-banner" class="cc-cookie-banner" aria-label="Cookie notice">',
+    '  <div class="cc-cookie-banner-copy">',
+    '    <p class="cc-cookie-text"><span class="cc-cookie-inline-title">Cookies:</span> we use one essential cookie to remember your choice. Optional cookies only run if you opt in. <a href="/pages/cookies.html" class="cc-cookie-link">Cookie Policy</a>.</p>',
+    '  </div>',
+    '  <div class="cc-cookie-actions">',
+    '    <button type="button" id="cc-cookie-banner-manage" class="cc-cookie-button cc-cookie-button-ghost">Customise</button>',
+    '    <button type="button" data-cc-reject class="cc-cookie-button cc-cookie-button-secondary">Reject optional</button>',
+    '    <button type="button" data-cc-accept class="cc-cookie-button cc-cookie-button-primary">Accept all</button>',
+    '  </div>',
+    '</section>',
+    '<button type="button" id="cc-cookie-trigger" class="cc-cookie-trigger">Cookie settings</button>',
+    '<div id="cc-cookie-overlay" class="cc-cookie-overlay" hidden>',
+    '  <div class="cc-cookie-panel" role="dialog" aria-modal="true" aria-labelledby="cc-cookie-panel-title">',
+    '    <div class="cc-cookie-panel-header">',
+    '      <div>',
+    '        <span class="cc-cookie-eyebrow" style="color:#483086;">Cookie settings</span>',
+    '        <h2 id="cc-cookie-panel-title" class="cc-cookie-panel-title">Choose which cookies to allow</h2>',
+    '        <p class="cc-cookie-panel-text">Essential cookies stay on so the website can function and remember this choice. Everything else is optional.</p>',
+    '      </div>',
+    '      <button type="button" class="cc-cookie-close" aria-label="Close cookie settings" data-cc-close>&times;</button>',
+    '    </div>',
+    '    <form id="cc-cookie-form">',
+    '      <div class="cc-cookie-options">',
+    '        <label class="cc-cookie-option">',
+    '          <input type="checkbox" checked disabled>',
+    '          <span>',
+    '            <strong>Strictly necessary</strong>',
+    '            <p>Stores your consent choice and supports essential site functions such as forms and security controls.</p>',
+    '            <small>Always active</small>',
+    '          </span>',
+    '        </label>',
+    '        <label class="cc-cookie-option">',
+    '          <input type="checkbox" name="functional">',
+    '          <span>',
+    '            <strong>Functional</strong>',
+    '            <p>Remembers the last page you viewed so the site can offer a quick return link as you move around.</p>',
+    '            <small>Optional</small>',
+    '          </span>',
+    '        </label>',
+    '        <label class="cc-cookie-option">',
+    '          <input type="checkbox" name="analytics">',
+    '          <span>',
+    '            <strong>Analytics</strong>',
+    '            <p>Allows future measurement scripts or deferred analytics embeds to load only after you opt in.</p>',
+    '            <small>Optional</small>',
+    '          </span>',
+    '        </label>',
+    '        <label class="cc-cookie-option">',
+    '          <input type="checkbox" name="marketing">',
+    '          <span>',
+    '            <strong>Marketing</strong>',
+    '            <p>Allows future campaign or third-party marketing content to load only after you opt in.</p>',
+    '            <small>Optional</small>',
+    '          </span>',
+    '        </label>',
+    '      </div>',
+    '    </form>',
+    '    <div class="cc-cookie-panel-actions">',
+    '      <button type="button" data-cc-reject class="cc-cookie-button cc-cookie-button-ghost">Reject optional</button>',
+    '      <button type="button" id="cc-cookie-save" class="cc-cookie-button cc-cookie-button-secondary" style="background:#111827;color:#ffffff;">Save preferences</button>',
+    '      <button type="button" data-cc-accept class="cc-cookie-button cc-cookie-button-primary">Accept all</button>',
+    '    </div>',
+    '  </div>',
+    '</div>'
+  ].join('');
+
+  document.body.appendChild(wrapper);
+
+  return {
+    banner: document.getElementById('cc-cookie-banner'),
+    bannerManageButton: document.getElementById('cc-cookie-banner-manage'),
+    trigger: document.getElementById('cc-cookie-trigger'),
+    overlay: document.getElementById('cc-cookie-overlay'),
+    form: document.getElementById('cc-cookie-form'),
+    saveButton: document.getElementById('cc-cookie-save'),
+    acceptButtons: Array.from(document.querySelectorAll('[data-cc-accept]')),
+    rejectButtons: Array.from(document.querySelectorAll('[data-cc-reject]'))
+  };
+}
+
+/**
+ * Applies the active consent state to the page.
+ *
+ * @param {Record<string, boolean|string>} consent
+ * @param {boolean} shouldBroadcast
+ */
+function applyCookieConsent(consent, shouldBroadcast = false) {
+  const normalizedConsent = normalizeCookieConsent(consent);
+  document.documentElement.dataset.cookieFunctional = String(normalizedConsent.functional);
+  document.documentElement.dataset.cookieAnalytics = String(normalizedConsent.analytics);
+  document.documentElement.dataset.cookieMarketing = String(normalizedConsent.marketing);
+
+  activateDeferredCookieAssets(normalizedConsent);
+  updateRecentPageNavigation(normalizedConsent);
+
+  if (shouldBroadcast) {
+    document.dispatchEvent(
+      new CustomEvent('compass:cookie-consent-updated', { detail: normalizedConsent })
+    );
+  }
+}
+
+/**
+ * Converts future optional scripts and embeds into live elements once the
+ * relevant consent category has been granted.
+ *
+ * Supported markup:
+ *  - <script type="text/plain" data-cookie-category="analytics" data-cookie-src="..."></script>
+ *  - <iframe data-cookie-category="marketing" data-cookie-src="..."></iframe>
+ *
+ * @param {{functional: boolean, analytics: boolean, marketing: boolean}} consent
+ */
+function activateDeferredCookieAssets(consent) {
+  document.querySelectorAll('[data-cookie-category]').forEach((element) => {
+    const category = element.getAttribute('data-cookie-category');
+    const isAllowed = category === 'essential' || Boolean(consent[category]);
+
+    if (element.tagName === 'SCRIPT') {
+      const script = /** @type {HTMLScriptElement} */ (element);
+      if (!isAllowed || script.dataset.cookieActivated === 'true' || script.type !== 'text/plain') {
+        return;
+      }
+
+      const liveScript = document.createElement('script');
+      Array.from(script.attributes).forEach((attribute) => {
+        if (attribute.name === 'type' || attribute.name.startsWith('data-cookie-')) {
+          return;
+        }
+
+        liveScript.setAttribute(attribute.name, attribute.value);
+      });
+
+      if (script.dataset.cookieSrc) {
+        liveScript.src = script.dataset.cookieSrc;
+      } else {
+        liveScript.textContent = script.textContent;
+      }
+
+      script.dataset.cookieActivated = 'true';
+      script.parentNode.insertBefore(liveScript, script.nextSibling);
+      return;
+    }
+
+    if (element.tagName === 'IFRAME' && isAllowed) {
+      const frame = /** @type {HTMLIFrameElement} */ (element);
+      if (frame.dataset.cookieSrc && frame.getAttribute('src') !== frame.dataset.cookieSrc) {
+        frame.setAttribute('src', frame.dataset.cookieSrc);
+      }
+    }
+  });
+}
+
+/**
+ * Uses an optional functional cookie to remember the last page a visitor saw
+ * and injects a quick-return link into the main desktop and mobile nav.
+ *
+ * @param {{functional: boolean}} consent
+ */
+function updateRecentPageNavigation(consent) {
+  document.querySelectorAll('[data-cookie-history-link]').forEach((link) => link.remove());
+
+  if (!consent.functional) {
+    deleteCookie(COOKIE_LAST_PAGE_NAME);
+    return;
+  }
+
+  const previousPage = readStoredRecentPage();
+  const currentPath = canonicalizePath(window.location.pathname);
+
+  if (previousPage && canonicalizePath(previousPage.path) !== currentPath) {
+    injectRecentPageLink(previousPage, 'desktop');
+    injectRecentPageLink(previousPage, 'mobile');
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+      window.lucide.createIcons();
+    }
+  }
+
+  writeCookie(
+    COOKIE_LAST_PAGE_NAME,
+    JSON.stringify({
+      path: currentPath,
+      title: getPageTitleForCookie()
+    }),
+    { maxAge: COOKIE_HISTORY_MAX_AGE }
+  );
+}
+
+/**
+ * Injects a recent-page navigation item into either the desktop or mobile nav.
+ *
+ * @param {{path: string, title: string}} page
+ * @param {'desktop'|'mobile'} variant
+ */
+function injectRecentPageLink(page, variant) {
+  const container = variant === 'desktop'
+    ? document.querySelector('aside.hidden.lg\\:flex nav')
+    : document.querySelector('#mobile-menu > div');
+
+  if (!container || !page.path || !page.title) {
+    return;
+  }
+
+  const link = document.createElement('a');
+  link.href = page.path;
+  link.dataset.cookieHistoryLink = 'true';
+  link.title = `Resume from ${page.title}`;
+  link.className = variant === 'desktop'
+    ? 'nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple'
+    : 'flex items-center gap-2 py-2 px-3 text-gray-700 hover:text-compass-purple';
+  link.innerHTML = `<i data-lucide="history" class="w-4 h-4 shrink-0"></i>Resume: ${escapeHtml(truncateText(page.title, 28))}`;
+
+  if (variant === 'desktop') {
+    container.appendChild(link);
+    return;
+  }
+
+  const contactLink = container.querySelector('a[href="/pages/contact.html"]');
+  if (contactLink) {
+    container.insertBefore(link, contactLink);
+  } else {
+    container.appendChild(link);
+  }
+}
+
+/**
+ * Binds any in-page preference triggers to the cookie settings dialog.
+ *
+ * @param {Function} openPanel
+ */
+function bindCookiePreferenceTriggers(openPanel) {
+  document.querySelectorAll('[data-cookie-preferences]').forEach((trigger) => {
+    if (trigger.dataset.cookiePreferencesBound === 'true') {
+      return;
+    }
+
+    trigger.dataset.cookiePreferencesBound = 'true';
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      openPanel();
+    });
+  });
+}
+
+/**
+ * Reads and normalizes the stored cookie consent record.
+ *
+ * @returns {{essential: boolean, functional: boolean, analytics: boolean, marketing: boolean, updatedAt: string}|null}
+ */
+function readStoredCookieConsent() {
+  const value = readCookie(COOKIE_CONSENT_NAME);
+  if (!value) {
+    return null;
+  }
+
+  try {
+    return normalizeCookieConsent(JSON.parse(value));
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Persists the consent object in a first-party cookie.
+ *
+ * @param {Record<string, boolean|string>} consent
+ * @returns {{essential: boolean, functional: boolean, analytics: boolean, marketing: boolean, updatedAt: string}}
+ */
+function saveCookieConsent(consent) {
+  const normalizedConsent = normalizeCookieConsent(consent);
+  writeCookie(COOKIE_CONSENT_NAME, JSON.stringify(normalizedConsent), {
+    maxAge: COOKIE_CONSENT_MAX_AGE
+  });
+  return normalizedConsent;
+}
+
+/**
+ * Returns whether the visitor has granted consent for the given category.
+ *
+ * @param {'essential'|'functional'|'analytics'|'marketing'} category
+ * @returns {boolean}
+ */
+function hasCookieConsent(category) {
+  if (category === 'essential') {
+    return true;
+  }
+
+  const consent = readStoredCookieConsent();
+  return Boolean(consent && consent[category]);
+}
+
+/**
+ * Creates a valid consent record.
+ *
+ * @param {Record<string, boolean|string>} [overrides]
+ * @returns {{essential: boolean, functional: boolean, analytics: boolean, marketing: boolean, updatedAt: string}}
+ */
+function buildCookieConsent(overrides = {}) {
+  return normalizeCookieConsent(overrides);
+}
+
+/**
+ * Ensures the consent record always has the expected shape.
+ *
+ * @param {Record<string, boolean|string>} consent
+ * @returns {{essential: boolean, functional: boolean, analytics: boolean, marketing: boolean, updatedAt: string}}
+ */
+function normalizeCookieConsent(consent = {}) {
+  return {
+    essential: true,
+    functional: Boolean(consent.functional),
+    analytics: Boolean(consent.analytics),
+    marketing: Boolean(consent.marketing),
+    updatedAt: typeof consent.updatedAt === 'string' ? consent.updatedAt : new Date().toISOString()
+  };
+}
+
+/**
+ * Reads the recent-page cookie used by the functional preference.
+ *
+ * @returns {{path: string, title: string}|null}
+ */
+function readStoredRecentPage() {
+  const value = readCookie(COOKIE_LAST_PAGE_NAME);
+  if (!value) {
+    return null;
+  }
+
+  try {
+    const page = JSON.parse(value);
+    if (!page || typeof page.path !== 'string' || typeof page.title !== 'string') {
+      return null;
+    }
+
+    return {
+      path: page.path,
+      title: page.title
+    };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Reads a first-party cookie by name.
+ *
+ * @param {string} name
+ * @returns {string}
+ */
+function readCookie(name) {
+  const cookieName = `${name}=`;
+  const match = document.cookie
+    .split(';')
+    .map((entry) => entry.trim())
+    .find((entry) => entry.startsWith(cookieName));
+
+  return match ? decodeURIComponent(match.slice(cookieName.length)) : '';
+}
+
+/**
+ * Writes a first-party cookie with sensible defaults for a static site.
+ *
+ * @param {string} name
+ * @param {string} value
+ * @param {{maxAge?: number}} [options]
+ */
+function writeCookie(name, value, options = {}) {
+  let cookie = `${name}=${encodeURIComponent(value)}; path=/; SameSite=Lax`;
+
+  if (typeof options.maxAge === 'number') {
+    cookie += `; max-age=${options.maxAge}`;
+  }
+
+  if (window.location.protocol === 'https:') {
+    cookie += '; Secure';
+  }
+
+  document.cookie = cookie;
+}
+
+/**
+ * Removes a first-party cookie by expiring it immediately.
+ *
+ * @param {string} name
+ */
+function deleteCookie(name) {
+  document.cookie = `${name}=; path=/; max-age=0; SameSite=Lax`;
+}
+
+/**
+ * Returns a short, user-facing title for the current page.
+ *
+ * @returns {string}
+ */
+function getPageTitleForCookie() {
+  return document.title.replace(/\s*-\s*Compass Consult\s*$/i, '').trim() || 'Compass Consult';
+}
+
+/**
+ * Canonicalizes a pathname so the homepage has a stable value.
+ *
+ * @param {string} path
+ * @returns {string}
+ */
+function canonicalizePath(path) {
+  if (!path || path === '/') {
+    return '/index.html';
+  }
+
+  return path;
+}
+
+/**
+ * Escapes a string before it is inserted with innerHTML.
+ *
+ * @param {string} value
+ * @returns {string}
+ */
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+/**
+ * Truncates long labels to keep navigation readable.
+ *
+ * @param {string} value
+ * @param {number} maxLength
+ * @returns {string}
+ */
+function truncateText(value, maxLength) {
+  if (value.length <= maxLength) {
+    return value;
+  }
+
+  return `${value.slice(0, maxLength - 1).trimEnd()}...`;
+}
 
 // ---------------------------------------------------------------------------
 // Button icon enhancement
@@ -1276,5 +2096,12 @@ window.CompassConsult = {
   debounce,
   isInViewport,
   initializeMobileMenu,
-  initializeRevealAnimations
+  initializeRevealAnimations,
+  hasCookieConsent,
+  openCookiePreferences: () => {
+    if (window.CompassConsultCookieConsent) {
+      window.CompassConsultCookieConsent.openPreferences();
+    }
+  },
+  getCookiePreferences: () => readStoredCookieConsent() || buildCookieConsent()
 };
