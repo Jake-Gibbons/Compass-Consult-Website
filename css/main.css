@@ -267,7 +267,7 @@ textarea:focus {
    so it reads correctly against the dark background.
    -------------------------------------------------------------------------- */
 .site-logo {
-  max-height: 2.75rem;
+  max-height: 3.5rem;
   width: auto;
   transition: transform 0.3s ease, filter 0.3s ease;
   transform-origin: center;
@@ -275,11 +275,12 @@ textarea:focus {
 
 /* Sidebar logo — larger and centred */
 aside .site-logo {
-  max-height: 4rem;
+  max-height: 4.75rem;
 }
 
 /* Invert footer logo to white for legibility on the dark footer background */
 footer .site-logo {
+  max-height: 4.25rem;
   filter: brightness(0) invert(1);
   opacity: 0.95;
 }
