@@ -3,7 +3,7 @@ import globals from "globals";
 
 export default [
   {
-    ignores: ["js/lucide.min.js", "js/*.????????.js"],
+    ignores: ["js/*.min.js", "js/*.????????.js"],
   },
   {
     files: ["js/**/*.js"],
