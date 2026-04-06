@@ -97,7 +97,7 @@
          Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
          Shows the logo and a hamburger button that toggles #mobile-menu.
          The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.16eeee0e.js.
+         /js/main.1b259233.js.
          ================================================================ -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
@@ -130,8 +130,13 @@
          Contains all page sections and the footer.
          ================================================================ -->
     <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
-        <header class="bg-gray-50 pt-32 pb-16 lg:pt-24 text-center">
-            <h1 class="text-4xl font-bold text-gray-900">Cookie Policy</h1>
+        <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center">
+            <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
+            <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
+            <div class="relative z-10 px-4 sm:px-6 lg:px-8 pt-12 lg:pt-0" data-aos="fade-up">
+                <h1 class="text-4xl font-bold text-white">Cookie Policy</h1>
+                <p class="mt-4 text-white/85">How Compass Consult uses cookies and records your preferences.</p>
+            </div>
         </header>
 
         <section class="py-20 bg-white flex-grow">
@@ -161,7 +166,7 @@
                                 <strong>Performance Cookies:</strong> These cookies are not set by default on this website. If we add analytics tools in future, they will only be activated after you have given consent.
                             </li>
                             <li>
-                                <strong>Functionality Cookies:</strong> If you accept functional cookies, we use them to remember the last page you viewed so the website can offer a quick return link as you move between pages.
+                                <strong>Functionality Cookies:</strong> We use these cookies to remember helpful on-site states, such as whether you have already subscribed to the newsletter, so we can show a confirmation message instead of the sign-up form.
                             </li>
                             <li>
                                 <strong>Marketing &amp; Targeting Cookies:</strong> These cookies are not set by default on this website. If future campaign tools or third-party promotional embeds are added, they will only load after you have opted in.
@@ -174,7 +179,7 @@
                         <p class="leading-relaxed mb-4">The table below summarises the cookies currently used by the website or enabled by your preferences:</p>
                         <ul class="list-disc pl-5 space-y-2">
                             <li><strong>compass_cookie_preferences</strong> - essential - stored for up to 180 days - remembers whether you accepted, rejected, or customised cookie settings.</li>
-                            <li><strong>compass_last_page</strong> - functional - stored for up to 30 days - remembers the most recent page you visited if you accept functional cookies.</li>
+                            <li><strong>compass_newsletter_subscribed</strong> - functional - stored for up to 180 days - records that the newsletter form has already been completed so a thank-you message can be shown instead of the form.</li>
                             <li><strong>Netlify technical cookies</strong> - essential - usually session-based or short-lived - may be used when forms are submitted or to support core hosting functionality.</li>
                         </ul>
                         <p class="leading-relaxed mt-4">If additional optional tools are introduced in future, we will update this policy before those cookies are activated.</p>
@@ -317,7 +322,7 @@
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
     <script src="/js/aos.min.a5005b2e.js"></script>
     <script defer src="/js/lucide.min.c1ba0528.js"></script>
-    <script defer src="/js/main.16eeee0e.js?v=20260406b"></script>
+    <script defer src="/js/main.1b259233.js?v=20260406c"></script>
 </body>
 </html>
 

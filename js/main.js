@@ -45,9 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // ---------------------------------------------------------------------------
 
 const COOKIE_CONSENT_NAME = 'compass_cookie_preferences';
-const COOKIE_LAST_PAGE_NAME = 'compass_last_page';
+const COOKIE_NEWSLETTER_NAME = 'compass_newsletter_subscribed';
 const COOKIE_CONSENT_MAX_AGE = 60 * 60 * 24 * 180;
-const COOKIE_HISTORY_MAX_AGE = 60 * 60 * 24 * 30;
+const COOKIE_NEWSLETTER_MAX_AGE = 60 * 60 * 24 * 180;
 
 /**
  * Creates the cookie consent banner, preference panel, and site-wide settings
@@ -183,6 +183,21 @@ function ensureCookieConsentStyles() {
       box-shadow: 0 12px 34px rgba(15, 23, 42, 0.24);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
+      overflow: hidden;
+      animation: cc-cookie-banner-enter 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .cc-cookie-banner::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      background: linear-gradient(115deg, rgba(103, 232, 249, 0) 15%, rgba(103, 232, 249, 0.16) 42%, rgba(255, 255, 255, 0.08) 50%, rgba(103, 232, 249, 0) 72%);
+      transform: translateX(-32%);
+      animation: cc-cookie-banner-sheen 7s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .cc-cookie-banner > * {
+      position: relative;
+      z-index: 1;
     }
     .cc-cookie-banner-copy {
       min-width: 0;
@@ -279,6 +294,7 @@ function ensureCookieConsentStyles() {
       font-size: 0.92rem;
       font-weight: 700;
       cursor: pointer;
+      animation: cc-cookie-trigger-enter 420ms cubic-bezier(0.22, 1, 0.36, 1);
     }
     .cc-cookie-overlay {
       position: fixed;
@@ -288,6 +304,7 @@ function ensureCookieConsentStyles() {
       place-items: center;
       padding: 1rem;
       background: rgba(15, 23, 42, 0.45);
+      animation: cc-cookie-overlay-fade 220ms ease-out;
     }
     .cc-cookie-panel {
       width: min(100%, 42rem);
@@ -298,6 +315,7 @@ function ensureCookieConsentStyles() {
       border-radius: 1.5rem;
       padding: 1.5rem;
       box-shadow: 0 30px 90px rgba(15, 23, 42, 0.3);
+      animation: cc-cookie-panel-enter 280ms cubic-bezier(0.22, 1, 0.36, 1);
     }
     .cc-cookie-panel-header {
       display: flex;
@@ -362,6 +380,69 @@ function ensureCookieConsentStyles() {
       margin-top: 0.35rem;
       color: #6b7280;
     }
+    @keyframes cc-cookie-banner-enter {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    @keyframes cc-cookie-trigger-enter {
+      from {
+        opacity: 0;
+        transform: translateY(-12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes cc-cookie-overlay-fade {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @keyframes cc-cookie-panel-enter {
+      from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    @keyframes cc-cookie-banner-sheen {
+      0%, 100% {
+        transform: translateX(-35%);
+        opacity: 0;
+      }
+      12%, 58% {
+        opacity: 1;
+      }
+      48% {
+        transform: translateX(35%);
+        opacity: 0.85;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cc-cookie-banner,
+      .cc-cookie-banner::before,
+      .cc-cookie-trigger,
+      .cc-cookie-overlay,
+      .cc-cookie-panel {
+        animation: none;
+      }
+      .cc-cookie-button {
+        transition: none;
+      }
+    }
     @media (max-width: 960px) {
       .cc-cookie-banner {
         flex-wrap: wrap;
@@ -377,7 +458,16 @@ function ensureCookieConsentStyles() {
         right: 0.75rem;
         bottom: 0.75rem;
         width: auto;
-        padding: 0.85rem;
+        padding: 0.7rem 0.8rem;
+        gap: 0.65rem;
+      }
+      .cc-cookie-text {
+        font-size: 0.8rem;
+      }
+      .cc-cookie-actions {
+        width: 100%;
+        gap: 0.45rem;
+        justify-content: flex-start;
       }
       .cc-cookie-trigger {
         top: 5.75rem;
@@ -387,7 +477,9 @@ function ensureCookieConsentStyles() {
         padding: 1.1rem;
       }
       .cc-cookie-button {
-        width: 100%;
+        width: auto;
+        min-height: 2.4rem;
+        padding: 0.6rem 0.8rem;
         justify-content: center;
       }
     }
@@ -453,7 +545,7 @@ function createCookieConsentUi() {
     '          <input type="checkbox" name="functional">',
     '          <span>',
     '            <strong>Functional</strong>',
-    '            <p>Remembers the last page you viewed so the site can offer a quick return link as you move around.</p>',
+    '            <p>Remembers whether you have already subscribed to the newsletter so we can show a thank-you message instead of the sign-up form.</p>',
     '            <small>Optional</small>',
     '          </span>',
     '        </label>',
@@ -511,7 +603,7 @@ function applyCookieConsent(consent, shouldBroadcast = false) {
   document.documentElement.dataset.cookieMarketing = String(normalizedConsent.marketing);
 
   activateDeferredCookieAssets(normalizedConsent);
-  updateRecentPageNavigation(normalizedConsent);
+  deleteCookie('compass_last_page');
 
   if (shouldBroadcast) {
     document.dispatchEvent(
@@ -568,78 +660,6 @@ function activateDeferredCookieAssets(consent) {
       }
     }
   });
-}
-
-/**
- * Uses an optional functional cookie to remember the last page a visitor saw
- * and injects a quick-return link into the main desktop and mobile nav.
- *
- * @param {{functional: boolean}} consent
- */
-function updateRecentPageNavigation(consent) {
-  document.querySelectorAll('[data-cookie-history-link]').forEach((link) => link.remove());
-
-  if (!consent.functional) {
-    deleteCookie(COOKIE_LAST_PAGE_NAME);
-    return;
-  }
-
-  const previousPage = readStoredRecentPage();
-  const currentPath = canonicalizePath(window.location.pathname);
-
-  if (previousPage && canonicalizePath(previousPage.path) !== currentPath) {
-    injectRecentPageLink(previousPage, 'desktop');
-    injectRecentPageLink(previousPage, 'mobile');
-    if (window.lucide && typeof window.lucide.createIcons === 'function') {
-      window.lucide.createIcons();
-    }
-  }
-
-  writeCookie(
-    COOKIE_LAST_PAGE_NAME,
-    JSON.stringify({
-      path: currentPath,
-      title: getPageTitleForCookie()
-    }),
-    { maxAge: COOKIE_HISTORY_MAX_AGE }
-  );
-}
-
-/**
- * Injects a recent-page navigation item into either the desktop or mobile nav.
- *
- * @param {{path: string, title: string}} page
- * @param {'desktop'|'mobile'} variant
- */
-function injectRecentPageLink(page, variant) {
-  const container = variant === 'desktop'
-    ? document.querySelector('aside.hidden.lg\\:flex nav')
-    : document.querySelector('#mobile-menu > div');
-
-  if (!container || !page.path || !page.title) {
-    return;
-  }
-
-  const link = document.createElement('a');
-  link.href = page.path;
-  link.dataset.cookieHistoryLink = 'true';
-  link.title = `Resume from ${page.title}`;
-  link.className = variant === 'desktop'
-    ? 'nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple'
-    : 'flex items-center gap-2 py-2 px-3 text-gray-700 hover:text-compass-purple';
-  link.innerHTML = `<i data-lucide="history" class="w-4 h-4 shrink-0"></i>Resume: ${escapeHtml(truncateText(page.title, 28))}`;
-
-  if (variant === 'desktop') {
-    container.appendChild(link);
-    return;
-  }
-
-  const contactLink = container.querySelector('a[href="/pages/contact.html"]');
-  if (contactLink) {
-    container.insertBefore(link, contactLink);
-  } else {
-    container.appendChild(link);
-  }
 }
 
 /**
@@ -735,32 +755,6 @@ function normalizeCookieConsent(consent = {}) {
 }
 
 /**
- * Reads the recent-page cookie used by the functional preference.
- *
- * @returns {{path: string, title: string}|null}
- */
-function readStoredRecentPage() {
-  const value = readCookie(COOKIE_LAST_PAGE_NAME);
-  if (!value) {
-    return null;
-  }
-
-  try {
-    const page = JSON.parse(value);
-    if (!page || typeof page.path !== 'string' || typeof page.title !== 'string') {
-      return null;
-    }
-
-    return {
-      path: page.path,
-      title: page.title
-    };
-  } catch {
-    return null;
-  }
-}
-
-/**
  * Reads a first-party cookie by name.
  *
  * @param {string} name
@@ -807,15 +801,6 @@ function deleteCookie(name) {
 }
 
 /**
- * Returns a short, user-facing title for the current page.
- *
- * @returns {string}
- */
-function getPageTitleForCookie() {
-  return document.title.replace(/\s*-\s*Compass Consult\s*$/i, '').trim() || 'Compass Consult';
-}
-
-/**
  * Canonicalizes a pathname so the homepage has a stable value.
  *
  * @param {string} path
@@ -827,36 +812,6 @@ function canonicalizePath(path) {
   }
 
   return path;
-}
-
-/**
- * Escapes a string before it is inserted with innerHTML.
- *
- * @param {string} value
- * @returns {string}
- */
-function escapeHtml(value) {
-  return String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-/**
- * Truncates long labels to keep navigation readable.
- *
- * @param {string} value
- * @param {number} maxLength
- * @returns {string}
- */
-function truncateText(value, maxLength) {
-  if (value.length <= maxLength) {
-    return value;
-  }
-
-  return `${value.slice(0, maxLength - 1).trimEnd()}...`;
 }
 
 // ---------------------------------------------------------------------------
@@ -1944,6 +1899,11 @@ function initializeNewsletterForm() {
   if (!forms.length) return;
 
   forms.forEach((form) => {
+    if (hasNewsletterSubscriptionCookie()) {
+      renderNewsletterSubscribedState(form);
+      return;
+    }
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -1975,16 +1935,11 @@ function initializeNewsletterForm() {
           throw new Error('Subscription failed.');
         }
 
-        submitBtn.textContent = 'Subscribed!';
-        submitBtn.classList.remove('bg-compass-teal', 'hover:bg-compass-lightTeal');
-        submitBtn.classList.add('bg-green-600');
+        saveNewsletterSubscriptionCookie();
         emailInput.value = '';
-        setTimeout(() => {
-          submitBtn.textContent = originalText;
-          submitBtn.classList.remove('bg-green-600');
-          submitBtn.classList.add('bg-compass-teal', 'hover:bg-compass-lightTeal');
-          submitBtn.disabled = false;
-        }, 3000);
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        renderNewsletterSubscribedState(form);
       } catch (error) {
         submitBtn.textContent = error instanceof Error ? error.message : 'Error';
         setTimeout(() => {
@@ -1993,6 +1948,47 @@ function initializeNewsletterForm() {
         }, 3000);
       }
     });
+  });
+}
+
+/**
+ * Replaces the newsletter subscription form with a persistent thank-you
+ * message when a successful subscription cookie is present.
+ *
+ * @param {HTMLFormElement} form
+ */
+function renderNewsletterSubscribedState(form) {
+  if (form.dataset.newsletterStateRendered === 'true') {
+    form.hidden = true;
+    return;
+  }
+
+  const thankYouMessage = document.createElement('div');
+  thankYouMessage.className = 'rounded-lg border border-green-700/40 bg-green-950/40 px-4 py-3 text-sm text-green-100';
+  thankYouMessage.setAttribute('role', 'status');
+  thankYouMessage.innerHTML = '<strong class="block text-green-50">Thanks for subscribing.</strong><span class="block mt-1 text-green-100/90">You are already on the Compass Consult newsletter list.</span>';
+
+  form.hidden = true;
+  form.dataset.newsletterStateRendered = 'true';
+  form.insertAdjacentElement('afterend', thankYouMessage);
+}
+
+/**
+ * Checks whether the newsletter subscription state cookie is present.
+ *
+ * @returns {boolean}
+ */
+function hasNewsletterSubscriptionCookie() {
+  return readCookie(COOKIE_NEWSLETTER_NAME) === 'true';
+}
+
+/**
+ * Stores a lightweight subscription-state cookie without persisting the
+ * subscriber's email address in the browser.
+ */
+function saveNewsletterSubscriptionCookie() {
+  writeCookie(COOKIE_NEWSLETTER_NAME, 'true', {
+    maxAge: COOKIE_NEWSLETTER_MAX_AGE
   });
 }
 

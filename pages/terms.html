@@ -97,7 +97,7 @@
          Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
          Shows the logo and a hamburger button that toggles #mobile-menu.
          The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.16eeee0e.js.
+         /js/main.1b259233.js.
          ================================================================ -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
@@ -130,8 +130,13 @@
          Contains all page sections and the footer.
          ================================================================ -->
     <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
-        <header class="bg-gray-50 pt-32 pb-16 lg:pt-24 text-center">
-            <h1 class="text-4xl font-bold text-gray-900">Terms of Service</h1>
+        <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center">
+            <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
+            <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
+            <div class="relative z-10 px-4 sm:px-6 lg:px-8 pt-12 lg:pt-0" data-aos="fade-up">
+                <h1 class="text-4xl font-bold text-white">Terms of Service</h1>
+                <p class="mt-4 text-white/85">The terms that govern use of the Compass Consult website and content.</p>
+            </div>
         </header>
 
         <section class="py-20 bg-white flex-grow">
@@ -348,6 +353,6 @@
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
     <script src="/js/aos.min.a5005b2e.js"></script>
     <script defer src="/js/lucide.min.c1ba0528.js"></script>
-    <script defer src="/js/main.16eeee0e.js?v=20260406b"></script>
+    <script defer src="/js/main.1b259233.js?v=20260406c"></script>
 </body>
 </html>

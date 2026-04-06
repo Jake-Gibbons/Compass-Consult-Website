@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'compass-static-v4';
+const CACHE_VERSION = 'compass-static-v6';
 const APP_SHELL_ASSETS = [
   '/assets/icons/favicon/site.webmanifest',
   '/assets/icons/favicon/apple-touch-icon.png',
