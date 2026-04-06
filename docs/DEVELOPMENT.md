@@ -77,6 +77,7 @@ All scripts are defined in `package.json` and run with `npm run <script>`.
 | `optimize:images` | Batch-optimise images to WebP / compressed JPEG using sharp |
 | `generate:pwa-icons` | Generate the full PWA icon set from the source logo |
 | `sync:resources` | Synchronise downloadable resource files |
+| `watch:resources` | Watch the docs folder and auto-sync resource entries and previews |
 | `hooks:install` | Register `.githooks/` as the local Git hooks directory |
 
 ---
@@ -224,6 +225,14 @@ See [STRUCTURE.md](../STRUCTURE.md) for the complete folder and file reference.
   accessible from individual page scripts and the browser console.
 - Do not use `console.log` in committed code.
 - Run `npm run lint` before committing.
+
+### Adding downloadable resources
+
+- Drop new PDFs into `assets/downloads/docs`.
+- Run `npm run sync:resources` to update the library manually.
+- Or run `npm run watch:resources` during local work to auto-sync on file changes.
+- If `PyMuPDF` is installed from `requirements-resource-previews.txt`, the sync step renders the first PDF page into `assets/images/resource-previews/`.
+- If Python PDF rendering is unavailable, the sync step still creates a branded placeholder preview so the resource card never breaks.
 
 ---
 

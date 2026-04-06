@@ -30,8 +30,16 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
       - name: Install dependencies
         run: npm ci
+
+      - name: Install preview generation dependencies
+        run: python -m pip install -r requirements-resource-previews.txt
 
       - name: Sync resources and previews
         run: npm run sync:resources

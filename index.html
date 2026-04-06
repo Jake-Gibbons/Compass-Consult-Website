@@ -13,7 +13,7 @@
     - Shared footer with quick links, legal, and newsletter sign-up
 
   All interactive behaviour (menu toggling, animations, etc.) is handled by
-  /js/main.cec5024d.js which is loaded at the bottom of the page.
+  /js/main.16eeee0e.js which is loaded at the bottom of the page.
 -->
 <html lang="en" class="scroll-smooth overflow-x-hidden">
 <head>
@@ -91,7 +91,7 @@
         /* removed sidebar full-width; keep original sizing */
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
-    <link rel="stylesheet" href="/css/main.e2085d8a.css">
+    <link rel="stylesheet" href="/css/main.8e20beda.css">
     <link rel="stylesheet" href="/css/aos.1aa8845f.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
@@ -146,7 +146,7 @@
          Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
          Shows the logo and a hamburger button that toggles #mobile-menu.
          The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.cec5024d.js.
+         /js/main.16eeee0e.js.
          ================================================================ -->
     <!-- Mobile Header -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
@@ -180,7 +180,7 @@
          The ticker-track div is duplicated (two identical sets of images)
          so the CSS marquee animation loops seamlessly at the midpoint.
          Image load failures are handled by initializeTickerImageFallback()
-         in /js/main.cec5024d.js.
+         in /js/main.16eeee0e.js.
          ================================================================ -->
     <!-- Top Client Ticker -->
     <div class="w-full bg-white/40 backdrop-blur-sm border-b border-gray-100 py-3 z-40 mt-20 lg:mt-0">
@@ -278,8 +278,8 @@
                             <a href="/pages/services.html" class="group inline-flex justify-center items-center px-8 py-3.5 border border-gray-200 text-base font-semibold rounded-full text-gray-700 bg-white hover:bg-gray-50 transition-all hover:-translate-y-1 hover:shadow-md hover:border-compass-teal">
                                 Our Expertise <i data-lucide="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                             </a>
-                            <a href="/pages/contact.html" class="inline-flex justify-center items-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-full text-white bg-compass-purple hover:bg-compass-lightPurple transition-all shadow-lg hover:-translate-y-1">
-                                Talk to Us
+                            <a href="/pages/contact.html" class="group inline-flex justify-center items-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-full text-white bg-compass-purple hover:bg-compass-lightPurple transition-all shadow-lg hover:-translate-y-1">
+                                Talk to Us <i data-lucide="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                             </a>
                         </div>
                     </div>
@@ -336,8 +336,8 @@
                             </div>
                         </div>
 
-                        <a href="/pages/contact.html" class="mt-auto inline-flex justify-center items-center px-6 py-3 border border-transparent text-sm font-semibold rounded-full text-white bg-compass-purple hover:bg-compass-lightPurple transition-all shadow-lg hover:-translate-y-0.5 w-full sm:w-auto">
-                            Talk to Us
+                        <a href="/pages/contact.html" class="group mt-auto inline-flex justify-center items-center px-6 py-3 border border-transparent text-sm font-semibold rounded-full text-white bg-compass-purple hover:bg-compass-lightPurple transition-all shadow-lg hover:-translate-y-0.5 w-full sm:w-auto">
+                            Talk to Us <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                         </a>
                     </div>
 
@@ -402,7 +402,7 @@
             <div class="max-w-4xl mx-auto px-4 relative z-10 text-center" data-aos="fade-up">
                 <h2 class="text-3xl lg:text-5xl font-bold text-white mb-6">Let's Move Forward</h2>
                 <p class="text-purple-100 text-lg mb-10 max-w-2xl mx-auto">Whatever your starting point, Compass will point you in the right direction.</p>
-                <a href="/pages/contact.html" class="px-8 py-4 bg-compass-purple text-white font-bold rounded-full hover:bg-compass-lightPurple transition-all shadow-xl hover:scale-105 active:scale-95 inline-block contact-button-animation">Talk to us today</a>
+                <a href="/pages/contact.html" class="group inline-flex items-center justify-center px-8 py-4 bg-compass-purple text-white font-bold rounded-full hover:bg-compass-lightPurple transition-all shadow-xl hover:scale-105 active:scale-95 contact-button-animation">Talk to us today <i data-lucide="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"></i></a>
             </div>
         </section>
 
@@ -492,7 +492,7 @@
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
     <script src="/js/aos.min.a5005b2e.js"></script>
     <script defer src="/js/lucide.min.c1ba0528.js"></script>
-    <script defer src="/js/main.cec5024d.js"></script>
+    <script defer src="/js/main.16eeee0e.js"></script>
 </body>
 </html>
 

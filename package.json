@@ -22,6 +22,7 @@
     "optimize:images": "node scripts/optimize-images.mjs",
     "generate:pwa-icons": "node scripts/generate-pwa-icons.mjs",
     "sync:resources": "node scripts/sync-resources.mjs",
+    "watch:resources": "node scripts/watch-resources.mjs",
     "hooks:install": "git config core.hooksPath .githooks",
     "build:css": "tailwindcss -i ./css/input.css -o ./css/tailwind.min.css --minify",
     "build:lucide": "node scripts/build-lucide.mjs",

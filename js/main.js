@@ -17,6 +17,7 @@
 // ---------------------------------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', () => {
+  initializeButtonIcons();      // Add icons to text-based buttons before Lucide renders
   initializeIcons();            // Render Lucide SVG icons
   initializeYearAndDate();      // Inject current year / date into placeholders
   initializeMobileMenu();       // Wire up the hamburger navigation
@@ -37,6 +38,102 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeContactForm();           // Contact enquiry form via Netlify Forms
   registerServiceWorker();           // Enable installability/offline shell support
 });
+
+// ---------------------------------------------------------------------------
+// Button icon enhancement
+// ---------------------------------------------------------------------------
+
+/**
+ * Adds Lucide icon placeholders to text-only buttons so site-wide button
+ * styling stays consistent without duplicating icon markup in every page.
+ * Existing icon buttons are left untouched.
+ */
+function initializeButtonIcons() {
+  document.querySelectorAll('button').forEach((button) => {
+    if (button.dataset.iconEnhanced === 'true') {
+      return;
+    }
+
+    if (button.classList.contains('calendar-nav-button')) {
+      return;
+    }
+
+    if (button.querySelector('svg, i[data-lucide]')) {
+      return;
+    }
+
+    const buttonLabel = button.textContent.trim();
+    if (!buttonLabel) {
+      return;
+    }
+
+    const iconName = getButtonIconName(button, buttonLabel);
+    const labelWrapper = document.createElement('span');
+    labelWrapper.className = 'button-label';
+
+    while (button.firstChild) {
+      labelWrapper.appendChild(button.firstChild);
+    }
+
+    const icon = document.createElement('i');
+    icon.setAttribute('data-lucide', iconName);
+    icon.setAttribute('aria-hidden', 'true');
+    icon.className = 'button-auto-icon w-4 h-4 shrink-0';
+
+    button.classList.add('button-with-icon');
+    button.append(labelWrapper, icon);
+    button.dataset.iconEnhanced = 'true';
+  });
+}
+
+/**
+ * Maps common button labels to the nearest bundled Lucide icon.
+ *
+ * @param {HTMLButtonElement} button - Button element being enhanced.
+ * @param {string} label - Visible button label.
+ * @returns {string} Lucide icon name.
+ */
+function getButtonIconName(button, label) {
+  const iconContext = `${label} ${button.getAttribute('aria-label') || ''}`.toLowerCase();
+
+  if (
+    iconContext.includes('subscribe') ||
+    iconContext.includes('email') ||
+    iconContext.includes('mail') ||
+    iconContext.includes('send') ||
+    iconContext.includes('message') ||
+    iconContext.includes('contact')
+  ) {
+    return 'mail';
+  }
+
+  if (iconContext.includes('call') || iconContext.includes('phone')) {
+    return 'phone';
+  }
+
+  if (
+    iconContext.includes('location') ||
+    iconContext.includes('address') ||
+    iconContext.includes('map') ||
+    iconContext.includes('directions')
+  ) {
+    return 'map-pin';
+  }
+
+  if (iconContext.includes('download')) {
+    return 'download';
+  }
+
+  if (iconContext.includes('sort') || iconContext.includes('order')) {
+    return 'arrow-up-down';
+  }
+
+  if (iconContext.includes('calendar')) {
+    return 'calendar';
+  }
+
+  return 'arrow-right';
+}
 
 // ---------------------------------------------------------------------------
 // Social links — "Coming Soon" tooltip
@@ -279,13 +376,14 @@ function initializeStickyTalkButton() {
 
   // Logic to lift the button when footer is visible
   const footer = document.querySelector('footer');
-  if (footer && window.matchMedia('(min-width: 1024px)').matches) {
-    // Use IntersectionObserver to detect when the footer enters the viewport
+  if (footer) {
+    // Lift the CTA on every breakpoint so it never masks the footer.
     const observer = new IntersectionObserver(
       ([entry]) => {
         newTalkButton.classList.toggle('is-lifted', entry.isIntersecting);
+        newTalkButton.classList.toggle('is-footer-hidden', entry.isIntersecting);
       },
-      { threshold: 0.1 }
+      { threshold: 0.05 }
     );
     observer.observe(footer);
   }

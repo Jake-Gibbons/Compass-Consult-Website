@@ -225,7 +225,30 @@ All scripts are defined in `package.json` and run with `npm run <script>`.
 | `npm run optimize:images` | Batch-optimise images using sharp |
 | `npm run generate:pwa-icons` | Generate the full PWA icon set from the source logo |
 | `npm run sync:resources` | Sync downloadable resource files |
+| `npm run watch:resources` | Watch `assets/downloads/docs` and auto-sync new PDFs + previews |
 | `npm run hooks:install` | Register `.githooks/` as the local Git hooks directory |
+
+---
+
+## Resource Preview Automation
+
+When a new PDF is added under `assets/downloads/docs`, the resource sync flow can now:
+
+- append a matching entry to `pages/resources.html` when needed
+- generate a preview PNG from the first PDF page when Python preview dependencies are available
+- fall back to the existing branded placeholder preview if PDF rendering is unavailable
+
+For local automatic syncing while you work:
+
+```bash
+npm run watch:resources
+```
+
+For full PDF-page previews locally, install the preview dependency once:
+
+```bash
+python3 -m pip install -r requirements-resource-previews.txt
+```
 
 ---
 

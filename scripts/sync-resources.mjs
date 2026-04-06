@@ -1,4 +1,5 @@
 import { promises as fs } from 'node:fs';
+import { spawnSync } from 'node:child_process';
 import { join, basename } from 'node:path';
 import sharp from 'sharp';
 
@@ -159,6 +160,31 @@ async function generatePreview(filename) {
   return true;
 }
 
+function tryGeneratePdfPreviews() {
+  const candidates = Array.from(new Set([
+    process.env.PYTHON,
+    'python3',
+    'python'
+  ].filter(Boolean)));
+
+  for (const command of candidates) {
+    const result = spawnSync(command, ['_gen_thumbs.py', '--quiet'], {
+      cwd: rootDir,
+      encoding: 'utf8'
+    });
+
+    if (!result.error && result.status === 0) {
+      if (result.stdout.trim()) {
+        console.log(result.stdout.trim());
+      }
+      return true;
+    }
+  }
+
+  console.warn('Falling back to generated placeholder previews because Python PDF rendering is unavailable.');
+  return false;
+}
+
 async function syncResources() {
   const [files, resourcesContent] = await Promise.all([
     fs.readdir(docsDir),
@@ -215,6 +241,8 @@ async function syncResources() {
     updatedResourcesContent = resourcesContent.replace(insertionPoint, nextArray);
     await fs.writeFile(resourcesPage, updatedResourcesContent, 'utf8');
   }
+
+  tryGeneratePdfPreviews();
 
   let previewsCreated = 0;
   for (const filename of pdfFiles) {

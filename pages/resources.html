@@ -7,7 +7,7 @@
   - Filter/category support
 
   All interactive behaviour (menu toggling, animations, accessibility
-  enhancements, etc.) is handled by /js/main.cec5024d.js which is loaded at
+  enhancements, etc.) is handled by /js/main.16eeee0e.js which is loaded at
   the bottom of the page.
 -->
 <!DOCTYPE html>
@@ -72,9 +72,285 @@
             100% { opacity: 0; transform: translateX(12px); }
         }
 
+        .resource-card {
+            position: relative;
+        }
+
+        .resource-card--slamm {
+            border-color: rgba(43, 108, 176, 0.12);
+            background:
+                radial-gradient(circle at top right, rgba(94, 200, 229, 0.18), transparent 36%),
+                linear-gradient(180deg, #ffffff 0%, #f7fbfd 100%);
+            box-shadow: 0 22px 44px rgba(15, 23, 42, 0.08);
+        }
+
+        .resource-card--slamm::before {
+            content: "";
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 4px;
+            background: linear-gradient(180deg, #34b7d3 0%, #483086 100%);
+        }
+
+        .resource-card--slamm .resource-card__preview {
+            background:
+                linear-gradient(135deg, rgba(52, 183, 211, 0.1) 0%, rgba(72, 48, 134, 0.08) 100%),
+                #f8fbfd;
+        }
+
+        .resource-card__eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 9999px;
+            background: rgba(15, 23, 42, 0.82);
+            color: #ffffff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.16);
+        }
+
+        .resource-card__eyebrow::before {
+            content: "";
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #34b7d3 0%, #483086 100%);
+        }
+
+        .resource-card__category-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px;
+            background: #483086;
+            color: #ffffff;
+            font-size: 0.68rem;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 8px 18px rgba(72, 48, 134, 0.14);
+        }
+
+        .resource-card__type-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px;
+            background: #111827;
+            color: #ffffff;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+        }
+
+        .resource-card__header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .resource-card__file-meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            color: #6b7280;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .resource-card__file-meta i,
+        .resource-card__file-meta svg {
+            width: 0.8rem;
+            height: 0.8rem;
+            color: #64748b;
+            flex-shrink: 0;
+        }
+
+        .resource-card--compact-default {
+            border-color: rgba(148, 163, 184, 0.2);
+            background: #ffffff;
+            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.05);
+        }
+
+        .resource-card--compact-default:hover,
+        .resource-card--compact-default:focus-within {
+            border-color: rgba(72, 48, 134, 0.2);
+            box-shadow: 0 14px 28px rgba(15, 23, 42, 0.08);
+        }
+
+        .resource-card--compact-default .resource-card__preview {
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            border-right: 1px solid rgba(226, 232, 240, 0.9);
+            position: relative;
+            overflow: hidden;
+            padding: 0.35rem;
+        }
+
+        .resource-card--compact-default .resource-card__compact-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            min-width: 0;
+            padding-block: 0.05rem;
+        }
+
+        .resource-card--compact-default .resource-card__download,
+        .resource-card--compact.resource-card--slamm .resource-card__download {
+            padding: 0;
+            background: transparent;
+            color: #2da8b4;
+            box-shadow: none;
+            font-size: 0.82rem;
+            font-weight: 700;
+            gap: 0.35rem;
+            border-radius: 0;
+        }
+
+        .resource-card--compact-default .resource-card__download:hover,
+        .resource-card--compact-default .resource-card__download:focus-visible,
+        .resource-card--compact.resource-card--slamm .resource-card__download:hover,
+        .resource-card--compact.resource-card--slamm .resource-card__download:focus-visible {
+            background: transparent;
+            color: #483086;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .resource-card--compact-default .resource-card__meta-row {
+            padding-top: 0.45rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(243, 244, 246, 1);
+            background: none;
+        }
+
+        .resource-card--compact-default .resource-card__category-pill,
+        .resource-card--compact-default .resource-card__type-pill {
+            font-size: 0.64rem;
+        }
+
+        .resource-card--compact-default .resource-card__compact-copy p,
+        .resource-card--compact.resource-card--slamm .resource-card__compact-copy p {
+            color: #4b5563;
+        }
+
+        .resource-card--compact-default .resource-card__meta-note,
+        .resource-card--compact.resource-card--slamm .resource-card__meta-note {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: #9ca3af;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0;
+            text-transform: none;
+        }
+
+        .resource-card--compact-default .resource-card__meta-note::before,
+        .resource-card--compact.resource-card--slamm .resource-card__meta-note::before {
+            display: none;
+        }
+
+        .resource-card--compact-default .resource-card__preview img,
+        .resource-card--compact.resource-card--slamm .resource-card__preview img {
+            position: absolute;
+            inset: 0.35rem;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #ffffff;
+            border-radius: 0.5rem;
+        }
+
+        .resource-card--compact.resource-card--slamm {
+            box-shadow: 0 12px 26px rgba(15, 23, 42, 0.06);
+        }
+
+        .resource-card--compact.resource-card--slamm:hover,
+        .resource-card--compact.resource-card--slamm:focus-within {
+            box-shadow: 0 16px 30px rgba(15, 23, 42, 0.09);
+        }
+
+        .resource-card--compact.resource-card--slamm .resource-card__meta-row {
+            padding-top: 0.45rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(243, 244, 246, 1);
+            background: none;
+        }
+
+        .resource-card--compact.resource-card--slamm .resource-card__preview {
+            padding: 0.4rem;
+        }
+
+        .resource-card--compact.resource-card--slamm .resource-card__category-pill,
+        .resource-card--compact.resource-card--slamm .resource-card__type-pill {
+            font-size: 0.62rem;
+            padding: 0.22rem 0.5rem;
+        }
+
+        .resource-card--compact.resource-card--slamm .resource-card__header-row {
+            margin-bottom: 0.25rem;
+        }
+
+        .resource-card__meta-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            padding-top: 0.9rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.18);
+        }
+
+        .resource-card__meta-note {
+            color: #64748b;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .resource-card__download {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1rem;
+            border-radius: 9999px;
+            background: #483086;
+            color: #ffffff;
+            font-size: 0.82rem;
+            font-weight: 700;
+            transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 12px 24px rgba(72, 48, 134, 0.18);
+        }
+
+        .resource-card__download:hover,
+        .resource-card__download:focus-visible {
+            background: #2ea4c2;
+            transform: translateY(-1px);
+            box-shadow: 0 16px 28px rgba(46, 164, 194, 0.22);
+        }
+
+        .resource-card--compact.resource-card--slamm .resource-card__download {
+            padding: 0.55rem 0.85rem;
+            font-size: 0.78rem;
+        }
+
+        .resource-card--compact.resource-card--slamm .resource-card__meta-row {
+            padding-top: 0.7rem;
+        }
+
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
-    <link rel="stylesheet" href="/css/main.e2085d8a.css">
+    <link rel="stylesheet" href="/css/main.8e20beda.css">
     <link rel="stylesheet" href="/css/aos.1aa8845f.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
@@ -120,7 +396,7 @@
          Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
          Shows the logo and a hamburger button that toggles #mobile-menu.
          The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.cec5024d.js.
+         /js/main.16eeee0e.js.
          ================================================================ -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
@@ -201,11 +477,12 @@
         </header>
 
         <!-- Library Grid -->
-        <section class="py-12 bg-white flex-grow px-4 sm:px-8">
+        <section class="pt-12 pb-48 lg:pb-32 bg-white flex-grow px-4 sm:px-8">
             <div class="max-w-6xl mx-auto">
-                <div id="resourceGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div id="resourceGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 lg:mb-24">
                     <!-- Dynamic content will be injected here -->
                 </div>
+                <div id="resourceGridSpacer" class="h-20 lg:h-28" aria-hidden="true"></div>
                 
                 <!-- No Results State -->
                 <div id="noResults" class="hidden text-center py-20">
@@ -220,7 +497,7 @@
 
         <!-- Footer -->
         <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-aos="fade-up">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid md:grid-cols-4 gap-12 mb-12">
                     <div class="col-span-1 md:col-span-2">
                         <div class="mb-6">
@@ -283,7 +560,7 @@
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
     <script src="/js/aos.min.a5005b2e.js"></script>
     <script defer src="/js/lucide.min.c1ba0528.js"></script>
-    <script defer src="/js/main.cec5024d.js"></script>
+    <script defer src="/js/main.16eeee0e.js"></script>
     <script>
 
         // --- RESOURCE LIBRARY DATA ---
@@ -518,6 +795,7 @@
         // --- RENDER LOGIC (No need to edit below this line) ---
 
         const grid = document.getElementById('resourceGrid');
+        const gridSpacer = document.getElementById('resourceGridSpacer');
         const noResults = document.getElementById('noResults');
         const searchInput = document.getElementById('searchInput');
         const filterBtns = document.querySelectorAll('.filter-btn');
@@ -525,6 +803,127 @@
         const sizeSmallBtn = document.getElementById('sizeSmallBtn');
         let currentFilter = 'all';
         let currentSize = 'large';
+
+        function renderResourceIcons() {
+            if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                window.lucide.createIcons();
+            }
+        }
+
+        function isSlammResource(item) {
+            return [item.title, item.desc, item.category, item.type, item.url]
+                .filter(Boolean)
+                .join(' ')
+                .toLowerCase()
+                .includes('slamm');
+        }
+
+        function isSlammSelected() {
+            const searchTerm = searchInput ? searchInput.value.trim().toLowerCase() : '';
+            return currentFilter.toLowerCase() === 'slamm' || searchTerm.includes('slamm');
+        }
+
+        function renderDefaultCard(item, options) {
+            const { bgClass, textClass, downloadUrl, previewUrl, isSmall } = options;
+
+            return isSmall ? `
+                <div class="resource-card__preview w-14 sm:w-16 self-stretch flex-shrink-0 ${bgClass} flex items-center justify-center transition-colors">
+                    <img src="${previewUrl}" alt="${item.title} preview" class="bg-white" loading="lazy" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
+                    <i data-lucide="${item.icon}" class="hidden w-5 h-5 ${textClass} opacity-80 transform group-hover:scale-110 transition-transform duration-300"></i>
+                </div>
+                <div class="p-4 flex-grow flex flex-col min-w-0">
+                    <div class="resource-card__compact-copy">
+                        <div class="min-w-0">
+                            <div class="resource-card__header-row">
+                                <span class="resource-card__category-pill">${item.category}</span>
+                                <span class="resource-card__type-pill">${item.type}</span>
+                            </div>
+                            <h3 class="text-sm font-bold text-gray-900 leading-tight group-hover:text-compass-purple transition-colors line-clamp-2">${item.title}</h3>
+                        </div>
+                        <p class="text-slate-600 text-xs leading-5 line-clamp-2 flex-grow">${item.desc}</p>
+                    </div>
+                    <div class="resource-card__meta-row mt-auto">
+                        <span class="resource-card__meta-note">${item.size}</span>
+                        <a href="${downloadUrl}" download class="resource-card__download group/link">
+                            <span>Download</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform duration-200"></i>
+                        </a>
+                    </div>
+                </div>
+            ` : `
+                <div class="h-40 ${bgClass} flex items-center justify-center relative transition-colors overflow-hidden">
+                    <img src="${previewUrl}" alt="${item.title} preview" class="w-full h-full object-contain bg-white" loading="lazy" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
+                    <i data-lucide="${item.icon}" class="hidden w-12 h-12 ${textClass} opacity-80 transform group-hover:scale-110 transition-transform duration-300"></i>
+                    <div class="absolute z-20 top-4 right-4 text-xs bg-gray-900 text-white px-2.5 py-1 rounded-md font-bold shadow-lg uppercase tracking-wide border border-white/20">${item.type}</div>
+                    <div class="absolute z-20 bottom-4 left-4 text-xs bg-compass-purple text-white px-2.5 py-1 rounded-md font-semibold shadow-lg border border-white/20">${item.category}</div>
+                </div>
+                <div class="p-6 flex-grow flex flex-col">
+                    <h3 class="text-lg mb-2 font-bold text-gray-900 leading-tight group-hover:text-compass-purple transition-colors">${item.title}</h3>
+                    <p class="text-gray-500 text-sm mb-4 line-clamp-3 flex-grow">${item.desc}</p>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-50">
+                        <span class="text-xs text-gray-400 font-medium">${item.size}</span>
+                        <a href="${downloadUrl}" download class="inline-flex items-center text-sm font-semibold text-compass-teal hover:text-compass-purple transition-colors group/link">
+                            <span class="mr-2">Download</span>
+                            <i data-lucide="download" class="w-4 h-4 group-hover/link:translate-y-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSlammCard(item, options) {
+            const { textClass, downloadUrl, previewUrl, isSmall } = options;
+
+            return isSmall ? `
+                <div class="resource-card__preview w-16 self-stretch flex-shrink-0 flex items-center justify-center relative overflow-hidden">
+                    <img src="${previewUrl}" alt="${item.title} preview" class="bg-white" loading="lazy" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
+                    <i data-lucide="${item.icon}" class="hidden w-6 h-6 ${textClass} opacity-80"></i>
+                    <div class="absolute top-2 left-2 resource-card__eyebrow">SLAMM</div>
+                </div>
+                <div class="p-4 flex-grow flex flex-col min-w-0">
+                    <div class="min-w-0 mb-1.5">
+                        <div class="resource-card__header-row">
+                            <span class="resource-card__category-pill">${item.category}</span>
+                            <span class="resource-card__type-pill">${item.type}</span>
+                        </div>
+                        <p class="text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-sky-600 mb-1">Strategic document</p>
+                        <h3 class="text-sm font-bold text-slate-900 leading-tight line-clamp-2 group-hover:text-compass-purple transition-colors">${item.title}</h3>
+                    </div>
+                    <p class="text-slate-600 text-xs leading-5 line-clamp-2 flex-grow">${item.desc}</p>
+                    <div class="resource-card__meta-row mt-auto">
+                        <span class="resource-card__meta-note">${item.size}</span>
+                        <a href="${downloadUrl}" download class="resource-card__download group/link">
+                            <span>Download</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform duration-200"></i>
+                        </a>
+                    </div>
+                </div>
+            ` : `
+                <div class="resource-card__preview h-44 flex items-center justify-center relative overflow-hidden">
+                    <img src="${previewUrl}" alt="${item.title} preview" class="w-full h-full object-contain bg-white" loading="lazy" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
+                    <i data-lucide="${item.icon}" class="hidden w-12 h-12 ${textClass} opacity-80"></i>
+                    <div class="absolute top-4 left-4 resource-card__eyebrow">SLAMM</div>
+                    <div class="absolute top-4 right-4 text-xs bg-white/90 text-slate-900 px-2.5 py-1 rounded-full font-bold shadow-sm border border-slate-200">${item.type}</div>
+                </div>
+                <div class="p-6 flex-grow flex flex-col">
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                        <div>
+                            <p class="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-sky-600 mb-2">Strategic learning material</p>
+                            <h3 class="text-lg font-bold text-slate-900 leading-tight group-hover:text-compass-purple transition-colors">${item.title}</h3>
+                        </div>
+                        <span class="resource-card__category-pill">${item.category}</span>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-6 mb-5 flex-grow line-clamp-3">${item.desc}</p>
+                    <div class="resource-card__meta-row mt-auto">
+                        <span class="resource-card__meta-note">${item.size}</span>
+                        <a href="${downloadUrl}" download class="resource-card__download group/link">
+                            <i data-lucide="download" class="w-4 h-4 group-hover/link:translate-y-0.5 transition-transform duration-200"></i>
+                            <span>Download document</span>
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
 
         // Render Function
         function renderResources(data) {
@@ -540,11 +939,13 @@
             
             if (data.length === 0) {
                 grid.classList.add('hidden');
+                if (gridSpacer) gridSpacer.classList.add('hidden');
                 noResults.classList.remove('hidden');
                 return;
             }
             
             grid.classList.remove('hidden');
+            if (gridSpacer) gridSpacer.classList.remove('hidden');
             noResults.classList.add('hidden');
 
             data.forEach(item => {
@@ -557,53 +958,26 @@
                 const downloadUrl = encodeURI(item.url);
                 const previewUrl = encodeURI(`/assets/images/resource-previews/${item.url.split('/').pop()}.png`);
                 
+                const useSlammLayout = isSlammSelected() || isSlammResource(item);
                 const card = document.createElement('div');
-                card.className = isSmall
-                    ? 'group bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-row'
-                    : 'group bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full';
-                card.innerHTML = isSmall ? `
-                    <div class="w-14 flex-shrink-0 ${bgClass} flex items-center justify-center relative transition-colors overflow-hidden">
-                        <img src="${previewUrl}" alt="${item.title} preview" class="w-full h-full object-contain bg-white" loading="lazy" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
-                        <i data-lucide="${item.icon}" class="hidden w-5 h-5 ${textClass} opacity-80 transform group-hover:scale-110 transition-transform duration-300"></i>
-                    </div>
-                    <div class="p-3 flex-grow flex flex-col min-w-0">
-                        <div class="flex items-start justify-between gap-2 mb-1.5">
-                            <h3 class="text-sm font-bold text-gray-900 leading-tight group-hover:text-compass-purple transition-colors truncate">${item.title}</h3>
-                            <span class="flex-shrink-0 text-[9px] bg-compass-purple text-white px-1.5 py-0.5 rounded font-semibold">${item.category}</span>
-                        </div>
-                        <p class="text-gray-500 text-xs mb-3 line-clamp-2 flex-grow">${item.desc}</p>
-                        <div class="flex items-center justify-between mt-auto pt-2 border-t border-gray-100 gap-2">
-                            <div class="flex items-center gap-1.5 min-w-0">
-                                <span class="text-xs text-gray-400 font-medium truncate">${item.size}</span>
-                            </div>
-                            <a href="${downloadUrl}" download class="inline-flex items-center gap-1 flex-shrink-0 text-xs font-semibold bg-compass-teal text-white px-2.5 py-1.5 rounded-lg hover:bg-compass-purple transition-all duration-200 group/link hover:shadow-md hover:scale-105 active:scale-95">
-                                <i data-lucide="download" class="w-3 h-3 group-hover/link:translate-y-0.5 transition-transform duration-200"></i>
-                                <span>Download</span>
-                            </a>
-                        </div>
-                    </div>
-                ` : `
-                    <div class="h-40 ${bgClass} flex items-center justify-center relative transition-colors overflow-hidden">
-                        <img src="${previewUrl}" alt="${item.title} preview" class="w-full h-full object-contain bg-white" loading="lazy" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
-                        <i data-lucide="${item.icon}" class="hidden w-12 h-12 ${textClass} opacity-80 transform group-hover:scale-110 transition-transform duration-300"></i>
-                        <div class="absolute z-20 top-4 right-4 text-xs bg-gray-900 text-white px-2.5 py-1 rounded-md font-bold shadow-lg uppercase tracking-wide border border-white/20">${item.type}</div>
-                        <div class="absolute z-20 bottom-4 left-4 text-xs bg-compass-purple text-white px-2.5 py-1 rounded-md font-semibold shadow-lg border border-white/20">${item.category}</div>
-                    </div>
-                    <div class="p-6 flex-grow flex flex-col">
-                        <h3 class="text-lg mb-2 font-bold text-gray-900 leading-tight group-hover:text-compass-purple transition-colors">${item.title}</h3>
-                        <p class="text-gray-500 text-sm mb-4 line-clamp-3 flex-grow">${item.desc}</p>
-                        <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-50">
-                            <span class="text-xs text-gray-400 font-medium">${item.size}</span>
-                            <a href="${downloadUrl}" download class="inline-flex items-center text-sm font-semibold text-compass-teal hover:text-compass-purple transition-colors group/link">
-                                <span class="mr-2">Download</span>
-                                <i data-lucide="download" class="w-4 h-4 group-hover/link:translate-y-1 transition-transform"></i>
-                            </a>
-                        </div>
-                    </div>
-                `;
+                card.className = [
+                    'resource-card',
+                    'group',
+                    useSlammLayout ? 'resource-card--slamm border rounded-2xl overflow-hidden transition-all duration-300' : '',
+                    isSmall
+                        ? (useSlammLayout
+                            ? 'resource-card--compact shadow-sm hover:shadow-xl flex flex-row'
+                            : 'resource-card--compact-default border rounded-2xl shadow-sm hover:shadow-xl overflow-hidden flex flex-row transition-all duration-300')
+                        : (useSlammLayout
+                            ? 'shadow-sm hover:shadow-2xl flex flex-col h-full'
+                            : 'bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl overflow-hidden flex flex-col h-full')
+                ].filter(Boolean).join(' ');
+                card.innerHTML = useSlammLayout
+                    ? renderSlammCard(item, { textClass, downloadUrl, previewUrl, isSmall })
+                    : renderDefaultCard(item, { bgClass, textClass, downloadUrl, previewUrl, isSmall });
                 grid.appendChild(card);
             });
-            lucide.createIcons();
+            renderResourceIcons();
         }
 
         // Filter Logic
