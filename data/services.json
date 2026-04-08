@@ -1,70 +1,124 @@
 [
   {
     "id": 1,
-    "name": "CV & Application Support",
-    "slug": "cv-application-support",
-    "icon": "file-text",
+    "name": "Mobilisation & Implementation",
+    "slug": "mobilisation-implementation",
+    "icon": "rocket",
     "color": "purple",
-    "description": "Transform your CV from overlooked to unforgettable. We craft compelling applications that pass ATS screening and captivate recruiters.",
-    "fullDescription": "Professional crafting of CVs and cover letters designed to stand out in the competitive job market and get noticed by hiring managers.",
+    "description": "Successful launch and delivery of complex contracts, from participant journey design to supply chain setup.",
+    "fullDescription": "Hands-on mobilisation support for complex contracts, helping organisations move from award to delivery with clear operating models and practical implementation planning.",
     "features": [
-      "ATS Optimization",
-      "Personal Branding",
-      "Cover Letter Writing",
-      "LinkedIn Profile Optimization"
+      "Participant journey design",
+      "Delivery planning",
+      "Supply chain setup",
+      "Implementation support"
     ],
-    "price": "From £99",
-    "duration": "1-2 weeks"
+    "price": "Custom pricing",
+    "duration": "Project based"
   },
   {
     "id": 2,
-    "name": "Interview Coaching",
-    "slug": "interview-coaching",
-    "icon": "users-2",
+    "name": "Partnership Engagement",
+    "slug": "partnership-engagement",
+    "icon": "handshake",
     "color": "teal",
-    "description": "Master every interview scenario with intensive one-on-one coaching. From behavioral questions to technical assessments.",
-    "fullDescription": "Mock interviews and confidence-building techniques to help you secure the role you want.",
+    "description": "Strengthening relationships with commissioners, employers, and delivery partners so programmes succeed in practice.",
+    "fullDescription": "Strategic and operational support to build stronger partner relationships, improve collaboration, and align delivery with commissioner and employer expectations.",
     "features": [
-      "STAR Technique",
-      "Body Language Training",
-      "Mock Interviews",
-      "Confidence Building"
+      "Commissioner engagement",
+      "Employer relationships",
+      "Partner coordination",
+      "Stakeholder alignment"
     ],
-    "price": "From £150",
-    "duration": "4-6 weeks"
+    "price": "Custom pricing",
+    "duration": "Project based"
   },
   {
     "id": 3,
-    "name": "Skills Workshops",
-    "slug": "skills-workshops",
-    "icon": "graduation-cap",
-    "color": "blue",
-    "description": "Accelerate your professional growth through dynamic, interactive training delivered by industry experts.",
-    "fullDescription": "Interactive group sessions focusing on soft skills, leadership, communication, and workplace etiquette.",
+    "name": "Growth & Transformation",
+    "slug": "growth-transformation",
+    "icon": "trending-up",
+    "color": "indigo",
+    "description": "Structural reviews and cultural change support to help organisations evolve and meet new challenges.",
+    "fullDescription": "Support for growth, restructuring, and organisational change, with a focus on practical transformation that improves delivery and resilience.",
     "features": [
-      "Team Building",
-      "Communication Skills",
-      "Leadership Development",
-      "Project Management"
+      "Organisational review",
+      "Change planning",
+      "Operational improvement",
+      "Growth readiness"
     ],
-    "price": "From £299",
-    "duration": "2 days - 4 weeks"
+    "price": "Custom pricing",
+    "duration": "Project based"
   },
   {
     "id": 4,
-    "name": "Corporate Consultancy",
-    "slug": "corporate-consultancy",
-    "icon": "building-2",
-    "color": "indigo",
-    "description": "Partner with us to optimize talent acquisition, strengthen employee retention, and build high-performing teams.",
-    "fullDescription": "Helping businesses streamline their recruitment processes, employee retention strategies, and organizational development.",
+    "name": "HR & Workforce Development",
+    "slug": "hr-workforce-development",
+    "icon": "users-2",
+    "color": "blue",
+    "description": "Strategies to build capability, leadership strength, and high-performing teams for complex environments.",
+    "fullDescription": "Workforce and leadership support designed to strengthen capability, improve team performance, and build sustainable delivery capacity.",
     "features": [
-      "Talent Acquisition",
-      "Staff Development",
-      "HR Strategy",
-      "Team Development"
+      "Workforce strategy",
+      "Leadership development",
+      "Capability building",
+      "Team performance support"
     ],
     "price": "Custom pricing",
-    "duration": "Ongoing"
+    "duration": "Project based"
+  },
+  {
+    "id": 5,
+    "name": "Quality, Compliance & Risk",
+    "slug": "quality-compliance-risk",
+    "icon": "shield-check",
+    "color": "red",
+    "description": "Support across safeguarding, health and safety, audit readiness, risk, and performance improvement.",
+    "fullDescription": "Practical assurance support to improve compliance, reduce delivery risk, and build confidence in governance, audit readiness, and quality management.",
+    "features": [
+      "Safeguarding review",
+      "Audit readiness",
+      "Risk management",
+      "Performance improvement"
+    ],
+    "price": "Custom pricing",
+    "duration": "Project based"
+  },
+  {
+    "id": 6,
+    "name": "Bid Management",
+    "slug": "bid-management",
+    "icon": "pen-tool",
+    "color": "orange",
+    "description": "End-to-end bid lifecycle support, from opportunity identification through submission and mobilisation.",
+    "fullDescription": "Bid support that combines opportunity assessment, submission planning, and mobilisation thinking to improve quality and delivery readiness.",
+    "features": [
+      "Opportunity review",
+      "Bid coordination",
+      "Submission support",
+      "Mobilisation planning"
+    ],
+    "price": "Custom pricing",
+    "duration": "Project based"
+  },
+  {
+    "id": 7,
+    "name": "Governance & Systems",
+    "slug": "governance-systems",
+    "icon": "scale",
+    "color": "gray",
+    "description": "Clear, effective policies, procedures, and systems of work that improve assurance and accountability.",
+    "fullDescription": "Support to strengthen governance frameworks, decision-making structures, and operational systems so organisations can deliver with consistency and control.",
+    "features": [
+      "Policy development",
+      "Procedure review",
+      "Systems design",
+      "Assurance frameworks"
+    ],
+    "price": "Custom pricing",
+    "duration": "Project based"
   }
+
+  
+  
 ]

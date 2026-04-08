@@ -1,14 +1,15 @@
 {
   "name": "compass-consult-website",
   "version": "1.0.0",
-  "description": "Professional website for Compass Consult (Employability & Skills) Ltd",
+  "description": "Public website for Compass Consult (Employability & Skills) Ltd",
   "author": "Zenith IT",
   "license": "MIT",
   "keywords": [
     "employability",
-    "skills training",
-    "career consultancy",
-    "recruitment"
+    "skills",
+    "consultancy",
+    "mobilisation",
+    "governance"
   ],
   "homepage": "https://compassconsultes.co.uk",
   "repository": {

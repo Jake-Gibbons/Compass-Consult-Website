@@ -1,5 +1,6 @@
-const CACHE_VERSION = 'compass-static-v6';
+const CACHE_VERSION = 'compass-static-v7';
 const APP_SHELL_ASSETS = [
+  '/offline.html',
   '/assets/icons/favicon/site.webmanifest',
   '/assets/icons/favicon/apple-touch-icon.png',
   '/assets/icons/favicon/favicon-16x16.png',
@@ -9,6 +10,19 @@ const APP_SHELL_ASSETS = [
   '/assets/icons/favicon/maskable-icon-192x192.png',
   '/assets/icons/favicon/maskable-icon-512x512.png'
 ];
+
+function isCacheableStaticAsset(requestUrl, request) {
+  if (requestUrl.pathname.startsWith('/api/')) {
+    return false;
+  }
+
+  return (
+    requestUrl.pathname.startsWith('/assets/') ||
+    requestUrl.pathname.startsWith('/css/') ||
+    requestUrl.pathname.startsWith('/js/') ||
+    ['style', 'script', 'image', 'font'].includes(request.destination)
+  );
+}
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -42,8 +56,12 @@ self.addEventListener('fetch', (event) => {
 
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      fetch(event.request).catch(() => caches.match('/index.html'))
+      fetch(event.request).catch(() => caches.match('/offline.html'))
     );
+    return;
+  }
+
+  if (!isCacheableStaticAsset(requestUrl, event.request)) {
     return;
   }
 
@@ -55,13 +73,15 @@ self.addEventListener('fetch', (event) => {
 
       return fetch(event.request)
         .then((networkResponse) => {
-          const responseCopy = networkResponse.clone();
-          caches.open(CACHE_VERSION).then((cache) => {
-            cache.put(event.request, responseCopy);
-          });
+          if (networkResponse.ok) {
+            const responseCopy = networkResponse.clone();
+            caches.open(CACHE_VERSION).then((cache) => {
+              cache.put(event.request, responseCopy);
+            });
+          }
           return networkResponse;
         })
-        .catch(() => caches.match('/index.html'));
+        .catch(() => cachedResponse || caches.match('/offline.html'));
     })
   );
 });

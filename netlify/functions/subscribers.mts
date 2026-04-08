@@ -13,6 +13,22 @@ export default async (req: Request, context: Context) => {
   const url = new URL(req.url);
   const id = url.searchParams.get("id");
 
+  const parseEmailFromRequest = async () => {
+    const contentType = req.headers.get("content-type") || "";
+
+    if (contentType.includes("application/json")) {
+      const body = await req.json();
+      return body.email?.trim();
+    }
+
+    if (contentType.includes("application/x-www-form-urlencoded") || contentType.includes("multipart/form-data")) {
+      const formData = await req.formData();
+      return String(formData.get("email") || "").trim();
+    }
+
+    return "";
+  };
+
   try {
     if (method === "GET") {
       if (id) {
@@ -27,8 +43,7 @@ export default async (req: Request, context: Context) => {
     }
 
     if (method === "POST") {
-      const body = await req.json();
-      const email = body.email?.trim();
+      const email = await parseEmailFromRequest();
       if (!email) {
         return Response.json({ error: "Email is required" }, { status: 400 });
       }

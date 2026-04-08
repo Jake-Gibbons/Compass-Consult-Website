@@ -30,12 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeInteractiveMotion(); // Add tactile animation to interactive controls
   initializeStaggeredCardReveal(); // Stagger section cards as they enter view
   enhanceExternalLinks();       // Add noopener/noreferrer + aria-labels
-  initializeComingSoonSocialLinks(); // "Coming soon" tooltip for pending social links
+  initializeComingSoonSocialLinks(); // Remove placeholder social links and keep only live contact routes
   connectFormLabels();          // Associate <label> elements with their <input> partners
   optimizeImages();             // Add async decoding and lazy-loading attributes
   initializeTickerImageFallback(); // Replace broken ticker logos with the site logo
   initializeSidebarScrollIndicator(); // Show/hide sidebar scroll hint
-  initializeNewsletterForm();        // Newsletter subscription via Netlify Forms
+  initializeNewsletterForm();        // Newsletter subscription via the subscriber API
   initializeContactForm();           // Contact enquiry form via Netlify Forms
   registerServiceWorker();           // Enable installability/offline shell support
 });
@@ -45,9 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ---------------------------------------------------------------------------
 
 const COOKIE_CONSENT_NAME = 'compass_cookie_preferences';
-const COOKIE_NEWSLETTER_NAME = 'compass_newsletter_subscribed';
 const COOKIE_CONSENT_MAX_AGE = 60 * 60 * 24 * 180;
-const COOKIE_NEWSLETTER_MAX_AGE = 60 * 60 * 24 * 180;
 
 /**
  * Creates the cookie consent banner, preference panel, and site-wide settings
@@ -545,7 +543,7 @@ function createCookieConsentUi() {
     '          <input type="checkbox" name="functional">',
     '          <span>',
     '            <strong>Functional</strong>',
-    '            <p>Remembers whether you have already subscribed to the newsletter so we can show a thank-you message instead of the sign-up form.</p>',
+    '            <p>Reserved for optional convenience features if we introduce them later. No non-essential functional cookies are set by default.</p>',
     '            <small>Optional</small>',
     '          </span>',
     '        </label>',
@@ -911,75 +909,33 @@ function getButtonIconName(button, label) {
 }
 
 // ---------------------------------------------------------------------------
-// Social links — "Coming Soon" tooltip
+// Social links cleanup
 // ---------------------------------------------------------------------------
 
 /**
- * Shows a "Coming soon" tooltip when a placeholder social-media link is
- * clicked. Only one tooltip element is created and reused across all such
- * links to keep the DOM lean.
- *
- * Targeted elements: <a href="#" aria-label="Social profile">
+ * Removes placeholder social-media links from repeated footer blocks and
+ * ensures a live email contact link is present beside LinkedIn.
  */
 function initializeComingSoonSocialLinks() {
-  const pendingSocialLinks = document.querySelectorAll('a[href="#"][aria-label="Social profile"]');
-  /** @type {HTMLElement|null} Lazily-created tooltip DOM node */
-  let tooltipElement = null;
-  /** @type {number|null} ID of the active auto-hide timer */
-  let hideTooltipTimeout = null;
+  const mailIconMarkup = '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>';
+  const footerSocialGroups = document.querySelectorAll('footer .flex.space-x-4');
 
-  /**
-   * Creates the tooltip element on first use and appends it to <body>.
-   * Subsequent calls return the cached reference.
-   *
-   * @returns {HTMLElement} The tooltip element.
-   */
-  const ensureTooltip = () => {
-    if (tooltipElement) {
-      return tooltipElement;
-    }
-
-    tooltipElement = document.createElement('div');
-    tooltipElement.className = 'coming-soon-tooltip';
-    tooltipElement.setAttribute('role', 'status');
-    tooltipElement.setAttribute('aria-live', 'polite');
-    tooltipElement.textContent = 'Coming soon';
-    document.body.appendChild(tooltipElement);
-    return tooltipElement;
-  };
-
-  /**
-   * Positions the tooltip above the given anchor element and makes it
-   * visible for 1.2 seconds before automatically hiding it.
-   *
-   * @param {HTMLElement} anchorElement - The link that was clicked.
-   */
-  const showTooltip = (anchorElement) => {
-    const tooltip = ensureTooltip();
-    const rect = anchorElement.getBoundingClientRect();
-    // Position the tooltip centred above the anchor, accounting for scroll offset
-    const top = window.scrollY + rect.top - 10;
-    const left = window.scrollX + rect.left + rect.width / 2;
-
-    tooltip.style.top = `${top}px`;
-    tooltip.style.left = `${left}px`;
-    tooltip.classList.add('show');
-
-    // Reset any existing auto-hide timer before starting a new one
-    if (hideTooltipTimeout) {
-      window.clearTimeout(hideTooltipTimeout);
-    }
-
-    hideTooltipTimeout = window.setTimeout(() => {
-      tooltip.classList.remove('show');
-    }, 1200);
-  };
-
-  pendingSocialLinks.forEach((link) => {
-    link.addEventListener('click', (event) => {
-      event.preventDefault();
-      showTooltip(link);
+  footerSocialGroups.forEach((group) => {
+    group.querySelectorAll('a[href="#"]').forEach((link) => {
+      link.remove();
     });
+
+    if (group.querySelector('a[href^="mailto:"]')) {
+      return;
+    }
+
+    const emailLink = document.createElement('a');
+    emailLink.href = 'mailto:enquiries@compassconsultes.co.uk';
+    emailLink.setAttribute('aria-label', 'Email Compass Consult');
+    emailLink.setAttribute('title', 'Email Compass Consult');
+    emailLink.className = 'w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-teal hover:text-white transition-all hover:-translate-y-1';
+    emailLink.innerHTML = mailIconMarkup;
+    group.appendChild(emailLink);
   });
 }
 
@@ -1892,17 +1848,16 @@ function initializeSidebarScrollIndicator() {
 
 /**
  * Intercepts the newsletter subscription form and submits the email address
- * to Netlify Forms, providing inline feedback to the user.
+ * to the Netlify subscriber API, providing inline feedback to the user.
  */
 function initializeNewsletterForm() {
   const forms = document.querySelectorAll('form[name="newsletter-subscribe"]');
   if (!forms.length) return;
 
   forms.forEach((form) => {
-    if (hasNewsletterSubscriptionCookie()) {
-      renderNewsletterSubscribedState(form);
-      return;
-    }
+    form.setAttribute('action', '/api/subscribers');
+    form.setAttribute('method', 'POST');
+    const feedbackElement = ensureNewsletterFeedbackElement(form);
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -1920,76 +1875,94 @@ function initializeNewsletterForm() {
       const originalText = submitBtn.textContent;
       submitBtn.textContent = 'Subscribing...';
       submitBtn.disabled = true;
+      updateNewsletterFeedback(feedbackElement, null);
 
       try {
-        const formData = new FormData(form);
-        formData.set('email', email);
-
-        const res = await fetch('/', {
+        const res = await fetch('/api/subscribers', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(formData).toString(),
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email }),
         });
+        const payload = await res.json().catch(() => null);
 
         if (!res.ok) {
-          throw new Error('Subscription failed.');
+          throw new Error(payload && payload.error ? payload.error : 'Subscription failed.');
         }
 
-        saveNewsletterSubscriptionCookie();
-        emailInput.value = '';
+        form.reset();
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-        renderNewsletterSubscribedState(form);
+        updateNewsletterFeedback(feedbackElement, payload && payload.message === 'Already subscribed'
+          ? {
+            tone: 'info',
+            title: 'Already subscribed.',
+            body: 'That email address is already on the Compass Consult newsletter list.'
+          }
+          : {
+            tone: 'success',
+            title: 'Thanks for subscribing.',
+            body: 'You have been added to the Compass Consult newsletter list.'
+          });
       } catch (error) {
-        submitBtn.textContent = error instanceof Error ? error.message : 'Error';
-        setTimeout(() => {
-          submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
-        }, 3000);
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        updateNewsletterFeedback(feedbackElement, {
+          tone: 'error',
+          title: 'Subscription failed.',
+          body: error instanceof Error ? error.message : 'Please try again in a moment.'
+        });
       }
     });
   });
 }
 
 /**
- * Replaces the newsletter subscription form with a persistent thank-you
- * message when a successful subscription cookie is present.
+ * Ensures a feedback element exists immediately after a newsletter form.
  *
  * @param {HTMLFormElement} form
+ * @returns {HTMLDivElement}
  */
-function renderNewsletterSubscribedState(form) {
-  if (form.dataset.newsletterStateRendered === 'true') {
-    form.hidden = true;
+function ensureNewsletterFeedbackElement(form) {
+  const sibling = form.nextElementSibling;
+  if (sibling && sibling instanceof HTMLDivElement && sibling.dataset.newsletterFeedback === 'true') {
+    return sibling;
+  }
+
+  const feedbackElement = document.createElement('div');
+  feedbackElement.dataset.newsletterFeedback = 'true';
+  feedbackElement.hidden = true;
+  feedbackElement.setAttribute('role', 'status');
+  feedbackElement.setAttribute('aria-live', 'polite');
+  form.insertAdjacentElement('afterend', feedbackElement);
+  return feedbackElement;
+}
+
+/**
+ * Updates the newsletter feedback area with the latest submission result.
+ *
+ * @param {HTMLDivElement} feedbackElement
+ * @param {{ tone: 'success' | 'info' | 'error', title: string, body: string } | null} message
+ */
+function updateNewsletterFeedback(feedbackElement, message) {
+  if (!message) {
+    feedbackElement.hidden = true;
+    feedbackElement.textContent = '';
+    feedbackElement.className = '';
     return;
   }
 
-  const thankYouMessage = document.createElement('div');
-  thankYouMessage.className = 'rounded-lg border border-green-700/40 bg-green-950/40 px-4 py-3 text-sm text-green-100';
-  thankYouMessage.setAttribute('role', 'status');
-  thankYouMessage.innerHTML = '<strong class="block text-green-50">Thanks for subscribing.</strong><span class="block mt-1 text-green-100/90">You are already on the Compass Consult newsletter list.</span>';
+  const toneClassMap = {
+    success: 'border-green-700/40 bg-green-950/40 text-green-100',
+    info: 'border-sky-700/40 bg-sky-950/40 text-sky-100',
+    error: 'border-red-700/40 bg-red-950/40 text-red-100'
+  };
 
-  form.hidden = true;
-  form.dataset.newsletterStateRendered = 'true';
-  form.insertAdjacentElement('afterend', thankYouMessage);
-}
-
-/**
- * Checks whether the newsletter subscription state cookie is present.
- *
- * @returns {boolean}
- */
-function hasNewsletterSubscriptionCookie() {
-  return readCookie(COOKIE_NEWSLETTER_NAME) === 'true';
-}
-
-/**
- * Stores a lightweight subscription-state cookie without persisting the
- * subscriber's email address in the browser.
- */
-function saveNewsletterSubscriptionCookie() {
-  writeCookie(COOKIE_NEWSLETTER_NAME, 'true', {
-    maxAge: COOKIE_NEWSLETTER_MAX_AGE
-  });
+  feedbackElement.hidden = false;
+  feedbackElement.className = `mt-3 rounded-lg border px-4 py-3 text-sm ${toneClassMap[message.tone]}`;
+  feedbackElement.innerHTML = `<strong class="block text-white">${message.title}</strong><span class="mt-1 block">${message.body}</span>`;
 }
 
 // ---------------------------------------------------------------------------

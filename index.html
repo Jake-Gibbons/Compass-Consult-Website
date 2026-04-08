@@ -13,7 +13,7 @@
     - Shared footer with quick links, legal, and newsletter sign-up
 
   All interactive behaviour (menu toggling, animations, etc.) is handled by
-  /js/main.1b259233.js which is loaded at the bottom of the page.
+  /js/main.b3d3803a.js which is loaded at the bottom of the page.
 -->
 <html lang="en" class="scroll-smooth overflow-x-hidden">
 <head>
@@ -36,6 +36,59 @@
     <meta name="twitter:title" content="Home - Compass Consult">
     <meta name="twitter:description" content="Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.">
     <meta name="twitter:image" content="https://www.compassconsultes.co.uk/assets/logos/Logo.png">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Organization",
+                    "@id": "https://www.compassconsultes.co.uk/#organization",
+                    "name": "Compass Consult (Employability & Skills) Ltd",
+                    "url": "https://www.compassconsultes.co.uk/",
+                    "logo": "https://www.compassconsultes.co.uk/assets/logos/Logo.png",
+                    "email": "mailto:enquiries@compassconsultes.co.uk",
+                    "telephone": "+44 7936 327832",
+                    "sameAs": [
+                        "https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all"
+                    ],
+                    "address": {
+                        "@type": "PostalAddress",
+                        "streetAddress": "Stirling House 1 Outrams Wharf, Little Eaton",
+                        "addressLocality": "Derby",
+                        "postalCode": "DE21 5EL",
+                        "addressCountry": "GB"
+                    }
+                },
+                {
+                    "@type": "ProfessionalService",
+                    "@id": "https://www.compassconsultes.co.uk/#professional-service",
+                    "name": "Compass Consult",
+                    "url": "https://www.compassconsultes.co.uk/",
+                    "image": "https://www.compassconsultes.co.uk/assets/logos/Logo.png",
+                    "areaServed": "GB",
+                    "serviceType": [
+                        "Mobilisation and implementation",
+                        "Partnership engagement",
+                        "Growth and transformation",
+                        "Governance and systems",
+                        "Quality, compliance and risk"
+                    ],
+                    "parentOrganization": {
+                        "@id": "https://www.compassconsultes.co.uk/#organization"
+                    }
+                },
+                {
+                    "@type": "WebSite",
+                    "@id": "https://www.compassconsultes.co.uk/#website",
+                    "url": "https://www.compassconsultes.co.uk/",
+                    "name": "Compass Consult",
+                    "publisher": {
+                        "@id": "https://www.compassconsultes.co.uk/#organization"
+                    }
+                }
+            ]
+        }
+    </script>
 
     <!-- Favicon and PWA web manifest -->
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/favicon/apple-touch-icon.png">
@@ -53,7 +106,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"></noscript>
     <!-- Pre-built Tailwind CSS (replaces CDN runtime — 47 KB vs 3 MB) -->
-    <link rel="stylesheet" href="/css/tailwind.min.c9224163.css">
+    <link rel="stylesheet" href="/css/tailwind.min.8fdd23c1.css">
 
     <!-- Inline styles for page-specific utility classes and component overrides
          that are not available through Tailwind's default configuration. -->
@@ -146,7 +199,7 @@
          Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
          Shows the logo and a hamburger button that toggles #mobile-menu.
          The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.1b259233.js.
+         /js/main.b3d3803a.js.
          ================================================================ -->
     <!-- Mobile Header -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
@@ -180,7 +233,7 @@
          The ticker-track div is duplicated (two identical sets of images)
          so the CSS marquee animation loops seamlessly at the midpoint.
          Image load failures are handled by initializeTickerImageFallback()
-         in /js/main.1b259233.js.
+         in /js/main.b3d3803a.js.
          ================================================================ -->
     <!-- Top Client Ticker -->
     <div class="w-full bg-white/40 backdrop-blur-sm border-b border-gray-100 py-3 z-40 mt-20 lg:mt-0">
@@ -413,8 +466,8 @@
                2. Quick navigation links
                3. Legal pages + newsletter email sign-up form
              The .year-span elements are filled dynamically by main.js.
-             Social icons marked href="#" are "coming soon" placeholders.
-             The newsletter form is handled by Netlify Forms.
+             Footer social links include only live contact routes.
+             The newsletter form is handled by the subscriber API.
              ================================================================ -->
         <!-- Footer -->
         <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
@@ -434,11 +487,8 @@
                             <a href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
                                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6.94 8.5H3.56V19.5H6.94V8.5ZM5.25 3C4.17 3 3.5 3.72 3.5 4.66C3.5 5.58 4.15 6.32 5.21 6.32H5.23C6.33 6.32 7 5.58 7 4.66C6.98 3.72 6.33 3 5.25 3ZM20.5 13.19C20.5 9.81 18.69 8.24 16.28 8.24C14.33 8.24 13.46 9.31 12.97 10.06V8.5H9.59C9.63 9.53 9.59 19.5 9.59 19.5H12.97V13.36C12.97 13.03 13 12.7 13.09 12.46C13.35 11.8 13.94 11.11 14.95 11.11C16.26 11.11 16.79 12.11 16.79 13.57V19.5H20.17V13.19H20.5Z"/></svg>
                             </a>
-                            <a href="#" aria-label="Social profile" title="Social profile" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
-                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.6l-5.1-6.72-5.87 6.72h-3.31l7.78-8.835L.254 2.25h6.6l4.915 6.468L18.244 2.25zM17.15 19.83h1.828L6.122 4.137H4.231L17.15 19.83z"/></svg>
-                            </a>
-                            <a href="#" aria-label="Social profile" title="Social profile" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
-                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13.5 8.5V6.75C13.5 6.06 14.06 5.5 14.75 5.5H16.5V2.5H14.25C11.63 2.5 9.5 4.63 9.5 7.25V8.5H7V11.5H9.5V21.5H13.5V11.5H16.25L16.75 8.5H13.5Z"/></svg>
+                            <a href="mailto:enquiries@compassconsultes.co.uk" aria-label="Email Compass Consult" title="Email Compass Consult" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-compass-purple hover:text-white transition-all hover:-translate-y-1">
+                                <i data-lucide="mail" class="w-5 h-5" aria-hidden="true"></i>
                             </a>
                         </div>
                     </div>
@@ -491,8 +541,8 @@
     <!-- Page scripts — loaded at the bottom to avoid blocking render -->
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
     <script src="/js/aos.min.a5005b2e.js"></script>
-    <script defer src="/js/lucide.min.c1ba0528.js"></script>
-    <script defer src="/js/main.1b259233.js?v=20260406c"></script>
+    <script defer src="/js/lucide.min.76b5abb0.js"></script>
+    <script defer src="/js/main.b3d3803a.js?v=20260406c"></script>
 </body>
 </html>
 
