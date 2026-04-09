@@ -175,6 +175,44 @@ and can be hosted anywhere.
 - [Cyberduck](https://cyberduck.io/) (free, macOS / Windows)
 - [WinSCP](https://winscp.net/) (free, Windows)
 
+#### Activating the PHP form handlers
+
+The repository includes ready-made PHP scripts in `php/` that replace Netlify
+Forms and the Netlify subscriber API when hosted on any standard PHP host
+(Apache / cPanel). **These files are not yet active** — follow the steps below
+when migrating.
+
+| Script | Replaces | Purpose |
+|---|---|---|
+| `php/contact.php` | Netlify Forms (`data-netlify`) | Validates and emails contact enquiries |
+| `php/newsletter.php` | Netlify Function (`/api/subscribers`) | Stores newsletter subscribers in a CSV file |
+
+**Contact form (`php/contact.php`)**
+
+1. In `pages/contact.html`, update the `<form>` opening tag:
+   - Add `action="/php/contact.php"`
+   - Remove `data-netlify="true"` and `data-netlify-honeypot="bot-field"`
+2. In `js/main.js` (`initializeContactForm`), change the `fetch()` URL from
+   `'/'` to `'/php/contact.php'`.
+3. Confirm `RECIPIENT_EMAIL` in `php/contact.php` is set correctly (already
+   defaults to `enquiries@compassconsultes.co.uk`).
+
+**Newsletter form (`php/newsletter.php`)**
+
+1. In `js/main.js` (`initializeNewsletterForm`), change both `fetch()` references
+   from `'/api/subscribers'` to `'/php/newsletter.php'`.
+2. Create a `private/` directory **outside** (or alongside but protected from)
+   the web root, writable by the server process. The script creates `subscribers.csv`
+   automatically on first use.
+3. If `private/` must live inside the web root, block direct access in `.htaccess`:
+   ```apache
+   <FilesMatch "\.csv$">
+       Require all denied
+   </FilesMatch>
+   ```
+4. Ensure PHP's `mail()` function is configured on the host (check `php.ini` or
+   the cPanel Mail settings).
+
 ---
 
 ## Environment Variables
