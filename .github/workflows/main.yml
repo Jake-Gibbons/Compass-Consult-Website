@@ -12,7 +12,7 @@ jobs:
     permissions:
       contents: write
     env:
-      BASE_URL: https://compassconsult.co.uk
+      BASE_URL: https://compassconsultes.co.uk
 
     steps:
       - name: Checkout repository
