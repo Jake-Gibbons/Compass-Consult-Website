@@ -1792,23 +1792,21 @@ function initializeTickerScroll() {
   }
 
   function loop() {
-    const hw = resolveHalfWidth();
-
     if (!isHovered && !isTouching) {
       // Auto-scroll: move left at a constant speed.
-      offset = wrapOffset(offset - AUTO_SPEED);
+      offset -= AUTO_SPEED;
     } else if (isHovered && !isTouching) {
       // Hover control: scroll speed and direction driven by mouse position.
       const rect   = ticker.getBoundingClientRect();
       const center = rect.left + rect.width / 2;
       const relX   = mouseX - center;                        // negative = left, positive = right
       const speed  = (relX / (rect.width / 2)) * MAX_SPEED; // –MAX_SPEED … +MAX_SPEED
-      offset = wrapOffset(offset + speed);
+      offset += speed;
     }
-    // isTouching: offset is updated directly in touchmove; just wrap here.
-    else if (isTouching) {
-      if (hw) offset = wrapOffset(offset);
-    }
+    // isTouching: offset is updated directly in touchmove; loop just wraps it.
+
+    // Always wrap to keep seamless loop, regardless of interaction mode.
+    offset = wrapOffset(offset);
 
     track.style.transform = `translateX(${offset}px)`;
     requestAnimationFrame(loop);
@@ -1833,18 +1831,40 @@ function initializeTickerScroll() {
 
   // ── Touch events ──────────────────────────────────────────────────────────
 
+  let touchStartY = 0;
+  let swipeAxisLocked = false;
+
   ticker.addEventListener('touchstart', (e) => {
-    isTouching = true;
-    lastTouchX = e.touches[0].clientX;
+    isTouching    = true;
+    lastTouchX    = e.touches[0].clientX;
+    touchStartY   = e.touches[0].clientY;
+    swipeAxisLocked = false;
     ticker.classList.add('is-dragging');
   }, { passive: true });
 
   ticker.addEventListener('touchmove', (e) => {
     const currentX = e.touches[0].clientX;
-    const delta    = currentX - lastTouchX;
-    offset        += delta;
-    lastTouchX     = currentX;
-  }, { passive: true });
+    const currentY = e.touches[0].clientY;
+    const dx       = currentX - lastTouchX;
+    const dy       = currentY - touchStartY;
+
+    // Lock to horizontal axis on first significant movement to avoid fighting
+    // vertical page scroll on diagonal swipes.
+    if (!swipeAxisLocked) {
+      if (Math.abs(dx) > Math.abs(dy)) {
+        swipeAxisLocked = true; // horizontal swipe — take over
+      } else {
+        // Vertical-dominant gesture; let the page handle it.
+        isTouching = false;
+        return;
+      }
+    }
+
+    // Horizontal swipe confirmed — prevent page scroll and update ticker.
+    e.preventDefault();
+    offset    += dx;
+    lastTouchX = currentX;
+  }, { passive: false });
 
   ticker.addEventListener('touchend', () => {
     isTouching = false;
