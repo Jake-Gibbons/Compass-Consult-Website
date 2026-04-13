@@ -265,6 +265,38 @@
             </div>
         </section>
 
+        <!-- Map Section -->
+        <section class="bg-gray-50 py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Find Us</h2>
+                <p class="text-gray-600 mb-6">Stirling House 1 Outrams Wharf, Little Eaton, Derby, England, DE21 5EL</p>
+                <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-100 relative" style="min-height:420px;">
+                    <!-- Placeholder shown until functional cookies are accepted -->
+                    <div id="map-placeholder" class="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 text-center p-6">
+                        <i data-lucide="map-pin" class="w-12 h-12 text-gray-400 mb-4"></i>
+                        <p class="text-gray-500 text-sm mb-4 max-w-xs">Accept functional cookies to view the interactive map, or open directly in Google Maps.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Stirling+House+1+Outrams+Wharf%2C+Little+Eaton%2C+Derby%2C+DE21+5EL" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-compass-purple text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-compass-lightPurple transition-colors">Open in Google Maps <i data-lucide="external-link" class="w-4 h-4"></i></a>
+                    </div>
+                    <iframe
+                        id="location-map"
+                        title="Compass Consult office location map"
+                        data-cookie-category="functional"
+                        data-cookie-src="https://maps.google.com/maps?q=Stirling+House+1+Outrams+Wharf%2C+Little+Eaton%2C+Derby%2C+DE21+5EL&z=15&output=embed"
+                        src="about:blank"
+                        width="100%"
+                        height="420"
+                        style="border:0; position:relative; z-index:1;"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        aria-label="Map showing Compass Consult office location at Stirling House 1 Outrams Wharf, Little Eaton, Derby">
+                    </iframe>
+                </div>
+                <p class="mt-3 text-sm text-gray-500">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Stirling+House+1+Outrams+Wharf%2C+Little+Eaton%2C+Derby%2C+DE21+5EL" target="_blank" rel="noopener noreferrer" class="text-compass-teal hover:text-compass-purple transition-colors underline underline-offset-4">View larger map</a>
+                </p>
+            </div>
+        </section>
+
         <!-- Footer -->
         <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -339,6 +371,19 @@
     <script src="/js/aos.min.a5005b2e.js"></script>
     <script defer src="/js/lucide.min.76b5abb0.js"></script>
     <script defer src="/js/main.b3d3803a.js?v=20260406c"></script>
+    <script>
+        (function () {
+            var map = document.getElementById('location-map');
+            if (map) {
+                map.addEventListener('load', function () {
+                    if (map.src !== 'about:blank') {
+                        var placeholder = document.getElementById('map-placeholder');
+                        if (placeholder) placeholder.style.display = 'none';
+                    }
+                });
+            }
+        }());
+    </script>
 </body>
 </html>
 
