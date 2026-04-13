@@ -120,14 +120,12 @@
         .reveal.active { opacity: 1; transform: translate(0) scale(1); }
         .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
         /* Ticker styles */
-        .ticker { overflow: hidden; position: relative; min-height: 50px; display: flex; align-items: center; }
-        .ticker-track { display: flex; gap: 2rem; align-items: center; animation: marquee 45s linear infinite; will-change: transform; flex-wrap: nowrap; white-space: nowrap; }
+        .ticker { overflow: hidden; position: relative; min-height: 50px; display: flex; align-items: center; user-select: none; -webkit-user-select: none; }
+        .ticker-track { display: flex; gap: 2rem; align-items: center; will-change: transform; flex-wrap: nowrap; white-space: nowrap; }
         .ticker-track > div { display: flex; gap: 1.5rem; align-items: center; flex: 0 0 auto; }
-        .ticker-track img { height: 35px !important; max-height: none !important; display: block; object-fit: contain; opacity: .98; transition: opacity .2s ease, transform .2s ease; background: transparent; padding: 0; border-radius: 0; box-shadow: none; flex: 0 0 auto; max-width: 120px; width: auto; }
-        .ticker-track img:hover { transform: translateY(-2px); opacity: 1; }
-        .ticker-track:hover { animation-play-state: paused; }
-        /* animate by half the track width (we duplicate the set) for a seamless loop */
-        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .ticker-track img { height: 35px !important; max-height: none !important; display: block; object-fit: contain; opacity: .98; transition: opacity .2s ease, transform .2s ease; background: transparent; padding: 0; border-radius: 0; box-shadow: none; flex: 0 0 auto; max-width: 120px; width: auto; pointer-events: none; }
+        .ticker:hover { cursor: grab; }
+        .ticker.is-dragging { cursor: grabbing; }
         @media (max-width: 1024px) {
             .ticker { min-height: 50px; }
             .ticker-track img { height: 35px !important; }

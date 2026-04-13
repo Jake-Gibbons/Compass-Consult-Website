@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
   connectFormLabels();          // Associate <label> elements with their <input> partners
   optimizeImages();             // Add async decoding and lazy-loading attributes
   initializeTickerImageFallback(); // Replace broken ticker logos with the site logo
+  initializeTickerScroll();        // Auto-scroll ticker; pause + mouse/touch manual control on hover
   initializeSidebarScrollIndicator(); // Show/hide sidebar scroll hint
   initializeNewsletterForm();        // Newsletter subscription via the subscriber API
   initializeContactForm();           // Contact enquiry form via Netlify Forms
@@ -1741,9 +1742,117 @@ function initializeTickerImageFallback() {
   });
 }
 
+// ---------------------------------------------------------------------------
+// Ticker interactive scroll
+// ---------------------------------------------------------------------------
+
 /**
- * Registers the PWA service worker for installability and offline support.
+ * Drives the client logo ticker with a JS requestAnimationFrame loop so that
+ * interactive mouse and touch control can be layered on top of the auto-scroll.
+ *
+ * Behaviour:
+ *  - Auto-scrolls left continuously on page load.
+ *  - Hovering over the ticker pauses auto-scroll and enables velocity-based
+ *    mouse control: moving the pointer towards the right edge scrolls forward;
+ *    towards the left edge scrolls backward. Speed is proportional to the
+ *    distance of the pointer from the ticker's horizontal centre.
+ *  - On touch screens the user can swipe left or right to scroll the ticker.
+ *    Auto-scroll resumes when the finger is lifted.
  */
+function initializeTickerScroll() {
+  const ticker = document.querySelector('.ticker');
+  const track  = document.querySelector('.ticker-track');
+  if (!ticker || !track) return;
+
+  const AUTO_SPEED  = 1.0;  // px per frame during auto-scroll
+  const MAX_SPEED   = 6;    // px per frame at the edge during hover-control
+
+  let offset      = 0;
+  let halfWidth   = 0;
+  let isHovered   = false;
+  let isTouching  = false;
+  let mouseX      = 0;
+  let lastTouchX  = 0;
+
+  /** Resolve the half-width (width of one content set) lazily. */
+  function resolveHalfWidth() {
+    if (!halfWidth && track.scrollWidth > 0) {
+      halfWidth = track.scrollWidth / 2;
+    }
+    return halfWidth;
+  }
+
+  /** Wrap offset so it stays within [-halfWidth, 0). */
+  function wrapOffset(val) {
+    const hw = resolveHalfWidth();
+    if (!hw) return val;
+    let o = val % hw;
+    if (o > 0) o -= hw;
+    return o;
+  }
+
+  function loop() {
+    const hw = resolveHalfWidth();
+
+    if (!isHovered && !isTouching) {
+      // Auto-scroll: move left at a constant speed.
+      offset = wrapOffset(offset - AUTO_SPEED);
+    } else if (isHovered && !isTouching) {
+      // Hover control: scroll speed and direction driven by mouse position.
+      const rect   = ticker.getBoundingClientRect();
+      const center = rect.left + rect.width / 2;
+      const relX   = mouseX - center;                        // negative = left, positive = right
+      const speed  = (relX / (rect.width / 2)) * MAX_SPEED; // –MAX_SPEED … +MAX_SPEED
+      offset = wrapOffset(offset + speed);
+    }
+    // isTouching: offset is updated directly in touchmove; just wrap here.
+    else if (isTouching) {
+      if (hw) offset = wrapOffset(offset);
+    }
+
+    track.style.transform = `translateX(${offset}px)`;
+    requestAnimationFrame(loop);
+  }
+
+  requestAnimationFrame(loop);
+
+  // ── Mouse events ──────────────────────────────────────────────────────────
+
+  ticker.addEventListener('mouseenter', (e) => {
+    isHovered = true;
+    mouseX    = e.clientX;
+  });
+
+  ticker.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+  });
+
+  ticker.addEventListener('mouseleave', () => {
+    isHovered = false;
+  });
+
+  // ── Touch events ──────────────────────────────────────────────────────────
+
+  ticker.addEventListener('touchstart', (e) => {
+    isTouching = true;
+    lastTouchX = e.touches[0].clientX;
+    ticker.classList.add('is-dragging');
+  }, { passive: true });
+
+  ticker.addEventListener('touchmove', (e) => {
+    const currentX = e.touches[0].clientX;
+    const delta    = currentX - lastTouchX;
+    offset        += delta;
+    lastTouchX     = currentX;
+  }, { passive: true });
+
+  ticker.addEventListener('touchend', () => {
+    isTouching = false;
+    ticker.classList.remove('is-dragging');
+  }, { passive: true });
+}
+
+
 function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) {
     return;
