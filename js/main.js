@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
   connectFormLabels();          // Associate <label> elements with their <input> partners
   optimizeImages();             // Add async decoding and lazy-loading attributes
   initializeTickerImageFallback(); // Replace broken ticker logos with the site logo
+  initializeTickerSwipe();         // Enable touch-drag scrolling on the client ticker
   initializeSidebarScrollIndicator(); // Show/hide sidebar scroll hint
   initializeNewsletterForm();        // Newsletter subscription via the subscriber API
   initializeContactForm();           // Contact enquiry form via Netlify Forms
@@ -1739,6 +1740,76 @@ function initializeTickerImageFallback() {
       image.style.maxHeight = '100px';
     });
   });
+}
+
+// ---------------------------------------------------------------------------
+// Client ticker — touch swipe
+// ---------------------------------------------------------------------------
+
+/**
+ * Adds touch-swipe support to the client logo ticker strip. On touch devices
+ * the CSS marquee animation is paused while the user drags, letting them
+ * manually scroll through the logos. On release the animation resumes
+ * seamlessly from the current position via a negative animation-delay.
+ */
+function initializeTickerSwipe() {
+  const ticker = document.querySelector('.ticker');
+  const track = document.querySelector('.ticker-track');
+  if (!ticker || !track) return;
+
+  /** Duration must match the CSS `marquee` animation (seconds). */
+  const ANIMATION_DURATION = 45;
+  const SWIPE_THRESHOLD = 4; // px of movement before treating as a drag
+
+  let touchStartX = 0;
+  let frozenOffset = 0;
+  let currentOffset = 0;
+  let isSwiping = false;
+
+  function readTranslateX() {
+    const matrix = new DOMMatrix(window.getComputedStyle(track).transform);
+    return matrix.m41;
+  }
+
+  function resumeAnimation(offsetPx) {
+    // One full "lap" is half the track's scroll width (two identical sets).
+    const halfWidth = track.scrollWidth / 2;
+    // Normalise to (-halfWidth, 0].
+    let normalized = offsetPx % halfWidth;
+    if (normalized > 0) normalized -= halfWidth;
+    const progress = Math.abs(normalized) / halfWidth; // 0..1
+    const delay = -(progress * ANIMATION_DURATION);
+    track.style.transform = '';
+    track.style.animation = `marquee ${ANIMATION_DURATION}s ${delay}s linear infinite`;
+  }
+
+  ticker.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    isSwiping = false;
+    // Freeze the track at its current visual (animated) position.
+    frozenOffset = readTranslateX();
+    track.style.animation = 'none';
+    track.style.transform = `translateX(${frozenOffset}px)`;
+  }, { passive: true });
+
+  ticker.addEventListener('touchmove', (e) => {
+    const deltaX = e.touches[0].clientX - touchStartX;
+    if (!isSwiping && Math.abs(deltaX) < SWIPE_THRESHOLD) return;
+    isSwiping = true;
+
+    const halfWidth = track.scrollWidth / 2;
+    let newOffset = frozenOffset + deltaX;
+    // Wrap so the duplicate set creates a seamless loop.
+    newOffset = newOffset % halfWidth;
+    if (newOffset > 0) newOffset -= halfWidth;
+    currentOffset = newOffset;
+    track.style.transform = `translateX(${newOffset}px)`;
+  }, { passive: true });
+
+  ticker.addEventListener('touchend', () => {
+    resumeAnimation(isSwiping ? currentOffset : frozenOffset);
+    isSwiping = false;
+  }, { passive: true });
 }
 
 /**
