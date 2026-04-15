@@ -1769,15 +1769,17 @@ function initializeTickerSwipe() {
   const VELOCITY_CARRY = 0.6;  // EMA: weight of previous velocity
   const VELOCITY_NEW = 0.4;    // EMA: weight of new per-frame delta
 
-  let pos = 0;          // current translateX in px (always tracked by JS)
+  let pos = 0;           // current translateX in px (always tracked by JS)
   let rafId = null;
-  let lastTs = null;    // timestamp from previous RAF call (for auto-scroll)
-  let hovered = false;  // desktop hover-pause
+  let lastTs = null;     // timestamp from previous RAF call (for auto-scroll)
+  let hovered = false;   // desktop hover-pause
   let dragging = false;
   let startX = 0;
+  let startY = 0;
   let prevX = 0;
   let vel = 0;
-  let phase = 'auto';  // 'auto' | 'drag' | 'momentum'
+  let phase = 'auto';    // 'auto' | 'drag' | 'momentum'
+  let swipeAxis = null;  // 'h' (horizontal) | 'v' (vertical) | null (undecided)
 
   /** Half the track width — the seamless-loop lap length. */
   function halfWidth() { return track.scrollWidth / 2 || 1; }
@@ -1835,23 +1837,42 @@ function initializeTickerSwipe() {
   ticker.addEventListener('touchstart', (e) => {
     if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
     phase = 'drag';
-    startX = prevX = e.touches[0].clientX;
+    const t = e.touches[0];
+    startX = prevX = t.clientX;
+    startY = t.clientY;
     vel = 0;
     dragging = false;
+    swipeAxis = null;
   }, { passive: true });
 
   ticker.addEventListener('touchmove', (e) => {
-    const x = e.touches[0].clientX;
-    if (!dragging && Math.abs(x - startX) < SWIPE_THRESHOLD) return;
+    const t = e.touches[0];
+    const x = t.clientX;
+    const y = t.clientY;
+
+    // Determine swipe axis on first significant movement.
+    if (swipeAxis === null) {
+      const adx = Math.abs(x - startX);
+      const ady = Math.abs(y - startY);
+      if (adx < SWIPE_THRESHOLD && ady < SWIPE_THRESHOLD) return;
+      swipeAxis = adx >= ady ? 'h' : 'v';
+    }
+
+    // Vertical swipe — let native page scroll happen.
+    if (swipeAxis !== 'h') return;
+
+    // Horizontal swipe — we own this gesture.
+    e.preventDefault();
     dragging = true;
     const dx = x - prevX;
     // Exponential moving average keeps velocity smooth.
     vel = vel * VELOCITY_CARRY + dx * VELOCITY_NEW;
     commit(pos + dx);
     prevX = x;
-  }, { passive: true });
+  }, { passive: false });  // non-passive so e.preventDefault() works
 
   function onTouchEnd() {
+    swipeAxis = null;
     if (!dragging) {
       // Was a tap — resume auto-scroll with no momentum.
       phase = 'auto';
