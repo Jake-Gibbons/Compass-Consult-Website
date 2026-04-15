@@ -1748,68 +1748,124 @@ function initializeTickerImageFallback() {
 
 /**
  * Adds touch-swipe support to the client logo ticker strip. On touch devices
- * the CSS marquee animation is paused while the user drags, letting them
- * manually scroll through the logos. On release the animation resumes
- * seamlessly from the current position via a negative animation-delay.
+ * the CSS marquee animation is paused while the user drags, the track follows
+ * the finger, and a flick gesture carries through with momentum that decays
+ * before handing back to the auto-scroll animation.
  */
 function initializeTickerSwipe() {
   const ticker = document.querySelector('.ticker');
   const track = document.querySelector('.ticker-track');
   if (!ticker || !track) return;
 
-  /** Duration must match the CSS `marquee` animation (seconds). */
-  const ANIMATION_DURATION = 45;
-  const SWIPE_THRESHOLD = 4; // px of movement before treating as a drag
+  /** Must match the CSS `marquee` animation duration (seconds). */
+  const ANIM_DURATION = 45;
+  const SWIPE_THRESHOLD = 4; // px of movement before a drag is recognised
+  const FRICTION = 0.93;     // velocity decay per requestAnimationFrame tick
+  const MIN_VELOCITY = 0.3;  // px/tick below which momentum stops
 
-  let touchStartX = 0;
-  let frozenOffset = 0;
+  let dragging = false;
+  let startX = 0;
+  let prevX = 0;
+  let velocity = 0;
   let currentOffset = 0;
-  let isSwiping = false;
+  let rafId = null;
 
-  function readTranslateX() {
-    const matrix = new DOMMatrix(window.getComputedStyle(track).transform);
-    return matrix.m41;
+  // Wrap offset into (-halfWidth, 0] so the duplicate-set loop is seamless.
+  function normalizeOffset(offset) {
+    const hw = track.scrollWidth / 2;
+    if (!hw) return offset;
+    let v = offset % hw;
+    if (v > 0) v -= hw;
+    return v;
   }
 
-  function resumeAnimation(offsetPx) {
-    // One full "lap" is half the track's scroll width (two identical sets).
-    const halfWidth = track.scrollWidth / 2;
-    // Normalise to (-halfWidth, 0].
-    let normalized = offsetPx % halfWidth;
-    if (normalized > 0) normalized -= halfWidth;
-    const progress = Math.abs(normalized) / halfWidth; // 0..1
-    const delay = -(progress * ANIMATION_DURATION);
+  // Apply a manual translateX to the track.
+  function setOffset(offset) {
+    currentOffset = normalizeOffset(offset);
+    track.style.transform = `translateX(${currentOffset}px)`;
+  }
+
+  /**
+   * Freeze the track at its current animated position.
+   * Uses the Web Animations API (getAnimations) to derive an exact pixel
+   * position from the animation's currentTime, avoiding the stale value that
+   * getComputedStyle can return for GPU-composited animations.
+   */
+  function pauseAtCurrentPosition() {
+    const hw = track.scrollWidth / 2;
+    const animations = track.getAnimations ? track.getAnimations() : [];
+    const anim = animations.find((a) => a.animationName === 'marquee');
+    if (anim && hw) {
+      const duration = ANIM_DURATION * 1000;
+      const t = ((anim.currentTime % duration) + duration) % duration;
+      currentOffset = -((t / duration) * hw);
+    } else {
+      // Fallback for browsers without getAnimations.
+      const mat = new DOMMatrix(window.getComputedStyle(track).transform);
+      currentOffset = mat.m41 || 0;
+    }
+    track.style.animation = 'none';
+    track.style.transform = `translateX(${currentOffset}px)`;
+  }
+
+  // Re-start the CSS animation from currentOffset.
+  function resumeAnimation() {
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+    const hw = track.scrollWidth / 2;
+    const progress = hw ? Math.abs(normalizeOffset(currentOffset)) / hw : 0;
+    const delay = -(progress * ANIM_DURATION);
     track.style.transform = '';
-    track.style.animation = `marquee ${ANIMATION_DURATION}s ${delay}s linear infinite`;
+    track.style.animation = `marquee ${ANIM_DURATION}s ${delay}s linear infinite`;
+  }
+
+  // Decelerate with friction then hand back to the CSS animation.
+  function applyMomentum() {
+    velocity *= FRICTION;
+    if (Math.abs(velocity) < MIN_VELOCITY) {
+      resumeAnimation();
+      return;
+    }
+    setOffset(currentOffset + velocity);
+    rafId = requestAnimationFrame(applyMomentum);
   }
 
   ticker.addEventListener('touchstart', (e) => {
-    touchStartX = e.touches[0].clientX;
-    isSwiping = false;
-    // Freeze the track at its current visual (animated) position.
-    frozenOffset = readTranslateX();
-    track.style.animation = 'none';
-    track.style.transform = `translateX(${frozenOffset}px)`;
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+    startX = prevX = e.touches[0].clientX;
+    velocity = 0;
+    dragging = false;
+    pauseAtCurrentPosition();
   }, { passive: true });
 
   ticker.addEventListener('touchmove', (e) => {
-    const deltaX = e.touches[0].clientX - touchStartX;
-    if (!isSwiping && Math.abs(deltaX) < SWIPE_THRESHOLD) return;
-    isSwiping = true;
-
-    const halfWidth = track.scrollWidth / 2;
-    let newOffset = frozenOffset + deltaX;
-    // Wrap so the duplicate set creates a seamless loop.
-    newOffset = newOffset % halfWidth;
-    if (newOffset > 0) newOffset -= halfWidth;
-    currentOffset = newOffset;
-    track.style.transform = `translateX(${newOffset}px)`;
+    const x = e.touches[0].clientX;
+    if (!dragging && Math.abs(x - startX) < SWIPE_THRESHOLD) return;
+    dragging = true;
+    const dx = x - prevX;
+    // Exponential moving average smooths instantaneous velocity.
+    velocity = velocity * 0.6 + dx * 0.4;
+    setOffset(currentOffset + dx);
+    prevX = x;
   }, { passive: true });
 
-  ticker.addEventListener('touchend', () => {
-    resumeAnimation(isSwiping ? currentOffset : frozenOffset);
-    isSwiping = false;
-  }, { passive: true });
+  function onTouchEnd() {
+    if (!dragging) {
+      // Was a tap — resume from the frozen position without momentum.
+      resumeAnimation();
+      return;
+    }
+    dragging = false;
+    rafId = requestAnimationFrame(applyMomentum);
+  }
+
+  ticker.addEventListener('touchend', onTouchEnd, { passive: true });
+  ticker.addEventListener('touchcancel', onTouchEnd, { passive: true });
 }
 
 /**
