@@ -1835,7 +1835,6 @@ function initializeTickerSwipe() {
   ticker.addEventListener('touchstart', (e) => {
     if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
     phase = 'drag';
-    hovered = false;
     startX = prevX = e.touches[0].clientX;
     vel = 0;
     dragging = false;
