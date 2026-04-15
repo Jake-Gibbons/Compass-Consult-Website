@@ -1757,94 +1757,88 @@ function initializeTickerSwipe() {
   const track = document.querySelector('.ticker-track');
   if (!ticker || !track) return;
 
-  /** Must match the CSS `marquee` animation duration (seconds). */
-  const ANIM_DURATION = 45;
-  const SWIPE_THRESHOLD = 4;    // px of movement before a drag is recognised
-  const FRICTION = 0.93;        // velocity decay per requestAnimationFrame tick
-  const MIN_VELOCITY = 0.3;     // px/tick below which momentum stops
-  const VELOCITY_CARRY = 0.6;   // weight of previous velocity in EMA smoothing
-  const VELOCITY_NEW = 0.4;     // weight of latest delta in EMA smoothing
+  /**
+   * Duration in ms — must match the CSS marquee animation (45 s).
+   * The JS loop replaces the CSS animation so the position is always known,
+   * which is the key requirement for reliable touch-drag on iOS/Android.
+   */
+  const ANIM_MS = 45000;
+  const SWIPE_THRESHOLD = 4;   // px movement before a drag is recognised
+  const FRICTION = 0.93;       // velocity multiplier per RAF frame
+  const MIN_VELOCITY = 0.3;    // px/frame below which momentum ends
+  const VELOCITY_CARRY = 0.6;  // EMA: weight of previous velocity
+  const VELOCITY_NEW = 0.4;    // EMA: weight of new per-frame delta
 
+  let pos = 0;          // current translateX in px (always tracked by JS)
+  let rafId = null;
+  let lastTs = null;    // timestamp from previous RAF call (for auto-scroll)
+  let hovered = false;  // desktop hover-pause
   let dragging = false;
   let startX = 0;
   let prevX = 0;
-  let velocity = 0;
-  let currentOffset = 0;
-  let rafId = null;
+  let vel = 0;
+  let phase = 'auto';  // 'auto' | 'drag' | 'momentum'
 
-  // Wrap offset into (-halfWidth, 0] so the duplicate-set loop is seamless.
-  function normalizeOffset(offset) {
-    const hw = track.scrollWidth / 2;
-    if (!hw) return offset;
-    let v = offset % hw;
-    if (v > 0) v -= hw;
+  /** Half the track width — the seamless-loop lap length. */
+  function halfWidth() { return track.scrollWidth / 2 || 1; }
+
+  /** Wrap pos to (-halfWidth, 0] so the duplicate-set loop is seamless. */
+  function wrap(x) {
+    const h = halfWidth();
+    let v = x % h;
+    if (v > 0) v -= h;
     return v;
   }
 
-  // Apply a manual translateX to the track.
-  function setOffset(offset) {
-    currentOffset = normalizeOffset(offset);
-    track.style.transform = `translateX(${currentOffset}px)`;
+  /** Write position to the DOM. */
+  function commit(x) {
+    pos = wrap(x);
+    track.style.transform = `translateX(${pos}px)`;
   }
 
-  /**
-   * Freeze the track at its current animated position.
-   * Uses the Web Animations API (getAnimations) to derive an exact pixel
-   * position from the animation's currentTime, avoiding the stale value that
-   * getComputedStyle can return for GPU-composited animations.
-   */
-  function pauseAtCurrentPosition() {
-    const hw = track.scrollWidth / 2;
-    const animations = track.getAnimations ? track.getAnimations() : [];
-    // CSSAnimation objects expose .animationName; guard with optional chaining
-    // so non-CSS Animation objects (e.g. Web Animation instances) are skipped.
-    const anim = animations.find((a) => a.animationName === 'marquee');
-    if (anim && hw && anim.currentTime != null) {
-      const duration = ANIM_DURATION * 1000;
-      const t = ((anim.currentTime % duration) + duration) % duration;
-      currentOffset = -((t / duration) * hw);
-    } else {
-      // Fallback: read from computed style (may be slightly stale on GPU threads).
-      const mat = new DOMMatrix(window.getComputedStyle(track).transform);
-      currentOffset = mat.m41 || 0;
+  // ── Auto-scroll loop (replaces CSS marquee animation) ────────────────────
+  function autoTick(ts) {
+    if (phase !== 'auto') return;
+    if (!hovered) {
+      if (lastTs !== null) {
+        // Advance by the same speed as the 45 s CSS animation.
+        commit(pos - (halfWidth() / ANIM_MS) * (ts - lastTs));
+      }
+      lastTs = ts;
     }
-    track.style.animation = 'none';
-    track.style.transform = `translateX(${currentOffset}px)`;
+    rafId = requestAnimationFrame(autoTick);
   }
 
-  // Re-start the CSS animation from currentOffset.
-  function resumeAnimation() {
-    if (rafId) {
-      cancelAnimationFrame(rafId);
-      rafId = null;
-    }
-    const hw = track.scrollWidth / 2;
-    const progress = hw ? Math.abs(normalizeOffset(currentOffset)) / hw : 0;
-    const delay = -(progress * ANIM_DURATION);
-    track.style.transform = '';
-    track.style.animation = `marquee ${ANIM_DURATION}s ${delay}s linear infinite`;
-  }
-
-  // Decelerate with friction then hand back to the CSS animation.
-  function applyMomentum() {
-    velocity *= FRICTION;
-    if (Math.abs(velocity) < MIN_VELOCITY) {
-      resumeAnimation();
+  // ── Momentum loop ─────────────────────────────────────────────────────────
+  function momentumTick() {
+    if (phase !== 'momentum') return;
+    vel *= FRICTION;
+    if (Math.abs(vel) < MIN_VELOCITY) {
+      phase = 'auto';
+      lastTs = null;
+      rafId = requestAnimationFrame(autoTick);
       return;
     }
-    setOffset(currentOffset + velocity);
-    rafId = requestAnimationFrame(applyMomentum);
+    commit(pos + vel);
+    rafId = requestAnimationFrame(momentumTick);
   }
 
+  // ── Desktop hover pause ───────────────────────────────────────────────────
+  ticker.addEventListener('mouseenter', () => { hovered = true; lastTs = null; });
+  ticker.addEventListener('mouseleave', () => { hovered = false; lastTs = null; });
+
+  // ── Touch handling ────────────────────────────────────────────────────────
+
+  // Tell the browser we handle horizontal gestures; it handles vertical scroll.
+  ticker.style.touchAction = 'pan-y';
+
   ticker.addEventListener('touchstart', (e) => {
-    if (rafId) {
-      cancelAnimationFrame(rafId);
-      rafId = null;
-    }
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    phase = 'drag';
+    hovered = false;
     startX = prevX = e.touches[0].clientX;
-    velocity = 0;
+    vel = 0;
     dragging = false;
-    pauseAtCurrentPosition();
   }, { passive: true });
 
   ticker.addEventListener('touchmove', (e) => {
@@ -1852,24 +1846,54 @@ function initializeTickerSwipe() {
     if (!dragging && Math.abs(x - startX) < SWIPE_THRESHOLD) return;
     dragging = true;
     const dx = x - prevX;
-    // Exponential moving average smooths instantaneous velocity.
-    velocity = velocity * VELOCITY_CARRY + dx * VELOCITY_NEW;
-    setOffset(currentOffset + dx);
+    // Exponential moving average keeps velocity smooth.
+    vel = vel * VELOCITY_CARRY + dx * VELOCITY_NEW;
+    commit(pos + dx);
     prevX = x;
   }, { passive: true });
 
   function onTouchEnd() {
     if (!dragging) {
-      // Was a tap — resume from the frozen position without momentum.
-      resumeAnimation();
+      // Was a tap — resume auto-scroll with no momentum.
+      phase = 'auto';
+      lastTs = null;
+      rafId = requestAnimationFrame(autoTick);
       return;
     }
     dragging = false;
-    rafId = requestAnimationFrame(applyMomentum);
+    phase = 'momentum';
+    rafId = requestAnimationFrame(momentumTick);
   }
 
   ticker.addEventListener('touchend', onTouchEnd, { passive: true });
   ticker.addEventListener('touchcancel', onTouchEnd, { passive: true });
+
+  // ── Visibility: reset timestamp when tab becomes active ──────────────────
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) lastTs = null;
+  });
+
+  // ── Boot: hand off from CSS animation to JS loop ──────────────────────────
+  (function boot() {
+    if (!track.scrollWidth) {
+      // Element not yet laid out — retry next frame.
+      requestAnimationFrame(boot);
+      return;
+    }
+    // Try to read the CSS animation's current position for a seamless take-over.
+    const animations = track.getAnimations ? track.getAnimations() : [];
+    const anim = animations.find((a) => a.animationName === 'marquee');
+    if (anim && anim.currentTime != null) {
+      const h = halfWidth();
+      const t = ((anim.currentTime % ANIM_MS) + ANIM_MS) % ANIM_MS;
+      pos = wrap(-(t / ANIM_MS) * h);
+    }
+    // Replace CSS animation with JS-driven transform.
+    track.style.animation = 'none';
+    track.style.transform = `translateX(${pos}px)`;
+    phase = 'auto';
+    rafId = requestAnimationFrame(autoTick);
+  }());
 }
 
 /**
