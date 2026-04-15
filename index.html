@@ -120,7 +120,7 @@
         .reveal.active { opacity: 1; transform: translate(0) scale(1); }
         .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
         /* Embla ticker styles */
-        .embla-ticker { overflow: hidden; cursor: grab; min-height: 50px; display: flex; align-items: center; }
+        .embla-ticker { overflow: hidden; cursor: grab; width: 100%; }
         .embla-ticker.is-dragging { cursor: grabbing; }
         .embla-ticker__container { display: flex; align-items: center; user-select: none; -webkit-user-select: none; }
         .embla-ticker__slide { flex: 0 0 auto; min-width: 0; padding: 0 0.75rem; }
@@ -133,7 +133,6 @@
         .ticker-link:focus-visible .ticker-img { transform: translateY(-2px); opacity: 1; }
         .ticker-link:focus-visible { outline: 2px solid #483086; outline-offset: 2px; border-radius: 2px; }
         @media (max-width: 640px) {
-            .embla-ticker { min-height: 40px; }
             .ticker-img { height: 28px; max-height: 28px; }
         }
         .dots-bg { background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 30px 30px; }
