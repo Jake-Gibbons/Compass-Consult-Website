@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
   connectFormLabels();          // Associate <label> elements with their <input> partners
   optimizeImages();             // Add async decoding and lazy-loading attributes
   initializeTickerImageFallback(); // Replace broken ticker logos with the site logo
-  initializeTickerSwipe();         // Enable touch-drag scrolling on the client ticker
+  initializeTicker();              // Enable Embla auto-scroll + touch-drag on the client ticker
   initializeSidebarScrollIndicator(); // Show/hide sidebar scroll hint
   initializeNewsletterForm();        // Newsletter subscription via the subscriber API
   initializeContactForm();           // Contact enquiry form via Netlify Forms
@@ -1734,7 +1734,7 @@ function optimizeImages() {
  * appears complete.
  */
 function initializeTickerImageFallback() {
-  document.querySelectorAll('.ticker-track img').forEach((image) => {
+  document.querySelectorAll('.embla-ticker img').forEach((image) => {
     image.addEventListener('error', () => {
       image.src = '/assets/logos/optimized/Logo-320.webp';
       image.style.maxHeight = '100px';
@@ -1743,177 +1743,44 @@ function initializeTickerImageFallback() {
 }
 
 // ---------------------------------------------------------------------------
-// Client ticker — touch swipe
+// Client ticker — Embla Carousel
 // ---------------------------------------------------------------------------
 
 /**
- * Adds touch-swipe support to the client logo ticker strip. On touch devices
- * the CSS marquee animation is paused while the user drags, the track follows
- * the finger, and a flick gesture carries through with momentum that decays
- * before handing back to the auto-scroll animation.
+ * Initialises the client logo ticker strip using Embla Carousel with the
+ * AutoScroll plugin.  Embla handles touch/pointer events correctly across
+ * all browsers (including iOS Safari) without manual preventDefault hacks.
+ *
+ * Requires embla-carousel.umd.js and embla-carousel-auto-scroll.umd.js to
+ * be loaded before this script (both are added to index.html).
  */
-function initializeTickerSwipe() {
-  const ticker = document.querySelector('.ticker');
-  const track = document.querySelector('.ticker-track');
-  if (!ticker || !track) return;
+function initializeTicker() {
+  const viewport = document.getElementById('clients-ticker');
+  if (!viewport) return;
+  if (typeof EmblaCarousel === 'undefined') return;
 
-  /**
-   * Duration in ms — must match the CSS marquee animation (45 s).
-   * The JS loop replaces the CSS animation so the position is always known,
-   * which is the key requirement for reliable touch-drag on iOS/Android.
-   */
-  const ANIM_MS = 45000;
-  const SWIPE_THRESHOLD = 4;   // px movement before a drag is recognised
-  const FRICTION = 0.93;       // velocity multiplier per RAF frame
-  const MIN_VELOCITY = 0.3;    // px/frame below which momentum ends
-  const VELOCITY_CARRY = 0.6;  // EMA: weight of previous velocity
-  const VELOCITY_NEW = 0.4;    // EMA: weight of new per-frame delta
-
-  let pos = 0;           // current translateX in px (always tracked by JS)
-  let rafId = null;
-  let lastTs = null;     // timestamp from previous RAF call (for auto-scroll)
-  let hovered = false;   // desktop hover-pause
-  let dragging = false;
-  let startX = 0;
-  let startY = 0;
-  let prevX = 0;
-  let vel = 0;
-  let phase = 'auto';    // 'auto' | 'drag' | 'momentum'
-  let swipeAxis = null;  // 'h' (horizontal) | 'v' (vertical) | null (undecided)
-
-  /** Half the track width — the seamless-loop lap length. */
-  function halfWidth() { return track.scrollWidth / 2 || 1; }
-
-  /** Wrap pos to (-halfWidth, 0] so the duplicate-set loop is seamless. */
-  function wrap(x) {
-    const h = halfWidth();
-    let v = x % h;
-    if (v > 0) v -= h;
-    return v;
+  const plugins = [];
+  if (typeof EmblaCarouselAutoScroll !== 'undefined') {
+    plugins.push(EmblaCarouselAutoScroll({
+      playOnInit: true,
+      startDelay: 0,
+      speed: 1.5,
+      direction: 'forward',
+      stopOnInteraction: false,
+      stopOnMouseEnter: true,
+      stopOnFocusIn: false,
+    }));
   }
 
-  /** Write position to the DOM. */
-  function commit(x) {
-    pos = wrap(x);
-    track.style.transform = `translateX(${pos}px)`;
-  }
+  const embla = EmblaCarousel(viewport, {
+    loop: true,
+    dragFree: true,
+    align: 'start',
+    containScroll: false,
+  }, plugins);
 
-  // ── Auto-scroll loop (replaces CSS marquee animation) ────────────────────
-  function autoTick(ts) {
-    if (phase !== 'auto') return;
-    if (!hovered) {
-      if (lastTs !== null) {
-        // Advance by the same speed as the 45 s CSS animation.
-        commit(pos - (halfWidth() / ANIM_MS) * (ts - lastTs));
-      }
-      lastTs = ts;
-    }
-    rafId = requestAnimationFrame(autoTick);
-  }
-
-  // ── Momentum loop ─────────────────────────────────────────────────────────
-  function momentumTick() {
-    if (phase !== 'momentum') return;
-    vel *= FRICTION;
-    if (Math.abs(vel) < MIN_VELOCITY) {
-      phase = 'auto';
-      lastTs = null;
-      rafId = requestAnimationFrame(autoTick);
-      return;
-    }
-    commit(pos + vel);
-    rafId = requestAnimationFrame(momentumTick);
-  }
-
-  // ── Desktop hover pause ───────────────────────────────────────────────────
-  ticker.addEventListener('mouseenter', () => { hovered = true; lastTs = null; });
-  ticker.addEventListener('mouseleave', () => { hovered = false; lastTs = null; });
-
-  // ── Touch handling ────────────────────────────────────────────────────────
-
-  // Tell the browser we handle horizontal gestures; it handles vertical scroll.
-  ticker.style.touchAction = 'pan-y';
-
-  ticker.addEventListener('touchstart', (e) => {
-    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-    phase = 'drag';
-    const t = e.touches[0];
-    startX = prevX = t.clientX;
-    startY = t.clientY;
-    vel = 0;
-    dragging = false;
-    swipeAxis = null;
-  }, { passive: true });
-
-  ticker.addEventListener('touchmove', (e) => {
-    const t = e.touches[0];
-    const x = t.clientX;
-    const y = t.clientY;
-
-    // Determine swipe axis on first significant movement.
-    if (swipeAxis === null) {
-      const adx = Math.abs(x - startX);
-      const ady = Math.abs(y - startY);
-      if (adx < SWIPE_THRESHOLD && ady < SWIPE_THRESHOLD) return;
-      swipeAxis = adx >= ady ? 'h' : 'v';
-    }
-
-    // Vertical swipe — let native page scroll happen.
-    if (swipeAxis !== 'h') return;
-
-    // Horizontal swipe — we own this gesture.
-    e.preventDefault();
-    dragging = true;
-    const dx = x - prevX;
-    // Exponential moving average keeps velocity smooth.
-    vel = vel * VELOCITY_CARRY + dx * VELOCITY_NEW;
-    commit(pos + dx);
-    prevX = x;
-  }, { passive: false });  // non-passive so e.preventDefault() works
-
-  function onTouchEnd() {
-    swipeAxis = null;
-    if (!dragging) {
-      // Was a tap — resume auto-scroll with no momentum.
-      phase = 'auto';
-      lastTs = null;
-      rafId = requestAnimationFrame(autoTick);
-      return;
-    }
-    dragging = false;
-    phase = 'momentum';
-    rafId = requestAnimationFrame(momentumTick);
-  }
-
-  ticker.addEventListener('touchend', onTouchEnd, { passive: true });
-  ticker.addEventListener('touchcancel', onTouchEnd, { passive: true });
-
-  // ── Visibility: reset timestamp when tab becomes active ──────────────────
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) lastTs = null;
-  });
-
-  // ── Boot: hand off from CSS animation to JS loop ──────────────────────────
-  (function boot() {
-    if (!track.scrollWidth) {
-      // Element not yet laid out — retry next frame.
-      requestAnimationFrame(boot);
-      return;
-    }
-    // Try to read the CSS animation's current position for a seamless take-over.
-    const animations = track.getAnimations ? track.getAnimations() : [];
-    const anim = animations.find((a) => a.animationName === 'marquee');
-    if (anim && anim.currentTime != null) {
-      const h = halfWidth();
-      const t = ((anim.currentTime % ANIM_MS) + ANIM_MS) % ANIM_MS;
-      pos = wrap(-(t / ANIM_MS) * h);
-    }
-    // Replace CSS animation with JS-driven transform.
-    track.style.animation = 'none';
-    track.style.transform = `translateX(${pos}px)`;
-    phase = 'auto';
-    rafId = requestAnimationFrame(autoTick);
-  }());
+  embla.on('pointerDown', () => viewport.classList.add('is-dragging'));
+  embla.on('pointerUp', () => viewport.classList.remove('is-dragging'));
 }
 
 /**
