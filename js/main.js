@@ -1759,9 +1759,11 @@ function initializeTickerSwipe() {
 
   /** Must match the CSS `marquee` animation duration (seconds). */
   const ANIM_DURATION = 45;
-  const SWIPE_THRESHOLD = 4; // px of movement before a drag is recognised
-  const FRICTION = 0.93;     // velocity decay per requestAnimationFrame tick
-  const MIN_VELOCITY = 0.3;  // px/tick below which momentum stops
+  const SWIPE_THRESHOLD = 4;    // px of movement before a drag is recognised
+  const FRICTION = 0.93;        // velocity decay per requestAnimationFrame tick
+  const MIN_VELOCITY = 0.3;     // px/tick below which momentum stops
+  const VELOCITY_CARRY = 0.6;   // weight of previous velocity in EMA smoothing
+  const VELOCITY_NEW = 0.4;     // weight of latest delta in EMA smoothing
 
   let dragging = false;
   let startX = 0;
@@ -1794,13 +1796,15 @@ function initializeTickerSwipe() {
   function pauseAtCurrentPosition() {
     const hw = track.scrollWidth / 2;
     const animations = track.getAnimations ? track.getAnimations() : [];
+    // CSSAnimation objects expose .animationName; guard with optional chaining
+    // so non-CSS Animation objects (e.g. Web Animation instances) are skipped.
     const anim = animations.find((a) => a.animationName === 'marquee');
-    if (anim && hw) {
+    if (anim && hw && anim.currentTime != null) {
       const duration = ANIM_DURATION * 1000;
       const t = ((anim.currentTime % duration) + duration) % duration;
       currentOffset = -((t / duration) * hw);
     } else {
-      // Fallback for browsers without getAnimations.
+      // Fallback: read from computed style (may be slightly stale on GPU threads).
       const mat = new DOMMatrix(window.getComputedStyle(track).transform);
       currentOffset = mat.m41 || 0;
     }
@@ -1849,7 +1853,7 @@ function initializeTickerSwipe() {
     dragging = true;
     const dx = x - prevX;
     // Exponential moving average smooths instantaneous velocity.
-    velocity = velocity * 0.6 + dx * 0.4;
+    velocity = velocity * VELOCITY_CARRY + dx * VELOCITY_NEW;
     setOffset(currentOffset + dx);
     prevX = x;
   }, { passive: true });
