@@ -41,6 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
   registerServiceWorker();           // Enable installability/offline shell support
 });
 
+// Fallback: re-init ticker on window.load if images weren't measured at DOMContentLoaded
+window.addEventListener('load', () => {
+  const tickerViewport = document.getElementById('clients-ticker');
+  if (tickerViewport && !tickerViewport._emblaInstance) initializeTicker();
+});
+
 // ---------------------------------------------------------------------------
 // Cookie consent and preferences
 // ---------------------------------------------------------------------------
@@ -1757,6 +1763,7 @@ function initializeTickerImageFallback() {
 function initializeTicker() {
   const viewport = document.getElementById('clients-ticker');
   if (!viewport) return;
+  if (viewport._emblaInstance) return;
   if (typeof EmblaCarousel === 'undefined') return;
 
   const plugins = [];
@@ -1779,6 +1786,7 @@ function initializeTicker() {
     containScroll: false,
   }, plugins);
 
+  viewport._emblaInstance = embla;
   embla.on('pointerDown', () => viewport.classList.add('is-dragging'));
   embla.on('pointerUp', () => viewport.classList.remove('is-dragging'));
 }
