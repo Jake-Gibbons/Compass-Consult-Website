@@ -1771,7 +1771,7 @@ function initializeTicker() {
     plugins.push(EmblaCarouselAutoScroll({
       playOnInit: true,
       startDelay: 0,
-      speed: 1.5,
+      speed: 1.0,
       direction: 'forward',
       stopOnInteraction: false,
       stopOnMouseEnter: true,

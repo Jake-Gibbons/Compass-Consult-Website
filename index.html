@@ -124,7 +124,7 @@
         .embla-ticker.is-dragging { cursor: grabbing; }
         .embla-ticker__container { display: flex; align-items: center; user-select: none; -webkit-user-select: none; }
         .embla-ticker__slide { flex: 0 0 auto; min-width: 0; padding: 0 0.75rem; }
-        .ticker-img { height: 35px; max-height: 35px; display: block; object-fit: contain; opacity: .85; transition: opacity .2s ease, transform .2s ease; max-width: 120px; width: auto; }
+        .ticker-img { height: 44px; max-height: 44px; display: block; object-fit: contain; opacity: .85; transition: opacity .2s ease, transform .2s ease; max-width: 150px; width: auto; }
         .ticker-link { position: relative; display: inline-flex; align-items: center; text-decoration: none; }
         .ticker-link::after { content: ''; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-size: contain; position: absolute; top: 0; right: 0; width: 14px; height: 14px; opacity: 0; transition: opacity .2s ease; pointer-events: none; }
         .ticker-link:hover::after,
@@ -133,7 +133,7 @@
         .ticker-link:focus-visible .ticker-img { transform: translateY(-2px); opacity: 1; }
         .ticker-link:focus-visible { outline: 2px solid #483086; outline-offset: 2px; border-radius: 2px; }
         @media (max-width: 640px) {
-            .ticker-img { height: 28px; max-height: 28px; }
+            .ticker-img { height: 35px; max-height: 35px; }
         }
         .dots-bg { background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 30px 30px; }
         /* Site logo sizing */
