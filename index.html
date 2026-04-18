@@ -142,6 +142,20 @@
         .site-logo { display: block; height: auto; max-height: 120px; }
         @media (max-width: 1024px) { .site-logo { max-height: 80px; } }
         @media (max-width: 640px) { .site-logo { max-height: 60px; } }
+        .hero-compass-graphic { width: min(100%, 420px); margin-inline: auto; filter: drop-shadow(0 24px 32px rgba(72, 48, 134, 0.12)); }
+        .hero-compass-graphic .compass-orbit { transform-origin: center; animation: compassOrbit 18s linear infinite; }
+        .hero-compass-graphic .compass-needle { transform-origin: 120px 120px; animation: compassNeedle 3.8s ease-in-out infinite; }
+        .hero-compass-graphic .compass-node { animation: compassPulse 2.4s ease-in-out infinite; }
+        .hero-compass-graphic .compass-node.node-2 { animation-delay: .7s; }
+        .hero-compass-graphic .compass-node.node-3 { animation-delay: 1.4s; }
+        @keyframes compassOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes compassNeedle { 0%, 100% { transform: rotate(-20deg); } 50% { transform: rotate(22deg); } }
+        @keyframes compassPulse { 0%, 100% { opacity: .7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-compass-graphic .compass-orbit,
+            .hero-compass-graphic .compass-needle,
+            .hero-compass-graphic .compass-node { animation: none; }
+        }
         /* removed sidebar full-width; keep original sizing */
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
@@ -310,6 +324,29 @@
                             <a href="/pages/contact.html" class="group inline-flex justify-center items-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-full text-white bg-compass-purple hover:bg-compass-lightPurple transition-all shadow-lg hover:-translate-y-1">
                                 Talk to Us <i data-lucide="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                             </a>
+                        </div>
+                        <div class="hero-compass-graphic pt-4" aria-hidden="true">
+                            <svg viewBox="0 0 240 240" role="img">
+                                <defs>
+                                    <linearGradient id="heroCompassGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#483086"></stop>
+                                        <stop offset="100%" stop-color="#2da8b4"></stop>
+                                    </linearGradient>
+                                </defs>
+                                <circle cx="120" cy="120" r="92" fill="#ffffff" stroke="#e9e7f3" stroke-width="2"></circle>
+                                <g class="compass-orbit">
+                                    <circle cx="120" cy="120" r="78" fill="none" stroke="url(#heroCompassGradient)" stroke-width="2.5" stroke-dasharray="6 10"></circle>
+                                    <circle class="compass-node node-1" cx="120" cy="42" r="5" fill="#483086"></circle>
+                                    <circle class="compass-node node-2" cx="53" cy="159" r="5" fill="#2da8b4"></circle>
+                                    <circle class="compass-node node-3" cx="187" cy="159" r="5" fill="#483086"></circle>
+                                </g>
+                                <g class="compass-needle">
+                                    <path d="M120 62L142 120L120 178L98 120Z" fill="url(#heroCompassGradient)" opacity=".95"></path>
+                                    <circle cx="120" cy="120" r="10" fill="#ffffff" stroke="#d6d2ea" stroke-width="2"></circle>
+                                </g>
+                                <path d="M53 159Q120 118 187 159" fill="none" stroke="#d8edf0" stroke-width="2"></path>
+                                <path d="M120 42Q128 80 120 118" fill="none" stroke="#ece8f8" stroke-width="2"></path>
+                            </svg>
                         </div>
                     </div>
                     
@@ -523,5 +560,4 @@
     <script defer src="/js/main.b3d3803a.js?v=20260416b"></script>
 </body>
 </html>
-
 
