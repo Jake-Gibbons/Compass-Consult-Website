@@ -143,7 +143,7 @@
         @media (max-width: 1024px) { .site-logo { max-height: 80px; } }
         @media (max-width: 640px) { .site-logo { max-height: 60px; } }
         .hero-compass-background { --compass-dial-mask-radius: 31%; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 0; }
-        .hero-compass-background .compass-layer { width: clamp(260px, 40vw, 560px); max-width: 75%; transform-origin: center; background: center / contain no-repeat url('/assets/logos/compass_rose.svg'); aspect-ratio: 1 / 1; }
+        .hero-compass-background .compass-layer { width: clamp(260px, 40vw, 560px); max-width: 75%; display: block; transform-origin: center; background: center / contain no-repeat url('/assets/logos/compass_rose.svg'); aspect-ratio: 1 / 1; }
         .hero-compass-background .compass-base { opacity: .14; filter: drop-shadow(0 20px 36px rgba(72, 48, 134, 0.12)); }
         .hero-compass-background .compass-dial { position: absolute; opacity: .18; clip-path: circle(var(--compass-dial-mask-radius) at 50% 50%); animation: compassDialRotate 24s linear infinite; }
         @keyframes compassDialRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -294,8 +294,8 @@
             <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob pointer-events-none"></div>
             <div class="absolute top-0 -right-4 w-72 h-72 bg-teal-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000 pointer-events-none"></div>
             <div class="hero-compass-background" aria-hidden="true">
-                <span class="compass-layer compass-base"></span>
-                <span class="compass-layer compass-dial"></span>
+                <div class="compass-layer compass-base"></div>
+                <div class="compass-layer compass-dial"></div>
             </div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
