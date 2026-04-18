@@ -149,17 +149,17 @@
         .hero-global-network .network-globe::after { content: ''; position: absolute; inset: 0; border-radius: 9999px; border: 1px solid rgba(72, 48, 134, 0.18); }
         .hero-global-network .network-globe::before { transform: scaleX(.62); }
         .hero-global-network .network-globe::after { transform: scaleY(.64); }
-        .hero-global-network .city-pin { position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 9999px; background: rgba(45, 168, 180, .85); box-shadow: 0 0 0 0 rgba(45, 168, 180, .32); animation: cityPulse 4.5s ease-in-out infinite; }
+        .hero-global-network .city-pin { --city-pulse-color: rgba(45, 168, 180, .32); position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 9999px; background: rgba(45, 168, 180, .85); box-shadow: 0 0 0 0 var(--city-pulse-color); animation: cityPulse 4.5s ease-in-out infinite; }
         .hero-global-network .city-a { top: 35%; left: 34%; }
-        .hero-global-network .city-b { top: 43%; left: 63%; animation-delay: .9s; background: rgba(72, 48, 134, .78); box-shadow: 0 0 0 0 rgba(72, 48, 134, .28); }
+        .hero-global-network .city-b { --city-pulse-color: rgba(72, 48, 134, .28); top: 43%; left: 63%; animation-delay: .9s; background: rgba(72, 48, 134, .78); }
         .hero-global-network .city-c { top: 61%; left: 54%; animation-delay: 1.6s; }
-        .hero-global-network .city-d { top: 57%; left: 29%; animation-delay: 2.2s; background: rgba(72, 48, 134, .78); box-shadow: 0 0 0 0 rgba(72, 48, 134, .28); }
+        .hero-global-network .city-d { --city-pulse-color: rgba(72, 48, 134, .28); top: 57%; left: 29%; animation-delay: 2.2s; background: rgba(72, 48, 134, .78); }
         .hero-global-network .network-lines { position: absolute; inset: 14%; width: auto; height: auto; }
         .hero-global-network .network-lines path { fill: none; stroke: rgba(72, 48, 134, .5); stroke-width: 1.8; stroke-linecap: round; stroke-dasharray: 8 8; animation: routeFlow 7.5s linear infinite; }
         .hero-global-network .network-lines path:nth-child(2) { stroke: rgba(45, 168, 180, .58); animation-duration: 9s; }
         .hero-global-network .network-lines path:nth-child(3) { animation-duration: 8s; animation-direction: reverse; }
         @keyframes globeFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-        @keyframes cityPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(45, 168, 180, .32); } 50% { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(45, 168, 180, 0); } }
+        @keyframes cityPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 var(--city-pulse-color); } 50% { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); } }
         @keyframes routeFlow { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -64; } }
         @media (prefers-reduced-motion: reduce) {
             .hero-global-network .network-globe,
