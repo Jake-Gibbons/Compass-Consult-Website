@@ -82,6 +82,33 @@ async function fileExists(filePath) {
   }
 }
 
+async function resolveSourcePath(relPath) {
+  const absPath = path.join(ROOT, relPath);
+  if (await fileExists(absPath)) {
+    return absPath;
+  }
+
+  const parsed = path.parse(relPath);
+  const absDir = path.join(ROOT, parsed.dir);
+  const entries = await fs.readdir(absDir);
+  const candidates = entries
+    .filter((entry) => {
+      if (!entry.startsWith(`${parsed.name}.`) || !entry.endsWith(parsed.ext)) {
+        return false;
+      }
+
+      const hashPart = entry.slice(parsed.name.length + 1, -parsed.ext.length);
+      return /^[a-f0-9]{8}$/.test(hashPart);
+    })
+    .sort();
+
+  if (candidates.length === 0) {
+    return null;
+  }
+
+  return path.join(absDir, candidates[candidates.length - 1]);
+}
+
 function hashedFilename(relPath, hash) {
   const parsed = path.parse(relPath);
   return path.posix.join(parsed.dir, `${parsed.name}.${hash}${parsed.ext}`);
@@ -133,13 +160,12 @@ async function main() {
   const manifest = {};
 
   for (const relPath of ASSETS) {
-    const absPath = path.join(ROOT, relPath);
-
-    if (!(await fileExists(absPath))) {
+    const sourcePath = await resolveSourcePath(relPath);
+    if (!sourcePath) {
       throw new Error(`Missing asset: ${relPath}`);
     }
 
-    const sourceContent = await fs.readFile(absPath);
+    const sourceContent = await fs.readFile(sourcePath);
     const content = await getVersionedContent(relPath, sourceContent);
     const hash = createHash('sha256').update(content).digest('hex').slice(0, 8);
     const versionedRel = hashedFilename(relPath, hash);
