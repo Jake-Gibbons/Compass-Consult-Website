@@ -145,7 +145,7 @@
         .hero-compass-background { --compass-dial-mask-radius: 31%; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 0; }
         .hero-compass-background .compass-layer { width: clamp(260px, 40vw, 560px); max-width: 75%; display: block; transform-origin: center; background: center / contain no-repeat url('/assets/logos/compass_rose.svg'); aspect-ratio: 1 / 1; }
         .hero-compass-background .compass-base { opacity: .14; filter: drop-shadow(0 20px 36px rgba(72, 48, 134, 0.12)); }
-        .hero-compass-background .compass-dial { position: absolute; opacity: .18; clip-path: circle(var(--compass-dial-mask-radius) at 50% 50%); animation: compassDialRotate 24s linear infinite; }
+        .hero-compass-background .compass-dial { position: absolute; inset: 0; margin: auto; opacity: .18; clip-path: circle(var(--compass-dial-mask-radius) at 50% 50%); animation: compassDialRotate 24s linear infinite; }
         @keyframes compassDialRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @media (prefers-reduced-motion: reduce) {
             .hero-compass-background .compass-dial { animation: none; }
