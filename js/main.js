@@ -34,10 +34,17 @@ document.addEventListener('DOMContentLoaded', () => {
   connectFormLabels();          // Associate <label> elements with their <input> partners
   optimizeImages();             // Add async decoding and lazy-loading attributes
   initializeTickerImageFallback(); // Replace broken ticker logos with the site logo
+  initializeTicker();              // Enable Embla auto-scroll + touch-drag on the client ticker
   initializeSidebarScrollIndicator(); // Show/hide sidebar scroll hint
   initializeNewsletterForm();        // Newsletter subscription via the subscriber API
   initializeContactForm();           // Contact enquiry form via Netlify Forms
   registerServiceWorker();           // Enable installability/offline shell support
+});
+
+// Fallback: re-init ticker on window.load if images weren't measured at DOMContentLoaded
+window.addEventListener('load', () => {
+  const tickerViewport = document.getElementById('clients-ticker');
+  if (tickerViewport && !tickerViewport._emblaInstance) initializeTicker();
 });
 
 // ---------------------------------------------------------------------------
@@ -1733,12 +1740,55 @@ function optimizeImages() {
  * appears complete.
  */
 function initializeTickerImageFallback() {
-  document.querySelectorAll('.ticker-track img').forEach((image) => {
+  document.querySelectorAll('.embla-ticker img').forEach((image) => {
     image.addEventListener('error', () => {
       image.src = '/assets/logos/optimized/Logo-320.webp';
       image.style.maxHeight = '100px';
     });
   });
+}
+
+// ---------------------------------------------------------------------------
+// Client ticker — Embla Carousel
+// ---------------------------------------------------------------------------
+
+/**
+ * Initialises the client logo ticker strip using Embla Carousel with the
+ * AutoScroll plugin.  Embla handles touch/pointer events correctly across
+ * all browsers (including iOS Safari) without manual preventDefault hacks.
+ *
+ * Requires embla-carousel.umd.js and embla-carousel-auto-scroll.umd.js to
+ * be loaded before this script (both are added to index.html).
+ */
+function initializeTicker() {
+  const viewport = document.getElementById('clients-ticker');
+  if (!viewport) return;
+  if (viewport._emblaInstance) return;
+  if (typeof EmblaCarousel === 'undefined') return;
+
+  const plugins = [];
+  if (typeof EmblaCarouselAutoScroll !== 'undefined') {
+    plugins.push(EmblaCarouselAutoScroll({
+      playOnInit: true,
+      startDelay: 0,
+      speed: 1.0,
+      direction: 'forward',
+      stopOnInteraction: false,
+      stopOnMouseEnter: true,
+      stopOnFocusIn: false,
+    }));
+  }
+
+  const embla = EmblaCarousel(viewport, {
+    loop: true,
+    dragFree: true,
+    align: 'start',
+    containScroll: false,
+  }, plugins);
+
+  viewport._emblaInstance = embla;
+  embla.on('pointerDown', () => viewport.classList.add('is-dragging'));
+  embla.on('pointerUp', () => viewport.classList.remove('is-dragging'));
 }
 
 /**
