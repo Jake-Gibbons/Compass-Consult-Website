@@ -142,30 +142,17 @@
         .site-logo { display: block; height: auto; max-height: 120px; }
         @media (max-width: 1024px) { .site-logo { max-height: 80px; } }
         @media (max-width: 640px) { .site-logo { max-height: 60px; } }
-        .hero-bg-gradient {
-            animation: heroGradientShift 20s ease-in-out infinite;
-            will-change: transform, opacity;
+        .gradient-text-scroll {
+            display: inline-block;
+            background-size: 200% 100%;
+            animation: gradientTextScroll 5.5s linear infinite;
         }
-        .hero-bg-orb {
-            animation: heroOrbFloat 18s ease-in-out infinite;
-            will-change: transform, opacity;
-        }
-        .hero-bg-orb-right {
-            animation-delay: -7s;
-            animation-duration: 22s;
-            animation-direction: reverse;
-        }
-        @keyframes heroGradientShift {
-            0%, 100% { transform: scale(1) translate3d(0, 0, 0); opacity: .05; }
-            50% { transform: scale(1.04) translate3d(0, -1.5%, 0); opacity: .1; }
-        }
-        @keyframes heroOrbFloat {
-            0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: .2; }
-            50% { transform: translate3d(10%, 8%, 0) scale(1.08); opacity: .28; }
+        @keyframes gradientTextScroll {
+            from { background-position: 0% 50%; }
+            to { background-position: 200% 50%; }
         }
         @media (prefers-reduced-motion: reduce) {
-            .hero-bg-gradient,
-            .hero-bg-orb { animation: none; }
+            .gradient-text-scroll { animation: none; background-position: 50% 50%; }
         }
         /* removed sidebar full-width; keep original sizing */
     </style>
@@ -307,9 +294,9 @@
         <!-- Hero Section -->
         <section class="relative pt-20 pb-16 lg:pt-12 lg:pb-20 overflow-hidden w-full flex items-center min-h-[68vh]">
             <!-- Background Decorations -->
-            <div class="absolute inset-0 bg-hero-gradient opacity-5 hero-bg-gradient z-0 pointer-events-none"></div>
-            <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 hero-bg-orb pointer-events-none"></div>
-            <div class="absolute top-0 -right-4 w-72 h-72 bg-teal-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 hero-bg-orb hero-bg-orb-right pointer-events-none"></div>
+            <div class="absolute inset-0 bg-hero-gradient opacity-5 z-0 pointer-events-none"></div>
+            <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 pointer-events-none"></div>
+            <div class="absolute top-0 -right-4 w-72 h-72 bg-teal-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 pointer-events-none"></div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="grid gap-12 items-center place-items-center text-center">
@@ -323,7 +310,7 @@
                         </div>
                         <h1 class="text-4xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-[1.15]">
                             Find Your Way in <br>
-                            <span class="gradient-text">Employability & Skills</span>
+                            <span class="gradient-text gradient-text-scroll">Employability & Skills</span>
                         </h1>
                         <p class="text-lg text-gray-600 leading-relaxed max-w-lg">
                             Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.
