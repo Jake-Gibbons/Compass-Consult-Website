@@ -335,6 +335,28 @@
             border-top: 1px solid #e5e7eb;
             padding-top: 1.5rem;
         }
+        .calendar-agenda-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+        .calendar-view-all-button {
+            border: 1px solid #ddd6fe;
+            background: #ffffff;
+            color: #483086;
+            border-radius: 9999px;
+            padding: 0.45rem 0.8rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        .calendar-view-all-button:hover,
+        .calendar-view-all-button:focus-visible {
+            background: #f5f3ff;
+            transform: translateY(-1px);
+        }
         .calendar-agenda-list {
             display: grid;
             gap: 0.75rem;
@@ -425,6 +447,35 @@
                 padding: 0.35rem 0.4rem;
                 font-size: 0.65rem;
                 line-height: 1.25;
+            }
+            .calendar-agenda {
+                margin-top: 1rem;
+                padding-top: 1rem;
+            }
+            .calendar-agenda-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .calendar-view-all-button {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+            }
+            .calendar-agenda-item {
+                gap: 0.65rem;
+                padding: 0.75rem;
+                border-radius: 0.8rem;
+            }
+            .calendar-agenda-date {
+                min-width: 2.75rem;
+                border-radius: 0.7rem;
+                padding: 0.5rem 0.4rem;
+            }
+            .calendar-agenda-date strong {
+                font-size: 0.95rem;
+            }
+            .calendar-agenda-date span {
+                font-size: 0.62rem;
             }
             .view-toggle-group {
                 width: 100%;
@@ -1081,7 +1132,10 @@
                             <div id="eventsCalendarGrid" class="calendar-grid"></div>
                         </div>
                         <div class="calendar-agenda">
-                            <h3 class="text-xl font-bold text-gray-900">Events This Month</h3>
+                            <div class="calendar-agenda-header">
+                                <h3 class="text-xl font-bold text-gray-900">Events This Month</h3>
+                                <button id="calendarViewAllEvents" type="button" class="calendar-view-all-button">View full list</button>
+                            </div>
                             <div id="eventsCalendarAgenda" class="calendar-agenda-list"></div>
                         </div>
                     </div>
@@ -1199,6 +1253,7 @@
             const calendarMonthSummary = document.getElementById('calendarMonthSummary');
             const calendarPrevMonth = document.getElementById('calendarPrevMonth');
             const calendarNextMonth = document.getElementById('calendarNextMonth');
+            const calendarViewAllEvents = document.getElementById('calendarViewAllEvents');
             const weekdayFormatter = new Intl.DateTimeFormat('en-GB', { weekday: 'short' });
             const monthFormatter = new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric' });
             const agendaDayFormatter = new Intl.DateTimeFormat('en-GB', { month: 'short' });
@@ -1487,6 +1542,15 @@
 
                     setView('list');
                     revealEventCard(targetCard);
+                });
+            }
+
+            if (calendarViewAllEvents) {
+                calendarViewAllEvents.addEventListener('click', () => {
+                    setView('list');
+                    if (standardView) {
+                        standardView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 });
             }
 
