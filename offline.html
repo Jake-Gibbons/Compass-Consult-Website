@@ -3,98 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Offline - Compass Consult</title>
+    <title>Offline | Compass Consult</title>
     <meta name="robots" content="noindex">
     <style>
         :root {
             color-scheme: light;
-            --bg: #f5f7fb;
-            --panel: #ffffff;
-            --text: #1f2937;
-            --muted: #6b7280;
             --purple: #483086;
+            --light-purple: #6a4eb8;
             --teal: #2da8b4;
-            --border: rgba(72, 48, 134, 0.12);
+            --dark: #1e1b2e;
+            --bg: #f5f7fb;
+            --text: #4b5563;
+            --border: #e5e7eb;
         }
-
-        * {
-            box-sizing: border-box;
-        }
-
+        * { box-sizing: border-box; }
         body {
             margin: 0;
             min-height: 100vh;
-            display: grid;
-            place-items: center;
-            padding: 2rem;
             font-family: "Plus Jakarta Sans", "Segoe UI", sans-serif;
             color: var(--text);
-            background:
-                radial-gradient(circle at top left, rgba(45, 168, 180, 0.18), transparent 32%),
-                radial-gradient(circle at bottom right, rgba(72, 48, 134, 0.16), transparent 28%),
-                var(--bg);
+            background: var(--bg);
         }
-
-        main {
-            width: min(100%, 42rem);
-            padding: 2.5rem;
-            border: 1px solid var(--border);
+        .shell {
+            display: grid;
+            min-height: 100vh;
+        }
+        .sidebar {
+            display: none;
+        }
+        .mobile-bar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.95);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+        .brand-title {
+            font-weight: 800;
+            color: var(--purple);
+            letter-spacing: 0.01em;
+        }
+        .brand-subtitle {
+            font-size: 0.82rem;
+            color: #6b7280;
+        }
+        .sidebar-nav {
+            margin-top: 2rem;
+            display: grid;
+            gap: 0.75rem;
+        }
+        .sidebar-note {
+            font-size: 0.8rem;
+            color: #9ca3af;
+        }
+        .mobile-state {
+            font-weight: 700;
+            color: var(--purple);
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 5rem 1.25rem 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--purple) 0%, var(--teal) 100%);
+            color: #ffffff;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(#fff 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.18;
+        }
+        .hero > * { position: relative; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            padding: 0.5rem 0.95rem;
+            background: rgba(255, 255, 255, 0.12);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .hero h1 {
+            margin: 1.25rem auto 0;
+            max-width: 14ch;
+            font-size: clamp(2.3rem, 8vw, 4rem);
+            line-height: 1.02;
+        }
+        .hero p {
+            margin: 1rem auto 0;
+            max-width: 42rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.88);
+        }
+        .main {
+            flex: 1;
+            padding: 2rem 1.25rem 3rem;
+        }
+        .wrap {
+            width: min(100%, 1120px);
+            margin: 0 auto;
+        }
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        .card {
             border-radius: 1.5rem;
-            background: var(--panel);
-            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+            border: 1px solid var(--border);
+            background: #ffffff;
+            box-shadow: 0 18px 60px rgba(15, 23, 42, 0.06);
+            padding: 1.5rem;
         }
-
-        h1 {
-            margin: 0 0 0.75rem;
-            font-size: clamp(2rem, 5vw, 3rem);
-            line-height: 1.05;
+        .code {
+            margin: 0;
+            color: #111827;
+            font-size: clamp(3.2rem, 10vw, 5rem);
+            line-height: 0.9;
+            font-weight: 800;
+            letter-spacing: -0.05em;
         }
-
-        p {
-            margin: 0 0 1rem;
-            color: var(--muted);
-            line-height: 1.65;
+        .lead {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #4b5563;
         }
-
+        .offline-heading {
+            margin: 1rem 0 0;
+            color: #111827;
+            font-size: 1.8rem;
+        }
+        .offline-lead {
+            margin-top: 1rem;
+        }
+        .aside-heading {
+            margin: 0;
+            color: #111827;
+            font-size: 1.35rem;
+        }
+        .aside-copy {
+            margin-top: 0.75rem;
+        }
         .actions {
             display: flex;
             flex-wrap: wrap;
             gap: 0.75rem;
             margin-top: 1.5rem;
         }
-
-        a,
-        button {
-            appearance: none;
-            border: 0;
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 3rem;
+            padding: 0.8rem 1.2rem;
             border-radius: 999px;
-            padding: 0.9rem 1.25rem;
-            font: inherit;
-            font-weight: 700;
             text-decoration: none;
+            font-weight: 700;
+            border: 1px solid transparent;
             cursor: pointer;
         }
-
-        a {
+        .button-primary {
             background: var(--purple);
             color: #ffffff;
         }
-
-        button {
-            background: rgba(45, 168, 180, 0.1);
-            color: var(--teal);
+        .button-secondary {
+            background: #ffffff;
+            color: #111827;
+            border-color: #d1d5db;
+        }
+        .stat-grid {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .stat {
+            border-radius: 1rem;
+            background: #f9fafb;
+            padding: 1rem;
+            border: 1px solid #eef2f7;
+        }
+        .stat h3 {
+            margin: 0 0 0.35rem;
+            font-size: 0.95rem;
+            color: #111827;
+        }
+        .stat p,
+        .card p,
+        .card li {
+            margin: 0;
+            line-height: 1.75;
+        }
+        .card ul {
+            margin: 1rem 0 0;
+            padding-left: 1.25rem;
+        }
+        @media (min-width: 1024px) {
+            .shell { grid-template-columns: 18rem minmax(0, 1fr); }
+            .sidebar {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 2rem;
+                border-right: 1px solid var(--border);
+                background: #ffffff;
+                box-shadow: 4px 0 24px rgba(0, 0, 0, 0.02);
+            }
+            .mobile-bar { display: none; }
+            .hero { padding: 6rem 2rem 4.5rem; }
+            .main { padding: 3rem 2rem 4rem; }
+            .grid { grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr); }
+            .stat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
         }
     </style>
 </head>
 <body>
-    <main>
-        <p>Compass Consult</p>
-        <h1>You are offline right now.</h1>
-        <p>The page you requested is not available without a network connection. Once you are back online, you can reload this page or return to the homepage.</p>
-        <div class="actions">
-            <a href="/index.html">Go to homepage</a>
-            <button type="button" onclick="window.location.reload()">Try again</button>
+    <div class="shell">
+        <aside class="sidebar">
+            <div>
+                <div class="brand-title">Compass Consult</div>
+                <div class="brand-subtitle">Employability and Skills</div>
+                <nav class="sidebar-nav">
+                    <span>Home</span>
+                    <span>About us</span>
+                    <span>Our Services</span>
+                    <span>Resource Library</span>
+                    <span>Contact Us</span>
+                </nav>
+            </div>
+            <div class="sidebar-note">Offline fallback page</div>
+        </aside>
+        <div class="content">
+            <div class="mobile-bar">
+                <div>
+                    <div class="brand-title">Compass Consult</div>
+                    <div class="brand-subtitle">Employability and Skills</div>
+                </div>
+                <div class="mobile-state">Offline</div>
+            </div>
+            <header class="hero">
+                <span class="hero-badge">Offline</span>
+                <h1>This page is not available without a connection.</h1>
+                <p>The site shell is still responding, but this route needs network access. Reconnect and try again, or return to the homepage when your connection is back.</p>
+            </header>
+            <main class="main">
+                <div class="wrap">
+                    <div class="grid">
+                        <section class="card">
+                            <p class="code">OFF</p>
+                            <h2 class="offline-heading">You appear to be offline right now.</h2>
+                            <p class="lead offline-lead">Reconnect and refresh this page first. If the route is still unavailable afterwards, return to the homepage and navigate from there.</p>
+                            <div class="actions">
+                                <button type="button" onclick="window.location.reload()" class="button button-primary">Try Again</button>
+                                <a href="/index.html" class="button button-secondary">Go To Homepage</a>
+                            </div>
+                            <div class="stat-grid">
+                                <div class="stat"><h3>Current State</h3><p>Your device appears to be offline.</p></div>
+                                <div class="stat"><h3>What To Do</h3><p>Reconnect, then refresh this page.</p></div>
+                                <div class="stat"><h3>Fallback</h3><p>Use the homepage after your connection returns.</p></div>
+                            </div>
+                        </section>
+                        <aside class="card">
+                            <h2 class="aside-heading">When you reconnect</h2>
+                            <p class="aside-copy">This offline page is served from the site shell cache while network content is unavailable.</p>
+                            <ul>
+                                <li>Refresh this page first after your connection returns.</li>
+                                <li>Return to the homepage if the original route still fails.</li>
+                                <li>Use your normal site navigation once you are back online.</li>
+                            </ul>
+                        </aside>
+                    </div>
+                </div>
+            </main>
         </div>
-    </main>
+    </div>
 </body>
 </html>

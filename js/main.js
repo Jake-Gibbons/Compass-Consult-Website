@@ -53,6 +53,8 @@ window.addEventListener('load', () => {
 
 const COOKIE_CONSENT_NAME = 'compass_cookie_preferences';
 const COOKIE_CONSENT_MAX_AGE = 60 * 60 * 24 * 180;
+const NEWSLETTER_SUBSCRIPTION_COOKIE_NAME = 'compass_newsletter_subscription';
+const NEWSLETTER_SUBSCRIPTION_MAX_AGE = 60 * 60 * 24 * 365;
 
 /**
  * Creates the cookie consent banner, preference panel, and site-wide settings
@@ -803,6 +805,72 @@ function writeCookie(name, value, options = {}) {
  */
 function deleteCookie(name) {
   document.cookie = `${name}=; path=/; max-age=0; SameSite=Lax`;
+}
+
+/**
+ * Reads the stored newsletter subscription cookie.
+ *
+ * @returns {{id?: string, email?: string, subscribedAt: string}|null}
+ */
+function readStoredNewsletterSubscription() {
+  const value = readCookie(NEWSLETTER_SUBSCRIPTION_COOKIE_NAME);
+  if (!value) {
+    return null;
+  }
+
+  try {
+    return normalizeNewsletterSubscription(JSON.parse(value));
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Persists the current visitor's newsletter subscription state.
+ *
+ * @param {Record<string, string>} subscription
+ * @returns {{id?: string, email?: string, subscribedAt: string}|null}
+ */
+function saveStoredNewsletterSubscription(subscription) {
+  const normalizedSubscription = normalizeNewsletterSubscription(subscription);
+  if (!normalizedSubscription) {
+    return null;
+  }
+
+  writeCookie(NEWSLETTER_SUBSCRIPTION_COOKIE_NAME, JSON.stringify(normalizedSubscription), {
+    maxAge: NEWSLETTER_SUBSCRIPTION_MAX_AGE
+  });
+
+  return normalizedSubscription;
+}
+
+/**
+ * Clears the stored newsletter subscription cookie.
+ */
+function clearStoredNewsletterSubscription() {
+  deleteCookie(NEWSLETTER_SUBSCRIPTION_COOKIE_NAME);
+}
+
+/**
+ * Normalizes the newsletter subscription cookie payload.
+ *
+ * @param {Record<string, string>} [subscription]
+ * @returns {{id?: string, email?: string, subscribedAt: string}|null}
+ */
+function normalizeNewsletterSubscription(subscription = {}) {
+  const id = typeof subscription.id === 'string' ? subscription.id.trim() : '';
+  const email = typeof subscription.email === 'string' ? subscription.email.trim().toLowerCase() : '';
+  const subscribedAt = typeof subscription.subscribedAt === 'string' ? subscription.subscribedAt : new Date().toISOString();
+
+  if (!id && !email) {
+    return null;
+  }
+
+  return {
+    ...(id ? { id } : {}),
+    ...(email ? { email } : {}),
+    subscribedAt
+  };
 }
 
 /**
@@ -1901,13 +1969,82 @@ function initializeSidebarScrollIndicator() {
  * to the Netlify subscriber API, providing inline feedback to the user.
  */
 function initializeNewsletterForm() {
-  const forms = document.querySelectorAll('form[name="newsletter-subscribe"]');
+  const forms = Array.from(document.querySelectorAll('form[name="newsletter-subscribe"]'));
   if (!forms.length) return;
+
+  const syncForms = (subscription, options = {}) => {
+    const shouldClearFeedback = Boolean(options.clearFeedback);
+
+    forms.forEach((form) => {
+      const feedbackElement = ensureNewsletterFeedbackElement(form);
+      const unsubscribeUi = ensureNewsletterUnsubscribeElement(form, feedbackElement);
+
+      if (shouldClearFeedback) {
+        updateNewsletterFeedback(feedbackElement, null);
+      }
+
+      syncNewsletterSubscriptionUi(form, unsubscribeUi, subscription);
+    });
+  };
+
+  syncForms(readStoredNewsletterSubscription(), { clearFeedback: true });
 
   forms.forEach((form) => {
     form.setAttribute('action', '/api/subscribers');
     form.setAttribute('method', 'POST');
     const feedbackElement = ensureNewsletterFeedbackElement(form);
+    const unsubscribeUi = ensureNewsletterUnsubscribeElement(form, feedbackElement);
+
+    unsubscribeUi.button.addEventListener('click', async () => {
+      const subscription = readStoredNewsletterSubscription();
+      if (!subscription) {
+        clearStoredNewsletterSubscription();
+        syncForms(null, { clearFeedback: true });
+        return;
+      }
+
+      const originalText = unsubscribeUi.button.textContent;
+      unsubscribeUi.button.textContent = 'Unsubscribing...';
+      unsubscribeUi.button.disabled = true;
+      updateNewsletterFeedback(feedbackElement, null);
+
+      try {
+        const query = new URLSearchParams();
+        if (subscription.id) {
+          query.set('id', subscription.id);
+        } else if (subscription.email) {
+          query.set('email', subscription.email);
+        }
+
+        const res = await fetch(`/api/subscribers?${query.toString()}`, {
+          method: 'DELETE',
+          headers: {
+            Accept: 'application/json'
+          }
+        });
+        const payload = await res.json().catch(() => null);
+
+        if (!res.ok && res.status !== 404) {
+          throw new Error(payload && payload.error ? payload.error : 'Unsubscribe failed.');
+        }
+
+        clearStoredNewsletterSubscription();
+        syncForms(null, { clearFeedback: true });
+        updateNewsletterFeedback(feedbackElement, {
+          tone: 'success',
+          title: 'You have been unsubscribed.',
+          body: 'The newsletter subscribe box is available again if you want to join later.'
+        });
+      } catch (error) {
+        unsubscribeUi.button.textContent = originalText;
+        unsubscribeUi.button.disabled = false;
+        updateNewsletterFeedback(feedbackElement, {
+          tone: 'error',
+          title: 'Unsubscribe failed.',
+          body: error instanceof Error ? error.message : 'Please try again in a moment.'
+        });
+      }
+    });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -1942,19 +2079,26 @@ function initializeNewsletterForm() {
           throw new Error(payload && payload.error ? payload.error : 'Subscription failed.');
         }
 
+        const subscription = saveStoredNewsletterSubscription(
+          payload && typeof payload === 'object'
+            ? (payload.subscriber || payload)
+            : { email }
+        );
+
         form.reset();
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
+        syncForms(subscription);
         updateNewsletterFeedback(feedbackElement, payload && payload.message === 'Already subscribed'
           ? {
             tone: 'info',
             title: 'Already subscribed.',
-            body: 'That email address is already on the Compass Consult newsletter list.'
+            body: 'That email address is already on the Compass Consult newsletter list on this device.'
           }
           : {
             tone: 'success',
             title: 'Thanks for subscribing.',
-            body: 'You have been added to the Compass Consult newsletter list.'
+            body: 'You have been added to the Compass Consult newsletter list on this device.'
           });
       } catch (error) {
         submitBtn.textContent = originalText;
@@ -1967,6 +2111,77 @@ function initializeNewsletterForm() {
       }
     });
   });
+}
+
+/**
+ * Ensures an unsubscribe state container exists after a newsletter form.
+ *
+ * @param {HTMLFormElement} form
+ * @param {HTMLDivElement} feedbackElement
+ * @returns {{container: HTMLDivElement, button: HTMLButtonElement, email: HTMLSpanElement}}
+ */
+function ensureNewsletterUnsubscribeElement(form, feedbackElement) {
+  const sibling = feedbackElement.nextElementSibling;
+  if (sibling && sibling instanceof HTMLDivElement && sibling.dataset.newsletterUnsubscribe === 'true') {
+    return {
+      container: sibling,
+      button: sibling.querySelector('[data-newsletter-unsubscribe-button]'),
+      email: sibling.querySelector('[data-newsletter-subscribed-email]')
+    };
+  }
+
+  const container = document.createElement('div');
+  container.dataset.newsletterUnsubscribe = 'true';
+  container.hidden = true;
+  container.className = 'mt-3 rounded-lg border border-gray-700 bg-gray-800/70 px-4 py-3 text-sm text-gray-200';
+
+  const summary = document.createElement('p');
+  summary.className = 'leading-6';
+  summary.innerHTML = 'You are already subscribed<span data-newsletter-subscribed-email class="font-semibold text-white"></span>.';
+
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.dataset.newsletterUnsubscribeButton = 'true';
+  button.className = 'mt-3 inline-flex min-h-[2.75rem] items-center justify-center rounded-lg border border-red-400/35 px-4 py-2 font-semibold text-red-100 transition-colors hover:border-red-300 hover:bg-red-500/10';
+  button.textContent = 'Unsubscribe';
+
+  container.append(summary, button);
+  feedbackElement.insertAdjacentElement('afterend', container);
+
+  return {
+    container,
+    button,
+    email: container.querySelector('[data-newsletter-subscribed-email]')
+  };
+}
+
+/**
+ * Toggles between the subscribe form and the unsubscribe state.
+ *
+ * @param {HTMLFormElement} form
+ * @param {{container: HTMLDivElement, button: HTMLButtonElement, email: HTMLSpanElement}} unsubscribeUi
+ * @param {{id?: string, email?: string, subscribedAt: string}|null} subscription
+ */
+function syncNewsletterSubscriptionUi(form, unsubscribeUi, subscription) {
+  const isSubscribed = Boolean(subscription);
+  const controls = form.querySelectorAll('input, button');
+
+  form.hidden = isSubscribed;
+  form.setAttribute('aria-hidden', String(isSubscribed));
+  controls.forEach((control) => {
+    control.disabled = isSubscribed;
+  });
+
+  unsubscribeUi.container.hidden = !isSubscribed;
+  unsubscribeUi.button.disabled = false;
+  unsubscribeUi.button.textContent = 'Unsubscribe';
+
+  if (!isSubscribed) {
+    unsubscribeUi.email.textContent = '';
+    return;
+  }
+
+  unsubscribeUi.email.textContent = subscription.email ? ` as ${subscription.email}` : '';
 }
 
 /**

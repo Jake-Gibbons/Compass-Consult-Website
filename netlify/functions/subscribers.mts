@@ -54,7 +54,7 @@ export default async (req: Request, context: Context) => {
       }
 
       const subscriber = await createSubscriber(email);
-      return Response.json(subscriber, { status: 201 });
+      return Response.json({ message: "Subscribed", subscriber }, { status: 201 });
     }
 
     if (method === "PUT") {
@@ -70,11 +70,29 @@ export default async (req: Request, context: Context) => {
     }
 
     if (method === "DELETE") {
-      if (!id) {
-        return Response.json({ error: "ID query parameter is required" }, { status: 400 });
+      const email = url.searchParams.get("email")?.trim();
+
+      if (!id && !email) {
+        return Response.json({ error: "ID or email query parameter is required" }, { status: 400 });
       }
-      await deleteSubscriber(id);
-      return new Response(null, { status: 204 });
+
+      if (id) {
+        const subscriber = await getSubscriberById(id);
+        if (!subscriber) {
+          return Response.json({ error: "Subscriber not found" }, { status: 404 });
+        }
+
+        await deleteSubscriber(id);
+        return Response.json({ message: "Unsubscribed" });
+      }
+
+      const subscriber = await findSubscriberByEmail(email || "");
+      if (!subscriber) {
+        return Response.json({ error: "Subscriber not found" }, { status: 404 });
+      }
+
+      await deleteSubscriber(subscriber.id);
+      return Response.json({ message: "Unsubscribed" });
     }
 
     return Response.json({ error: "Method not allowed" }, { status: 405 });

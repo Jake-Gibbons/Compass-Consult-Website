@@ -1,184 +1,146 @@
-<!--
-  about.html — About Us page
-  Compass Consult (Employability & Skills) Ltd
-
-  Overview of Compass Consult's mission, values, and approach.
-  - Two-column layout: mission text + feature cards
-  - AOS fade-in animations on both columns
-
-  All interactive behaviour (menu toggling, animations, accessibility
-  enhancements, etc.) is handled by /js/main.20f13357.js which is loaded at
-  the bottom of the page.
--->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Compass Consult</title>
-    <meta name="description" content="Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.">
-    <meta name="theme-color" content="#ffffff">
-
-    <!-- SEO and Social Sharing -->
-    <meta property="og:title" content="About Us - Compass Consult">
-    <meta property="og:description" content="Learn about Compass Consult's mission to support organisations in the UK employability and skills sectors.">
-    <meta property="og:image" content="https://www.compassconsultes.co.uk/assets/logos/Logo.png">
-    <meta property="og:url" content="https://www.compassconsultes.co.uk/pages/about.html">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="About Us - Compass Consult">
-    <meta name="twitter:description" content="Learn about Compass Consult's mission to support organisations in the UK employability and skills sectors.">
-    <meta name="twitter:image" content="https://www.compassconsultes.co.uk/assets/logos/Logo.png">
-
-    <!-- Favicon and PWA web manifest -->
+    <title>404 - Page Not Found | Compass Consult</title>
+    <meta name="description" content="The page you requested could not be found. Return to Compass Consult's homepage or use the main site routes to continue.">
+    <meta name="robots" content="noindex">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon/favicon-16x16.png">
     <link rel="manifest" href="/assets/icons/favicon/site.webmanifest">
     <meta name="apple-mobile-web-app-title" content="Compass Consult">
-    <!-- Preload LCP image (logo) for faster paint -->
     <link rel="preload" href="/assets/logos/Logo.webp" as="image" type="image/webp">
-    <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"></noscript>
-    <!-- Pre-built Tailwind CSS (replaces CDN runtime — 47 KB vs 3 MB) -->
     <link rel="stylesheet" href="/css/tailwind.min.8fdd23c1.css">
-    <!-- Inline styles for page-specific utility classes and component overrides
-         that are not available through Tailwind's default configuration. -->
     <style>
         .glass-nav { background: rgba(255, 255, 255, 0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-        .reveal { opacity: 0; transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
-        .reveal-up { transform: translateY(40px); }
-        .reveal.active { opacity: 1; transform: translate(0) scale(1); }
-        .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
-        /* Site logo sizing */
+        .dots-bg { background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 30px 30px; }
         .site-logo { display: block; height: auto; max-height: 120px; }
         @media (max-width: 1024px) { .site-logo { max-height: 80px; } }
         @media (max-width: 640px) { .site-logo { max-height: 60px; } }
     </style>
-    <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
     <link rel="stylesheet" href="/css/main.8e20beda.css">
     <link rel="stylesheet" href="/css/aos.1aa8845f.css">
+    <link rel="stylesheet" href="/css/error-layout.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
-
-    <!-- ================================================================
-         Desktop Sidebar — visible on screens ≥ 1024 px (lg breakpoint)
-         Contains the site logo, primary navigation links, a Contact CTA,
-         and a dynamic copyright year.
-         ================================================================ -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <aside class="hidden lg:flex fixed top-0 left-0 h-full w-72 bg-white border-r border-gray-100 z-50 flex-col overflow-y-auto p-8 justify-between shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
         <div>
             <a href="/index.html" class="flex items-center gap-3 cursor-pointer group mb-12">
                 <div class="text-compass-purple transition-transform duration-700">
                     <img src="/assets/logos/Logo.webp" width="3231" height="1212" alt="Compass Consult" class="site-logo object-contain">
                 </div>
-                <div class="flex flex-col justify-center">
-                    <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
-                </div>
+                <div class="flex flex-col justify-center"><span class="sr-only">Compass Consult (Employability &amp; Skills) Ltd</span></div>
             </a>
             <nav class="space-y-2">
                 <a href="/index.html" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple"><i data-lucide="home" class="w-4 h-4 shrink-0"></i>Home</a>
-                <a href="/pages/about.html" class="nav-link active flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold transition-all hover:bg-gray-50 hover:text-compass-purple"><i data-lucide="info" class="w-4 h-4 shrink-0"></i>About us</a>
+                <a href="/pages/about.html" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple"><i data-lucide="info" class="w-4 h-4 shrink-0"></i>About us</a>
                 <a href="/pages/services.html" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple"><i data-lucide="briefcase-business" class="w-4 h-4 shrink-0"></i>Our Services</a>
                 <a href="/pages/team.html" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple"><i data-lucide="users" class="w-4 h-4 shrink-0"></i>Meet the Team</a>
                 <a href="/pages/partnerships.html" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple"><i data-lucide="handshake" class="w-4 h-4 shrink-0"></i>Partnerships</a>
                 <a href="/pages/resources.html" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple"><i data-lucide="folder-open" class="w-4 h-4 shrink-0"></i>Resource Library</a>
-                <a href="/pages/events.html" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple"><i data-lucide="newspaper" class="w-4 h-4 shrink-0"></i>Latest News & Events</a>
+                <a href="/pages/events.html" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple"><i data-lucide="newspaper" class="w-4 h-4 shrink-0"></i>Latest News &amp; Events</a>
                 <a href="/pages/work-for-us.html" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold transition-all text-gray-600 hover:bg-gray-50 hover:text-compass-purple"><i data-lucide="user-plus" class="w-4 h-4 shrink-0"></i>Work For Us</a>
             </nav>
         </div>
         <div>
             <a href="/pages/contact.html" class="group flex items-center justify-center w-full py-3 px-4 rounded-full bg-compass-purple text-white font-semibold hover:bg-compass-lightPurple shadow-lg hover:shadow-purple-200 transition-all transform hover:-translate-y-0.5 contact-button-animation">Contact Us <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1"></i></a>
-            <p class="text-xs text-center text-gray-400 mt-6">&copy; <span class="year-span"></span> Compass Consult (Employability & Skills) Ltd</p>
+            <p class="text-xs text-center text-gray-400 mt-6">&copy; <span class="year-span"></span> Compass Consult (Employability &amp; Skills) Ltd</p>
         </div>
     </aside>
-
-    <!-- ================================================================
-         Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
-         Shows the logo and a hamburger button that toggles #mobile-menu.
-         The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.20f13357.js.
-         ================================================================ -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
-             <a href="/index.html" class="flex items-center gap-2">
+            <a href="/index.html" class="flex items-center gap-2">
                 <img src="/assets/logos/Logo.webp" width="3231" height="1212" alt="Compass Consult" class="site-logo object-contain">
-                <div class="flex flex-col">
-                    <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
-                </div>
-             </a>
-             <button type="button" id="mobile-menu-btn" class="text-gray-600 p-2" aria-label="Toggle mobile menu"><i data-lucide="menu" class="w-6 h-6"></i></button>
+                <div class="flex flex-col"><span class="sr-only">Compass Consult (Employability &amp; Skills) Ltd</span></div>
+            </a>
+            <button type="button" id="mobile-menu-btn" class="text-gray-600 p-2" aria-label="Toggle mobile menu"><i data-lucide="menu" class="w-6 h-6"></i></button>
         </div>
         <div id="mobile-menu" class="hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
             <div class="px-4 py-4 space-y-2">
                 <a href="/index.html" class="flex items-center gap-2 py-2 px-3 text-gray-700"><i data-lucide="home" class="w-4 h-4 shrink-0"></i>Home</a>
-                <a href="/pages/about.html" class="flex items-center gap-2 py-2 px-3 text-compass-purple font-medium bg-purple-50 rounded-md"><i data-lucide="info" class="w-4 h-4 shrink-0"></i>About us</a>
+                <a href="/pages/about.html" class="flex items-center gap-2 py-2 px-3 text-gray-700"><i data-lucide="info" class="w-4 h-4 shrink-0"></i>About us</a>
                 <a href="/pages/services.html" class="flex items-center gap-2 py-2 px-3 text-gray-700"><i data-lucide="briefcase-business" class="w-4 h-4 shrink-0"></i>Our Services</a>
                 <a href="/pages/team.html" class="flex items-center gap-2 py-2 px-3 text-gray-700"><i data-lucide="users" class="w-4 h-4 shrink-0"></i>Meet the Team</a>
                 <a href="/pages/partnerships.html" class="flex items-center gap-2 py-2 px-3 text-gray-700"><i data-lucide="handshake" class="w-4 h-4 shrink-0"></i>Partnerships</a>
                 <a href="/pages/resources.html" class="flex items-center gap-2 py-2 px-3 text-gray-700"><i data-lucide="folder-open" class="w-4 h-4 shrink-0"></i>Resource Library</a>
-                <a href="/pages/events.html" class="flex items-center gap-2 py-2 px-3 text-gray-700"><i data-lucide="newspaper" class="w-4 h-4 shrink-0"></i>Latest News & Events</a>
+                <a href="/pages/events.html" class="flex items-center gap-2 py-2 px-3 text-gray-700"><i data-lucide="newspaper" class="w-4 h-4 shrink-0"></i>Latest News &amp; Events</a>
                 <a href="/pages/work-for-us.html" class="flex items-center gap-2 py-2 px-3 text-gray-700"><i data-lucide="user-plus" class="w-4 h-4 shrink-0"></i>Work For Us</a>
                 <a href="/pages/contact.html" class="flex items-center gap-2 py-2 px-3 text-compass-teal"><i data-lucide="mail" class="w-4 h-4 shrink-0"></i>Contact Us</a>
             </div>
         </div>
     </nav>
-
-    <!-- ================================================================
-         Main Content Area
-         On large screens, offset by the sidebar width (lg:ml-72 / 18 rem).
-         Contains all page sections and the footer.
-         ================================================================ -->
-    <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
+    <main id="main-content" class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
         <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center">
             <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
             <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
             <div class="relative z-10 px-4 sm:px-6 lg:px-8 pt-12 lg:pt-0" data-aos="fade-up">
-                <h1 class="text-4xl font-bold text-white">About Us</h1>
-                <p class="mt-4 text-white/85">Navigating the Sector with Confidence</p>
+                <span class="inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-white/85">Error 404</span>
+                <h1 class="mt-6 text-4xl font-bold text-white lg:text-5xl">Page Not Found</h1>
+                <p class="mt-4 max-w-2xl mx-auto text-white/85 text-lg">The page you requested could not be found. Use the main navigation, the recovery links below, or contact the team if you expected something specific here.</p>
             </div>
         </header>
-
         <section class="py-20 bg-white flex-grow">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid md:grid-cols-2 gap-16 items-center">
-                    <div data-aos="fade-right">
-                         <span class="text-compass-purple font-semibold tracking-wider uppercase text-sm mb-2 block">Why Compass?</span>
-                         <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
-                         <div class="h-1.5 w-20 bg-gradient-to-r from-compass-purple to-compass-teal rounded-full mb-8"></div>
-                         <p class="text-lg text-gray-600 mb-6">Compass Consult exists to support private, public, and third-sector organisations to ‘find their way’ within the UK employability and skills sectors.</p>
-                         <p class="text-lg text-gray-600 mb-6">We understand the pressures of delivery, funding compliance, stakeholder scrutiny and performance outcomes -- <span class="font-bold text-compass-purple">because we’ve worked at every level of the system.</span></p>
-                         <p class="text-lg text-gray-600 font-medium">We don’t just advise. We work alongside you to implement solutions that deliver measurable impact for UK citizens.</p>
+                <div class="error-shell-grid">
+                    <div class="error-primary-card" data-aos="fade-right">
+                        <div class="error-status-row">
+                            <span class="error-chip error-chip-primary">Missing page</span>
+                            <span class="error-chip error-chip-secondary">Recovery available</span>
+                        </div>
+                        <div class="error-code-lockup">
+                            <div>
+                                <p class="error-code">404</p>
+                                <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mt-4">We can point you back in the right direction.</h2>
+                            </div>
+                            <div class="error-icon-badge error-icon-purple"><i data-lucide="info"></i></div>
+                        </div>
+                        <p class="error-lead">This usually happens because a link is out of date, a page has moved, or the address was entered incorrectly.</p>
+                        <div class="error-action-row">
+                            <a href="/index.html" class="error-button error-button-primary">Return Home <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                            <a href="/pages/sitemap.html" class="error-button error-button-secondary">Open Sitemap</a>
+                            <a href="/pages/contact.html" class="error-button error-button-secondary">Contact Us</a>
+                        </div>
+                        <div class="error-stat-grid">
+                            <div class="error-stat-card"><h3>Likely Cause</h3><p>An outdated link, typo, or moved page.</p></div>
+                            <div class="error-stat-card"><h3>Best Recovery</h3><p>Jump back to the homepage or sitemap and continue from a live route.</p></div>
+                            <div class="error-stat-card"><h3>Direct Help</h3><p>Email the team if you expected a specific page to exist.</p></div>
+                        </div>
                     </div>
-                    
-                    <div class="grid gap-6" data-aos="fade-left" data-aos-delay="100">
-                        <div class="group p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-purple-100 hover:shadow-xl transition-all duration-300">
-                            <div class="flex items-start gap-4">
-                                <div class="w-10 h-10 rounded-lg bg-purple-100 text-compass-purple flex items-center justify-center flex-shrink-0"><img src="/assets/logos/Logo.webp" width="3231" height="1212" alt="Compass" class="w-full h-full object-contain p-1"></div>
-                                <div><h3 class="font-bold text-gray-900 text-lg mb-1">Strategic Expertise</h3><p class="text-gray-600 text-sm">Whether launching a new programme or strengthening governance, we provide clear direction.</p></div>
-                            </div>
+                    <div class="error-card-grid" data-aos="fade-left" data-aos-delay="100">
+                        <div class="error-secondary-card">
+                            <h2 class="error-panel-title">Where To Go Next</h2>
+                            <p class="error-panel-copy">These sections are the quickest way back into the main website experience.</p>
+                            <ul class="error-list">
+                                <li><span class="error-list-marker">1</span><span>Use the sitemap for a full list of live pages and sections.</span></li>
+                                <li><span class="error-list-marker">2</span><span>Open our services if you are looking for support areas and offers.</span></li>
+                                <li><span class="error-list-marker">3</span><span>Contact Compass Consult if you need help locating something specific.</span></li>
+                            </ul>
                         </div>
-                        <div class="group p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-teal-100 hover:shadow-xl transition-all duration-300">
-                            <div class="flex items-start gap-4">
-                                <div class="w-10 h-10 rounded-lg bg-teal-100 text-compass-teal flex items-center justify-center flex-shrink-0"><i data-lucide="hammer" class="w-5 h-5"></i></div>
-                                <div><h3 class="font-bold text-gray-900 text-lg mb-1">Practical Delivery</h3><p class="text-gray-600 text-sm">Hands-on support for mobilisation, bid management, and operational excellence.</p></div>
-                            </div>
-                        </div>
-                        <div class="group p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-indigo-100 hover:shadow-xl transition-all duration-300">
-                            <div class="flex items-start gap-4">
-                                <div class="w-10 h-10 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center flex-shrink-0"><i data-lucide="lightbulb" class="w-5 h-5"></i></div>
-                                <div><h3 class="font-bold text-gray-900 text-lg mb-1">Innovative Thinking</h3><p class="text-gray-600 text-sm">Helping organisations transform and evolve to meet new challenges.</p></div>
-                            </div>
+                        <div class="error-secondary-card">
+                            <h2 class="error-panel-title">Need A Human Answer?</h2>
+                            <p class="error-panel-copy">If you followed a bookmarked or external link, send the URL to the team and they can point you to the correct destination.</p>
+                            <ul class="error-list">
+                                <li><span class="error-list-marker">@</span><span><a href="mailto:enquiries@compassconsultes.co.uk" class="text-compass-purple font-semibold hover:text-compass-lightPurple">enquiries@compassconsultes.co.uk</a></span></li>
+                                <li><span class="error-list-marker">T</span><span><a href="tel:+447936327832" class="text-compass-purple font-semibold hover:text-compass-lightPurple">07936 327832</a></span></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+                <div class="mt-10 error-link-grid" data-aos="fade-up" data-aos-delay="150">
+                    <a href="/pages/services.html" class="error-link-card"><span>Services</span><h3>Explore Our Services</h3><p>See how Compass Consult supports delivery, mobilisation, governance, and growth.</p></a>
+                    <a href="/pages/resources.html" class="error-link-card"><span>Resources</span><h3>Browse The Resource Library</h3><p>Open the latest documents, downloads, and supporting materials from the site.</p></a>
+                    <a href="/pages/about.html" class="error-link-card"><span>About</span><h3>Read About Compass Consult</h3><p>Review the mission, sector experience, and practical delivery approach behind the team.</p></a>
+                </div>
             </div>
         </section>
-
-        <!-- Footer -->
         <footer class="bg-gray-900 text-white pt-16 pb-8 border-t border-gray-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid md:grid-cols-4 gap-12 mb-12">
@@ -186,7 +148,7 @@
                         <div class="mb-6">
                             <div class="flex items-center gap-2">
                                 <img src="/assets/logos/Logo.webp" width="3231" height="1212" alt="Compass Consult" class="site-logo object-contain">
-                                <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
+                                <span class="sr-only">Compass Consult (Employability &amp; Skills) Ltd</span>
                             </div>
                         </div>
                         <p class="text-gray-400 max-w-sm mb-6">
@@ -201,7 +163,6 @@
                             </a>
                         </div>
                     </div>
-                    
                     <div>
                         <h3 class="text-lg font-bold mb-6 text-compass-teal">Quick Links</h3>
                         <ul class="space-y-4">
@@ -211,13 +172,11 @@
                             <li><a href="/pages/team.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Meet the Team</a></li>
                             <li><a href="/pages/partnerships.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Partnerships</a></li>
                             <li><a href="/pages/resources.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Resource Library</a></li>
-                            <li><a href="/pages/events.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Latest News & Events</a></li>
+                            <li><a href="/pages/events.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Latest News &amp; Events</a></li>
                             <li><a href="/pages/work-for-us.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Work For Us</a></li>
                             <li><a href="/pages/contact.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Contact Us</a></li>
                         </ul>
                     </div>
-
-
                     <div>
                         <h3 class="text-lg font-bold mb-6 text-compass-teal">Legal</h3>
                         <ul class="space-y-4 mb-8">
@@ -227,19 +186,17 @@
                             <li><a href="/pages/company-information.html" class="text-gray-400 hover:text-white transition-colors">Company Information</a></li>
                             <li><a href="/pages/sitemap.html" class="text-gray-400 hover:text-white transition-colors">Sitemap</a></li>
                         </ul>
-                        
                         <h3 class="text-lg font-bold mb-4 text-compass-teal">Newsletter</h3>
-                                                <form name="newsletter-subscribe" method="POST" data-netlify="true" netlify data-netlify-honeypot="bot-field" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
+                        <form name="newsletter-subscribe" method="POST" data-netlify="true" netlify data-netlify-honeypot="bot-field" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
                             <input type="hidden" name="form-name" value="newsletter-subscribe" />
                             <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
                             <input type="email" name="email" placeholder="Enter your email" required class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-compass-teal focus:border-compass-teal block w-full flex-1 min-w-0 p-2.5 placeholder-gray-400" />
                             <button type="submit" class="bg-compass-teal hover:bg-compass-lightTeal text-white text-sm font-semibold rounded-lg px-4 py-2.5 transition-colors w-auto md:w-full flex-shrink-0">Subscribe</button>
-</form>
+                        </form>
                     </div>
                 </div>
-                
                 <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-                    <p>&copy; <span class="year-span"></span> Compass Consult (Employability & Skills) Ltd. All rights reserved.</p>
+                    <p>&copy; <span class="year-span"></span> Compass Consult (Employability &amp; Skills) Ltd. All rights reserved.</p>
                     <div class="mt-4 md:mt-0 flex items-center gap-2">
                         <a href="https://www.linkedin.com/in/jakegibbons-1994/overlay/contact-info/" target="_blank" rel="noopener noreferrer" class="hover:text-compass-teal transition-colors">Website created by Zenith IT.</a>
                     </div>
@@ -247,12 +204,8 @@
             </div>
         </footer>
     </main>
-    <!-- Page scripts — loaded at the bottom to avoid blocking render -->
-    <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
     <script src="/js/aos.min.a5005b2e.js"></script>
     <script defer src="/js/lucide.min.76b5abb0.js"></script>
     <script defer src="/js/main.20f13357.js?v=20260406c"></script>
 </body>
 </html>
-
-

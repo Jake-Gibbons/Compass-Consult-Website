@@ -1,0 +1,323 @@
+.error-shell-grid {
+    display: grid;
+    gap: 2rem;
+}
+
+.error-primary-card,
+.error-secondary-card,
+.error-link-card,
+.error-stat-card {
+    border-radius: 1.5rem;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    box-shadow: 0 18px 60px rgba(15, 23, 42, 0.06);
+}
+
+.error-primary-card {
+    padding: 2rem;
+}
+
+.error-secondary-card {
+    padding: 1.5rem;
+}
+
+.error-card-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.error-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.error-code-lockup {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.error-code {
+    margin: 0;
+    color: #111827;
+    font-size: clamp(4rem, 9vw, 6.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    font-weight: 800;
+}
+
+.error-chip {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.45rem 0.95rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.error-chip-primary {
+    background: rgba(72, 48, 134, 0.1);
+    color: #483086;
+}
+
+.error-chip-secondary {
+    background: rgba(45, 168, 180, 0.1);
+    color: #2da8b4;
+}
+
+.error-chip-warm {
+    background: rgba(234, 88, 12, 0.1);
+    color: #c2410c;
+}
+
+.error-chip-cool {
+    background: rgba(59, 130, 246, 0.1);
+    color: #1d4ed8;
+}
+
+.error-icon-badge {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.error-icon-badge svg,
+.error-icon-badge i {
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+.error-icon-purple {
+    background: linear-gradient(135deg, #483086 0%, #6a4eb8 100%);
+    color: #ffffff;
+}
+
+.error-icon-teal {
+    background: linear-gradient(135deg, #2da8b4 0%, #4fd3e0 100%);
+    color: #ffffff;
+}
+
+.error-icon-orange {
+    background: linear-gradient(135deg, #ea580c 0%, #fb923c 100%);
+    color: #ffffff;
+}
+
+.error-icon-blue {
+    background: linear-gradient(135deg, #2563eb 0%, #38bdf8 100%);
+    color: #ffffff;
+}
+
+.error-lead {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #4b5563;
+}
+
+.error-body-copy {
+    color: #6b7280;
+    line-height: 1.8;
+}
+
+.error-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.error-stat-card {
+    padding: 1rem;
+}
+
+.error-stat-card h3 {
+    margin: 0 0 0.45rem;
+    color: #111827;
+    font-size: 0.95rem;
+}
+
+.error-stat-card p {
+    margin: 0;
+    color: #6b7280;
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.error-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.error-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding: 0.8rem 1.25rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.error-button:hover,
+.error-button:focus-visible,
+.error-link-card:hover,
+.error-link-card:focus-visible {
+    transform: translateY(-2px);
+}
+
+.error-button-primary {
+    background: #483086;
+    color: #ffffff;
+    box-shadow: 0 16px 34px rgba(72, 48, 134, 0.18);
+}
+
+.error-button-primary:hover,
+.error-button-primary:focus-visible {
+    background: #6a4eb8;
+}
+
+.error-button-secondary {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    color: #111827;
+}
+
+.error-button-secondary:hover,
+.error-button-secondary:focus-visible {
+    border-color: #483086;
+    color: #483086;
+}
+
+.error-panel-title {
+    margin: 0 0 0.75rem;
+    color: #111827;
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+.error-panel-copy {
+    margin: 0;
+    color: #6b7280;
+    line-height: 1.8;
+}
+
+.error-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: grid;
+    gap: 0.85rem;
+}
+
+.error-list li {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    color: #4b5563;
+    line-height: 1.7;
+}
+
+.error-list-marker {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 999px;
+    background: rgba(72, 48, 134, 0.1);
+    color: #483086;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.error-link-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.error-link-card {
+    display: block;
+    padding: 1.25rem;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.error-link-card:hover,
+.error-link-card:focus-visible {
+    border-color: #c4b5fd;
+    box-shadow: 0 22px 60px rgba(72, 48, 134, 0.08);
+}
+
+.error-link-card span {
+    display: inline-flex;
+    margin-bottom: 0.75rem;
+    border-radius: 999px;
+    padding: 0.35rem 0.7rem;
+    background: rgba(72, 48, 134, 0.08);
+    color: #483086;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.error-link-card h3 {
+    margin: 0 0 0.5rem;
+    color: #111827;
+    font-size: 1.1rem;
+}
+
+.error-link-card p {
+    margin: 0;
+    color: #6b7280;
+    line-height: 1.7;
+}
+
+@media (min-width: 1024px) {
+    .error-shell-grid {
+        grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+        align-items: start;
+    }
+}
+
+@media (max-width: 1023px) {
+    .error-primary-card {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .error-stat-grid,
+    .error-link-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .error-code-lockup {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .error-status-row {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
