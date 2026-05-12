@@ -80,6 +80,7 @@ function buildResourceEntry(id, filename) {
     `                desc: "${meta.desc}",\n` +
     '                icon: "file-text",\n' +
     `                color: "${meta.color}",\n` +
+    '                isNew: true,\n' +
     `                url: "/assets/downloads/docs/${filename.replace(/"/g, '\\"')}"\n` +
     '            }';
 }
@@ -230,15 +231,26 @@ async function syncResources() {
     newEntries.push(buildResourceEntry(maxId, filename));
   }
 
-  let updatedResourcesContent = resourcesContent;
+  // Strip all existing isNew flags, then stamp only the newly added entries.
+  let updatedResourcesContent = resourcesContent.replace(/,?\s*isNew:\s*true,?/g, (match) => {
+    // Preserve surrounding comma structure: if it was ", isNew: true," collapse to single ","
+    return match.startsWith(',') && match.endsWith(',') ? ',' : '';
+  });
+
   if (newEntries.length > 0) {
-    const insertionPoint = resourcesMatch[0];
-    const originalBody = resourcesMatch.groups.body;
+    const refreshedMatch = updatedResourcesContent.match(/const resources = \[(?<body>[\s\S]*?)\n\s*\];/);
+    if (!refreshedMatch || !refreshedMatch.groups) {
+      throw new Error('Could not find resources array after stripping isNew flags');
+    }
+    const insertionPoint = refreshedMatch[0];
+    const originalBody = refreshedMatch.groups.body;
     const trimmedBody = originalBody.trimEnd();
     const nextBody = `${trimmedBody},\n${newEntries.join(',\n')}`;
     const nextArray = insertionPoint.replace(originalBody, nextBody);
+    updatedResourcesContent = updatedResourcesContent.replace(insertionPoint, nextArray);
+  }
 
-    updatedResourcesContent = resourcesContent.replace(insertionPoint, nextArray);
+  if (newEntries.length > 0 || resourcesContent !== updatedResourcesContent) {
     await fs.writeFile(resourcesPage, updatedResourcesContent, 'utf8');
   }
 

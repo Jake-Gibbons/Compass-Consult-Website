@@ -190,6 +190,21 @@
             box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
         }
 
+        .resource-badge-new {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.2rem 0.55rem;
+            border-radius: 0.25rem;
+            background: #16a34a;
+            color: #ffffff;
+            font-size: 0.6rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(22, 163, 74, 0.35);
+        }
+
         .resource-card__header-row {
             display: flex;
             align-items: center;
@@ -829,6 +844,50 @@
                 icon: "file-text",
                 color: "indigo",
                 url: "/assets/downloads/docs/Jon Smith Youth Unemployment Blog Feb 2026.pdf"
+            },
+            {
+                id: 21,
+                title: "Education Policy Factsheet (April 2026)",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "April 2026 update covering the latest education policy developments and implications for employability and skills delivery.",
+                icon: "file-text",
+                color: "purple",
+                url: "/assets/downloads/docs/CCES Education Policy Factsheet April 2026.pdf"
+            },
+            {
+                id: 22,
+                title: "Jobs Guarantee Phase One (April 2026)",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Phase One factsheet for the Jobs Guarantee initiative, outlining eligibility, targets and early delivery priorities.",
+                icon: "file-text",
+                color: "purple",
+                url: "/assets/downloads/docs/CCES Jobs Guarantee Phase One April 26.pdf"
+            },
+            {
+                id: 23,
+                title: "Jon Smith — Thought Leadership Blog (April 2026)",
+                category: "Blogs",
+                type: "PDF",
+                size: "PDF",
+                desc: "Jon Smith's April 2026 thought leadership piece exploring strategic priorities shaping the employability and skills landscape.",
+                icon: "file-text",
+                color: "indigo",
+                url: "/assets/downloads/docs/Jon Smith Thought Leadership Blog April 2026.pdf"
+            },
+            {
+                id: 24,
+                title: "Jon Smith — Volunteering Blog (April 2026)",
+                category: "Blogs",
+                type: "PDF",
+                size: "PDF",
+                desc: "Jon Smith's April 2026 blog examining the role of volunteering in supporting employability outcomes and community resilience.",
+                icon: "file-text",
+                color: "indigo",
+                url: "/assets/downloads/docs/Jon Smith Volunteering Blog April 2026.pdf"
             }
         ];
 
@@ -877,6 +936,7 @@
                             <div class="resource-card__header-row">
                                 <span class="resource-card__category-pill">${item.category}</span>
                                 <span class="resource-card__type-pill">${item.type}</span>
+                                ${item.isNew ? '<span class="resource-badge-new">New</span>' : ''}
                             </div>
                             <h3 class="text-sm font-bold text-gray-900 leading-tight group-hover:text-compass-purple transition-colors line-clamp-2">${item.title}</h3>
                         </div>
@@ -895,7 +955,10 @@
                     <img src="${previewUrl}" alt="${item.title} preview" class="w-full h-full object-contain bg-white" loading="lazy" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
                     <i data-lucide="${item.icon}" class="hidden w-12 h-12 ${textClass} opacity-80 transform group-hover:scale-110 transition-transform duration-300"></i>
                     <div class="absolute z-20 top-4 right-4 text-xs bg-gray-900 text-white px-2.5 py-1 rounded-md font-bold shadow-lg uppercase tracking-wide border border-white/20">${item.type}</div>
-                    <div class="absolute z-20 bottom-4 left-4 text-xs bg-compass-purple text-white px-2.5 py-1 rounded-md font-semibold shadow-lg border border-white/20">${item.category}</div>
+                    <div class="absolute z-20 bottom-4 left-4 flex items-center gap-2">
+                        <span class="text-xs bg-compass-purple text-white px-2.5 py-1 rounded-md font-semibold shadow-lg border border-white/20">${item.category}</span>
+                        ${item.isNew ? '<span class="resource-badge-new">New</span>' : ''}
+                    </div>
                 </div>
                 <div class="p-6 flex-grow flex flex-col">
                     <h3 class="text-lg mb-2 font-bold text-gray-900 leading-tight group-hover:text-compass-purple transition-colors">${item.title}</h3>
@@ -925,6 +988,7 @@
                         <div class="resource-card__header-row">
                             <span class="resource-card__category-pill">${item.category}</span>
                             <span class="resource-card__type-pill">${item.type}</span>
+                            ${item.isNew ? '<span class="resource-badge-new">New</span>' : ''}
                         </div>
                         <p class="text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-sky-600 mb-1">Strategic document</p>
                         <h3 class="text-sm font-bold text-slate-900 leading-tight line-clamp-2 group-hover:text-compass-purple transition-colors">${item.title}</h3>
@@ -943,7 +1007,10 @@
                     <img src="${previewUrl}" alt="${item.title} preview" class="w-full h-full object-contain bg-white" loading="lazy" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');" />
                     <i data-lucide="${item.icon}" class="hidden w-12 h-12 ${textClass} opacity-80"></i>
                     <div class="absolute top-4 left-4 resource-card__eyebrow">SLAMM</div>
-                    <div class="absolute top-4 right-4 text-xs bg-white/90 text-slate-900 px-2.5 py-1 rounded-full font-bold shadow-sm border border-slate-200">${item.type}</div>
+                    <div class="absolute top-4 right-4 flex items-center gap-2">
+                        ${item.isNew ? '<span class="resource-badge-new" style="border-radius:9999px">New</span>' : ''}
+                        <span class="text-xs bg-white/90 text-slate-900 px-2.5 py-1 rounded-full font-bold shadow-sm border border-slate-200">${item.type}</span>
+                    </div>
                 </div>
                 <div class="p-6 flex-grow flex flex-col">
                     <div class="flex items-start justify-between gap-3 mb-3">
