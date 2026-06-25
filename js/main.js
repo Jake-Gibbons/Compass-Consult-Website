@@ -1641,6 +1641,37 @@ function getMotionTone(element) {
  *  3. Fills in `aria-label` and `title` for any icon-only internal link that
  *     has an SVG/icon but no text content.
  */
+
+/**
+ * Returns the normalised hostname for a link href when it can be parsed.
+ *
+ * @param {string} href
+ * @returns {string}
+ */
+function getLinkHostname(href) {
+  if (!href || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('#')) {
+    return '';
+  }
+
+  try {
+    return new URL(href, window.location.origin).hostname.toLowerCase();
+  } catch {
+    return '';
+  }
+}
+
+/**
+ * Returns true when a hostname matches an expected domain exactly or via a
+ * subdomain.
+ *
+ * @param {string} hostname
+ * @param {string} domain
+ * @returns {boolean}
+ */
+function hostnameMatches(hostname, domain) {
+  return hostname === domain || hostname.endsWith(`.${domain}`);
+}
+
 function enhanceExternalLinks() {
   const externalLinks = document.querySelectorAll('a[target="_blank"]');
 
@@ -1654,13 +1685,14 @@ function enhanceExternalLinks() {
     // Add a descriptive label if the link contains no visible text
     if (!link.getAttribute('aria-label') && !link.textContent.trim()) {
       const href = link.getAttribute('href') || '';
+      const hostname = getLinkHostname(href);
       let label = 'External link';
 
       if (href.startsWith('mailto:')) {
         label = 'Email link';
-      } else if (href.includes('linkedin.com')) {
+      } else if (hostnameMatches(hostname, 'linkedin.com')) {
         label = 'LinkedIn profile';
-      } else if (href.includes('facebook.com')) {
+      } else if (hostnameMatches(hostname, 'facebook.com')) {
         label = 'Facebook profile';
       }
 
@@ -1691,13 +1723,14 @@ function enhanceExternalLinks() {
 
     // Derive a label from the href destination
     const href = link.getAttribute('href') || '';
+    const hostname = getLinkHostname(href);
     let label = 'Link';
 
-    if (href.includes('linkedin.com')) {
+    if (hostnameMatches(hostname, 'linkedin.com')) {
       label = 'LinkedIn';
-    } else if (href.includes('facebook.com')) {
+    } else if (hostnameMatches(hostname, 'facebook.com')) {
       label = 'Facebook';
-    } else if (href.includes('x.com') || href.includes('twitter.com')) {
+    } else if (hostnameMatches(hostname, 'x.com') || hostnameMatches(hostname, 'twitter.com')) {
       label = 'X profile';
     } else if (href.startsWith('mailto:')) {
       label = 'Email';
