@@ -88,7 +88,11 @@ function contact_wants_json(): bool
 
 function contact_reject_cross_site_requests(): void
 {
-    $currentHost = strtolower($_SERVER['HTTP_HOST'] ?? '');
+    [$currentHost, $currentPort] = contact_current_origin();
+    if ($currentHost === '') {
+        return;
+    }
+
     foreach (['HTTP_ORIGIN', 'HTTP_REFERER'] as $header) {
         $value = $_SERVER[$header] ?? '';
         if ($value === '') {
@@ -96,10 +100,48 @@ function contact_reject_cross_site_requests(): void
         }
 
         $parsedHost = strtolower((string) parse_url($value, PHP_URL_HOST));
-        if ($parsedHost !== '' && $parsedHost !== $currentHost) {
+        if ($parsedHost === '') {
+            continue;
+        }
+
+        $parsedPort = contact_port_for_url($value);
+        if ($parsedHost !== $currentHost || $parsedPort !== $currentPort) {
             contact_error_response(403, 'Cross-site form submissions are not allowed.', contact_wants_json());
         }
     }
+}
+
+function contact_current_origin(): array
+{
+    $hostHeader = strtolower((string) ($_SERVER['HTTP_HOST'] ?? ''));
+    if ($hostHeader === '') {
+        return ['', contact_default_port()];
+    }
+
+    $host = strtolower((string) parse_url('http://' . $hostHeader, PHP_URL_HOST));
+    $port = (int) parse_url('http://' . $hostHeader, PHP_URL_PORT);
+    if ($port === 0) {
+        $port = contact_default_port();
+    }
+
+    return [$host, $port];
+}
+
+function contact_default_port(): int
+{
+    $https = strtolower((string) ($_SERVER['HTTPS'] ?? ''));
+    return ($https !== '' && $https !== 'off') ? 443 : 80;
+}
+
+function contact_port_for_url(string $url): int
+{
+    $port = (int) parse_url($url, PHP_URL_PORT);
+    if ($port !== 0) {
+        return $port;
+    }
+
+    $scheme = strtolower((string) parse_url($url, PHP_URL_SCHEME));
+    return $scheme === 'https' ? 443 : 80;
 }
 
 function contact_clean_header_value(string $value): string
@@ -137,8 +179,43 @@ function contact_json_response(int $status, array $payload): void
 function contact_redirect(string $key, string $value): void
 {
     $fallback = '/pages/contact.html';
-    $target = $_SERVER['HTTP_REFERER'] ?? $fallback;
+    $target = contact_safe_redirect_target($fallback);
     $separator = str_contains($target, '?') ? '&' : '?';
     header('Location: ' . $target . $separator . rawurlencode($key) . '=' . rawurlencode($value), true, 303);
     exit;
+}
+
+function contact_safe_redirect_target(string $fallback): string
+{
+    $referer = (string) ($_SERVER['HTTP_REFERER'] ?? '');
+    if ($referer === '' || strpbrk($referer, "\r\n") !== false) {
+        return $fallback;
+    }
+
+    $parts = parse_url($referer);
+    if ($parts === false) {
+        return $fallback;
+    }
+
+    [$currentHost, $currentPort] = contact_current_origin();
+    $refererHost = strtolower((string) ($parts['host'] ?? ''));
+    if ($refererHost === '' || $refererHost !== $currentHost) {
+        return $fallback;
+    }
+
+    $refererPort = isset($parts['port'])
+        ? (int) $parts['port']
+        : ((strtolower((string) ($parts['scheme'] ?? '')) === 'https') ? 443 : 80);
+
+    if ($refererPort !== $currentPort) {
+        return $fallback;
+    }
+
+    $path = (string) ($parts['path'] ?? '');
+    if ($path === '' || !str_starts_with($path, '/')) {
+        return $fallback;
+    }
+
+    $query = isset($parts['query']) ? '?' . $parts['query'] : '';
+    return $path . $query;
 }

@@ -74,6 +74,16 @@ async function getVersionedContent(relPath, sourceContent) {
     return Buffer.from(result.code);
   }
 
+  if (relPath === 'js/aos.min.js') {
+    const result = await transform(sourceContent.toString('utf8'), {
+      loader: 'js',
+      minify: true,
+      target: 'es2018',
+      legalComments: 'none',
+    });
+    return Buffer.from(result.code);
+  }
+
   return sourceContent;
 }
 

@@ -18,6 +18,7 @@ Compass-Consult-Website/
 ├── eslint.config.mjs                 # ESLint flat config for JS linting
 ├── .htaccess                         # Apache rewrites, security headers, and cache rules
 ├── package.json                      # npm scripts, dependencies, and project metadata
+├── package-lock.json                 # Locked dependency tree for reproducible npm installs
 ├── README.md                         # Project overview and quick-start guide
 ├── CONTRIBUTING.md                   # Contribution guidelines
 ├── STRUCTURE.md                      # This file — detailed folder/file reference
