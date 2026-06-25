@@ -76,9 +76,9 @@ An array of team member objects for the team page.
 
 ## Related
 
-- The **Netlify subscriber function** (`netlify/functions/subscribers.mts`)
-  persists newsletter subscriber data to Netlify Blobs — it does **not**
-  use the JSON files in this folder.
+- The **newsletter subscriber handler** (`api/subscribers.php`) persists
+  newsletter subscriber data to protected runtime storage under `storage/` —
+  it does **not** use the JSON files in this folder.
 - For build scripts that consume these files, see `scripts/` and
   [`docs/DEVELOPMENT.md`](../docs/DEVELOPMENT.md).
 

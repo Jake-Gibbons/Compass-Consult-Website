@@ -16,9 +16,8 @@ Compass-Consult-Website/
 ├── assets-manifest.json              # Maps original asset names to versioned names
 ├── tailwind.config.js                # Tailwind CSS configuration and brand tokens
 ├── eslint.config.mjs                 # ESLint flat config for JS linting
-├── netlify.toml                      # Netlify build settings, headers, and functions
+├── .htaccess                         # Apache rewrites, security headers, and cache rules
 ├── package.json                      # npm scripts, dependencies, and project metadata
-├── package-lock.json                 # Dependency lock file
 ├── README.md                         # Project overview and quick-start guide
 ├── CONTRIBUTING.md                   # Contribution guidelines
 ├── STRUCTURE.md                      # This file — detailed folder/file reference
@@ -135,14 +134,25 @@ See [`data/README.md`](data/README.md) for the complete field-by-field schema.
 
 ---
 
-## `netlify/`
+## `api/`
 
-Netlify platform integration files.
+PHP handlers for form processing on IONOS hosting.
 
 | Path | Description |
 |---|---|
-| `functions/subscribers.mts` | TypeScript serverless function that handles newsletter subscription requests and persists subscriber data to Netlify Blobs |
-| `lib/data.ts` | Shared data-access utilities used by the serverless functions |
+| `contact.php` | Receives contact enquiries and sends them to the business inbox |
+| `subscribers.php` | Handles newsletter subscribe/unsubscribe requests and updates protected runtime storage |
+
+---
+
+## `storage/`
+
+Protected runtime storage used by the PHP handlers.
+
+| Path | Description |
+|---|---|
+| `.gitkeep` | Keeps the folder in version control without committing live subscriber data |
+| `.htaccess` | Blocks direct public access to runtime storage files |
 
 ---
 
@@ -170,7 +180,7 @@ Internal documentation for developers and maintainers.
 | File | Description |
 |---|---|
 | `DEVELOPMENT.md` | Local development setup, npm scripts, coding standards, common tasks, and troubleshooting |
-| `DEPLOYMENT.md` | Deployment procedures, Netlify configuration, GitHub Actions workflows, environment variables, and rollback steps |
+| `DEPLOYMENT.md` | Deployment procedures for IONOS hosting, GitHub Actions workflows, environment variables, and rollback steps |
 
 ---
 
@@ -202,5 +212,5 @@ enforce quality gates locally.
 |---|---|
 | `tailwind.config.js` | Tailwind CSS content paths, brand colour tokens, custom animations (`float`, `blob`, `infinite-scroll`), typography plugin, and safelist |
 | `eslint.config.mjs` | ESLint flat config targeting `js/**/*.js` |
-| `netlify.toml` | Netlify publish directory (`.`), build command, functions directory, cache headers per asset type, and security headers |
+| `.htaccess` | Apache HTTPS rewrites, clean URLs, PHP endpoint routing, cache headers, and security headers |
 | `package.json` | Project metadata, npm scripts, dev/production dependencies, Node engine constraint (`≥ 16`), and `browserslist` |
