@@ -32,6 +32,7 @@ function isExternalUrl(value) {
     value.startsWith("mailto:") ||
     value.startsWith("tel:") ||
     value.startsWith("data:") ||
+    value.startsWith("about:") ||
     value.startsWith("javascript:") ||
     value.startsWith("//")
   );

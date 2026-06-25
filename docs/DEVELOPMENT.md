@@ -9,7 +9,7 @@
 5. [Development Workflow](#development-workflow)
 6. [Coding Standards](#coding-standards)
 7. [Common Tasks](#common-tasks)
-8. [Netlify Functions](#netlify-functions)
+8. [PHP Form Handlers](#php-form-handlers)
 9. [Performance Tips](#performance-tips)
 10. [SEO Best Practices](#seo-best-practices)
 11. [Testing & Linting](#testing--linting)
@@ -168,7 +168,8 @@ npm run build
 │   └── aos.min.[hash].js             # AOS bundle
 ├── assets/                           # Images, logos, icons, downloads
 ├── data/                             # JSON content files
-├── netlify/                          # Netlify Functions and utilities
+├── api/                              # PHP form handlers
+├── storage/                          # Protected runtime JSON storage
 ├── scripts/                          # Build and utility scripts
 └── docs/                             # Documentation
 ```
@@ -347,26 +348,20 @@ into `assets/icons/favicon/`.
 
 ---
 
-## Netlify Functions
+## PHP Form Handlers
 
-The `netlify/functions/` directory contains TypeScript serverless functions
-deployed automatically by Netlify.
+The `api/` directory contains the PHP handlers used by IONOS hosting.
 
-### `subscribers.mts`
+### `contact.php`
 
-Handles newsletter subscription requests. Subscriber records are persisted
-to **Netlify Blobs** (edge-native key-value storage).
+Accepts contact form submissions and sends them to the configured business
+inbox using PHP mail.
 
-To develop functions locally, install the [Netlify CLI](https://docs.netlify.com/cli/get-started/):
+### `subscribers.php`
 
-```bash
-npm install -g netlify-cli
-netlify dev
-# → http://localhost:8888 (proxies functions alongside the static site)
-```
-
-Function logs are available in the Netlify dashboard under
-**Functions → subscribers → Logs**.
+Accepts newsletter subscribe and unsubscribe requests and stores subscriber
+records in `storage/newsletter-subscribers.json`. Keep the `storage/`
+directory writable by PHP and protected from public access.
 
 ---
 
@@ -475,11 +470,11 @@ npm run check
 - Verify the file was committed to the repository.
 - Check the file size — very large images may time out on slow connections.
 
-### Netlify Functions not working
+### PHP form handlers not working
 
-- Run `netlify dev` locally and check the terminal for function errors.
-- Confirm `NETLIFY_BLOBS_*` environment variables are set in the Netlify
-  dashboard under **Site Settings → Environment Variables**.
+- Confirm the site is running under a PHP-capable server (IONOS or equivalent).
+- Confirm `api/contact.php` and `api/subscribers.php` are deployed.
+- Confirm `storage/` is writable and `storage/.htaccess` is present.
 
 ---
 
@@ -488,8 +483,8 @@ npm run check
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 - [Lucide Icons](https://lucide.dev)
 - [AOS (Animate On Scroll)](https://michalsnik.github.io/aos/)
-- [Netlify Functions Documentation](https://docs.netlify.com/functions/overview/)
-- [Netlify Blobs Documentation](https://docs.netlify.com/blobs/overview/)
+- [Apache .htaccess Tutorial](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Apache_Configuration_htaccess)
+- [PHP Manual](https://www.php.net/manual/en/)
 - [MDN Web Docs](https://developer.mozilla.org)
 - [Web.dev — Core Web Vitals](https://web.dev/vitals/)
 - [WebAIM — Accessibility](https://webaim.org)

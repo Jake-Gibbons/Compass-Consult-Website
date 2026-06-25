@@ -50,6 +50,10 @@ const KEY_BY_ASSET = {
   'js/aos.min.js': 'aosJs',
 };
 
+const SOURCE_FALLBACKS = {
+  'js/aos.min.js': 'node_modules/aos/dist/aos.js',
+};
+
 async function getVersionedContent(relPath, sourceContent) {
   if (relPath === 'css/main.css') {
     const result = await transform(sourceContent.toString('utf8'), {
@@ -61,6 +65,16 @@ async function getVersionedContent(relPath, sourceContent) {
   }
 
   if (relPath === 'js/main.js') {
+    const result = await transform(sourceContent.toString('utf8'), {
+      loader: 'js',
+      minify: true,
+      target: 'es2018',
+      legalComments: 'none',
+    });
+    return Buffer.from(result.code);
+  }
+
+  if (relPath === 'js/aos.min.js') {
     const result = await transform(sourceContent.toString('utf8'), {
       loader: 'js',
       minify: true,
@@ -135,11 +149,15 @@ async function main() {
   for (const relPath of ASSETS) {
     const absPath = path.join(ROOT, relPath);
 
-    if (!(await fileExists(absPath))) {
+    const sourceAbsPath = await fileExists(absPath)
+      ? absPath
+      : path.join(ROOT, SOURCE_FALLBACKS[relPath] || '');
+
+    if (!(await fileExists(sourceAbsPath))) {
       throw new Error(`Missing asset: ${relPath}`);
     }
 
-    const sourceContent = await fs.readFile(absPath);
+    const sourceContent = await fs.readFile(sourceAbsPath);
     const content = await getVersionedContent(relPath, sourceContent);
     const hash = createHash('sha256').update(content).digest('hex').slice(0, 8);
     const versionedRel = hashedFilename(relPath, hash);

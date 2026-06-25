@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeTicker();              // Enable Embla auto-scroll + touch-drag on the client ticker
   initializeSidebarScrollIndicator(); // Show/hide sidebar scroll hint
   initializeNewsletterForm();        // Newsletter subscription via the subscriber API
-  initializeContactForm();           // Contact enquiry form via Netlify Forms
+  initializeContactForm();           // Contact enquiry form via the site API
   registerServiceWorker();           // Enable installability/offline shell support
 });
 
@@ -1641,6 +1641,37 @@ function getMotionTone(element) {
  *  3. Fills in `aria-label` and `title` for any icon-only internal link that
  *     has an SVG/icon but no text content.
  */
+
+/**
+ * Returns the normalised hostname for a link href when it can be parsed.
+ *
+ * @param {string} href
+ * @returns {string}
+ */
+function getLinkHostname(href) {
+  if (!href || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('#')) {
+    return '';
+  }
+
+  try {
+    return new URL(href, window.location.origin).hostname.toLowerCase();
+  } catch {
+    return '';
+  }
+}
+
+/**
+ * Returns true when a hostname matches an expected domain exactly or via a
+ * subdomain.
+ *
+ * @param {string} hostname
+ * @param {string} domain
+ * @returns {boolean}
+ */
+function hostnameMatches(hostname, domain) {
+  return hostname === domain || hostname.endsWith(`.${domain}`);
+}
+
 function enhanceExternalLinks() {
   const externalLinks = document.querySelectorAll('a[target="_blank"]');
 
@@ -1654,13 +1685,14 @@ function enhanceExternalLinks() {
     // Add a descriptive label if the link contains no visible text
     if (!link.getAttribute('aria-label') && !link.textContent.trim()) {
       const href = link.getAttribute('href') || '';
+      const hostname = getLinkHostname(href);
       let label = 'External link';
 
       if (href.startsWith('mailto:')) {
         label = 'Email link';
-      } else if (href.includes('linkedin.com')) {
+      } else if (hostnameMatches(hostname, 'linkedin.com')) {
         label = 'LinkedIn profile';
-      } else if (href.includes('facebook.com')) {
+      } else if (hostnameMatches(hostname, 'facebook.com')) {
         label = 'Facebook profile';
       }
 
@@ -1691,13 +1723,14 @@ function enhanceExternalLinks() {
 
     // Derive a label from the href destination
     const href = link.getAttribute('href') || '';
+    const hostname = getLinkHostname(href);
     let label = 'Link';
 
-    if (href.includes('linkedin.com')) {
+    if (hostnameMatches(hostname, 'linkedin.com')) {
       label = 'LinkedIn';
-    } else if (href.includes('facebook.com')) {
+    } else if (hostnameMatches(hostname, 'facebook.com')) {
       label = 'Facebook';
-    } else if (href.includes('x.com') || href.includes('twitter.com')) {
+    } else if (hostnameMatches(hostname, 'x.com') || hostnameMatches(hostname, 'twitter.com')) {
       label = 'X profile';
     } else if (href.startsWith('mailto:')) {
       label = 'Email';
@@ -1966,7 +1999,7 @@ function initializeSidebarScrollIndicator() {
 
 /**
  * Intercepts the newsletter subscription form and submits the email address
- * to the Netlify subscriber API, providing inline feedback to the user.
+ * to the site subscriber API, providing inline feedback to the user.
  */
 function initializeNewsletterForm() {
   const forms = Array.from(document.querySelectorAll('form[name="newsletter-subscribe"]'));
@@ -2231,16 +2264,19 @@ function updateNewsletterFeedback(feedbackElement, message) {
 }
 
 // ---------------------------------------------------------------------------
-// Contact enquiry form (Netlify Forms)
+// Contact enquiry form
 // ---------------------------------------------------------------------------
 
 /**
  * Handles the contact enquiry form with client-side validation and AJAX
- * submission via Netlify Forms. Shows inline success/error messages.
+ * submission via the site contact API. Shows inline success/error messages.
  */
 function initializeContactForm() {
   const form = document.getElementById('contact-form');
   if (!form) return;
+
+  form.setAttribute('action', '/api/contact');
+  form.setAttribute('method', 'POST');
 
   const fields = [
     { name: 'name', validate: (v) => v.trim().length > 0 },
@@ -2291,9 +2327,12 @@ function initializeContactForm() {
     try {
       const formData = new FormData(form);
 
-      const response = await fetch('/', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
         body: new URLSearchParams(formData).toString()
       });
 

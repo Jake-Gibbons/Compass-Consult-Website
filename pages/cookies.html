@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"></noscript>
     <!-- Pre-built Tailwind CSS (replaces CDN runtime — 47 KB vs 3 MB) -->
-    <link rel="stylesheet" href="/css/tailwind.min.8fdd23c1.css">
+    <link rel="stylesheet" href="/css/tailwind.min.25ae3535.css">
     <!-- Inline styles for page-specific utility classes and component overrides
          that are not available through Tailwind's default configuration. -->
     <style>
@@ -100,7 +100,7 @@
          Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
          Shows the logo and a hamburger button that toggles #mobile-menu.
          The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.20f13357.js.
+         /js/main.0593c2cd.js.
          ================================================================ -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
@@ -188,7 +188,7 @@
                         <p class="leading-relaxed mb-4">The table below summarises the cookies currently used by the website or enabled by your preferences:</p>
                         <ul class="list-disc pl-5 space-y-2">
                             <li><strong>compass_cookie_preferences</strong> - essential - stored for up to 180 days - remembers whether you accepted, rejected, or customised cookie settings.</li>
-                            <li><strong>Netlify technical cookies</strong> - essential - usually session-based or short-lived - may be used when forms are submitted or to support core hosting functionality.</li>
+                            <li><strong>Essential hosting and form-processing cookies</strong> - essential - usually session-based or short-lived - may be used by the server when forms are submitted or to support core hosting functionality.</li>
                             <li><strong>No standalone functional, analytics, or marketing cookies are set by default</strong> - optional categories remain inactive unless future features are added and consented to.</li>
                         </ul>
                         <p class="leading-relaxed mt-4">If additional optional tools are introduced in future, we will update this policy before those cookies are activated.</p>
@@ -200,7 +200,7 @@
                             In some cases, trusted third parties may set cookies when their services are used on our website. At present, the main examples are:
                         </p>
                         <ul class="list-disc pl-5 space-y-2">
-                            <li><strong>Netlify:</strong> Our website is hosted on Netlify, which may set technical cookies related to form submissions and site functionality.</li>
+                            <li><strong>IONOS hosting platform:</strong> Our website is hosted on IONOS, which may set technical cookies related to core hosting and form-processing functionality.</li>
                             <li><strong>Embedded Content:</strong> If we add videos, maps, or other third-party embeds, those providers may set their own cookies once the content is loaded and, where required, once you have consented.</li>
                             <li><strong>Future Analytics or Campaign Tools:</strong> If these are introduced later, they will be configured so they only load after the relevant consent category has been accepted.</li>
                         </ul>
@@ -305,9 +305,8 @@
                         </ul>
 
                         <h3 class="text-lg font-bold mb-4 text-compass-teal">Newsletter</h3>
-                        <form name="newsletter-subscribe" method="POST" data-netlify="true" netlify data-netlify-honeypot="bot-field" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
-                            <input type="hidden" name="form-name" value="newsletter-subscribe" />
-                            <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+                        <form name="newsletter-subscribe" method="POST" action="/api/subscribers" data-newsletter-form="true" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
+                                                        <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
                             <input type="email" name="email" placeholder="Enter your email" required class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-compass-teal focus:border-compass-teal block w-full flex-1 min-w-0 p-2.5 placeholder-gray-400" />
                             <button type="submit" class="bg-compass-teal hover:bg-compass-lightTeal text-white text-sm font-semibold rounded-lg px-4 py-2.5 transition-colors w-auto md:w-full flex-shrink-0">Subscribe</button>
 </form>
@@ -326,9 +325,9 @@
 
     <!-- Page scripts — loaded at the bottom to avoid blocking render -->
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
-    <script src="/js/aos.min.a5005b2e.js"></script>
-    <script defer src="/js/lucide.min.76b5abb0.js"></script>
-    <script defer src="/js/main.20f13357.js?v=20260406c"></script>
+    <script src="/js/aos.min.ae1c0b63.js"></script>
+    <script defer src="/js/lucide.min.9554045c.js"></script>
+    <script defer src="/js/main.0593c2cd.js?v=20260406c"></script>
     <!-- policy-date.js: formats #date as UK ordinal before deferred main.js runs -->
     <script src="/js/policy-date.js"></script>
 </body>

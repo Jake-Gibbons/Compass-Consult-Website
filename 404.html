@@ -17,7 +17,7 @@
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"></noscript>
-    <link rel="stylesheet" href="/css/tailwind.min.8fdd23c1.css">
+    <link rel="stylesheet" href="/css/tailwind.min.25ae3535.css">
     <style>
         .glass-nav { background: rgba(255, 255, 255, 0.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
         .dots-bg { background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 30px 30px; }
@@ -187,9 +187,8 @@
                             <li><a href="/pages/sitemap.html" class="text-gray-400 hover:text-white transition-colors">Sitemap</a></li>
                         </ul>
                         <h3 class="text-lg font-bold mb-4 text-compass-teal">Newsletter</h3>
-                        <form name="newsletter-subscribe" method="POST" data-netlify="true" netlify data-netlify-honeypot="bot-field" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
-                            <input type="hidden" name="form-name" value="newsletter-subscribe" />
-                            <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+                        <form name="newsletter-subscribe" method="POST" action="/api/subscribers" data-newsletter-form="true" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
+                                                        <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
                             <input type="email" name="email" placeholder="Enter your email" required class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-compass-teal focus:border-compass-teal block w-full flex-1 min-w-0 p-2.5 placeholder-gray-400" />
                             <button type="submit" class="bg-compass-teal hover:bg-compass-lightTeal text-white text-sm font-semibold rounded-lg px-4 py-2.5 transition-colors w-auto md:w-full flex-shrink-0">Subscribe</button>
                         </form>
@@ -204,8 +203,8 @@
             </div>
         </footer>
     </main>
-    <script src="/js/aos.min.a5005b2e.js"></script>
-    <script defer src="/js/lucide.min.76b5abb0.js"></script>
-    <script defer src="/js/main.20f13357.js?v=20260406c"></script>
+    <script src="/js/aos.min.ae1c0b63.js"></script>
+    <script defer src="/js/lucide.min.9554045c.js"></script>
+    <script defer src="/js/main.0593c2cd.js?v=20260406c"></script>
 </body>
 </html>

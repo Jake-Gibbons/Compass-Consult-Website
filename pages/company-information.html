@@ -7,7 +7,7 @@
   - Registered office address
 
   All interactive behaviour (menu toggling, animations, accessibility
-  enhancements, etc.) is handled by /js/main.20f13357.js which is loaded at
+  enhancements, etc.) is handled by /js/main.0593c2cd.js which is loaded at
   the bottom of the page.
 -->
 <!DOCTYPE html>
@@ -42,7 +42,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"></noscript>
     <!-- Pre-built Tailwind CSS (replaces CDN runtime — 47 KB vs 3 MB) -->
-    <link rel="stylesheet" href="/css/tailwind.min.8fdd23c1.css">
+    <link rel="stylesheet" href="/css/tailwind.min.25ae3535.css">
     <!-- Inline styles for page-specific utility classes and component overrides
          that are not available through Tailwind's default configuration. -->
     <style>
@@ -101,7 +101,7 @@
          Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
          Shows the logo and a hamburger button that toggles #mobile-menu.
          The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.20f13357.js.
+         /js/main.0593c2cd.js.
          ================================================================ -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
@@ -208,9 +208,8 @@
                         </ul>
                         
                         <h3 class="text-lg font-bold mb-4 text-compass-teal">Newsletter</h3>
-                                                <form name="newsletter-subscribe" method="POST" data-netlify="true" netlify data-netlify-honeypot="bot-field" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
-                            <input type="hidden" name="form-name" value="newsletter-subscribe" />
-                            <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+                                                <form name="newsletter-subscribe" method="POST" action="/api/subscribers" data-newsletter-form="true" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
+                                                        <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
                             <input type="email" name="email" placeholder="Enter your email" required class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-compass-teal focus:border-compass-teal block w-full flex-1 min-w-0 p-2.5 placeholder-gray-400" />
                             <button type="submit" class="bg-compass-teal hover:bg-compass-lightTeal text-white text-sm font-semibold rounded-lg px-4 py-2.5 transition-colors w-auto md:w-full flex-shrink-0">Subscribe</button>
 </form>
@@ -228,8 +227,8 @@
     </main>
     <!-- Page scripts — loaded at the bottom to avoid blocking render -->
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
-    <script src="/js/aos.min.a5005b2e.js"></script>
-    <script defer src="/js/lucide.min.76b5abb0.js"></script>
-    <script defer src="/js/main.20f13357.js?v=20260406c"></script>
+    <script src="/js/aos.min.ae1c0b63.js"></script>
+    <script defer src="/js/lucide.min.9554045c.js"></script>
+    <script defer src="/js/main.0593c2cd.js?v=20260406c"></script>
 </body>
 </html>
