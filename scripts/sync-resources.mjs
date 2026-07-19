@@ -231,13 +231,14 @@ async function syncResources() {
     newEntries.push(buildResourceEntry(maxId, filename));
   }
 
-  // Strip all existing isNew flags, then stamp only the newly added entries.
-  let updatedResourcesContent = resourcesContent.replace(/,?\s*isNew:\s*true,?/g, (match) => {
-    // Preserve surrounding comma structure: if it was ", isNew: true," collapse to single ","
-    return match.startsWith(',') && match.endsWith(',') ? ',' : '';
-  });
-
+  // Only rotate isNew flags when there are actually new docs to add.
+  let updatedResourcesContent = resourcesContent;
   if (newEntries.length > 0) {
+    // Strip all existing isNew flags so only the current batch is marked New.
+    updatedResourcesContent = resourcesContent.replace(/,?\s*isNew:\s*true,?/g, (match) => {
+      return match.startsWith(',') && match.endsWith(',') ? ',' : '';
+    });
+
     const refreshedMatch = updatedResourcesContent.match(/const resources = \[(?<body>[\s\S]*?)\n\s*\];/);
     if (!refreshedMatch || !refreshedMatch.groups) {
       throw new Error('Could not find resources array after stripping isNew flags');
@@ -248,9 +249,6 @@ async function syncResources() {
     const nextBody = `${trimmedBody},\n${newEntries.join(',\n')}`;
     const nextArray = insertionPoint.replace(originalBody, nextBody);
     updatedResourcesContent = updatedResourcesContent.replace(insertionPoint, nextArray);
-  }
-
-  if (newEntries.length > 0 || resourcesContent !== updatedResourcesContent) {
     await fs.writeFile(resourcesPage, updatedResourcesContent, 'utf8');
   }
 
