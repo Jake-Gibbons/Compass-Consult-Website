@@ -851,7 +851,6 @@
                     <div id="resourceGrid" class="resource-tree">
                         <!-- Dynamic content will be injected here -->
                     </div>
-                    <aside id="resourceDetails" class="resource-tree__details hidden" aria-live="polite"></aside>
                 </div>
                 <div id="resourceGridSpacer" class="h-20 lg:h-28" aria-hidden="true"></div>
                 
@@ -1364,7 +1363,6 @@
         const grid = document.getElementById('resourceGrid');
         const gridSpacer = document.getElementById('resourceGridSpacer');
         const noResults = document.getElementById('noResults');
-        const resourceDetails = document.getElementById('resourceDetails');
         const searchInput = document.getElementById('searchInput');
         const sortSelect = document.getElementById('sortSelect');
         const scopeButtons = document.querySelectorAll('.resource-window__scope');
@@ -1563,7 +1561,7 @@
                     </div>
                     <span class="resource-tree__meta">${newBadge}<span class="resource-tree__type">${item.type}</span></span>
                     <span class="resource-tree__meta">
-                        <button type="button" class="resource-tree__download resource-tree__info" data-resource-info="${item.id}" aria-label="View details for ${item.title}" title="View details">
+                        <button type="button" class="resource-tree__download resource-tree__info" data-resource-info="${item.id}" aria-expanded="false" aria-label="View details for ${item.title}" title="View details">
                             <i data-lucide="info" class="w-4 h-4"></i>
                         </button>
                         <a href="${downloadUrl}" download class="resource-tree__download" aria-label="Download ${item.title}" title="Download ${item.title}">
@@ -1648,10 +1646,14 @@
             return date ? new Date(`${date}T00:00:00`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Date not set';
         }
 
-        function showResourceDetails(item) {
+        function showResourceDetails(item, row, infoButton) {
             const organizations = getOrganizations(item);
             const topics = getTopics(item);
-            resourceDetails.classList.remove('hidden');
+            document.querySelectorAll('.resource-tree__inline-details').forEach(details => details.remove());
+            document.querySelectorAll('[data-resource-info]').forEach(button => button.setAttribute('aria-expanded', 'false'));
+            const resourceDetails = document.createElement('aside');
+            resourceDetails.className = 'resource-tree__details resource-tree__inline-details';
+            resourceDetails.setAttribute('aria-live', 'polite');
             resourceDetails.innerHTML = `
                 <div>
                     <h2>${item.title}</h2>
@@ -1669,7 +1671,12 @@
                     <a href="${encodeURI(item.url)}" download class="resource-tree__details-download"><i data-lucide="download" class="w-4 h-4"></i>Download</a>
                 </div>
             `;
-            resourceDetails.querySelector('.resource-tree__details-close').addEventListener('click', () => resourceDetails.classList.add('hidden'));
+            row.insertAdjacentElement('afterend', resourceDetails);
+            infoButton.setAttribute('aria-expanded', 'true');
+            resourceDetails.querySelector('.resource-tree__details-close').addEventListener('click', () => {
+                resourceDetails.remove();
+                infoButton.setAttribute('aria-expanded', 'false');
+            });
             renderResourceIcons();
         }
 
@@ -1765,7 +1772,14 @@
             grid.querySelectorAll('[data-resource-info]').forEach(infoButton => {
                 infoButton.addEventListener('click', () => {
                     const item = resources.find(resource => String(resource.id) === infoButton.dataset.resourceInfo);
-                    if (item) showResourceDetails(item);
+                    const row = infoButton.closest('.resource-tree__row');
+                    const inlineDetails = row.nextElementSibling;
+                    if (inlineDetails?.classList.contains('resource-tree__inline-details')) {
+                        inlineDetails.remove();
+                        infoButton.setAttribute('aria-expanded', 'false');
+                        return;
+                    }
+                    if (item) showResourceDetails(item, row, infoButton);
                 });
             });
 
