@@ -43,5 +43,20 @@
       "CV Writing",
       "Job Search Strategy"
     ]
+  },
+  {
+    "id": 4,
+    "name": "Liz Perry",
+    "role": "Marketing & Communications Officer",
+    "bio": "Liz has a background in marketing and events management, social media and events planning, and has been a Chartered Marketer and member of the Chartered Institute of Marketing since 2022. Liz joined Compass after working in the United States, supporting advertising campaigns for major pharmaceutical corporations. Liz enjoys eating out and has two cats, Molly and Melvin.",
+    "image": "/assets/images/team/Liz%20Perry.jpg",
+    "email": "",
+    "linkedin": "",
+    "expertise": [
+      "Marketing",
+      "Communications",
+      "Social Media",
+      "Events Management"
+    ]
   }
 ]

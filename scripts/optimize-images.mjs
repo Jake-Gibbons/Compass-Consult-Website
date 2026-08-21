@@ -4,9 +4,8 @@ import sharp from 'sharp';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 
-const LOGO_INPUT = join(ROOT, 'assets', 'logos', 'Logo.webp');
-const PRIDE_LOGO_INPUT = join(ROOT, 'assets', 'logos', 'Logo_Pride.PNG');
-const PRIDE_LOGO_OUTPUT = join(ROOT, 'assets', 'logos', 'Logo_Pride.webp');
+const LOGO_INPUT = join(ROOT, 'assets', 'logos', 'Logo.png');
+const LOGO_OUTPUT = join(ROOT, 'assets', 'logos', 'Logo.webp');
 const LOGO_OUTPUT_DIR = join(ROOT, 'assets', 'logos', 'optimized');
 
 const AUTHORITY_INPUT_DIR = join(ROOT, 'assets', 'images', 'authorities');
@@ -18,27 +17,14 @@ const AUTHORITY_HEIGHT = 70;
 async function optimizeLogo() {
   await mkdir(LOGO_OUTPUT_DIR, { recursive: true });
 
+  await sharp(LOGO_INPUT)
+    .webp({ quality: 72, effort: 6 })
+    .toFile(LOGO_OUTPUT);
+  console.log(`logo: ${basename(LOGO_OUTPUT)}`);
+
   for (const width of LOGO_WIDTHS) {
     const output = join(LOGO_OUTPUT_DIR, `Logo-${width}.webp`);
     await sharp(LOGO_INPUT)
-      .resize({ width, fit: 'inside', withoutEnlargement: true })
-      .webp({ quality: 72, effort: 6 })
-      .toFile(output);
-    console.log(`logo: ${basename(output)}`);
-  }
-}
-
-async function optimizePrideLogo() {
-  await mkdir(LOGO_OUTPUT_DIR, { recursive: true });
-
-  await sharp(PRIDE_LOGO_INPUT)
-    .webp({ quality: 72, effort: 6 })
-    .toFile(PRIDE_LOGO_OUTPUT);
-  console.log(`logo: ${basename(PRIDE_LOGO_OUTPUT)}`);
-
-  for (const width of LOGO_WIDTHS) {
-    const output = join(LOGO_OUTPUT_DIR, `Logo_Pride-${width}.webp`);
-    await sharp(PRIDE_LOGO_INPUT)
       .resize({ width, fit: 'inside', withoutEnlargement: true })
       .webp({ quality: 72, effort: 6 })
       .toFile(output);
@@ -69,7 +55,6 @@ async function optimizeAuthorityTickerImages() {
 
 async function main() {
   await optimizeLogo();
-  await optimizePrideLogo();
   await optimizeAuthorityTickerImages();
   console.log('Image optimization complete.');
 }

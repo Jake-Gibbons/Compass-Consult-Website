@@ -2,9 +2,9 @@
   resources.html — Resource Library page
   Compass Consult (Employability & Skills) Ltd
 
-  A library of downloadable PDFs, factsheets, and guidance documents.
-  - Cards with preview thumbnails and download buttons
-  - Filter/category support
+    A directory of downloadable PDFs, factsheets, and guidance documents.
+    - Expandable category folders with compact document rows
+    - Search, filter, and download support
 
   All interactive behaviour (menu toggling, animations, accessibility
   enhancements, etc.) is handled by /js/main.20f13357.js which is loaded at
@@ -75,7 +75,7 @@
     <link rel="manifest" href="/assets/icons/favicon/site.webmanifest">
     <meta name="apple-mobile-web-app-title" content="Compass Consult">
     <!-- Preload LCP image (logo) for faster paint -->
-    <link rel="preload" href="/assets/logos/optimized/Logo_Pride-640.webp" as="image" type="image/webp" imagesrcset="/assets/logos/optimized/Logo_Pride-320.webp 320w, /assets/logos/optimized/Logo_Pride-640.webp 640w, /assets/logos/optimized/Logo_Pride-960.webp 960w" imagesizes="(max-width: 640px) 180px, (max-width: 1024px) 240px, 280px">
+    <link rel="preload" href="/assets/logos/optimized/Logo-640.webp" as="image" type="image/webp" imagesrcset="/assets/logos/optimized/Logo-320.webp 320w, /assets/logos/optimized/Logo-640.webp 640w, /assets/logos/optimized/Logo-960.webp 960w" imagesizes="(max-width: 640px) 180px, (max-width: 1024px) 240px, 280px">
     <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -404,6 +404,219 @@
             padding-top: 0.7rem;
         }
 
+        .resource-tree {
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            background: #ffffff;
+            overflow: hidden;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06);
+        }
+
+        .resource-tree__root {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+            min-height: 3.5rem;
+            padding: 0.8rem 1rem;
+            background: #f8fafc;
+            border-bottom: 1px solid #e5e7eb;
+            color: #111827;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .resource-tree__root i,
+        .resource-tree__folder-icon { color: #483086; }
+
+        .resource-tree__views {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.2rem;
+            margin-left: auto;
+            padding: 0.2rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.55rem;
+            background: #ffffff;
+        }
+
+        .resource-tree__view {
+            padding: 0.35rem 0.55rem;
+            border-radius: 0.35rem;
+            color: #64748b;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            transition: background-color 0.18s ease, color 0.18s ease;
+        }
+
+        .resource-tree__view:hover,
+        .resource-tree__view:focus-visible { color: #483086; }
+
+        .resource-tree__view.is-active { background: #483086; color: #ffffff; }
+
+        .resource-tree__folder + .resource-tree__folder { border-top: 1px solid #eef2f7; }
+
+        .resource-tree__folder-toggle {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 0.55rem;
+            min-height: 2.9rem;
+            padding: 0.65rem 1rem;
+            background: #ffffff;
+            color: #1f2937;
+            text-align: left;
+            font-size: 0.85rem;
+            font-weight: 800;
+            transition: background-color 0.18s ease, color 0.18s ease;
+        }
+
+        .resource-tree__folder-toggle:hover,
+        .resource-tree__folder-toggle:focus-visible { background: #f8fafc; color: #483086; }
+
+        .resource-tree__folder-toggle .resource-tree__chevron { transition: transform 0.18s ease; }
+        .resource-tree__folder-toggle[aria-expanded="false"] .resource-tree__chevron { transform: rotate(-90deg); }
+
+        .resource-tree__count {
+            margin-left: auto;
+            color: #64748b;
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        .resource-tree__files { padding: 0 0 0.35rem 2.2rem; }
+        .resource-tree__folder.is-collapsed .resource-tree__files { display: none; }
+
+        .resource-tree__row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto auto;
+            align-items: center;
+            gap: 0.8rem;
+            min-height: 3.25rem;
+            padding: 0.55rem 1rem 0.55rem 0.8rem;
+            border-top: 1px solid #f1f5f9;
+            position: relative;
+        }
+
+        .resource-tree__row::before {
+            content: "";
+            position: absolute;
+            left: -1.2rem;
+            top: -1px;
+            bottom: 50%;
+            width: 1px;
+            background: #dbe3ec;
+        }
+
+        .resource-tree__row::after {
+            content: "";
+            position: absolute;
+            left: -1.2rem;
+            top: 50%;
+            width: 0.8rem;
+            height: 1px;
+            background: #dbe3ec;
+        }
+
+        .resource-tree__file {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            min-width: 0;
+        }
+
+        .resource-tree__file-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.85rem;
+            height: 1.85rem;
+            flex: 0 0 auto;
+            border-radius: 0.45rem;
+            background: #f3f0ff;
+            color: #483086;
+        }
+
+        .resource-tree__file-copy { min-width: 0; }
+        .resource-tree__file-name {
+            display: block;
+            overflow: hidden;
+            color: #1f2937;
+            font-size: 0.82rem;
+            font-weight: 700;
+            line-height: 1.35;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .resource-tree__file-desc {
+            display: block;
+            overflow: hidden;
+            margin-top: 0.12rem;
+            color: #94a3b8;
+            font-size: 0.7rem;
+            line-height: 1.3;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .resource-tree__type {
+            color: #64748b;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .resource-tree__meta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.55rem;
+        }
+
+        .resource-tree__download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.45rem;
+            color: #2da8b4;
+            transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+        }
+
+        .resource-tree__download:hover,
+        .resource-tree__download:focus-visible { background: #e9fbfb; color: #483086; transform: translateY(-1px); }
+
+        .resource-tree__new {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.18rem 0.45rem;
+            border-radius: 0.25rem;
+            background: #16a34a;
+            color: #ffffff;
+            font-size: 0.58rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 640px) {
+            .resource-tree__root { gap: 0.45rem; }
+            .resource-tree__views { order: 3; width: 100%; margin-left: 0; }
+            .resource-tree__view { flex: 1; text-align: center; }
+            .resource-tree__row { grid-template-columns: minmax(0, 1fr) auto auto; gap: 0.45rem; padding-right: 0.55rem; }
+            .resource-tree__type { display: none; }
+            .resource-tree__file-desc { display: none; }
+            .resource-tree__files { padding-left: 1.65rem; }
+            .resource-tree__row::before,
+            .resource-tree__row::after { left: -0.8rem; }
+        }
+
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
     <link rel="stylesheet" href="/css/main.8e20beda.css">
@@ -424,7 +637,7 @@
         <div>
             <a href="/index.html" class="flex items-center gap-3 cursor-pointer group mb-12">
                 <div class="text-compass-purple transition-transform duration-700">
-                    <img src="/assets/logos/optimized/Logo_Pride-640.webp" srcset="/assets/logos/optimized/Logo_Pride-320.webp 320w, /assets/logos/optimized/Logo_Pride-640.webp 640w, /assets/logos/optimized/Logo_Pride-960.webp 960w" sizes="(max-width: 640px) 180px, (max-width: 1024px) 240px, 280px" width="960" height="417" alt="Compass Consult" class="site-logo object-contain">
+                    <img src="/assets/logos/optimized/Logo-640.webp" srcset="/assets/logos/optimized/Logo-320.webp 320w, /assets/logos/optimized/Logo-640.webp 640w, /assets/logos/optimized/Logo-960.webp 960w" sizes="(max-width: 640px) 180px, (max-width: 1024px) 240px, 280px" width="960" height="417" alt="Compass Consult" class="site-logo object-contain">
                 </div>
                 <div class="flex flex-col justify-center">
                     <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
@@ -457,7 +670,7 @@
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
              <a href="/index.html" class="flex items-center gap-2">
-                <img src="/assets/logos/optimized/Logo_Pride-640.webp" srcset="/assets/logos/optimized/Logo_Pride-320.webp 320w, /assets/logos/optimized/Logo_Pride-640.webp 640w, /assets/logos/optimized/Logo_Pride-960.webp 960w" sizes="(max-width: 640px) 180px, (max-width: 1024px) 240px, 280px" width="960" height="417" alt="Compass Consult" class="site-logo object-contain">
+                <img src="/assets/logos/optimized/Logo-640.webp" srcset="/assets/logos/optimized/Logo-320.webp 320w, /assets/logos/optimized/Logo-640.webp 640w, /assets/logos/optimized/Logo-960.webp 960w" sizes="(max-width: 640px) 180px, (max-width: 1024px) 240px, 280px" width="960" height="417" alt="Compass Consult" class="site-logo object-contain">
                 <div class="flex flex-col">
                     <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
                 </div>
@@ -507,7 +720,7 @@
                         <input type="text" id="searchInput" class="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl leading-5 bg-white placeholder-gray-400 focus:outline-none focus:border-compass-purple focus:ring-1 focus:ring-compass-purple sm:text-sm transition-all shadow-sm" placeholder="Search documents...">
                     </div>
 
-                    <!-- Category Filters + Size Control -->
+                    <!-- Category Filters -->
                     <div class="w-full md:w-auto flex flex-col gap-2">
                         <div class="relative">
                             <div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar" id="filterContainer">
@@ -521,21 +734,16 @@
                             <div class="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-compass-dark to-transparent md:hidden"></div>
                         </div>
                         <p class="text-xs text-white/80 mt-1 md:hidden flex items-center justify-center gap-1">Swipe to see more filters <span class="swipe-cue-arrow opacity-90" aria-hidden="true">→</span></p>
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs text-white/85 font-medium">Size:</span>
-                            <button id="sizeLargeBtn" type="button" class="size-btn px-3 py-1.5 rounded-full text-xs font-medium bg-compass-purple text-white transition-all">Large</button>
-                            <button id="sizeSmallBtn" type="button" class="size-btn px-3 py-1.5 rounded-full text-xs font-medium bg-white text-gray-600 border border-gray-200 hover:border-compass-teal hover:text-compass-teal transition-all">Small</button>
-                        </div>
                     </div>
                 </div>
             </div>
             </div>
         </header>
 
-        <!-- Library Grid -->
+        <!-- Directory-style Resource Library -->
         <section class="pt-12 pb-48 lg:pb-32 bg-white flex-grow px-4 sm:px-8">
             <div class="max-w-6xl mx-auto">
-                <div id="resourceGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 lg:mb-24">
+                <div id="resourceGrid" class="resource-tree mb-16 lg:mb-24">
                     <!-- Dynamic content will be injected here -->
                 </div>
                 <div id="resourceGridSpacer" class="h-20 lg:h-28" aria-hidden="true"></div>
@@ -558,7 +766,7 @@
                     <div class="col-span-1 md:col-span-2">
                         <div class="mb-6">
                             <div class="flex items-center gap-2">
-                                <img src="/assets/logos/optimized/Logo_Pride-640.webp" srcset="/assets/logos/optimized/Logo_Pride-320.webp 320w, /assets/logos/optimized/Logo_Pride-640.webp 640w, /assets/logos/optimized/Logo_Pride-960.webp 960w" sizes="(max-width: 640px) 180px, (max-width: 1024px) 240px, 280px" width="960" height="417" alt="Compass Consult" class="site-logo object-contain">
+                                <img src="/assets/logos/optimized/Logo-640.webp" srcset="/assets/logos/optimized/Logo-320.webp 320w, /assets/logos/optimized/Logo-640.webp 640w, /assets/logos/optimized/Logo-960.webp 960w" sizes="(max-width: 640px) 180px, (max-width: 1024px) 240px, 280px" width="960" height="417" alt="Compass Consult" class="site-logo object-contain">
                                 <span class="sr-only">Compass Consult (Employability & Skills) Ltd</span>
                             </div>
                         </div>
@@ -898,7 +1106,6 @@
                 desc: "Overview of the National Youth Strategy, outlining ambitions, priorities and implications for youth employment and skills delivery.",
                 icon: "file-text",
                 color: "purple",
-                isNew: true,
                 url: "/assets/downloads/docs/CCES National Youth Strategy Factsheet Dec 2025.pdf"
             },
             {
@@ -910,7 +1117,6 @@
                 desc: "June 2026 factsheet on the Every Child Can programme, covering aims, scope and relevance for SEND and inclusion delivery.",
                 icon: "file-text",
                 color: "purple",
-                isNew: true,
                 url: "/assets/downloads/docs/CCES Every Child Can Factsheet June 2026.pdf"
             },
             {
@@ -922,8 +1128,127 @@
                 desc: "Jon Smith's June 2026 blog examining the role of housing associations in supporting employability outcomes and community resilience.",
                 icon: "file-text",
                 color: "indigo",
-                isNew: true,
                 url: "/assets/downloads/docs/Jon Smith Blog June 2026 (Housing Associations).pdf"
+            },
+            {
+                id: 28,
+                title: "CCES Devolution Update August 2026",
+                category: "Briefings",
+                type: "PDF",
+                size: "PDF",
+                desc: "Briefing update on current policy and delivery developments.",
+                icon: "file-text",
+                color: "orange",
+                isNew: true,
+                url: "/assets/downloads/docs/CCES Devolution Update August 2026.pdf"
+            },
+            {
+                id: 29,
+                title: "CCES DWP Future Employment Support Factsheet June 2026",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Factsheet outlining key points for employability and skills delivery.",
+                icon: "file-text",
+                color: "purple",
+                isNew: true,
+                url: "/assets/downloads/docs/CCES DWP Future Employment Support Factsheet June 2026.pdf"
+            },
+            {
+                id: 30,
+                title: "CCES DWP Future Employment Support update 19.08.26",
+                category: "Briefings",
+                type: "PDF",
+                size: "PDF",
+                desc: "Briefing update on current policy and delivery developments.",
+                icon: "file-text",
+                color: "orange",
+                isNew: true,
+                url: "/assets/downloads/docs/CCES DWP Future Employment Support update 19.08.26.pdf"
+            },
+            {
+                id: 31,
+                title: "CCES DWP Jobs Guarantee Phase Two update 4 June 2026",
+                category: "Briefings",
+                type: "PDF",
+                size: "PDF",
+                desc: "Briefing update on current policy and delivery developments.",
+                icon: "file-text",
+                color: "orange",
+                isNew: true,
+                url: "/assets/downloads/docs/CCES DWP Jobs Guarantee Phase Two update 4 June 2026.pdf"
+            },
+            {
+                id: 32,
+                title: "CCES Journeys to Access to Work Factsheet July 2026",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Factsheet outlining key points for employability and skills delivery.",
+                icon: "file-text",
+                color: "purple",
+                isNew: true,
+                url: "/assets/downloads/docs/CCES Journeys to Access to Work Factsheet July 2026.pdf"
+            },
+            {
+                id: 33,
+                title: "CCES King's Speech Overview 13th May 2026",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Factsheet outlining key points for employability and skills delivery.",
+                icon: "file-text",
+                color: "purple",
+                isNew: true,
+                url: "/assets/downloads/docs/CCES King's Speech Overview 13th May 2026.pdf"
+            },
+            {
+                id: 34,
+                title: "CCES Labour Market Analysis Aug 26",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Factsheet outlining key points for employability and skills delivery.",
+                icon: "file-text",
+                color: "purple",
+                isNew: true,
+                url: "/assets/downloads/docs/CCES Labour Market Analysis Aug 26.pdf"
+            },
+            {
+                id: 35,
+                title: "CCES Milburn Review IR Factsheet May 2026",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Factsheet outlining key points for employability and skills delivery.",
+                icon: "file-text",
+                color: "purple",
+                isNew: true,
+                url: "/assets/downloads/docs/CCES Milburn Review IR Factsheet May 2026.pdf"
+            },
+            {
+                id: 36,
+                title: "CCES Rewiring the State Factsheet July 2026",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Factsheet outlining key points for employability and skills delivery.",
+                icon: "file-text",
+                color: "purple",
+                isNew: true,
+                url: "/assets/downloads/docs/CCES Rewiring the State Factsheet July 2026.pdf"
+            },
+            {
+                id: 37,
+                title: "Compass Consult WPSC Response Aug 2026",
+                category: "Factsheets",
+                type: "PDF",
+                size: "PDF",
+                desc: "Factsheet outlining key points for employability and skills delivery.",
+                icon: "file-text",
+                color: "purple",
+                isNew: true,
+                url: "/assets/downloads/docs/Compass Consult WPSC Response Aug 2026.pdf"
             }
         ];
 
@@ -934,10 +1259,8 @@
         const noResults = document.getElementById('noResults');
         const searchInput = document.getElementById('searchInput');
         const filterBtns = document.querySelectorAll('.filter-btn');
-        const sizeLargeBtn = document.getElementById('sizeLargeBtn');
-        const sizeSmallBtn = document.getElementById('sizeSmallBtn');
         let currentFilter = 'all';
-        let currentSize = 'large';
+        let currentView = 'type';
 
         function renderResourceIcons() {
             if (window.lucide && typeof window.lucide.createIcons === 'function') {
@@ -1068,58 +1391,168 @@
             `;
         }
 
+        function renderResourceRow(item) {
+            const downloadUrl = encodeURI(item.url);
+            const newBadge = item.isNew ? '<span class="resource-tree__new">New</span>' : '';
+
+            return `
+                <div class="resource-tree__row" data-resource-id="${item.id}">
+                    <div class="resource-tree__file">
+                        <span class="resource-tree__file-icon" aria-hidden="true"><i data-lucide="newspaper" class="w-4 h-4"></i></span>
+                        <span class="resource-tree__file-copy">
+                            <span class="resource-tree__file-name" title="${item.title}">${item.title}</span>
+                            <span class="resource-tree__file-desc" title="${item.desc}">${item.desc}</span>
+                        </span>
+                    </div>
+                    <span class="resource-tree__meta">${newBadge}<span class="resource-tree__type">${item.type}</span></span>
+                    <a href="${downloadUrl}" download class="resource-tree__download" aria-label="Download ${item.title}" title="Download ${item.title}">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            `;
+        }
+
+        const organizationRules = [
+            {
+                name: 'Department for Work and Pensions (DWP)',
+                terms: ['dwp', 'get britain working', 'keep britain working', 'jobs guarantee']
+            },
+            {
+                name: 'Greater London Authority',
+                terms: ['greater london authority']
+            },
+            {
+                name: 'UK Government',
+                terms: ["king's speech"]
+            },
+            {
+                name: 'Work and Pensions Select Committee',
+                terms: ['wpsc']
+            }
+        ];
+
+        const topicRules = [
+            {
+                name: 'Local Growth Fund',
+                terms: ['local growth fund']
+            },
+            {
+                name: 'Youth Guarantee',
+                terms: ['youth guarantee']
+            },
+            {
+                name: 'National Youth Strategy',
+                terms: ['national youth strategy']
+            },
+            {
+                name: 'Local Government Reorganisation',
+                terms: ['local government reorganisation']
+            },
+            {
+                name: 'Access to Work',
+                terms: ['access to work']
+            },
+            {
+                name: 'Jobs Guarantee',
+                terms: ['jobs guarantee']
+            }
+        ];
+
+        function getOrganizations(item) {
+            const searchableText = `${item.title} ${item.desc} ${item.url}`.toLowerCase();
+            return organizationRules
+                .filter(rule => rule.terms.some(term => searchableText.includes(term)))
+                .map(rule => rule.name);
+        }
+
+            function getTopics(item) {
+                const searchableText = `${item.title} ${item.desc} ${item.url}`.toLowerCase();
+                return topicRules
+                .filter(rule => rule.terms.some(term => searchableText.includes(term)))
+                .map(rule => rule.name);
+            }
+
         // Render Function
         function renderResources(data) {
             grid.innerHTML = '';
 
-            const isSmall = currentSize === 'small';
-            // Update only the grid layout classes, preserving AOS and other classes
-            const smallClasses = ['grid-cols-1', 'md:grid-cols-2', 'gap-3'];
-            const largeClasses = ['md:grid-cols-2', 'lg:grid-cols-3', 'gap-6'];
-            smallClasses.forEach(cls => grid.classList.remove(cls));
-            largeClasses.forEach(cls => grid.classList.remove(cls));
-            (isSmall ? smallClasses : largeClasses).forEach(cls => grid.classList.add(cls));
-            
             if (data.length === 0) {
                 grid.classList.add('hidden');
                 if (gridSpacer) gridSpacer.classList.add('hidden');
                 noResults.classList.remove('hidden');
                 return;
             }
-            
+
             grid.classList.remove('hidden');
             if (gridSpacer) gridSpacer.classList.remove('hidden');
             noResults.classList.add('hidden');
 
-            data.forEach(item => {
-                // Determine color classes
-                let bgClass = `bg-${item.color}-50`;
-                let textClass = `text-${item.color}-600`;
-                // Fallback for custom colors since Tailwind classes need to be safe-listed
-                if(item.color === 'purple') { bgClass = 'bg-purple-50'; textClass = 'text-compass-purple'; }
-                if(item.color === 'teal') { bgClass = 'bg-teal-50'; textClass = 'text-compass-teal'; }
-                const downloadUrl = encodeURI(item.url);
-                const previewUrl = encodeURI(`/assets/images/resource-previews/${item.url.split('/').pop()}.png`);
-                
-                const useSlammLayout = isSlammSelected() || isSlammResource(item);
-                const card = document.createElement('div');
-                card.className = [
-                    'resource-card',
-                    'group',
-                    useSlammLayout ? 'resource-card--slamm border rounded-2xl overflow-hidden transition-all duration-300' : '',
-                    isSmall
-                        ? (useSlammLayout
-                            ? 'resource-card--compact shadow-sm hover:shadow-xl flex flex-row'
-                            : 'resource-card--compact-default border rounded-2xl shadow-sm hover:shadow-xl overflow-hidden flex flex-row transition-all duration-300')
-                        : (useSlammLayout
-                            ? 'shadow-sm hover:shadow-2xl flex flex-col h-full'
-                            : 'bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl overflow-hidden flex flex-col h-full')
-                ].filter(Boolean).join(' ');
-                card.innerHTML = useSlammLayout
-                    ? renderSlammCard(item, { textClass, downloadUrl, previewUrl, isSmall })
-                    : renderDefaultCard(item, { bgClass, textClass, downloadUrl, previewUrl, isSmall });
-                grid.appendChild(card);
+            const groupedResources = data.reduce((groups, item) => {
+                const groupNames = currentView === 'type'
+                    ? [item.category || 'Misc']
+                    : currentView === 'organization'
+                        ? (getOrganizations(item).length ? getOrganizations(item) : ['Misc'])
+                        : (getTopics(item).length ? getTopics(item) : ['Misc']);
+                groupNames.forEach(groupName => {
+                    if (!groups[groupName]) groups[groupName] = [];
+                    groups[groupName].push(item);
+                });
+                return groups;
+            }, {});
+
+            const categoryOrder = currentView === 'type'
+                ? ['Factsheets', 'Briefings', 'Blogs', 'Whitepapers', 'Other', 'Misc']
+                : currentView === 'organization'
+                    ? ['Department for Work and Pensions (DWP)', 'Greater London Authority', 'UK Government', 'Work and Pensions Select Committee', 'Misc']
+                    : ['Local Growth Fund', 'Youth Guarantee', 'National Youth Strategy', 'Local Government Reorganisation', 'Access to Work', 'Jobs Guarantee', 'Misc'];
+            const categories = Object.keys(groupedResources).sort((a, b) => {
+                const aIndex = categoryOrder.indexOf(a);
+                const bIndex = categoryOrder.indexOf(b);
+                return (aIndex === -1 ? categoryOrder.length : aIndex) - (bIndex === -1 ? categoryOrder.length : bIndex) || a.localeCompare(b);
             });
+
+            grid.innerHTML = `
+                <div class="resource-tree__root">
+                    <i data-lucide="folder-open" class="w-4 h-4" aria-hidden="true"></i>
+                    <span>Resource Library</span>
+                    <span class="resource-tree__count">${data.length} documents</span>
+                    <div class="resource-tree__views" role="tablist" aria-label="Resource directory view">
+                        <button type="button" class="resource-tree__view ${currentView === 'type' ? 'is-active' : ''}" data-view="type" role="tab" aria-selected="${currentView === 'type'}">Document type</button>
+                        <button type="button" class="resource-tree__view ${currentView === 'organization' ? 'is-active' : ''}" data-view="organization" role="tab" aria-selected="${currentView === 'organization'}">Company / organization</button>
+                        <button type="button" class="resource-tree__view ${currentView === 'topic' ? 'is-active' : ''}" data-view="topic" role="tab" aria-selected="${currentView === 'topic'}">Topic / programme</button>
+                    </div>
+                </div>
+                ${categories.map((category, index) => `
+                    <section class="resource-tree__folder is-collapsed" data-category="${category}">
+                        <button type="button" class="resource-tree__folder-toggle" aria-expanded="false" aria-controls="resource-folder-${index}">
+                            <i data-lucide="chevron-down" class="resource-tree__chevron w-4 h-4" aria-hidden="true"></i>
+                            <i data-lucide="folder-open" class="resource-tree__folder-icon w-4 h-4" aria-hidden="true"></i>
+                            <span>${category}</span>
+                            <span class="resource-tree__count">${groupedResources[category].length}</span>
+                        </button>
+                        <div id="resource-folder-${index}" class="resource-tree__files">
+                            ${groupedResources[category].map(renderResourceRow).join('')}
+                        </div>
+                    </section>
+                `).join('')}
+            `;
+
+            grid.querySelectorAll('.resource-tree__folder-toggle').forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const folder = toggle.closest('.resource-tree__folder');
+                    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+                    toggle.setAttribute('aria-expanded', String(!expanded));
+                    folder.classList.toggle('is-collapsed', expanded);
+                });
+            });
+
+            grid.querySelectorAll('.resource-tree__view').forEach(viewButton => {
+                viewButton.addEventListener('click', () => {
+                    currentView = viewButton.dataset.view;
+                    renderResources(data);
+                });
+            });
+
             renderResourceIcons();
         }
 
@@ -1127,7 +1560,9 @@
         function filterData() {
             const searchTerm = searchInput.value.toLowerCase();
             const filtered = resources.filter(item => {
-                const matchesSearch = item.title.toLowerCase().includes(searchTerm) || item.desc.toLowerCase().includes(searchTerm);
+                const organizationText = getOrganizations(item).join(' ').toLowerCase();
+                const topicText = getTopics(item).join(' ').toLowerCase();
+                const matchesSearch = item.title.toLowerCase().includes(searchTerm) || item.desc.toLowerCase().includes(searchTerm) || organizationText.includes(searchTerm) || topicText.includes(searchTerm);
                 const matchesCategory = currentFilter === 'all' || item.category === currentFilter;
                 return matchesSearch && matchesCategory;
             });
@@ -1152,34 +1587,6 @@
                 filterData();
             });
         });
-
-        // Size Toggle Logic
-        if (sizeLargeBtn && sizeSmallBtn) {
-            const updateSizeButtons = () => {
-                [sizeLargeBtn, sizeSmallBtn].forEach(b => {
-                    b.classList.remove('bg-compass-purple', 'text-white');
-                    b.classList.add('bg-white', 'text-gray-600', 'border', 'border-gray-200');
-                });
-
-                const activeBtn = currentSize === 'large' ? sizeLargeBtn : sizeSmallBtn;
-                activeBtn.classList.remove('bg-white', 'text-gray-600', 'border', 'border-gray-200');
-                activeBtn.classList.add('bg-compass-purple', 'text-white');
-            };
-
-            sizeLargeBtn.addEventListener('click', () => {
-                currentSize = 'large';
-                updateSizeButtons();
-                filterData();
-            });
-
-            sizeSmallBtn.addEventListener('click', () => {
-                currentSize = 'small';
-                updateSizeButtons();
-                filterData();
-            });
-
-            updateSizeButtons();
-        }
 
         // Initial Render
         filterData();
