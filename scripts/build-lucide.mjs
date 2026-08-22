@@ -8,12 +8,16 @@ const OUTPUT_FILE = path.join(ROOT, 'js/lucide.min.js');
 const SCAN_TARGETS = [
   path.join(ROOT, 'index.html'),
   path.join(ROOT, 'pages'),
+  path.join(ROOT, 'js'),
   path.join(ROOT, 'data'),
 ];
 
 const ICON_NAME_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const DATA_LUCIDE_REGEX = /data-lucide="([^"]+)"/g;
+const DATA_LUCIDE_REGEX = /data-lucide=(?:"([^"]+)"|'([^']+)')/g;
 const JSON_ICON_REGEX = /"icon"\s*:\s*"([^"]+)"/g;
+const ICON_PROPERTY_REGEX = /\bicon\s*:\s*(?:"([^"]+)"|'([^']+)')/g;
+const DATA_LUCIDE_SET_ATTRIBUTE_REGEX = /setAttribute\(\s*['"]data-lucide['"]\s*,\s*([^)]+)\)/g;
+const ICON_LITERAL_REGEX = /['"]([a-z0-9]+(?:-[a-z0-9]+)*)['"]/g;
 const ICON_ALIASES = {
   linkedin: 'link',
 };
@@ -27,11 +31,33 @@ function toPascalCase(iconName) {
 
 function extractIcons(content, regex) {
   const icons = [];
+  regex.lastIndex = 0;
   let match = regex.exec(content);
 
   while (match) {
-    icons.push(match[1]);
+    icons.push(match[1] || match[2]);
     match = regex.exec(content);
+  }
+
+  return icons;
+}
+
+function extractIconsFromSetAttribute(content) {
+  const icons = [];
+  DATA_LUCIDE_SET_ATTRIBUTE_REGEX.lastIndex = 0;
+  let setAttributeMatch = DATA_LUCIDE_SET_ATTRIBUTE_REGEX.exec(content);
+
+  while (setAttributeMatch) {
+    const expression = setAttributeMatch[1];
+    ICON_LITERAL_REGEX.lastIndex = 0;
+    let iconMatch = ICON_LITERAL_REGEX.exec(expression);
+
+    while (iconMatch) {
+      icons.push(iconMatch[1]);
+      iconMatch = ICON_LITERAL_REGEX.exec(expression);
+    }
+
+    setAttributeMatch = DATA_LUCIDE_SET_ATTRIBUTE_REGEX.exec(content);
   }
 
   return icons;
@@ -83,6 +109,7 @@ async function collectIconNames() {
   const iconNames = new Set();
 
   const htmlFiles = [];
+  const jsFiles = [];
   const jsonFiles = [];
 
   for (const target of SCAN_TARGETS) {
@@ -93,6 +120,11 @@ async function collectIconNames() {
 
     if (target.endsWith('pages')) {
       await listFilesRecursive(target, (filePath) => filePath.endsWith('.html'), htmlFiles);
+      continue;
+    }
+
+    if (target.endsWith('js')) {
+      await listFilesRecursive(target, (filePath) => filePath.endsWith('.js'), jsFiles);
       continue;
     }
 
@@ -108,11 +140,44 @@ async function collectIconNames() {
         iconNames.add(iconName);
       }
     }
+
+    for (const iconName of extractIcons(content, ICON_PROPERTY_REGEX)) {
+      if (ICON_NAME_PATTERN.test(iconName)) {
+        iconNames.add(iconName);
+      }
+    }
+
+    for (const iconName of extractIconsFromSetAttribute(content)) {
+      if (ICON_NAME_PATTERN.test(iconName)) {
+        iconNames.add(iconName);
+      }
+    }
   }
 
   for (const jsonFile of jsonFiles) {
     const content = await fs.readFile(jsonFile, 'utf8');
     for (const iconName of extractIcons(content, JSON_ICON_REGEX)) {
+      if (ICON_NAME_PATTERN.test(iconName)) {
+        iconNames.add(iconName);
+      }
+    }
+  }
+
+  for (const jsFile of jsFiles) {
+    const content = await fs.readFile(jsFile, 'utf8');
+    for (const iconName of extractIcons(content, DATA_LUCIDE_REGEX)) {
+      if (ICON_NAME_PATTERN.test(iconName)) {
+        iconNames.add(iconName);
+      }
+    }
+
+    for (const iconName of extractIcons(content, ICON_PROPERTY_REGEX)) {
+      if (ICON_NAME_PATTERN.test(iconName)) {
+        iconNames.add(iconName);
+      }
+    }
+
+    for (const iconName of extractIconsFromSetAttribute(content)) {
       if (ICON_NAME_PATTERN.test(iconName)) {
         iconNames.add(iconName);
       }
