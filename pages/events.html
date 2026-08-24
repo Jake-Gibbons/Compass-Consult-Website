@@ -580,8 +580,8 @@
                         <i data-lucide="arrow-up-down" class="w-4 h-4"></i>
                     </button>
                     <div class="view-toggle-group" role="group" aria-label="Choose event view">
-                        <button type="button" class="view-toggle-button is-active" data-events-view="list" aria-pressed="true">List</button>
-                        <button type="button" class="view-toggle-button" data-events-view="grid" aria-pressed="false">Grid</button>
+                        <button type="button" class="view-toggle-button" data-events-view="list" aria-pressed="false">List</button>
+                        <button type="button" class="view-toggle-button is-active" data-events-view="grid" aria-pressed="true">Grid</button>
                         <button type="button" class="view-toggle-button" data-events-view="calendar" aria-pressed="false">Calendar</button>
                     </div>
                 </div>
@@ -590,7 +590,7 @@
 
         <section class="py-20 bg-white flex-grow">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-                <div id="events-view-root" data-events-view="list" class="space-y-12">
+                <div id="events-view-root" data-events-view="grid" class="space-y-12">
                 <div id="events-standard-view" class="space-y-12">
 
                 <!-- Upcoming Events -->
@@ -875,6 +875,9 @@
 
 
                     </div>
+                    <div class="mt-8 text-center" id="upcoming-events-more-container">
+                        <button type="button" id="upcoming-events-more-btn" class="px-6 py-2 rounded-full border border-compass-purple text-compass-purple font-semibold hover:bg-purple-50 transition-colors">Show More Upcoming Events</button>
+                    </div>
                 </div>
 
                 <!-- Past Events -->
@@ -1111,6 +1114,9 @@
                             <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
                         </article>
                     </div>
+                    <div class="mt-8 text-center" id="past-events-more-container">
+                        <button type="button" id="past-events-more-btn" class="px-6 py-2 rounded-full border border-compass-purple text-compass-purple font-semibold hover:bg-purple-50 transition-colors">Show More Past Events</button>
+                    </div>
                 </div>
 
                 </div>
@@ -1151,7 +1157,17 @@
                 <div class="pt-12 border-t border-gray-100">
                     <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">News</h2>
                     <div class="space-y-12">
-                        <article class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+                        <!-- LinkedIn Feed Integration Placeholder -->
+                        <div id="linkedin-feed-container" class="bg-white p-8 rounded-lg shadow-md border border-gray-100 min-h-[400px] flex items-center justify-center">
+                            <div class="text-center space-y-4">
+                                <i data-lucide="linkedin" class="w-12 h-12 text-blue-600 mx-auto"></i>
+                                <h3 class="text-xl font-bold text-gray-900">Latest Updates from LinkedIn</h3>
+                                <p class="text-gray-600">Our live LinkedIn feed will be displayed here soon.</p>
+                                <!-- Note: Add third-party embed script here (e.g. Elfsight, Tagembed) to display the live company feed. -->
+                            </div>
+                        </div>
+
+                        <article class="bg-white p-8 rounded-lg shadow-md border border-gray-100 hidden">
                             <div class="flex flex-col md:flex-row md:gap-8 items-start">
                                 <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 h-64 flex flex-col items-center justify-center rounded-lg border border-purple-100">
                                      <i data-lucide="newspaper" class="w-16 h-16 text-compass-purple mb-2"></i>
@@ -1298,7 +1314,7 @@
                 }, 120);
             };
 
-            let currentView = 'list';
+            let currentView = 'grid';
             let calendarMonthIndex = 0;
             let calendarMonths = [];
             let eventMetadata = [];
@@ -1324,6 +1340,47 @@
 
             let isNewestFirst = true;
 
+            const EVENTS_LIMIT = 3;
+            let upcomingEventsVisible = EVENTS_LIMIT;
+            let pastEventsVisible = EVENTS_LIMIT;
+
+            const upcomingMoreBtn = document.getElementById('upcoming-events-more-btn');
+            const pastMoreBtn = document.getElementById('past-events-more-btn');
+            const upcomingMoreContainer = document.getElementById('upcoming-events-more-container');
+            const pastMoreContainer = document.getElementById('past-events-more-container');
+
+            const applyPagination = (containerId, visibleCount, moreContainer) => {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                const cards = Array.from(container.children).filter(el => el.classList.contains('event-card'));
+                cards.forEach((card, index) => {
+                    if (index < visibleCount) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                if (moreContainer) {
+                    moreContainer.style.display = visibleCount >= cards.length ? 'none' : 'block';
+                }
+            };
+
+            if (upcomingMoreBtn) {
+                upcomingMoreBtn.addEventListener('click', () => {
+                    const cards = Array.from(document.getElementById('upcoming-events-list').children).filter(el => el.classList.contains('event-card'));
+                    upcomingEventsVisible = cards.length; // Show all
+                    applyPagination('upcoming-events-list', upcomingEventsVisible, upcomingMoreContainer);
+                });
+            }
+
+            if (pastMoreBtn) {
+                pastMoreBtn.addEventListener('click', () => {
+                    const cards = Array.from(document.getElementById('past-events-list').children).filter(el => el.classList.contains('event-card'));
+                    pastEventsVisible = cards.length; // Show all
+                    applyPagination('past-events-list', pastEventsVisible, pastMoreContainer);
+                });
+            }
+
             const sortLabel = document.getElementById('eventSortLabel');
 
             const updateSortLabel = () => {
@@ -1337,6 +1394,9 @@
                 sortEventCards('upcoming-events-list', isNewestFirst);
                 sortEventCards('past-events-list', isNewestFirst);
                 eventMetadata = buildEventMetadata();
+
+                applyPagination('upcoming-events-list', upcomingEventsVisible, upcomingMoreContainer);
+                applyPagination('past-events-list', pastEventsVisible, pastMoreContainer);
 
                 if (currentView === 'calendar') {
                     renderCalendar();
@@ -1568,7 +1628,7 @@
             }
 
             applySort();
-            setView('list');
+            setView('grid');
 
             const eventCards = document.querySelectorAll('.event-card');
 
