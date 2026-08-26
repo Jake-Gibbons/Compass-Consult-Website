@@ -34,7 +34,7 @@ export default async (req: Request, context: Context) => {
       if (id) {
         const subscriber = await getSubscriberById(id);
         if (!subscriber) {
-          return Response.json({ error: "Subscriber not found" }, { status: 404 });
+          return Response.json({ code: "NOT_FOUND", message: "Subscriber not found" }, { status: 404 });
         }
         return Response.json(subscriber);
       }
@@ -45,7 +45,7 @@ export default async (req: Request, context: Context) => {
     if (method === "POST") {
       const email = await parseEmailFromRequest();
       if (!email) {
-        return Response.json({ error: "Email is required" }, { status: 400 });
+        return Response.json({ code: "VALIDATION_FAILED", message: "Email is required" }, { status: 400 });
       }
 
       const existing = await findSubscriberByEmail(email);
@@ -59,12 +59,12 @@ export default async (req: Request, context: Context) => {
 
     if (method === "PUT") {
       if (!id) {
-        return Response.json({ error: "ID query parameter is required" }, { status: 400 });
+        return Response.json({ code: "VALIDATION_FAILED", message: "ID query parameter is required" }, { status: 400 });
       }
       const body = await req.json();
       const updated = await updateSubscriber(id, { email: body.email });
       if (!updated) {
-        return Response.json({ error: "Subscriber not found" }, { status: 404 });
+        return Response.json({ code: "NOT_FOUND", message: "Subscriber not found" }, { status: 404 });
       }
       return Response.json(updated);
     }
@@ -73,13 +73,13 @@ export default async (req: Request, context: Context) => {
       const email = url.searchParams.get("email")?.trim();
 
       if (!id && !email) {
-        return Response.json({ error: "ID or email query parameter is required" }, { status: 400 });
+        return Response.json({ code: "VALIDATION_FAILED", message: "ID or email query parameter is required" }, { status: 400 });
       }
 
       if (id) {
         const subscriber = await getSubscriberById(id);
         if (!subscriber) {
-          return Response.json({ error: "Subscriber not found" }, { status: 404 });
+          return Response.json({ code: "NOT_FOUND", message: "Subscriber not found" }, { status: 404 });
         }
 
         await deleteSubscriber(id);
@@ -88,17 +88,17 @@ export default async (req: Request, context: Context) => {
 
       const subscriber = await findSubscriberByEmail(email || "");
       if (!subscriber) {
-        return Response.json({ error: "Subscriber not found" }, { status: 404 });
+        return Response.json({ code: "NOT_FOUND", message: "Subscriber not found" }, { status: 404 });
       }
 
       await deleteSubscriber(subscriber.id);
       return Response.json({ message: "Unsubscribed" });
     }
 
-    return Response.json({ error: "Method not allowed" }, { status: 405 });
+    return Response.json({ code: "METHOD_NOT_ALLOWED", message: "Method not allowed" }, { status: 405 });
   } catch (err) {
     console.error("Subscribers API error:", err);
-    return Response.json({ error: "Internal server error" }, { status: 500 });
+    return Response.json({ code: "INTERNAL_ERROR", message: "Internal server error" }, { status: 500 });
   }
 };
 
