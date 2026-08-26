@@ -16,7 +16,40 @@
 // Bootstrap — run all initialisers once the DOM is ready
 // ---------------------------------------------------------------------------
 
+
+function initializeEventPagination() {
+  const eventCollections = document.querySelectorAll('.events-collection');
+  eventCollections.forEach(collection => {
+    const cards = Array.from(collection.children);
+    if (cards.length > 3) {
+      // Hide cards beyond the first 3
+      for (let i = 3; i < cards.length; i++) {
+        cards[i].style.display = 'none';
+      }
+
+      const showMoreBtn = document.createElement('button');
+      showMoreBtn.className = 'mt-8 mx-auto flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800 transition-colors';
+      showMoreBtn.textContent = 'Show More';
+      
+      const btnContainer = document.createElement('div');
+      btnContainer.className = 'text-center w-full mt-6 mb-12 flex justify-center col-span-full';
+      btnContainer.appendChild(showMoreBtn);
+      
+      collection.parentNode.insertBefore(btnContainer, collection.nextSibling);
+
+      showMoreBtn.addEventListener('click', () => {
+        for (let i = 3; i < cards.length; i++) {
+          cards[i].style.display = '';
+        }
+        btnContainer.style.display = 'none';
+        if (typeof window.AOS !== 'undefined') window.AOS.refresh();
+      });
+    }
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  initializeEventPagination();
   initializeCookieConsent();     // Ask for consent, persist preferences, and apply cookie-driven UX
   initializeButtonIcons();      // Add icons to text-based buttons before Lucide renders
   initializeIcons();            // Render Lucide SVG icons
@@ -2025,7 +2058,7 @@ function initializeNewsletterForm() {
         const payload = await res.json().catch(() => null);
 
         if (!res.ok && res.status !== 404) {
-          throw new Error(payload && payload.error ? payload.error : 'Unsubscribe failed.');
+          throw new Error(payload && payload.message ? payload.message : 'Unsubscribe failed.');
         }
 
         clearStoredNewsletterSubscription();
@@ -2076,7 +2109,7 @@ function initializeNewsletterForm() {
         const payload = await res.json().catch(() => null);
 
         if (!res.ok) {
-          throw new Error(payload && payload.error ? payload.error : 'Subscription failed.');
+          throw new Error(payload && payload.message ? payload.message : 'Subscription failed.');
         }
 
         const subscription = saveStoredNewsletterSubscription(
@@ -2227,7 +2260,15 @@ function updateNewsletterFeedback(feedbackElement, message) {
 
   feedbackElement.hidden = false;
   feedbackElement.className = `mt-3 rounded-lg border px-4 py-3 text-sm ${toneClassMap[message.tone]}`;
-  feedbackElement.innerHTML = `<strong class="block text-white">${message.title}</strong><span class="mt-1 block">${message.body}</span>`;
+  feedbackElement.textContent = '';
+  const titleEl = document.createElement('strong');
+  titleEl.className = 'block text-white';
+  titleEl.textContent = message.title;
+  const bodyEl = document.createElement('span');
+  bodyEl.className = 'mt-1 block';
+  bodyEl.textContent = message.body;
+  feedbackElement.appendChild(titleEl);
+  feedbackElement.appendChild(bodyEl);
 }
 
 // ---------------------------------------------------------------------------
