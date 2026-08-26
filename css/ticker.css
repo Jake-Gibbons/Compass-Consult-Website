@@ -1,0 +1,43 @@
+/* Homepage client ticker overrides.
+   Loaded after main.css so logos cannot stack vertically. */
+.embla-ticker {
+  overflow: hidden !important;
+  width: 100% !important;
+  height: 50px !important;
+  max-height: 50px !important;
+  min-height: 50px !important;
+}
+.embla-ticker__container {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  height: 50px !important;
+}
+.embla-ticker__slide {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  min-width: auto !important;
+  max-width: none !important;
+}
+.embla-ticker img,
+.ticker-img {
+  height: 35px !important;
+  max-height: 35px !important;
+  width: auto !important;
+  max-width: 140px !important;
+  object-fit: contain !important;
+}
+@media (max-width: 640px) {
+  .embla-ticker,
+  .embla-ticker__container {
+    height: 40px !important;
+    max-height: 40px !important;
+    min-height: 40px !important;
+  }
+  .embla-ticker img,
+  .ticker-img {
+    height: 30px !important;
+    max-height: 30px !important;
+  }
+}
