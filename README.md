@@ -10,6 +10,13 @@
 [![Node >= 16](https://img.shields.io/badge/node-%3E%3D16-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-7c3aed.svg)](#license)
 
+<!-- LIGHTHOUSE_BADGES_START -->
+[![Lighthouse Performance](https://img.shields.io/badge/Lighthouse%3A%20Performance-pending-lightgrey?logo=lighthouse&logoColor=white)](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/lighthouse.yml)
+[![Lighthouse Accessibility](https://img.shields.io/badge/Lighthouse%3A%20Accessibility-pending-lightgrey?logo=lighthouse&logoColor=white)](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/lighthouse.yml)
+[![Lighthouse Best Practices](https://img.shields.io/badge/Lighthouse%3A%20Best%20Practices-pending-lightgrey?logo=lighthouse&logoColor=white)](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/lighthouse.yml)
+[![Lighthouse SEO](https://img.shields.io/badge/Lighthouse%3A%20SEO-pending-lightgrey?logo=lighthouse&logoColor=white)](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/lighthouse.yml)
+<!-- LIGHTHOUSE_BADGES_END -->
+
 </div>
 
 Official website repository for **Compass Consult (Employability & Skills) Ltd** — a UK consultancy delivering employability, training, and skills support services.
