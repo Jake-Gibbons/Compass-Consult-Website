@@ -1,0 +1,104 @@
+name: Lighthouse Audit
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli
+
+      - name: Run Lighthouse against production site
+        run: |
+          lhci collect \
+            --url=https://compassconsultes.co.uk \
+            --numberOfRuns=1 \
+            --settings.preset=desktop
+
+      - name: Extract scores and update README badges
+        run: |
+          REPORT=$(find .lighthouseci -name "lhr-*.json" | head -1)
+
+          if [ -z "$REPORT" ]; then
+            echo "No Lighthouse report found."
+            exit 1
+          fi
+
+          PERF=$(node -e "const r=require('$REPORT'); console.log(Math.round(r.categories.performance.score*100))")
+          A11Y=$(node -e "const r=require('$REPORT'); console.log(Math.round(r.categories.accessibility.score*100))")
+          BP=$(node -e "const r=require('$REPORT'); console.log(Math.round(r.categories['best-practices'].score*100))")
+          SEO=$(node -e "const r=require('$REPORT'); console.log(Math.round(r.categories.seo.score*100))")
+
+          echo "Scores — Performance: $PERF | Accessibility: $A11Y | Best Practices: $BP | SEO: $SEO"
+
+          color() {
+            if [ "$1" -ge 90 ]; then echo "brightgreen"
+            elif [ "$1" -ge 70 ]; then echo "orange"
+            else echo "red"
+            fi
+          }
+
+          PERF_COLOR=$(color $PERF)
+          A11Y_COLOR=$(color $A11Y)
+          BP_COLOR=$(color $BP)
+          SEO_COLOR=$(color $SEO)
+
+          python3 - "$PERF" "$PERF_COLOR" "$A11Y" "$A11Y_COLOR" "$BP" "$BP_COLOR" "$SEO" "$SEO_COLOR" <<'PYEOF'
+          import sys, re
+
+          perf, perf_c, a11y, a11y_c, bp, bp_c, seo, seo_c = sys.argv[1:]
+          repo = "Jake-Gibbons/Compass-Consult-Website"
+          url  = f"https://github.com/{repo}/actions/workflows/lighthouse.yml"
+
+          def badge(label, score, color):
+              label_enc = label.replace(" ", "%20").replace(":", "%3A")
+              return f"[![Lighthouse {label}](https://img.shields.io/badge/Lighthouse%3A%20{label_enc}-{score}-{color}?logo=lighthouse&logoColor=white)]({url})"
+
+          new_block = "\n".join([
+              "<!-- LIGHTHOUSE_BADGES_START -->",
+              badge("Performance",    perf, perf_c),
+              badge("Accessibility",  a11y, a11y_c),
+              badge("Best Practices", bp,   bp_c),
+              badge("SEO",            seo,  seo_c),
+              "<!-- LIGHTHOUSE_BADGES_END -->",
+          ])
+
+          with open("README.md", "r") as f:
+              content = f.read()
+
+          pattern = r"<!-- LIGHTHOUSE_BADGES_START -->.*?<!-- LIGHTHOUSE_BADGES_END -->"
+          updated = re.sub(pattern, new_block, content, flags=re.DOTALL)
+
+          with open("README.md", "w") as f:
+              f.write(updated)
+
+          print("README.md updated.")
+          PYEOF
+
+      - name: Commit and push updated README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          if git diff --cached --quiet; then
+            echo "No changes to README.md."
+          else
+            git commit -m "chore: update Lighthouse score badges [skip ci]"
+            git push
+          fi
