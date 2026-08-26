@@ -1691,9 +1691,9 @@ function enhanceExternalLinks() {
 
       if (href.startsWith('mailto:')) {
         label = 'Email link';
-      } else if (href.includes('linkedin.com')) {
+      } else if ((new URL(href).hostname === 'linkedin.com' || new URL(href).hostname.endsWith('.linkedin.com'))) {
         label = 'LinkedIn profile';
-      } else if (href.includes('facebook.com')) {
+      } else if ((new URL(href).hostname === 'facebook.com' || new URL(href).hostname.endsWith('.facebook.com'))) {
         label = 'Facebook profile';
       }
 
@@ -1726,11 +1726,11 @@ function enhanceExternalLinks() {
     const href = link.getAttribute('href') || '';
     let label = 'Link';
 
-    if (href.includes('linkedin.com')) {
+    if ((new URL(href).hostname === 'linkedin.com' || new URL(href).hostname.endsWith('.linkedin.com'))) {
       label = 'LinkedIn';
-    } else if (href.includes('facebook.com')) {
+    } else if ((new URL(href).hostname === 'facebook.com' || new URL(href).hostname.endsWith('.facebook.com'))) {
       label = 'Facebook';
-    } else if (href.includes('x.com') || href.includes('twitter.com')) {
+    } else if ((new URL(href).hostname === 'x.com' || new URL(href).hostname.endsWith('.x.com')) || (new URL(href).hostname === 'twitter.com' || new URL(href).hostname.endsWith('.twitter.com'))) {
       label = 'X profile';
     } else if (href.startsWith('mailto:')) {
       label = 'Email';
