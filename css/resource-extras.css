@@ -32,9 +32,7 @@
 }
 
 .resource-tree__featured-rail {
-  padding: 0.85rem 1rem 1rem;
-  border-bottom: 1px solid #e5e7eb;
-  background: linear-gradient(180deg, #f8f5ff 0%, #ffffff 100%);
+  display: none;
 }
 
 .resource-tree__featured-rail-title {
