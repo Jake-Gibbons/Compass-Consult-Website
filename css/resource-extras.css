@@ -107,8 +107,4 @@
   .resource-tree__featured-item {
     grid-template-columns: minmax(0, 1fr);
   }
-
-  .resource-tree__featured-item .resource-tree__details-download {
-    display: none;
-  }
 }

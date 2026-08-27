@@ -87,13 +87,13 @@
       if (seen.has(id)) return;
       seen.add(id);
       const title = row.querySelector('.resource-tree__file-name');
-      const desc = row.querySelector('.resource-tree__file-desc');
       const download = row.querySelector('a.resource-tree__download');
       if (!title || !download) return;
+      const href = download.getAttribute('href');
+      if (!href) return;
       items.push({
         title: title.textContent.trim(),
-        desc: desc ? desc.textContent.trim() : '',
-        href: download.getAttribute('href')
+        href
       });
     });
     if (!items.length) return;
@@ -115,12 +115,24 @@
 
     const list = document.createElement('div');
     list.className = 'resource-tree__featured-list';
-    list.innerHTML = items.map((item) => `
-      <article class="resource-tree__featured-item">
-        <span class="resource-tree__featured-item-name">${item.title}</span>
-        <a href="${item.href}" download class="resource-tree__details-download">Download</a>
-      </article>
-    `).join('');
+    items.forEach((item) => {
+      const featuredItem = document.createElement('article');
+      featuredItem.className = 'resource-tree__featured-item';
+
+      const featuredName = document.createElement('span');
+      featuredName.className = 'resource-tree__featured-item-name';
+      featuredName.textContent = item.title;
+
+      const featuredDownload = document.createElement('a');
+      featuredDownload.className = 'resource-tree__details-download';
+      featuredDownload.href = item.href;
+      featuredDownload.download = '';
+      featuredDownload.textContent = 'Download';
+
+      featuredItem.appendChild(featuredName);
+      featuredItem.appendChild(featuredDownload);
+      list.appendChild(featuredItem);
+    });
 
     toggleBtn.addEventListener('click', () => {
       const collapsed = rail.classList.toggle('is-collapsed');
