@@ -3,7 +3,7 @@
 <div align="left">
 
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fcompassconsultes.co.uk&up_message=online&down_message=offline&label=live%20site&color=0ea5a4)](https://compassconsultes.co.uk)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/compass-consult/deploy-status)](https://app.netlify.com/sites/compass-consult/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/95f79584-208a-4385-b6bb-7ed5e6cf793a/deploy-status)](https://app.netlify.com/projects/compass-consult/deploys)
 [![Lint & Link Check](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/check.yml/badge.svg)](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/check.yml)
 [![Generate Sitemap and Robots](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/main.yml/badge.svg)](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/main.yml)
 [![Sync Resource Library](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/sync-resources.yml/badge.svg)](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/sync-resources.yml)
