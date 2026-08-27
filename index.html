@@ -120,11 +120,11 @@
         .reveal.active { opacity: 1; transform: translate(0) scale(1); }
         .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
         /* Embla ticker styles */
-        .embla-ticker { overflow: hidden; cursor: grab; width: 100%; min-height: 50px; }
+        .embla-ticker { overflow: hidden !important; cursor: grab; width: 100% !important; height: 50px !important; max-height: 50px !important; min-height: 50px !important; }
         .embla-ticker.is-dragging { cursor: grabbing; }
-        .embla-ticker__container { display: flex; align-items: center; user-select: none; -webkit-user-select: none; min-height: 50px; }
-        .embla-ticker__slide { flex: 0 0 auto; min-width: 0; padding: 0 1rem; }
-        .ticker-img { height: 35px; max-height: 35px; display: block; object-fit: contain; opacity: .98; transition: opacity .2s ease, transform .2s ease; max-width: 120px; width: auto; }
+        .embla-ticker__container { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important; user-select: none; -webkit-user-select: none; height: 50px !important; width: max-content !important; }
+        .embla-ticker__slide { flex: 0 0 auto !important; display: flex !important; align-items: center !important; width: auto !important; min-width: auto !important; max-width: none !important; padding: 0 1rem; }
+        .ticker-img { height: 35px !important; max-height: 35px !important; display: block !important; object-fit: contain !important; opacity: .98; transition: opacity .2s ease, transform .2s ease; max-width: 140px !important; width: auto !important; }
         .ticker-link { position: relative; display: inline-flex; align-items: center; text-decoration: none; }
         .ticker-link::after { content: ''; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-size: contain; position: absolute; top: 0; right: 0; width: 14px; height: 14px; opacity: 0; transition: opacity .2s ease; pointer-events: none; }
         .ticker-link:hover::after,
@@ -133,9 +133,9 @@
         .ticker-link:focus-visible .ticker-img { transform: translateY(-2px); opacity: 1; }
         .ticker-link:focus-visible { outline: 2px solid #483086; outline-offset: 2px; border-radius: 2px; }
         @media (max-width: 640px) {
-            .embla-ticker { min-height: 40px; }
-            .embla-ticker__container { min-height: 40px; }
-            .ticker-img { height: 30px; max-height: 30px; }
+            .embla-ticker { height: 40px !important; max-height: 40px !important; min-height: 40px !important; }
+            .embla-ticker__container { height: 40px !important; min-height: 40px !important; }
+            .ticker-img { height: 30px !important; max-height: 30px !important; }
         }
         .dots-bg { background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 30px 30px; }
         /* Site logo sizing */
@@ -146,6 +146,7 @@
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
     <link rel="stylesheet" href="/css/main.8e20beda.css">
+    <link rel="stylesheet" href="/css/ticker.css">
     <link rel="stylesheet" href="/css/aos.1aa8845f.css">
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
@@ -224,7 +225,7 @@
                 <a href="/pages/events.html" class="flex items-center gap-2 py-2 px-3 text-gray-700 hover:text-compass-purple"><i data-lucide="newspaper" class="w-4 h-4 shrink-0"></i>Latest News & Events</a>
                 <a href="/pages/work-for-us.html" class="flex items-center gap-2 py-2 px-3 text-gray-700 hover:text-compass-purple"><i data-lucide="user-plus" class="w-4 h-4 shrink-0"></i>Work For Us</a>
                 <a href="/pages/contact.html" class="flex items-center gap-2 py-2 px-3 text-compass-teal font-medium"><i data-lucide="mail" class="w-4 h-4 shrink-0"></i>Contact Us</a>
-            </div>`
+            </div>
         </div>
     </nav>
 
@@ -523,8 +524,8 @@
     <script defer src="/js/embla-carousel.umd.js"></script>
     <script defer src="/js/embla-carousel-auto-scroll.umd.js"></script>
     <script defer src="/js/lucide.min.63db770a.js"></script>
-    <script defer src="/js/main.2a7c3b80.js?v=20260416b"></script>
+    <script defer src="/js/main.2a7c3b80.js?v=20260827a"></script>
+    <script defer src="/js/ticker-fix.js?v=20260827a"></script>
 </body>
 </html>
-
 
