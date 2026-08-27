@@ -26,9 +26,9 @@
   justify-content: center !important;
   box-sizing: content-box !important;
   width: auto !important;
-  min-width: 5.5rem !important;
+  min-width: 7.5rem !important;
   max-width: none !important;
-  padding: 0 2rem !important;
+  padding: 0 4.5rem !important;
 }
 .embla-ticker img,
 .ticker-img {
@@ -58,8 +58,8 @@ div:has(> .flex > #clients-ticker) {
     min-height: 40px !important;
   }
   .embla-ticker__slide {
-    min-width: 4.5rem !important;
-    padding: 0 1.5rem !important;
+    min-width: 6rem !important;
+    padding: 0 2.75rem !important;
   }
   .embla-ticker img,
   .ticker-img {

@@ -12,7 +12,7 @@
     style.textContent = [
       '.embla-ticker{overflow:hidden!important;width:100%!important;height:50px!important;max-height:50px!important;min-height:50px!important;contain:paint;}',
       '.embla-ticker__container{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;height:50px!important;will-change:transform;transform:translateZ(0);}',
-      '.embla-ticker__slide{flex:0 0 auto!important;display:flex!important;align-items:center!important;justify-content:center!important;width:auto!important;min-width:5.5rem!important;max-width:none!important;padding:0 2rem!important;}',
+      '.embla-ticker__slide{flex:0 0 auto!important;display:flex!important;align-items:center!important;justify-content:center!important;width:auto!important;min-width:7.5rem!important;max-width:none!important;padding:0 4.5rem!important;}',
       '.embla-ticker img,.ticker-img{height:35px!important;max-height:35px!important;width:auto!important;max-width:160px!important;object-fit:contain!important;}'
     ].join('');
     document.head.appendChild(style);
