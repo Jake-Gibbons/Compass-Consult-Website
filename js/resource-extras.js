@@ -76,7 +76,7 @@
 
   function renderFeaturedRail() {
     if (grid.querySelector('.resource-tree__featured-rail')) return;
-    const featuredRows = Array.from(grid.querySelectorAll('.resource-tree__row.is-featured, .resource-tree__row[data-resource-id]'))
+    const featuredRows = Array.from(grid.querySelectorAll('.resource-tree__row[data-resource-id]'))
       .filter((row) => featuredIds.has(Number(row.dataset.resourceId)));
     if (!featuredRows.length) return;
 
@@ -99,22 +99,36 @@
     if (!items.length) return;
 
     const rail = document.createElement('section');
-    rail.className = 'resource-tree__featured-rail';
+    rail.className = 'resource-tree__featured-rail is-collapsed';
     rail.setAttribute('aria-label', 'Featured documents');
-    rail.innerHTML = `
-      <p class="resource-tree__featured-rail-title">Featured documents</p>
-      <div class="resource-tree__featured-list">
-        ${items.map((item) => `
-          <article class="resource-tree__featured-item">
-            <div>
-              <span class="resource-tree__featured-item-name">${item.title}</span>
-              <span class="resource-tree__featured-item-desc">${item.desc}</span>
-            </div>
-            <a href="${item.href}" download class="resource-tree__details-download">Download</a>
-          </article>
-        `).join('')}
-      </div>
+
+    const toggleBtn = document.createElement('button');
+    toggleBtn.type = 'button';
+    toggleBtn.className = 'resource-tree__featured-rail-toggle';
+    toggleBtn.setAttribute('aria-expanded', 'false');
+    toggleBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 resource-tree__chevron w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      <span>Featured documents</span>
+      <span class="resource-tree__count">${items.length}</span>
     `;
+
+    const list = document.createElement('div');
+    list.className = 'resource-tree__featured-list';
+    list.innerHTML = items.map((item) => `
+      <article class="resource-tree__featured-item">
+        <span class="resource-tree__featured-item-name">${item.title}</span>
+        <a href="${item.href}" download class="resource-tree__details-download">Download</a>
+      </article>
+    `).join('');
+
+    toggleBtn.addEventListener('click', () => {
+      const collapsed = rail.classList.toggle('is-collapsed');
+      toggleBtn.setAttribute('aria-expanded', String(!collapsed));
+    });
+
+    rail.appendChild(toggleBtn);
+    rail.appendChild(list);
     grid.insertBefore(rail, grid.firstChild);
   }
 
