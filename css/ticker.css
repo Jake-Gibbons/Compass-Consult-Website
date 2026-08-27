@@ -1,11 +1,12 @@
 /* Homepage client ticker overrides.
-   Loaded after main.css so logos cannot stack vertically. */
+   Loaded after main.css so logos stay in one evenly spaced row. */
 .embla-ticker {
   overflow: hidden !important;
   width: 100% !important;
   height: 50px !important;
   max-height: 50px !important;
   min-height: 50px !important;
+  contain: paint;
 }
 .embla-ticker__container {
   display: flex !important;
@@ -14,22 +15,40 @@
   align-items: center !important;
   height: 50px !important;
   width: max-content !important;
+  column-gap: 0 !important;
+  will-change: transform;
+  transform: translateZ(0);
 }
 .embla-ticker__slide {
   flex: 0 0 auto !important;
   display: flex !important;
   align-items: center !important;
+  justify-content: center !important;
+  box-sizing: content-box !important;
   width: auto !important;
-  min-width: auto !important;
+  min-width: 5.5rem !important;
   max-width: none !important;
+  padding: 0 2rem !important;
 }
 .embla-ticker img,
 .ticker-img {
   height: 35px !important;
   max-height: 35px !important;
   width: auto !important;
-  max-width: 140px !important;
+  max-width: 160px !important;
   object-fit: contain !important;
+  display: block !important;
+}
+.ticker-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+/* Drop expensive backdrop-blur on the ticker bar while the track moves. */
+div:has(> .flex > #clients-ticker) {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background-color: #ffffff !important;
 }
 @media (max-width: 640px) {
   .embla-ticker,
@@ -38,9 +57,19 @@
     max-height: 40px !important;
     min-height: 40px !important;
   }
+  .embla-ticker__slide {
+    min-width: 4.5rem !important;
+    padding: 0 1.5rem !important;
+  }
   .embla-ticker img,
   .ticker-img {
     height: 30px !important;
     max-height: 30px !important;
+    max-width: 130px !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .embla-ticker__container {
+    will-change: auto;
   }
 }
