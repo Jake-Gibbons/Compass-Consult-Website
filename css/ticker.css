@@ -13,9 +13,12 @@
   flex-wrap: nowrap !important;
   align-items: center !important;
   height: 50px !important;
+  width: max-content !important;
 }
 .embla-ticker__slide {
   flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
   width: auto !important;
   min-width: auto !important;
   max-width: none !important;
