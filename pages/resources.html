@@ -710,18 +710,48 @@
         .resource-tree__details-download:hover,
         .resource-tree__details-download:focus-visible { background: #2da8b4; }
 
-        .resource-tree__new {
+        @keyframes tag-dot-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.45; transform: scale(0.7); }
+        }
+
+        .resource-tree__new,
+        .resource-tree__featured {
             display: inline-flex;
             align-items: center;
+            gap: 0.3rem;
             padding: 0.18rem 0.45rem;
             border-radius: 0.25rem;
-            background: #16a34a;
-            color: #ffffff;
             font-size: 0.58rem;
             font-weight: 800;
             letter-spacing: 0.08em;
             text-transform: uppercase;
+            white-space: nowrap;
         }
+
+        .resource-tree__new {
+            background: #16a34a;
+            color: #ffffff;
+        }
+
+        .resource-tree__featured {
+            background: #483086;
+            color: #ffffff;
+        }
+
+        .resource-tree__new .tag-dot,
+        .resource-tree__featured .tag-dot {
+            display: inline-block;
+            flex-shrink: 0;
+            width: 0.42rem;
+            height: 0.42rem;
+            border-radius: 50%;
+        }
+
+        .resource-tree__new .tag-dot { background: rgba(255, 255, 255, 0.85); }
+        .resource-tree__featured .tag-dot { background: rgba(255, 255, 255, 0.85); }
+
+        .resource-tree__folder--featured .resource-tree__folder-icon { color: #b97d0a; }
 
         @media (max-width: 640px) {
             .resource-tree__root { gap: 0.45rem; }
@@ -736,6 +766,18 @@
             .resource-tree__row::after { left: -0.8rem; }
             .resource-tree__details { grid-template-columns: minmax(0, 1fr); }
         }
+
+        @media (max-width: 420px) {
+            .resource-tree__new .tag-text,
+            .resource-tree__featured .tag-text { display: none; }
+            .resource-tree__new,
+            .resource-tree__featured { padding: 0.25rem; border-radius: 50%; }
+            .resource-tree__new .tag-dot,
+            .resource-tree__featured .tag-dot {
+                animation: tag-dot-pulse 1.8s ease-in-out infinite;
+            }
+        }
+
 
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
