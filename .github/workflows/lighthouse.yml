@@ -33,7 +33,7 @@ jobs:
 
       - name: Extract scores and update README badges
         run: |
-          REPORT=$(find .lighthouseci -name "lhr-*.json" | head -1)
+          REPORT=$(find ./.lighthouseci -name "lhr-*.json" | head -1)
 
           if [ -z "$REPORT" ]; then
             echo "No Lighthouse report found."
