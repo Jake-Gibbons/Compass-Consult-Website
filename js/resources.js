@@ -612,9 +612,13 @@
             `;
         }
 
-        function renderResourceRow(item) {
+        function renderResourceRow(item, { showFeaturedBadge = false } = {}) {
             const downloadUrl = encodeURI(item.url);
-            const newBadge = item.isNew ? '<span class="resource-tree__new">New</span>' : '';
+            const badge = showFeaturedBadge
+                ? '<span class="resource-tree__featured"><span class="tag-dot" aria-hidden="true"></span><span class="tag-text">Featured</span></span>'
+                : item.isNew
+                    ? '<span class="resource-tree__new"><span class="tag-dot" aria-hidden="true"></span><span class="tag-text">New</span></span>'
+                    : '';
             const publishedDate = item.publishedDate ? new Date(`${item.publishedDate}T00:00:00`).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : 'Date not set';
 
             return `
@@ -627,7 +631,7 @@
                             <span class="resource-tree__file-date">${publishedDate}</span>
                         </span>
                     </div>
-                    <span class="resource-tree__meta">${newBadge}<span class="resource-tree__type">${item.type}</span></span>
+                    <span class="resource-tree__meta">${badge}<span class="resource-tree__type">${item.type}</span></span>
                     <span class="resource-tree__meta">
                         <button type="button" class="resource-tree__download resource-tree__info" data-resource-info="${item.id}" aria-expanded="false" aria-label="View details for ${item.title}" title="View details">
                             <i data-lucide="info" class="shrink-0 w-4 h-4"></i>
@@ -770,6 +774,10 @@
             noResults.classList.add('hidden');
 
             const groupedResources = data.reduce((groups, item) => {
+                if (item.featured) {
+                    if (!groups['Featured']) groups['Featured'] = [];
+                    groups['Featured'].push(item);
+                }
                 const groupNames = currentView === 'type'
                     ? [item.category || 'Misc']
                     : currentView === 'organization'
@@ -783,10 +791,10 @@
             }, {});
 
             const categoryOrder = currentView === 'type'
-                ? ['Factsheets', 'Briefings', 'Blogs', 'Whitepapers', 'Other', 'Misc']
+                ? ['Featured', 'Factsheets', 'Briefings', 'Blogs', 'Whitepapers', 'Other', 'Misc']
                 : currentView === 'organization'
-                    ? ['Department for Work and Pensions (DWP)', 'Greater London Authority', 'UK Government', 'Work and Pensions Select Committee', 'Misc']
-                    : ['Local Growth Fund', 'Youth Guarantee', 'National Youth Strategy', 'Local Government Reorganisation', 'Access to Work', 'Jobs Guarantee', 'Misc'];
+                    ? ['Featured', 'Department for Work and Pensions (DWP)', 'Greater London Authority', 'UK Government', 'Work and Pensions Select Committee', 'Misc']
+                    : ['Featured', 'Local Growth Fund', 'Youth Guarantee', 'National Youth Strategy', 'Local Government Reorganisation', 'Access to Work', 'Jobs Guarantee', 'Misc'];
             const categories = Object.keys(groupedResources).sort((a, b) => {
                 const aIndex = categoryOrder.indexOf(a);
                 const bIndex = categoryOrder.indexOf(b);
@@ -806,15 +814,15 @@
                     </div>
                 </div>
                 ${categories.map((category, index) => `
-                    <section class="resource-tree__folder is-collapsed" data-category="${category}">
+                    <section class="resource-tree__folder is-collapsed${category === 'Featured' ? ' resource-tree__folder--featured' : ''}" data-category="${category}">
                         <button type="button" class="resource-tree__folder-toggle" aria-expanded="false" aria-controls="resource-folder-${index}">
                             <i data-lucide="chevron-down" class="shrink-0 resource-tree__chevron w-4 h-4" aria-hidden="true"></i>
-                            <i data-lucide="folder-open" class="shrink-0 resource-tree__folder-icon w-4 h-4" aria-hidden="true"></i>
+                            <i data-lucide="${category === 'Featured' ? 'star' : 'folder-open'}" class="shrink-0 resource-tree__folder-icon w-4 h-4" aria-hidden="true"></i>
                             <span>${category}</span>
                             <span class="resource-tree__count">${groupedResources[category].length}</span>
                         </button>
                         <div id="resource-folder-${index}" class="resource-tree__files">
-                            ${groupedResources[category].sort(compareResources).map(renderResourceRow).join('')}
+                            ${groupedResources[category].sort(compareResources).map(item => renderResourceRow(item, { showFeaturedBadge: category === 'Featured' })).join('')}
                         </div>
                     </section>
                 `).join('')}
