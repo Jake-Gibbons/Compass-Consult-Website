@@ -20,6 +20,8 @@
     "dev": "http-server",
     "serve": "http-server -p 8000 -c-1",
     "build": "npm run optimize:images && npm run build:css && npm run build:lucide && npm run build:assets",
+    "build:prod": "npm run build:vendors && npm run build:css && npm run build:lucide && npm run build:assets",
+    "build:vendors": "cp node_modules/aos/dist/aos.js js/aos.min.js && cp node_modules/aos/dist/aos.css css/aos.css",
     "optimize:images": "node scripts/optimize-images.mjs",
     "generate:pwa-icons": "node scripts/generate-pwa-icons.mjs",
     "sync:resources": "node scripts/sync-resources.mjs",
