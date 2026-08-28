@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "http-server",
     "serve": "http-server -p 8000 -c-1",
-    "build": "npm run optimize:images && npm run build:css && npm run build:lucide && npm run build:assets",
+    "build": "npm run optimize:images && npm run build:css && npm run build:lucide && npm run build:aos && npm run build:assets",
     "optimize:images": "node scripts/optimize-images.mjs",
     "generate:pwa-icons": "node scripts/generate-pwa-icons.mjs",
     "sync:resources": "node scripts/sync-resources.mjs",
@@ -27,6 +27,7 @@
     "hooks:install": "git config core.hooksPath .githooks",
     "build:css": "tailwindcss -i ./css/input.css -o ./css/tailwind.min.css --minify",
     "build:lucide": "node scripts/build-lucide.mjs",
+    "build:aos": "node -e \"const {build}=require('esbuild'),fs=require('fs');build({entryPoints:['node_modules/aos/dist/aos.js'],bundle:false,minify:true,outfile:'js/aos.min.js',target:'es2018'}).then(()=>console.log('Built js/aos.min.js'))\"",
     "build:assets": "node scripts/version-assets.mjs",
     "watch:css": "tailwindcss -i ./css/input.css -o ./css/tailwind.min.css --watch",
     "test": "vitest run",

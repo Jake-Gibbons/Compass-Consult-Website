@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'compass-static-v7';
+const CACHE_VERSION = 'compass-static-v8';
 const APP_SHELL_ASSETS = [
   '/offline.html',
   '/assets/icons/favicon/site.webmanifest',

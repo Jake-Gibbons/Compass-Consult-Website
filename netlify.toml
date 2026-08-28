@@ -1,6 +1,6 @@
 [build]
   publish = "."
-  command = "npm run build:css"
+  command = "npm run build:css && npm run build:lucide && npm run build:aos && npm run build:assets"
 
 [functions]
   directory = "netlify/functions"
