@@ -814,8 +814,8 @@
                     </div>
                 </div>
                 ${categories.map((category, index) => `
-                    <section class="resource-tree__folder is-collapsed${category === 'Featured' ? ' resource-tree__folder--featured' : ''}" data-category="${category}">
-                        <button type="button" class="resource-tree__folder-toggle" aria-expanded="false" aria-controls="resource-folder-${index}">
+                    <section class="resource-tree__folder${category !== 'Featured' ? ' is-collapsed' : ''}${category === 'Featured' ? ' resource-tree__folder--featured' : ''}" data-category="${category}">
+                        <button type="button" class="resource-tree__folder-toggle" aria-expanded="${category === 'Featured' ? 'true' : 'false'}" aria-controls="resource-folder-${index}">
                             <i data-lucide="chevron-down" class="shrink-0 resource-tree__chevron w-4 h-4" aria-hidden="true"></i>
                             <i data-lucide="${category === 'Featured' ? 'star' : 'folder-open'}" class="shrink-0 resource-tree__folder-icon w-4 h-4" aria-hidden="true"></i>
                             <span>${category}</span>
