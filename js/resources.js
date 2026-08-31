@@ -612,11 +612,9 @@
             `;
         }
 
-        function renderResourceRow(item, { showFeaturedBadge = false } = {}) {
+        function renderResourceRow(item) {
             const downloadUrl = encodeURI(item.url);
-            const badge = showFeaturedBadge
-                ? '<span class="resource-tree__featured" aria-label="Featured"><span class="tag-dot" aria-hidden="true"></span><span class="tag-text">Featured</span></span>'
-                : item.isNew
+            const badge = item.isNew
                     ? '<span class="resource-tree__new" aria-label="New"><span class="tag-dot" aria-hidden="true"></span><span class="tag-text">New</span></span>'
                     : '';
             const publishedDate = item.publishedDate ? new Date(`${item.publishedDate}T00:00:00`).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : 'Date not set';
@@ -822,7 +820,7 @@
                             <span class="resource-tree__count">${groupedResources[category].length}</span>
                         </button>
                         <div id="resource-folder-${index}" class="resource-tree__files">
-                            ${groupedResources[category].sort(compareResources).map(item => renderResourceRow(item, { showFeaturedBadge: category === 'Featured' })).join('')}
+                            ${groupedResources[category].sort(compareResources).map(item => renderResourceRow(item)).join('')}
                         </div>
                     </section>
                 `).join('')}
