@@ -1,3 +1,5 @@
+<img src="assets/logos/Logo.png" alt="Compass Consult Logo" width="320" />
+
 # Compass Consult Website
 
 <div align="left">
