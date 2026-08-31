@@ -13,7 +13,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-7c3aed.svg)](#license)
 
 <!-- LIGHTHOUSE_BADGES_START -->
-[![Lighthouse Performance](https://img.shields.io/badge/Lighthouse%3A%20Performance-100-brightgreen?logo=lighthouse&logoColor=white)](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/lighthouse.yml)
+[![Lighthouse Performance](https://img.shields.io/badge/Lighthouse%3A%20Performance-97-brightgreen?logo=lighthouse&logoColor=white)](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/lighthouse.yml)
 [![Lighthouse Accessibility](https://img.shields.io/badge/Lighthouse%3A%20Accessibility-94-brightgreen?logo=lighthouse&logoColor=white)](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/lighthouse.yml)
 [![Lighthouse Best Practices](https://img.shields.io/badge/Lighthouse%3A%20Best%20Practices-93-brightgreen?logo=lighthouse&logoColor=white)](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/lighthouse.yml)
 [![Lighthouse SEO](https://img.shields.io/badge/Lighthouse%3A%20SEO-100-brightgreen?logo=lighthouse&logoColor=white)](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/lighthouse.yml)
