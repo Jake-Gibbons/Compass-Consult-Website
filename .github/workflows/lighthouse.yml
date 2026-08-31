@@ -40,6 +40,8 @@ jobs:
             exit 1
           fi
 
+          REPORT=$(realpath "$REPORT")
+
           PERF=$(node -e "const r=require('$REPORT'); console.log(Math.round(r.categories.performance.score*100))")
           A11Y=$(node -e "const r=require('$REPORT'); console.log(Math.round(r.categories.accessibility.score*100))")
           BP=$(node -e "const r=require('$REPORT'); console.log(Math.round(r.categories['best-practices'].score*100))")
