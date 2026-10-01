@@ -988,3 +988,88 @@ body.menu-open {
     height: 14px;
   }
 }
+
+
+/* Sidebar chrome — same logo slot and Contact button on every page */
+@media (min-width: 1024px) {
+  aside.site-sidebar {
+    padding: 0 !important;
+    justify-content: flex-start !important;
+    overflow: hidden;
+  }
+
+  aside.site-sidebar .sidebar-main {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 2rem 1rem;
+  }
+
+  aside.site-sidebar .sidebar-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 4.75rem;
+    margin: 0 0 2rem;
+    gap: 0;
+  }
+
+  aside.site-sidebar .site-logo {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: 4.75rem;
+    max-height: 4.75rem;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+
+  aside.site-sidebar .sidebar-cta {
+    position: sticky;
+    bottom: 0;
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 1.25rem 2rem 1.5rem;
+    border-top: 1px solid #f3f4f6;
+    background: #fff;
+    z-index: 2;
+  }
+
+  aside.site-sidebar .sidebar-contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    min-height: 3rem;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border-radius: 9999px;
+    background: #483086;
+    color: #fff;
+    font-weight: 600;
+    line-height: 1.25;
+    box-shadow: 0 10px 18px rgba(72, 48, 134, 0.18);
+    transform: none;
+  }
+
+  aside.site-sidebar .sidebar-contact:hover,
+  aside.site-sidebar .sidebar-contact:focus-visible {
+    background: #6a4eb8;
+    color: #fff;
+    transform: none;
+  }
+
+  aside.site-sidebar .sidebar-contact:focus-visible {
+    outline: 2px solid #2da8b4;
+    outline-offset: 3px;
+  }
+
+  aside.site-sidebar .nav-link.active {
+    color: #483086;
+    background: #f9fafb;
+  }
+}
