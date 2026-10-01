@@ -2,6 +2,10 @@
   publish = "."
   command = "npm run build:prod"
 
+[build.environment]
+  NODE_VERSION = "22"
+  NPM_FLAGS = "--no-audit --no-fund"
+
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"

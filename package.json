@@ -45,14 +45,12 @@
     "eslint": "^9.22.0",
     "globals": "^16.0.0",
     "http-server": "^14.1.1",
-    "lighthouse": "^13.0.3",
     "lucide": "^1.7.0",
-    "sharp": "^0.35.3",
     "tailwindcss": "^3.4.19",
     "vitest": "^4.1.11"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=22"
   },
   "browserslist": [
     "> 1%",
@@ -62,5 +60,9 @@
   "dependencies": {
     "@netlify/blobs": "^10.7.4",
     "@netlify/functions": "^5.1.5"
+  },
+  "optionalDependencies": {
+    "sharp": "^0.35.3",
+    "lighthouse": "^13.0.3"
   }
 }
