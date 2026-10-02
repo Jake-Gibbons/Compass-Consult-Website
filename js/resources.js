@@ -310,7 +310,7 @@
                 category: "Briefings",
                 type: "PDF",
                 size: "PDF",
-                desc: "Briefing update on current policy and delivery developments.",
+                desc: "August 2026 briefing on devolution developments and what they mean for local employability and skills delivery.",
                 icon: "file-text",
                 color: "orange",
                 isNew: true,
@@ -322,7 +322,7 @@
                 category: "Factsheets",
                 type: "PDF",
                 size: "PDF",
-                desc: "Factsheet outlining key points for employability and skills delivery.",
+                desc: "June 2026 factsheet on DWP future employment support and the delivery points commissioners need to track.",
                 icon: "file-text",
                 color: "purple",
                 isNew: true,
@@ -334,7 +334,7 @@
                 category: "Briefings",
                 type: "PDF",
                 size: "PDF",
-                desc: "Briefing update on current policy and delivery developments.",
+                desc: "19 August 2026 update on DWP future employment support, covering changes since the June factsheet.",
                 icon: "file-text",
                 color: "orange",
                 isNew: true,
@@ -346,7 +346,7 @@
                 category: "Briefings",
                 type: "PDF",
                 size: "PDF",
-                desc: "Briefing update on current policy and delivery developments.",
+                desc: "4 June 2026 update on Jobs Guarantee phase two, including eligibility and early delivery priorities.",
                 icon: "file-text",
                 color: "orange",
                 isNew: true,
@@ -358,7 +358,7 @@
                 category: "Factsheets",
                 type: "PDF",
                 size: "PDF",
-                desc: "Factsheet outlining key points for employability and skills delivery.",
+                desc: "July 2026 factsheet on journeys into Access to Work and support for disabled people moving into employment.",
                 icon: "file-text",
                 color: "purple",
                 isNew: true,
@@ -370,7 +370,7 @@
                 category: "Factsheets",
                 type: "PDF",
                 size: "PDF",
-                desc: "Factsheet outlining key points for employability and skills delivery.",
+                desc: "Overview of the 13 May 2026 King's Speech and the measures most relevant to employability and skills.",
                 icon: "file-text",
                 color: "purple",
                 isNew: true,
@@ -382,7 +382,7 @@
                 category: "Factsheets",
                 type: "PDF",
                 size: "PDF",
-                desc: "Factsheet outlining key points for employability and skills delivery.",
+                desc: "August 2026 analysis of labour market conditions relevant to employability and skills programmes.",
                 icon: "file-text",
                 color: "purple",
                 isNew: true,
@@ -394,7 +394,7 @@
                 category: "Factsheets",
                 type: "PDF",
                 size: "PDF",
-                desc: "Factsheet outlining key points for employability and skills delivery.",
+                desc: "May 2026 factsheet on the Milburn Review interim report and its implications for youth employment.",
                 icon: "file-text",
                 color: "purple",
                 isNew: true,
@@ -406,7 +406,7 @@
                 category: "Factsheets",
                 type: "PDF",
                 size: "PDF",
-                desc: "Factsheet outlining key points for employability and skills delivery.",
+                desc: "July 2026 factsheet on the Rewiring the State proposals and their relevance to public service delivery.",
                 icon: "file-text",
                 color: "purple",
                 isNew: true,
@@ -418,7 +418,7 @@
                 category: "Factsheets",
                 type: "PDF",
                 size: "PDF",
-                desc: "Factsheet outlining key points for employability and skills delivery.",
+                desc: "August 2026 Compass Consult response to the Work and Pensions Select Committee.",
                 icon: "file-text",
                 color: "purple",
                 isNew: true,
@@ -478,6 +478,14 @@
 
         resources.forEach(item => Object.assign(item, resourceMetadata[item.id] || {}));
 
+        const statusText = document.getElementById('resourceStatusText');
+        const clearSearch = document.getElementById('clearSearch');
+        const expandFolders = document.getElementById('expandFolders');
+        const collapseFolders = document.getElementById('collapseFolders');
+        const resetFilters = document.getElementById('resetFilters');
+        const emptyReset = document.getElementById('emptyReset');
+        const urlState = new URLSearchParams(window.location.search);
+
         let savedState = {};
         try {
             savedState = JSON.parse(localStorage.getItem(stateStorageKey) || '{}');
@@ -485,15 +493,16 @@
             savedState = {};
         }
 
-        let currentView = 'type';
-        let currentSort = savedState.sort || 'newest';
-        let currentScope = savedState.scope || 'all';
+        let currentView = urlState.get('view') || savedState.view || 'type';
+        let currentSort = urlState.get('sort') || savedState.sort || 'newest';
+        let currentScope = urlState.get('scope') || savedState.scope || 'all';
+        let pendingDocumentId = urlState.get('doc') || (window.location.hash.match(/^#resource-(\d+)$/) || [])[1] || '';
 
-        if (['type', 'organization', 'topic'].includes(savedState.view)) currentView = savedState.view;
+        if (!['type', 'organization', 'topic'].includes(currentView)) currentView = 'type';
         if (!['newest', 'alphabetical', 'added'].includes(currentSort)) currentSort = 'newest';
         if (!['all', 'new', 'featured'].includes(currentScope)) currentScope = 'all';
         sortSelect.value = currentSort;
-        searchInput.value = savedState.search || '';
+        searchInput.value = urlState.has('q') ? urlState.get('q') : (savedState.search || '');
         scopeButtons.forEach(button => button.classList.toggle('is-active', button.dataset.scope === currentScope));
 
         function renderResourceIcons() {
@@ -612,20 +621,37 @@
             `;
         }
 
-        function renderResourceRow(item) {
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, '&')
+                .replace(/</g, '<')
+                .replace(/>/g, '>')
+                .replace(/"/g, '"');
+        }
+
+        function highlightText(value, term) {
+            const safe = escapeHtml(value);
+            const needle = term.trim();
+            if (needle.length < 2) return safe;
+            const pattern = new RegExp(`(${needle.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&')})`, 'ig');
+            return safe.replace(pattern, '<mark class="resource-hit">$1</mark>');
+        }
+
+        function renderResourceRow(item, anchor) {
             const downloadUrl = encodeURI(item.url);
             const badge = item.isNew
                     ? '<span class="resource-tree__new" aria-label="New"><span class="tag-dot" aria-hidden="true"></span><span class="tag-text">New</span></span>'
                     : '';
             const publishedDate = item.publishedDate ? new Date(`${item.publishedDate}T00:00:00`).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : 'Date not set';
+            const query = searchInput.value.trim();
 
             return `
-                <div class="resource-tree__row" data-resource-id="${item.id}">
+                <div class="resource-tree__row" ${anchor ? `id="resource-${item.id}"` : ''} data-resource-id="${item.id}">
                     <div class="resource-tree__file">
                         <span class="resource-tree__file-icon" aria-hidden="true"><i data-lucide="newspaper" class="shrink-0 w-4 h-4"></i></span>
                         <span class="resource-tree__file-copy">
-                            <span class="resource-tree__file-name" title="${item.title}">${item.title}</span>
-                            <span class="resource-tree__file-desc" title="${item.desc}">${item.desc}</span>
+                            <span class="resource-tree__file-name" title="${escapeHtml(item.title)}">${highlightText(item.title, query)}</span>
+                            <span class="resource-tree__file-desc" title="${escapeHtml(item.desc)}">${highlightText(item.desc, query)}</span>
                             <span class="resource-tree__file-date">${publishedDate}</span>
                         </span>
                     </div>
@@ -657,7 +683,7 @@
             },
             {
                 name: 'Work and Pensions Select Committee',
-                terms: ['wpsc']
+                terms: ['wpsc', 'work and pensions select committee']
             }
         ];
 
@@ -685,6 +711,26 @@
             {
                 name: 'Jobs Guarantee',
                 terms: ['jobs guarantee']
+            },
+            {
+                name: 'Connect to Work',
+                terms: ['connect to work']
+            },
+            {
+                name: 'Devolution',
+                terms: ['devolution', 'integrated settlements']
+            },
+            {
+                name: 'Education and skills',
+                terms: ['education policy', 'schools white paper', 'post-16', 'every child can']
+            },
+            {
+                name: 'Labour market',
+                terms: ['labour market']
+            },
+            {
+                name: 'Inclusion',
+                terms: ['access to work', 'disability employment', 'every child can']
             }
         ];
 
@@ -710,6 +756,73 @@
             } catch {
                 // Storage is optional; the directory remains usable without it.
             }
+            syncUrl();
+        }
+
+        function buildShareUrl(documentId) {
+            const params = new URLSearchParams();
+            const query = searchInput.value.trim();
+            if (query) params.set('q', query);
+            if (currentScope !== 'all') params.set('scope', currentScope);
+            if (currentView !== 'type') params.set('view', currentView);
+            if (currentSort !== 'newest') params.set('sort', currentSort);
+            if (documentId) params.set('doc', documentId);
+            const queryString = params.toString();
+            return `${window.location.origin}${window.location.pathname}${queryString ? `?${queryString}` : ''}${documentId ? `#resource-${documentId}` : ''}`;
+        }
+
+        function syncUrl() {
+            const params = new URLSearchParams();
+            const query = searchInput.value.trim();
+            if (query) params.set('q', query);
+            if (currentScope !== 'all') params.set('scope', currentScope);
+            if (currentView !== 'type') params.set('view', currentView);
+            if (currentSort !== 'newest') params.set('sort', currentSort);
+            if (pendingDocumentId) params.set('doc', pendingDocumentId);
+            const queryString = params.toString();
+            const hash = pendingDocumentId ? `#resource-${pendingDocumentId}` : '';
+            const next = `${window.location.pathname}${queryString ? `?${queryString}` : ''}${hash}`;
+            if (`${window.location.pathname}${window.location.search}${window.location.hash}` !== next) {
+                history.replaceState(null, '', next);
+            }
+        }
+
+        function filtersAreActive() {
+            return Boolean(searchInput.value.trim()) || currentScope !== 'all' || currentView !== 'type' || currentSort !== 'newest';
+        }
+
+        function updateStatus(count) {
+            if (!statusText) return;
+            const query = searchInput.value.trim();
+            const total = resources.length;
+            const parts = [count === total ? `${count} documents` : `${count} of ${total} documents`];
+            if (query) parts.push(`matching “${query}”`);
+            if (currentScope === 'new') parts.push('in New');
+            if (currentScope === 'featured') parts.push('in Featured');
+            statusText.textContent = parts.join(' ');
+            if (clearSearch) clearSearch.hidden = !query;
+            if (resetFilters) resetFilters.hidden = !filtersAreActive();
+        }
+
+        function setAllFolders(expanded) {
+            grid.querySelectorAll('.resource-tree__folder').forEach(folder => {
+                folder.classList.toggle('is-collapsed', !expanded);
+                const toggle = folder.querySelector('.resource-tree__folder-toggle');
+                if (toggle) toggle.setAttribute('aria-expanded', String(expanded));
+            });
+        }
+
+        function resetDirectory() {
+            searchInput.value = '';
+            currentScope = 'all';
+            currentView = 'type';
+            currentSort = 'newest';
+            pendingDocumentId = '';
+            sortSelect.value = currentSort;
+            scopeButtons.forEach(button => button.classList.toggle('is-active', button.dataset.scope === 'all'));
+            saveDirectoryState();
+            filterData();
+            searchInput.focus();
         }
 
         function formatResourceDate(date) {
@@ -738,14 +851,34 @@
                 </div>
                 <div class="resource-tree__details-actions">
                     <button type="button" class="resource-tree__download resource-tree__details-close" aria-label="Close document details" title="Close details"><i data-lucide="x" class="shrink-0 w-4 h-4"></i></button>
+                    <a href="${encodeURI(item.url)}" target="_blank" rel="noopener noreferrer" class="resource-tree__details-open"><i data-lucide="external-link" class="shrink-0 w-4 h-4"></i>Open</a>
+                    <button type="button" class="resource-tree__details-copy" data-copy-link="${item.id}"><i data-lucide="link" class="shrink-0 w-4 h-4"></i>Copy link</button>
                     <a href="${encodeURI(item.url)}" download class="resource-tree__details-download"><i data-lucide="download" class="shrink-0 w-4 h-4"></i>Download</a>
                 </div>
             `;
             row.insertAdjacentElement('afterend', resourceDetails);
             infoButton.setAttribute('aria-expanded', 'true');
+            pendingDocumentId = String(item.id);
+            syncUrl();
             resourceDetails.querySelector('.resource-tree__details-close').addEventListener('click', () => {
                 resourceDetails.remove();
                 infoButton.setAttribute('aria-expanded', 'false');
+                pendingDocumentId = '';
+                if (window.location.hash.startsWith('#resource-')) {
+                    history.replaceState(null, '', window.location.pathname + window.location.search);
+                }
+                syncUrl();
+            });
+            resourceDetails.querySelector('[data-copy-link]').addEventListener('click', async (event) => {
+                const button = event.currentTarget;
+                const shareUrl = buildShareUrl(item.id);
+                try {
+                    await navigator.clipboard.writeText(shareUrl);
+                    button.classList.add('is-copied');
+                    button.lastChild.textContent = 'Copied';
+                } catch {
+                    window.prompt('Copy this document link:', shareUrl);
+                }
             });
             renderResourceIcons();
         }
@@ -759,11 +892,14 @@
         // Render Function
         function renderResources(data) {
             grid.innerHTML = '';
+            const filteringActive = Boolean(searchInput.value.trim()) || currentScope !== 'all';
+            updateStatus(data.length);
 
             if (data.length === 0) {
                 grid.classList.add('hidden');
                 if (gridSpacer) gridSpacer.classList.add('hidden');
                 noResults.classList.remove('hidden');
+                if (window.lucide && typeof window.lucide.createIcons === 'function') window.lucide.createIcons();
                 return;
             }
 
@@ -792,7 +928,8 @@
                 ? ['Featured', 'Factsheets', 'Briefings', 'Blogs', 'Whitepapers', 'Other', 'Misc']
                 : currentView === 'organization'
                     ? ['Featured', 'Department for Work and Pensions (DWP)', 'Greater London Authority', 'UK Government', 'Work and Pensions Select Committee', 'Misc']
-                    : ['Featured', 'Local Growth Fund', 'Youth Guarantee', 'National Youth Strategy', 'Local Government Reorganisation', 'Access to Work', 'Jobs Guarantee', 'Misc'];
+                    : ['Featured', 'Local Growth Fund', 'Youth Guarantee', 'National Youth Strategy', 'Jobs Guarantee', 'Connect to Work', 'Devolution', 'Education and skills', 'Labour market', 'Inclusion', 'Local Government Reorganisation', 'Access to Work', 'Misc'];
+            const anchoredIds = new Set();
             const categories = Object.keys(groupedResources).sort((a, b) => {
                 const aIndex = categoryOrder.indexOf(a);
                 const bIndex = categoryOrder.indexOf(b);
@@ -812,15 +949,19 @@
                     </div>
                 </div>
                 ${categories.map((category, index) => `
-                    <section class="resource-tree__folder${category !== 'Featured' ? ' is-collapsed' : ''}${category === 'Featured' ? ' resource-tree__folder--featured' : ''}" data-category="${category}">
-                        <button type="button" class="resource-tree__folder-toggle" aria-expanded="${category === 'Featured' ? 'true' : 'false'}" aria-controls="resource-folder-${index}">
+                    <section class="resource-tree__folder${filteringActive || category === 'Featured' ? '' : ' is-collapsed'}${category === 'Featured' ? ' resource-tree__folder--featured' : ''}" data-category="${category}">
+                        <button type="button" class="resource-tree__folder-toggle" aria-expanded="${filteringActive || category === 'Featured' ? 'true' : 'false'}" aria-controls="resource-folder-${index}">
                             <i data-lucide="chevron-down" class="shrink-0 resource-tree__chevron w-4 h-4" aria-hidden="true"></i>
                             <i data-lucide="${category === 'Featured' ? 'star' : 'folder-open'}" class="shrink-0 resource-tree__folder-icon w-4 h-4" aria-hidden="true"></i>
                             <span>${category}</span>
                             <span class="resource-tree__count">${groupedResources[category].length}</span>
                         </button>
                         <div id="resource-folder-${index}" class="resource-tree__files">
-                            ${groupedResources[category].sort(compareResources).map(item => renderResourceRow(item)).join('')}
+                            ${groupedResources[category].sort(compareResources).map(item => {
+                                const shouldAnchor = !anchoredIds.has(item.id);
+                                anchoredIds.add(item.id);
+                                return renderResourceRow(item, shouldAnchor);
+                            }).join('')}
                         </div>
                     </section>
                 `).join('')}
@@ -858,6 +999,22 @@
             });
 
             renderResourceIcons();
+            if (pendingDocumentId) openPendingDocument();
+        }
+
+        function openPendingDocument() {
+            const row = document.getElementById(`resource-${pendingDocumentId}`) || grid.querySelector(`[data-resource-id="${pendingDocumentId}"]`);
+            if (!row) return;
+            const folder = row.closest('.resource-tree__folder');
+            const toggle = folder?.querySelector('.resource-tree__folder-toggle');
+            if (folder) folder.classList.remove('is-collapsed');
+            if (toggle) toggle.setAttribute('aria-expanded', 'true');
+            const infoButton = row.querySelector('[data-resource-info]');
+            if (infoButton && infoButton.getAttribute('aria-expanded') !== 'true') {
+                const item = resources.find(resource => String(resource.id) === pendingDocumentId);
+                if (item) showResourceDetails(item, row, infoButton);
+            }
+            row.scrollIntoView({ block: 'center', behavior: 'smooth' });
         }
 
         // Filter Logic
@@ -876,8 +1033,34 @@
 
         // Event Listeners
         searchInput.addEventListener('input', () => {
+            pendingDocumentId = '';
             saveDirectoryState();
             filterData();
+        });
+        clearSearch?.addEventListener('click', () => {
+            searchInput.value = '';
+            pendingDocumentId = '';
+            saveDirectoryState();
+            filterData();
+            searchInput.focus();
+        });
+        expandFolders?.addEventListener('click', () => setAllFolders(true));
+        collapseFolders?.addEventListener('click', () => setAllFolders(false));
+        resetFilters?.addEventListener('click', resetDirectory);
+        emptyReset?.addEventListener('click', resetDirectory);
+        document.addEventListener('keydown', (event) => {
+            const typing = ['INPUT', 'TEXTAREA', 'SELECT'].includes(event.target.tagName);
+            if (event.key === '/' && !typing) {
+                event.preventDefault();
+                searchInput.focus();
+                searchInput.select();
+            }
+            if (event.key === 'Escape' && document.activeElement === searchInput && searchInput.value) {
+                searchInput.value = '';
+                pendingDocumentId = '';
+                saveDirectoryState();
+                filterData();
+            }
         });
         sortSelect.addEventListener('change', () => {
             currentSort = sortSelect.value;

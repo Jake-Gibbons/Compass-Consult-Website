@@ -872,7 +872,7 @@
                 <div class="max-w-6xl mx-auto">
                 <span class="text-white/90 font-semibold tracking-wider uppercase text-sm mb-2 block">Knowledge Base</span>
                 <h1 class="text-4xl font-bold text-white mb-4">Resource Library</h1>
-                <p class="text-white/85 max-w-2xl">Access our curated collection of whitepapers, guides, and industry reports designed to help you navigate the employability sector.</p>
+                <p class="text-white/85 max-w-2xl">Search factsheets, briefings, white papers, and blogs. Filter by what is new, open a folder, or share a link to the exact document.</p>
                 
             </div>
             </div>
@@ -885,7 +885,10 @@
                     <div class="resource-window__header">
                         <div class="resource-window__search">
                             <i data-lucide="search" class="shrink-0 resource-window__search-icon" aria-hidden="true"></i>
-                            <input type="search" id="searchInput" aria-label="Search the resource library" class="block w-full h-10 pl-10 pr-3 border border-gray-200 rounded-lg leading-none bg-white placeholder-gray-400 focus:outline-none focus:border-compass-purple focus:ring-1 focus:ring-compass-purple sm:text-sm transition-all" placeholder="Search resources...">
+                            <input type="search" id="searchInput" aria-label="Search the resource library" aria-keyshortcuts="/" class="block w-full h-10 pl-10 pr-10 border border-gray-200 rounded-lg leading-none bg-white placeholder-gray-400 focus:outline-none focus:border-compass-purple focus:ring-1 focus:ring-compass-purple sm:text-sm transition-all" placeholder="Search titles, topics, organisations...">
+                            <button type="button" id="clearSearch" class="resource-window__clear" hidden aria-label="Clear search">
+                                <i data-lucide="x" class="shrink-0 w-3.5 h-3.5" aria-hidden="true"></i>
+                            </button>
                         </div>
                         <div class="resource-window__tools" aria-label="Resource sorting and scopes">
                             <button type="button" class="resource-window__scope is-active" data-scope="all"><i data-lucide="layers" class="shrink-0 w-3.5 h-3.5" aria-hidden="true"></i>All</button>
@@ -899,20 +902,27 @@
                             </select>
                         </div>
                     </div>
+                    <div class="resource-window__status">
+                        <p id="resourceStatusText" class="resource-window__status-text" aria-live="polite">Loading documents...</p>
+                        <div class="resource-window__status-actions">
+                            <button type="button" id="expandFolders" class="resource-window__text-btn">Expand all</button>
+                            <button type="button" id="collapseFolders" class="resource-window__text-btn">Collapse all</button>
+                            <button type="button" id="resetFilters" class="resource-window__text-btn" hidden>Clear filters</button>
+                        </div>
+                    </div>
                     <div id="resourceGrid" class="resource-tree">
                         <!-- Dynamic content will be injected here -->
                     </div>
+                    <div id="noResults" class="resource-empty hidden" role="status">
+                        <div class="resource-empty__icon" aria-hidden="true">
+                            <i data-lucide="search-x" class="shrink-0 w-6 h-6"></i>
+                        </div>
+                        <h2 class="resource-empty__title">No documents match this search</h2>
+                        <p class="resource-empty__copy">Try a programme name, organisation, or document type. New and featured filters can also hide older briefings.</p>
+                        <button type="button" id="emptyReset" class="resource-empty__reset">Show all documents</button>
+                    </div>
                 </div>
                 <div id="resourceGridSpacer" class="h-20 lg:h-28" aria-hidden="true"></div>
-                
-                <!-- No Results State -->
-                <div id="noResults" class="hidden text-center py-20">
-                    <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i data-lucide="folder-open" class="shrink-0 w-8 h-8 text-gray-400"></i>
-                    </div>
-                    <h3 class="text-lg font-medium text-gray-900">No resources found</h3>
-                    <p class="text-gray-500">Try a different search or directory view.</p>
-                </div>
             </div>
         </section>
 
