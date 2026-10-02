@@ -1999,7 +1999,7 @@ function initializeSidebarScrollIndicator() {
 
 /**
  * Intercepts the newsletter subscription form and submits the email address
- * to the Netlify subscriber API, providing inline feedback to the user.
+ * to the newsletter API, providing inline feedback to the user.
  */
 function initializeNewsletterForm() {
   const forms = Array.from(document.querySelectorAll('form[name="newsletter-subscribe"]'));
@@ -2023,7 +2023,7 @@ function initializeNewsletterForm() {
   syncForms(readStoredNewsletterSubscription(), { clearFeedback: true });
 
   forms.forEach((form) => {
-    form.setAttribute('action', '/api/subscribers');
+    form.setAttribute('action', '/api/subscribers.php');
     form.setAttribute('method', 'POST');
     const feedbackElement = ensureNewsletterFeedbackElement(form);
     const unsubscribeUi = ensureNewsletterUnsubscribeElement(form, feedbackElement);
@@ -2049,7 +2049,7 @@ function initializeNewsletterForm() {
           query.set('email', subscription.email);
         }
 
-        const res = await fetch(`/api/subscribers?${query.toString()}`, {
+        const res = await fetch(`/api/subscribers.php?${query.toString()}`, {
           method: 'DELETE',
           headers: {
             Accept: 'application/json'
@@ -2098,7 +2098,7 @@ function initializeNewsletterForm() {
       updateNewsletterFeedback(feedbackElement, null);
 
       try {
-        const res = await fetch('/api/subscribers', {
+        const res = await fetch('/api/subscribers.php', {
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -2332,7 +2332,7 @@ function initializeContactForm() {
     try {
       const formData = new FormData(form);
 
-      const response = await fetch('/', {
+      const response = await fetch('/api/contact.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(formData).toString()

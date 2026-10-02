@@ -94,9 +94,9 @@ The website includes:
 | JavaScript | Vanilla JS (shared site behaviour in `js/main.js`) |
 | Icons | Lucide (locally bundled with esbuild) |
 | Animations | AOS + IntersectionObserver-based reveal patterns |
-| Hosting | Netlify |
-| Serverless | Netlify Functions (`netlify/functions/subscribers.mts`) |
-| Data storage | Netlify Blobs |
+| Hosting | Fasthosts (static files) with PHP for forms |
+| Forms | PHP (`api/subscribers.php`, `api/contact.php`) |
+| Data storage | MySQL via PHP |
 | Linting | ESLint (flat config) |
 | Build/runtime tooling | Node.js + npm scripts |
 | Image optimisation | `sharp` |
@@ -218,7 +218,7 @@ Core editable content is represented in JSON under `data/` (for example team, se
 
 ### Functions and subscribers
 
-`netlify/functions/subscribers.mts` handles newsletter subscription writes to Netlify Blobs.
+Newsletter sign-ups are stored by `api/subscribers.php` in MySQL. See [docs/FASTHOSTS.md](docs/FASTHOSTS.md).
 
 ---
 

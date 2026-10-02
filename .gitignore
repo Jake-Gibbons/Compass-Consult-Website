@@ -65,3 +65,7 @@ build/
 .env.production.local
 secrets.json
 credentials.json
+
+# Fasthosts database credentials
+api/config.php
+.netlify/

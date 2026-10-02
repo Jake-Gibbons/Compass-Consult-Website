@@ -1216,7 +1216,7 @@
                         </ul>
                         
                         <h3 class="text-lg font-bold mb-4 text-compass-teal">Newsletter</h3>
-                        <form name="newsletter-subscribe" method="POST" data-netlify="true" netlify data-netlify-honeypot="bot-field" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
+                        <form name="newsletter-subscribe" method="POST" action="/api/subscribers.php" data-honeypot="bot-field" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
                             <input type="hidden" name="form-name" value="newsletter-subscribe" />
                             <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
                             <input type="email" name="email" autocomplete="email" placeholder="Enter your email" required class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-compass-teal focus:border-compass-teal block w-full flex-1 min-w-0 p-2.5 placeholder-gray-400" />
