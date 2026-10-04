@@ -324,6 +324,30 @@
             applySort();
             setView('list');
 
+            const pastSection = document.getElementById('past-events-section');
+            const pastToggle = document.getElementById('pastEventsToggle');
+
+            if (pastSection && pastToggle) {
+                const pastLabel = pastToggle.querySelector('.past-events-toggle-label');
+                const pastIcon = pastToggle.querySelector('i');
+
+                pastToggle.addEventListener('click', () => {
+                    const isOpen = pastSection.classList.toggle('is-open');
+                    pastToggle.setAttribute('aria-expanded', String(isOpen));
+
+                    if (pastLabel) {
+                        pastLabel.textContent = isOpen ? 'Hide past events' : 'Show past events';
+                    }
+
+                    if (pastIcon) {
+                        pastIcon.setAttribute('data-lucide', isOpen ? 'chevron-up' : 'chevron-down');
+                        if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                            window.lucide.createIcons();
+                        }
+                    }
+                });
+            }
+
             const eventCards = document.querySelectorAll('.event-card');
 
             eventCards.forEach((card) => {
