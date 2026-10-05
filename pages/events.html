@@ -21,31 +21,32 @@
     <!-- SEO and Social Sharing -->
     <meta property="og:title" content="Events - Compass Consult">
     <meta property="og:description" content="Stay up-to-date with the latest events from Compass Consult.">
-    <meta property="og:image" content="https://www.compassconsultes.co.uk/assets/logos/Logo.png">
-    <meta property="og:url" content="https://www.compassconsultes.co.uk/pages/events.html">
+    <meta property="og:image" content="https://compassconsultes.co.uk/assets/logos/Logo.png">
+    <meta property="og:url" content="https://compassconsultes.co.uk/pages/events.html">
+    <link rel="canonical" href="https://compassconsultes.co.uk/pages/events.html">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Events - Compass Consult">
     <meta name="twitter:description" content="Stay up-to-date with the latest events from Compass Consult.">
-    <meta name="twitter:image" content="https://www.compassconsultes.co.uk/assets/logos/Logo.png">
+    <meta name="twitter:image" content="https://compassconsultes.co.uk/assets/logos/Logo.png">
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@graph": [
                 {
                     "@type": "Organization",
-                    "@id": "https://www.compassconsultes.co.uk/#organization",
+                    "@id": "https://compassconsultes.co.uk/#organization",
                     "name": "Compass Consult (Employability & Skills) Ltd",
-                    "url": "https://www.compassconsultes.co.uk/",
-                    "logo": "https://www.compassconsultes.co.uk/assets/logos/Logo.png"
+                    "url": "https://compassconsultes.co.uk/",
+                    "logo": "https://compassconsultes.co.uk/assets/logos/Logo.png"
                 },
                 {
                     "@type": "CollectionPage",
-                    "@id": "https://www.compassconsultes.co.uk/pages/events.html#webpage",
-                    "url": "https://www.compassconsultes.co.uk/pages/events.html",
+                    "@id": "https://compassconsultes.co.uk/pages/events.html#webpage",
+                    "url": "https://compassconsultes.co.uk/pages/events.html",
                     "name": "Events - Compass Consult",
                     "description": "Stay up-to-date with the latest events from Compass Consult.",
                     "about": {
-                        "@id": "https://www.compassconsultes.co.uk/#organization"
+                        "@id": "https://compassconsultes.co.uk/#organization"
                     }
                 },
                 {
@@ -55,13 +56,13 @@
                             "@type": "ListItem",
                             "position": 1,
                             "name": "Home",
-                            "item": "https://www.compassconsultes.co.uk/"
+                            "item": "https://compassconsultes.co.uk/"
                         },
                         {
                             "@type": "ListItem",
                             "position": 2,
                             "name": "Events",
-                            "item": "https://www.compassconsultes.co.uk/pages/events.html"
+                            "item": "https://compassconsultes.co.uk/pages/events.html"
                         }
                     ]
                 }
@@ -79,9 +80,7 @@
     <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
     <!-- Pre-built Tailwind CSS (replaces CDN runtime — 47 KB vs 3 MB) -->
     <link rel="stylesheet" href="/css/tailwind.min.d6d89805.css">
     <!-- Inline styles for page-specific utility classes and component overrides
@@ -526,7 +525,11 @@
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
-    <!-- ================================================================
+    
+    <!-- Skip navigation — allows keyboard users to bypass the navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- ================================================================
          Desktop Sidebar — visible on screens ≥ 1024 px (lg breakpoint)
          Contains the site logo, primary navigation links, a Contact CTA,
          and a dynamic copyright year.
@@ -589,7 +592,7 @@
          On large screens, offset by the sidebar width (lg:ml-72 / 18 rem).
          Contains all page sections and the footer.
          ================================================================ -->
-    <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
+    <main id="main-content" class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
         <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center">
             <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
             <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
@@ -788,7 +791,7 @@
 
 <article data-event-date="2026-06-25T09:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity" data-aos="fade-up" data-aos-delay="250">
                             <div class="event-card-image">
-                                <img src="/assets/images/events/chamberofcommerce.jpeg" alt="British Chambers of Commerce Global Annual Conference 2026" />
+                                <img src="/assets/images/events/chamberofcommerce.webp" alt="British Chambers of Commerce Global Annual Conference 2026" />
                             </div>
                             <div class="event-card-summary">
                                 <h2>British Chambers of Commerce Global Annual Conference 2026</h2>
@@ -827,7 +830,7 @@
 
 <article data-event-date="2026-06-11T09:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity" data-aos="fade-up" data-aos-delay="0">
                             <div class="event-card-image">
-                                <img src="/assets/images/events/iepLondon.jpg" alt="The IEP Summit 2026 at 116 Pall Mall, London" />
+                                <img src="/assets/images/events/iepLondon.webp" alt="The IEP Summit 2026 at 116 Pall Mall, London" />
                             </div>
                             <div class="event-card-summary">
                                 <h2>The IEP Summit 2026</h2>

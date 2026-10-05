@@ -65,3 +65,12 @@ build/
 .env.production.local
 secrets.json
 credentials.json
+
+# Local Lighthouse dumps (do not publish with site root)
+lighthouse-report.json
+lighthouse-production-report.json
+lighthouse-*.json
+
+# One-off generated / unused binaries
+Gemini_Generated_Image_*.png
+*.heic

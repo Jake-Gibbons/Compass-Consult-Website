@@ -182,7 +182,7 @@ GitHub-specific configuration files.
 
 | File | Trigger | Purpose |
 |---|---|---|
-| `check.yml` | Push / PR to `main` | Runs `npm run check` (ESLint + link check) on Node 18 and 20 |
+| `check.yml` | Push / PR to `main` | Runs `npm run check` (ESLint + link check) on Node 22 |
 | `main.yml` | Push to `main` | Auto-generates `sitemap.xml` and `robots.txt` and commits the result |
 | `sync-resources.yml` | Push to `main` | Syncs downloadable resource files |
 
@@ -203,4 +203,4 @@ enforce quality gates locally.
 | `tailwind.config.js` | Tailwind CSS content paths, brand colour tokens, custom animations (`float`, `blob`, `infinite-scroll`), typography plugin, and safelist |
 | `eslint.config.mjs` | ESLint flat config targeting `js/**/*.js` |
 | `netlify.toml` | Netlify publish directory (`.`), build command, functions directory, cache headers per asset type, and security headers |
-| `package.json` | Project metadata, npm scripts, dev/production dependencies, Node engine constraint (`≥ 16`), and `browserslist` |
+| `package.json` | Project metadata, npm scripts, dev/production dependencies, Node engine constraint (`≥ 22`), and `browserslist` |
