@@ -1,11 +1,13 @@
 /* Homepage client ticker overrides.
-   Loaded after main.css so logos stay in one evenly spaced row. */
+   Loaded after main.css so logos stay in one evenly spaced, vertically centred row. */
 .embla-ticker {
   overflow: hidden !important;
   width: 100% !important;
   height: 50px !important;
   max-height: 50px !important;
   min-height: 50px !important;
+  display: flex !important;
+  align-items: center !important;
   contain: paint;
 }
 .embla-ticker__container {
@@ -13,7 +15,8 @@
   flex-direction: row !important;
   flex-wrap: nowrap !important;
   align-items: center !important;
-  height: 50px !important;
+  height: 100% !important;
+  min-height: 50px !important;
   width: max-content !important;
   column-gap: 0 !important;
   will-change: transform;
@@ -24,7 +27,9 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  align-self: center !important;
   box-sizing: content-box !important;
+  height: 100% !important;
   width: auto !important;
   min-width: 4rem !important;
   max-width: none !important;
@@ -37,24 +42,33 @@
   width: auto !important;
   max-width: 160px !important;
   object-fit: contain !important;
+  object-position: center !important;
   display: block !important;
 }
 .ticker-link {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
+  height: 100% !important;
 }
-/* Drop expensive backdrop-blur on the ticker bar while the track moves. */
+/* Centre bar contents; drop expensive backdrop-blur while the track moves. */
 div:has(> .flex > #clients-ticker) {
+  display: flex !important;
+  align-items: center !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   background-color: #ffffff !important;
 }
 @media (max-width: 640px) {
-  .embla-ticker,
-  .embla-ticker__container {
+  .embla-ticker {
     height: 40px !important;
     max-height: 40px !important;
+    min-height: 40px !important;
+  }
+  .embla-ticker__container {
+    height: 100% !important;
     min-height: 40px !important;
   }
   .embla-ticker__slide {
