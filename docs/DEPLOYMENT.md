@@ -55,7 +55,7 @@ the repository root.
    ```toml
    [build]
      publish = "."
-     command = "npm run build:css"
+     command = "npm run build:prod"
    ```
 4. The built site (entire repository root) is published.
 5. Netlify Functions in `netlify/functions/` are bundled with esbuild
@@ -101,7 +101,7 @@ Three workflows run automatically on push to `main` or on pull requests:
 
 | Workflow | File | Trigger | Purpose |
 |---|---|---|---|
-| Lint & Link Check | `.github/workflows/check.yml` | Push / PR to `main` | Runs `npm run check` on Node 18 and 20 |
+| Lint & Link Check | `.github/workflows/check.yml` | Push / PR to `main` | Runs `npm run check` on Node 22 |
 | Generate Sitemap & Robots | `.github/workflows/main.yml` | Push to `main` | Regenerates `sitemap.xml` and `robots.txt` and commits the result |
 | Sync Resources | `.github/workflows/sync-resources.yml` | Push to `main` | Synchronises downloadable resource files |
 
@@ -118,7 +118,7 @@ jobs:
   check:
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [22.x]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -147,7 +147,7 @@ and can be hosted anywhere.
 1. Push code to GitHub.
 2. Go to [vercel.com](https://vercel.com) → **New Project**.
 3. Import the GitHub repository.
-4. Set the build command to `npm run build:css` and the output directory to `.`.
+4. Set the build command to `npm run build:prod` and the output directory to `.`.
 5. Add environment variables (see [Environment Variables](#environment-variables)).
 6. Deploy.
 

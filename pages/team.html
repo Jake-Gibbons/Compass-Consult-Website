@@ -21,12 +21,13 @@
     <!-- SEO and Social Sharing -->
     <meta property="og:title" content="Meet the Team - Compass Consult">
     <meta property="og:description" content="Meet the expert team at Compass Consult.">
-    <meta property="og:image" content="https://www.compassconsultes.co.uk/assets/logos/Logo.png">
-    <meta property="og:url" content="https://www.compassconsultes.co.uk/pages/team.html">
+    <meta property="og:image" content="https://compassconsultes.co.uk/assets/logos/Logo.png">
+    <meta property="og:url" content="https://compassconsultes.co.uk/pages/team.html">
+    <link rel="canonical" href="https://compassconsultes.co.uk/pages/team.html">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Meet the Team - Compass Consult">
     <meta name="twitter:description" content="Meet the expert team at Compass Consult.">
-    <meta name="twitter:image" content="https://www.compassconsultes.co.uk/assets/logos/Logo.png">
+    <meta name="twitter:image" content="https://compassconsultes.co.uk/assets/logos/Logo.png">
     <!-- Favicon and PWA web manifest -->
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon/favicon-32x32.png">
@@ -38,9 +39,7 @@
     <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
     <!-- Pre-built Tailwind CSS (replaces CDN runtime — 47 KB vs 3 MB) -->
     <link rel="stylesheet" href="/css/tailwind.min.d6d89805.css">
     <!-- Inline styles for page-specific utility classes and component overrides
@@ -72,7 +71,11 @@
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
-    <!-- ================================================================
+    
+    <!-- Skip navigation — allows keyboard users to bypass the navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- ================================================================
          Desktop Sidebar — visible on screens ≥ 1024 px (lg breakpoint)
          Contains the site logo, primary navigation links, a Contact CTA,
          and a dynamic copyright year.
@@ -135,7 +138,7 @@
          On large screens, offset by the sidebar width (lg:ml-72 / 18 rem).
          Contains all page sections and the footer.
          ================================================================ -->
-    <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
+    <main id="main-content" class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
         <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center">
             <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
             <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
@@ -151,14 +154,14 @@
                     <!-- Jon Smith -->
                     <div class="text-center group max-w-sm" data-aos="fade-up" data-aos-delay="0">
                         <div class="w-40 h-40 rounded-full bg-gray-200 mx-auto mb-6 overflow-hidden border-4 border-purple-50 group-hover:border-compass-purple transition-colors duration-300">
-                            <img src="/assets/images/team/jon.png" alt="Jon Smith" class="w-full h-full object-cover">
+                            <img src="/assets/images/team/jon.webp" alt="Jon Smith" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-2xl font-bold transition-colors">
                             <span class="text-gray-900 group-hover:text-compass-purple">Jon Smith</span>
                             <span class="ml-1 text-lg font-semibold text-compass-teal">CMgr FCMI FIEP FCIPD</span>
                         </h3>
                         <div class="flex items-center justify-center gap-2 mt-2 mb-3">
-                            <img src="/assets/images/team/cmiFellow.png" alt="CMI Fellowship badge" class="h-7 w-auto object-contain" loading="lazy" decoding="async">
+                            <img src="/assets/images/team/cmiFellow.webp" alt="CMI Fellowship badge" class="h-7 w-auto object-contain" loading="lazy" decoding="async">
                             <img src="/assets/images/team/iepFellow.png" alt="IEP Fellowship badge" class="h-7 w-auto object-contain" loading="lazy" decoding="async">
                             <img src="/assets/images/team/cipdFellow.png" alt="CIPD Fellowship badge" class="h-7 w-auto object-contain" loading="lazy" decoding="async">
                         </div>
@@ -183,7 +186,7 @@
                     <!-- Michelle Rainey -->
                     <div class="text-center group max-w-sm" data-aos="fade-up" data-aos-delay="100">
                         <div class="w-40 h-40 rounded-full bg-gray-200 mx-auto mb-6 overflow-hidden border-4 border-purple-50 group-hover:border-compass-purple transition-colors duration-300">
-                            <img src="/assets/images/team/michelle.jpeg" alt="Michelle Rainey" class="w-full h-full object-cover">
+                            <img src="/assets/images/team/michelle.webp" alt="Michelle Rainey" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 group-hover:text-compass-purple transition-colors">Michelle Rainey</h3>
                         <p class="text-compass-teal font-medium mb-4 text-lg">Executive Assistant to the CEO</p>
@@ -196,7 +199,7 @@
                     <!-- Jake Gibbons -->
                     <div class="text-center group max-w-sm" data-aos="fade-up" data-aos-delay="200">
                         <div class="w-40 h-40 rounded-full bg-gray-200 mx-auto mb-6 overflow-hidden border-4 border-purple-50 group-hover:border-compass-purple transition-colors duration-300">
-                            <img src="/assets/images/team/jake.png" alt="Jake Gibbons" class="w-full h-full object-cover">
+                            <img src="/assets/images/team/jake.webp" alt="Jake Gibbons" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 group-hover:text-compass-purple transition-colors">Jake Gibbons</h3>
                         <p class="text-compass-teal font-medium mb-4 text-lg">Associate IT Consultant</p>
@@ -215,7 +218,7 @@
                     <!-- Liz Perry -->
                     <div class="text-center group max-w-sm" data-aos="fade-up" data-aos-delay="300">
                         <div class="w-40 h-40 rounded-full bg-gray-200 mx-auto mb-6 overflow-hidden border-4 border-purple-50 group-hover:border-compass-purple transition-colors duration-300">
-                            <img src="/assets/images/team/Liz%20Perry.jpg" alt="Liz Perry" class="w-full h-full object-cover">
+                            <img src="/assets/images/team/liz-perry.webp" alt="Liz Perry" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-2xl font-bold transition-colors">
                             <span class="text-gray-900 group-hover:text-compass-purple">Liz Perry</span>

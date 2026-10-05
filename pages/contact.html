@@ -22,22 +22,23 @@
     <!-- SEO and Social Sharing -->
     <meta property="og:title" content="Contact Us - Compass Consult">
     <meta property="og:description" content="Get in touch with Compass Consult to discuss how we can support your organisation.">
-    <meta property="og:image" content="https://www.compassconsultes.co.uk/assets/logos/Logo.png">
-    <meta property="og:url" content="https://www.compassconsultes.co.uk/pages/contact.html">
+    <meta property="og:image" content="https://compassconsultes.co.uk/assets/logos/Logo.png">
+    <meta property="og:url" content="https://compassconsultes.co.uk/pages/contact.html">
+    <link rel="canonical" href="https://compassconsultes.co.uk/pages/contact.html">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Contact Us - Compass Consult">
     <meta name="twitter:description" content="Get in touch with Compass Consult to discuss how we can support your organisation.">
-    <meta name="twitter:image" content="https://www.compassconsultes.co.uk/assets/logos/Logo.png">
+    <meta name="twitter:image" content="https://compassconsultes.co.uk/assets/logos/Logo.png">
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@graph": [
                 {
                     "@type": "Organization",
-                    "@id": "https://www.compassconsultes.co.uk/#organization",
+                    "@id": "https://compassconsultes.co.uk/#organization",
                     "name": "Compass Consult (Employability & Skills) Ltd",
-                    "url": "https://www.compassconsultes.co.uk/",
-                    "logo": "https://www.compassconsultes.co.uk/assets/logos/Logo.png",
+                    "url": "https://compassconsultes.co.uk/",
+                    "logo": "https://compassconsultes.co.uk/assets/logos/Logo.png",
                     "email": "mailto:enquiries@compassconsultes.co.uk",
                     "telephone": "+44 7936 327832",
                     "address": {
@@ -50,12 +51,12 @@
                 },
                 {
                     "@type": "ContactPage",
-                    "@id": "https://www.compassconsultes.co.uk/pages/contact.html#webpage",
-                    "url": "https://www.compassconsultes.co.uk/pages/contact.html",
+                    "@id": "https://compassconsultes.co.uk/pages/contact.html#webpage",
+                    "url": "https://compassconsultes.co.uk/pages/contact.html",
                     "name": "Contact Us - Compass Consult",
                     "description": "Get in touch with Compass Consult to discuss how we can support your organisation.",
                     "mainEntity": {
-                        "@id": "https://www.compassconsultes.co.uk/#organization"
+                        "@id": "https://compassconsultes.co.uk/#organization"
                     }
                 },
                 {
@@ -65,13 +66,13 @@
                             "@type": "ListItem",
                             "position": 1,
                             "name": "Home",
-                            "item": "https://www.compassconsultes.co.uk/"
+                            "item": "https://compassconsultes.co.uk/"
                         },
                         {
                             "@type": "ListItem",
                             "position": 2,
                             "name": "Contact Us",
-                            "item": "https://www.compassconsultes.co.uk/pages/contact.html"
+                            "item": "https://compassconsultes.co.uk/pages/contact.html"
                         }
                     ]
                 }
@@ -90,9 +91,7 @@
     <!-- Google Fonts — Plus Jakarta Sans (weights 300–700) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
     <!-- Pre-built Tailwind CSS (replaces CDN runtime — 47 KB vs 3 MB) -->
     <link rel="stylesheet" href="/css/tailwind.min.d6d89805.css">
     <!-- Inline styles for page-specific utility classes and component overrides
@@ -113,7 +112,11 @@
 </head>
 <body class="font-sans text-gray-600 bg-gray-50 antialiased w-full overflow-x-hidden">
 
-    <!-- ================================================================
+    
+    <!-- Skip navigation — allows keyboard users to bypass the navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- ================================================================
          Desktop Sidebar — visible on screens ≥ 1024 px (lg breakpoint)
          Contains the site logo, primary navigation links, a Contact CTA,
          and a dynamic copyright year.
@@ -176,7 +179,7 @@
          On large screens, offset by the sidebar width (lg:ml-72 / 18 rem).
          Contains all page sections and the footer.
          ================================================================ -->
-    <main class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
+    <main id="main-content" class="lg:ml-72 relative w-full transition-all duration-300 min-h-screen flex flex-col">
         <header class="py-20 lg:py-24 bg-compass-dark relative overflow-hidden text-center">
             <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
             <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
@@ -265,30 +268,23 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-2xl font-bold text-gray-900 mb-2">Find Us</h2>
                 <p class="text-gray-600 mb-6">Stirling House 1 Outrams Wharf, Little Eaton, Derby, England, DE21 5EL</p>
-                <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-100 relative" style="min-height:420px;">
-                    <!-- Placeholder shown until functional cookies are accepted -->
-                    <div id="map-placeholder" class="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 text-center p-6">
-                        <i data-lucide="map-pin" class="w-12 h-12 text-gray-400 mb-4"></i>
-                        <p class="text-gray-500 text-sm mb-4 max-w-xs">Accept functional cookies to view the interactive map, or open directly in Google Maps.</p>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Stirling+House+1+Outrams+Wharf%2C+Little+Eaton%2C+Derby%2C+DE21+5EL" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-compass-purple text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-compass-lightPurple transition-colors">Open in Google Maps <i data-lucide="external-link" class="w-4 h-4"></i></a>
+                <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-100 bg-white">
+                    <!-- Static map image keeps CSP frame-src locked to 'self' (no Google Maps embed). -->
+                    <a href="https://www.google.com/maps/search/?api=1&query=Stirling+House+1+Outrams+Wharf%2C+Little+Eaton%2C+Derby%2C+DE21+5EL" target="_blank" rel="noopener noreferrer" class="block group" aria-label="Open Compass Consult office location in Google Maps">
+                        <img
+                            src="/assets/images/office-location-map.webp"
+                            width="800"
+                            height="420"
+                            alt="Map showing Compass Consult office location at Stirling House 1 Outrams Wharf, Little Eaton, Derby"
+                            class="w-full h-auto object-cover"
+                            loading="lazy"
+                            decoding="async">
+                    </a>
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-5 py-4 border-t border-gray-100 bg-gray-50">
+                        <p class="text-sm text-gray-600">Stirling House 1 Outrams Wharf, Little Eaton, Derby, DE21 5EL</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Stirling+House+1+Outrams+Wharf%2C+Little+Eaton%2C+Derby%2C+DE21+5EL" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-compass-purple text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-compass-lightPurple transition-colors">Open in Google Maps <i data-lucide="external-link" class="w-4 h-4"></i></a>
                     </div>
-                    <iframe
-                        id="location-map"
-                        title="Compass Consult office location map"
-                        data-cookie-category="functional"
-                        data-cookie-src="https://maps.google.com/maps?q=Stirling+House+1+Outrams+Wharf%2C+Little+Eaton%2C+Derby%2C+DE21+5EL&z=15&output=embed"
-                        src="about:blank"
-                        width="100%"
-                        height="420"
-                        style="border:0; position:relative; z-index:1;"
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
-                        aria-label="Map showing Compass Consult office location at Stirling House 1 Outrams Wharf, Little Eaton, Derby">
-                    </iframe>
                 </div>
-                <p class="mt-3 text-sm text-gray-500">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Stirling+House+1+Outrams+Wharf%2C+Little+Eaton%2C+Derby%2C+DE21+5EL" target="_blank" rel="noopener noreferrer" class="text-compass-teal hover:text-compass-purple transition-colors underline underline-offset-4">View larger map</a>
-                </p>
             </div>
         </section>
 
@@ -366,7 +362,6 @@
     <script src="/js/aos.min.a5005b2e.js"></script>
     <script defer src="/js/lucide.min.2da98d36.js"></script>
     <script defer src="/js/main.2a7c3b80.js?v=20260406c"></script>
-    <script src="/js/contact.js"></script>
 </html>
 
 

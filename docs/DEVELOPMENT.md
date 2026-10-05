@@ -22,7 +22,7 @@
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) 16 or higher (required for build tools and dev server)
+- [Node.js](https://nodejs.org/) 22 or higher (required for build tools and Netlify Functions)
 - A modern code editor ([VS Code](https://code.visualstudio.com/) recommended)
 - Git
 
@@ -135,7 +135,11 @@ without stale-cache issues.
 
 ```bash
 npm run build
-# runs: build:css → build:lucide → build:assets
+# runs: build:vendors → optimize:images → build:css → build:lucide → build:assets
+
+# Netlify production build (no local image optimisation step):
+npm run build:prod
+# runs: build:vendors → build:css → build:lucide → build:assets
 ```
 
 ---

@@ -9,7 +9,7 @@
 [![Lint & Link Check](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/check.yml/badge.svg)](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/check.yml)
 [![Generate Sitemap and Robots](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/main.yml/badge.svg)](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/main.yml)
 [![Sync Resource Library](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/sync-resources.yml/badge.svg)](https://github.com/Jake-Gibbons/Compass-Consult-Website/actions/workflows/sync-resources.yml)
-[![Node >= 16](https://img.shields.io/badge/node-%3E%3D16-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![Node >= 22](https://img.shields.io/badge/node-%3E%3D22-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-7c3aed.svg)](#license)
 
 <!-- LIGHTHOUSE_BADGES_START -->
@@ -101,7 +101,7 @@ The website includes:
 | Build/runtime tooling | Node.js + npm scripts |
 | Image optimisation | `sharp` |
 
-**Node requirement:** `>=16.0.0`
+**Node requirement:** `>=22` (see `.nvmrc` / `netlify.toml`)
 
 ---
 
@@ -132,7 +132,7 @@ For a deeper file-by-file breakdown, see [STRUCTURE.md](STRUCTURE.md).
 
 ### Prerequisites
 
-- Node.js 16+
+- Node.js 22+
 - npm
 - Git
 
@@ -165,7 +165,8 @@ Run commands with `npm run <script>`.
 |---|---|
 | `serve` | Start local static server on port 8000 with cache disabled |
 | `dev` | Start local static server with default behavior |
-| `build` | Full production build (`build:css` -> `build:lucide` -> `build:assets`) |
+| `build` | Full local build including image optimisation, CSS, Lucide, and asset versioning |
+| `build:prod` | Netlify production build (`build:vendors` -> `build:css` -> `build:lucide` -> `build:assets`) |
 | `build:css` | Compile Tailwind CSS (`css/input.css` -> `css/tailwind.min.css`) |
 | `watch:css` | Rebuild Tailwind CSS in watch mode |
 | `build:lucide` | Bundle Lucide icon set with esbuild |
