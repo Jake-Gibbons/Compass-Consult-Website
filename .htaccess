@@ -1,0 +1,143 @@
+# =============================================================================
+# Compass Consult — Apache configuration for Fasthosts Linux hosting
+#
+# Replaces the Netlify features in netlify.toml (headers, caching, pretty URLs,
+# Netlify Functions routing, Netlify Forms, www → apex). netlify.toml is still
+# used while the site is on Netlify; this file is ignored there.
+# =============================================================================
+
+Options -Indexes -MultiViews
+DirectoryIndex index.html index.php
+AddDefaultCharset UTF-8
+
+# -----------------------------------------------------------------------------
+# Error pages (same pages Netlify served)
+# -----------------------------------------------------------------------------
+ErrorDocument 400 /400.html
+ErrorDocument 401 /401.html
+ErrorDocument 403 /403.html
+ErrorDocument 404 /404.html
+ErrorDocument 429 /429.html
+ErrorDocument 500 /500.html
+ErrorDocument 502 /502.html
+ErrorDocument 503 /503.html
+
+# -----------------------------------------------------------------------------
+# MIME types
+# -----------------------------------------------------------------------------
+<IfModule mod_mime.c>
+    AddType application/manifest+json .webmanifest
+    AddType image/webp .webp
+    AddType image/avif .avif
+    AddType font/woff2 .woff2
+    AddType font/woff .woff
+    AddType image/svg+xml .svg
+    AddType application/javascript .js .mjs
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# Never serve source, config, build tooling or hidden files
+# -----------------------------------------------------------------------------
+<FilesMatch "(^\.|\.(sql|md|toml|ts|mts|lock|log|sh|bak|backup|ini|env|py)$|^(package(-lock)?\.json|tailwind\.config\.js|eslint\.config\.mjs|config\.php|config\.example\.php|compass-config\.php|requirements-resource-previews\.txt|_gen_thumbs\.py)$)">
+    Require all denied
+</FilesMatch>
+# robots.txt must stay public
+<Files "robots.txt">
+    Require all granted
+</Files>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # --- Canonical host: HTTPS + apex (www → apex, http → https) -------------
+    # Only applies to the real domain, so the Fasthosts temporary/preview URL
+    # and local testing (localhost) keep working before SSL is in place.
+    RewriteCond %{HTTP_HOST} ^www\.(compassconsultes\.co\.uk)\.?(:[0-9]+)?$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L,NE]
+
+    RewriteCond %{HTTP_HOST} ^compassconsultes\.co\.uk\.?(:[0-9]+)?$ [NC]
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE]
+
+    # --- Block non-public folders (404, not 403, to avoid advertising them) --
+    RewriteRule ^(\.well-known/.*)$ - [L]
+    RewriteRule (^|/)\. - [R=404,L]
+    RewriteRule ^(node_modules|netlify|scripts|docs|database|tests|\.github|\.githooks|api/lib)(/|$) - [R=404,L]
+    RewriteRule ^api/config(\.example)?\.php$ - [R=404,L]
+
+    # --- API routes (replace Netlify Functions, same public URLs) -----------
+    RewriteRule ^api/subscribers/?$ api/subscribers.php [L,QSA]
+    RewriteRule ^api/contact/?$ api/contact.php [L,QSA]
+    RewriteRule ^unsubscribe/?$ api/unsubscribe.php [L,QSA]
+
+    # Contact form posted without JavaScript (Netlify Forms used to accept a
+    # POST to the page itself).
+    RewriteCond %{REQUEST_METHOD} =POST
+    RewriteRule ^pages/contact(\.html)?$ api/contact.php [L]
+
+    # --- Pretty URLs (match Netlify behaviour) -------------------------------
+    # /pages/about/ → /pages/about (301)
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+    # /pages/about → serve /pages/about.html (the sitemap uses these URLs)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteRule ^(.+)$ $1.html [L]
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# Security headers (mirror netlify.toml)
+# -----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "DENY"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self'; frame-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests"
+    # HSTS only over HTTPS (browsers ignore it on HTTP anyway).
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" "expr=%{HTTPS} == 'on' || %{HTTP:X-Forwarded-Proto} == 'https'"
+    Header always unset X-Powered-By
+    Header unset X-Powered-By
+
+    # --- Caching (mirror netlify.toml) ---------------------------------------
+    # HTML must always revalidate so updates show immediately.
+    <FilesMatch "\.html?$">
+        Header set Cache-Control "public, max-age=0, must-revalidate"
+    </FilesMatch>
+
+    # Service worker and manifest: always revalidate so PWA updates roll out.
+    <FilesMatch "^(sw\.js|site\.webmanifest|robots\.txt|sitemap\.xml)$">
+        Header set Cache-Control "public, max-age=0, must-revalidate"
+    </FilesMatch>
+
+    <If "%{REQUEST_URI} =~ m#^/(css|js|assets/(images|logos|icons|fonts))/#">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </If>
+    <If "%{REQUEST_URI} =~ m#^/assets/downloads/#">
+        Header set Cache-Control "public, max-age=604800"
+    </If>
+    <If "%{REQUEST_URI} =~ m#^/assets/icons/favicon/site\.webmanifest$#">
+        Header set Cache-Control "public, max-age=0, must-revalidate"
+    </If>
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# Compression (gzip)
+# -----------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml text/javascript
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript application/json
+    AddOutputFilterByType DEFLATE application/xml application/rss+xml application/manifest+json
+    AddOutputFilterByType DEFLATE image/svg+xml font/ttf font/otf
+</IfModule>
+
+# PHP settings (ignored if the host runs PHP as CGI/FPM — set these in the
+# Fasthosts control panel instead).
+<IfModule mod_php.c>
+    php_flag display_errors Off
+    php_flag expose_php Off
+</IfModule>

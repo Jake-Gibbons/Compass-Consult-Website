@@ -79,3 +79,48 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
     Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self'; frame-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests"
+
+# ---------------------------------------------------------------------------
+# Fasthosts (Apache/PHP) server-side files are not used on Netlify — hide them.
+# ---------------------------------------------------------------------------
+[[redirects]]
+  from = "/api/lib/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/api/subscribers.php"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/api/contact.php"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/api/unsubscribe.php"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/api/config.example.php"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/database/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.htaccess"
+  to = "/404.html"
+  status = 404
+  force = true

@@ -74,3 +74,10 @@ lighthouse-*.json
 # One-off generated / unused binaries
 Gemini_Generated_Image_*.png
 *.heic
+
+# Server-only configuration (Fasthosts) — never commit real credentials
+api/config.php
+compass-config.php
+
+# Subscriber exports contain personal data — never commit
+subscriber-export/

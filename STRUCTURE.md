@@ -135,6 +135,29 @@ See [`data/README.md`](data/README.md) for the complete field-by-field schema.
 
 ---
 
+## `api/` (Fasthosts / Apache + PHP)
+
+Server-side endpoints used when the site is hosted on Fasthosts. `.htaccess`
+routes the public URLs to these files. See `docs/FASTHOSTS-CUTOVER.md`.
+
+| Path | Description |
+|---|---|
+| `subscribers.php` | `/api/subscribers` — newsletter subscribe (POST) and unsubscribe by token (DELETE), stored in MySQL |
+| `unsubscribe.php` | `/unsubscribe?token=…` — unsubscribe confirmation page and RFC 8058 one-click unsubscribe |
+| `contact.php` | `/api/contact` — contact form handler, sends the enquiry by SMTP |
+| `config.example.php` | Template for the git-ignored `compass-config.php` (DB, SMTP, salt) |
+| `lib/` | Shared PHP (bootstrap, database access, mailer); blocked from the web |
+
+---
+
+## `database/`
+
+| Path | Description |
+|---|---|
+| `migrations/001_create_newsletter_subscribers.sql` | Creates the MySQL `newsletter_subscribers` table (safe to re-run) |
+
+---
+
 ## `netlify/`
 
 Netlify platform integration files.
@@ -160,6 +183,8 @@ full list of aliases.
 | `sync-resources.mjs` | `sync:resources` | Synchronises downloadable resource files |
 | `version-assets.mjs` | `build:assets` | Appends a content hash to CSS/JS filenames and writes `assets-manifest.json` |
 | `perf-update.mjs` | *(manual)* | Performance audit and update helper |
+| `build-fasthosts.mjs` | `build:fasthosts` | Copies the deployable site (incl. `api/` and `.htaccess`) into `dist/fasthosts/` |
+| `export-netlify-subscribers.mjs` | `export:subscribers` | Read-only export of Netlify Blobs subscribers to JSON/CSV/`import.sql` |
 
 ---
 
@@ -171,6 +196,7 @@ Internal documentation for developers and maintainers.
 |---|---|
 | `DEVELOPMENT.md` | Local development setup, npm scripts, coding standards, common tasks, and troubleshooting |
 | `DEPLOYMENT.md` | Deployment procedures, Netlify configuration, GitHub Actions workflows, environment variables, and rollback steps |
+| `FASTHOSTS-CUTOVER.md` | Moving from Netlify to Fasthosts: control panel set-up, upload, config, database and subscriber import, DNS, email, verification and rollback |
 
 ---
 

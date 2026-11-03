@@ -30,6 +30,8 @@
     "build:css": "tailwindcss -i ./css/input.css -o ./css/tailwind.min.css --minify",
     "build:lucide": "node scripts/build-lucide.mjs",
     "build:assets": "node scripts/version-assets.mjs",
+    "build:fasthosts": "npm run build:prod && node scripts/build-fasthosts.mjs",
+    "export:subscribers": "node scripts/export-netlify-subscribers.mjs",
     "watch:css": "tailwindcss -i ./css/input.css -o ./css/tailwind.min.css --watch",
     "test": "vitest run",
     "lint": "npm run lint:js",

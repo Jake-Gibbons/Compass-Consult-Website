@@ -142,6 +142,13 @@ updated files back to the repository.
 While Netlify is the primary host, the site is a standard static site
 and can be hosted anywhere.
 
+### Fasthosts (Apache + PHP + MySQL)
+
+The repository includes a PHP API, `.htaccess` and a MySQL migration so the
+site (including newsletter subscribers and the contact form) can run on
+Fasthosts Linux hosting. Build with `npm run build:fasthosts` and follow
+[FASTHOSTS-CUTOVER.md](FASTHOSTS-CUTOVER.md).
+
 ### Vercel
 
 1. Push code to GitHub.

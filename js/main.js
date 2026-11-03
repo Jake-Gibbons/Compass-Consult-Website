@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeTicker();              // Enable Embla auto-scroll + touch-drag on the client ticker
   initializeSidebarScrollIndicator(); // Show/hide sidebar scroll hint
   initializeNewsletterForm();        // Newsletter subscription via the subscriber API
-  initializeContactForm();           // Contact enquiry form via Netlify Forms
+  initializeContactForm();           // Contact enquiry form via /api/contact (Netlify Forms fallback)
   registerServiceWorker();           // Enable installability/offline shell support
 });
 
@@ -1999,7 +1999,8 @@ function initializeSidebarScrollIndicator() {
 
 /**
  * Intercepts the newsletter subscription form and submits the email address
- * to the Netlify subscriber API, providing inline feedback to the user.
+ * to the subscriber API (/api/subscribers — a PHP endpoint on Fasthosts, a
+ * Netlify Function on Netlify), providing inline feedback to the user.
  */
 function initializeNewsletterForm() {
   const forms = Array.from(document.querySelectorAll('form[name="newsletter-subscribe"]'));
@@ -2043,11 +2044,19 @@ function initializeNewsletterForm() {
 
       try {
         const query = new URLSearchParams();
-        if (subscription.id) {
-          query.set('id', subscription.id);
-        } else if (subscription.email) {
-          query.set('email', subscription.email);
+        if (!subscription.id) {
+          // Without the private unsubscribe token we cannot unsubscribe this
+          // address from here (that would let anyone unsubscribe anyone).
+          clearStoredNewsletterSubscription();
+          syncForms(null, { clearFeedback: true });
+          updateNewsletterFeedback(feedbackElement, {
+            tone: 'info',
+            title: 'Unsubscribe using your email link.',
+            body: 'Use the unsubscribe link in any Compass Consult newsletter email, or email enquiries@compassconsultes.co.uk and we will remove you.'
+          });
+          return;
         }
+        query.set('id', subscription.id);
 
         const res = await fetch(`/api/subscribers?${query.toString()}`, {
           method: 'DELETE',
@@ -2104,7 +2113,11 @@ function initializeNewsletterForm() {
             Accept: 'application/json',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify({
+            email,
+            source: window.location.pathname,
+            'bot-field': (form.querySelector('input[name="bot-field"]') || {}).value || ''
+          }),
         });
         const payload = await res.json().catch(() => null);
 
@@ -2272,12 +2285,14 @@ function updateNewsletterFeedback(feedbackElement, message) {
 }
 
 // ---------------------------------------------------------------------------
-// Contact enquiry form (Netlify Forms)
+// Contact enquiry form (/api/contact, with Netlify Forms fallback)
 // ---------------------------------------------------------------------------
 
 /**
  * Handles the contact enquiry form with client-side validation and AJAX
- * submission via Netlify Forms. Shows inline success/error messages.
+ * submission to /api/contact (PHP on Fasthosts). While the site is still on
+ * Netlify that endpoint does not exist, so it falls back to Netlify Forms.
+ * Shows inline success/error messages.
  */
 function initializeContactForm() {
   const form = document.getElementById('contact-form');
@@ -2331,12 +2346,25 @@ function initializeContactForm() {
 
     try {
       const formData = new FormData(form);
-
-      const response = await fetch('/', {
+      const netlifyBody = new URLSearchParams(formData).toString();
+      // Send to the PHP handler without "form-name" so Netlify Forms can never
+      // intercept this first request (avoids double submissions on Netlify).
+      const apiData = new URLSearchParams(formData);
+      apiData.delete('form-name');
+      const post = (url, body) => fetch(url, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString()
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body
       });
+
+      let response = await post('/api/contact', apiData.toString());
+      if (response.status === 404 || response.status === 405) {
+        // Netlify hosting: no PHP endpoint, so use Netlify Forms instead.
+        response = await post('/', netlifyBody);
+      }
 
       if (!response.ok) {
         throw new Error('Submission failed');

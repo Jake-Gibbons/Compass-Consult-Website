@@ -179,6 +179,8 @@ Run commands with `npm run <script>`.
 | `sync:resources` | Sync downloadable resources with `pages/resources.html` |
 | `watch:resources` | Watch docs folder and sync resources automatically |
 | `hooks:install` | Point git hooks to `.githooks/` |
+| `build:fasthosts` | Production build + copy the deployable site (incl. PHP API) to `dist/fasthosts/` for Fasthosts |
+| `export:subscribers` | Read-only export of Netlify Blobs subscribers to JSON/CSV/SQL for MySQL import |
 
 > `test` and `deploy` scripts are placeholders in `package.json` and are not active test/deploy pipelines.
 
@@ -219,7 +221,9 @@ Core editable content is represented in JSON under `data/` (for example team, se
 
 ### Functions and subscribers
 
-`netlify/functions/subscribers.mts` handles newsletter subscription writes to Netlify Blobs.
+`netlify/functions/subscribers.mts` handles newsletter subscription writes to Netlify Blobs while the site is on Netlify.
+
+For Fasthosts (Apache + PHP + MySQL), `api/subscribers.php`, `api/unsubscribe.php` and `api/contact.php` serve the same public URLs (routed by `.htaccess`) and store subscribers in the MySQL table defined in `database/migrations/`. Server settings live in a git-ignored `compass-config.php` (see `api/config.example.php`).
 
 ---
 
@@ -244,6 +248,10 @@ python3 -m pip install -r requirements-resource-previews.txt
 ### Netlify deployment
 
 The site is hosted on Netlify. Runtime/deploy settings (headers, redirects, functions, build settings) live in [`netlify.toml`](netlify.toml).
+
+### Fasthosts (planned)
+
+The site is prepared to move to Fasthosts Linux hosting. The step-by-step move, DNS and email notes, verification checklist and rollback are in [docs/FASTHOSTS-CUTOVER.md](docs/FASTHOSTS-CUTOVER.md).
 
 ### GitHub Actions workflows
 
@@ -289,6 +297,7 @@ The project follows accessibility-first practices, including:
 - [CONTRIBUTING.md](CONTRIBUTING.md) — contribution workflow and coding standards
 - [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) — developer setup and implementation guidance
 - [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) — deployment operations and environment details
+- [docs/FASTHOSTS-CUTOVER.md](docs/FASTHOSTS-CUTOVER.md) — moving from Netlify to Fasthosts (PHP + MySQL)
 - [STRUCTURE.md](STRUCTURE.md) — expanded repository map
 - [data/README.md](data/README.md) — JSON schema/content notes
 
