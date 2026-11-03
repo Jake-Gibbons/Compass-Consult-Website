@@ -13,7 +13,7 @@
     - Shared footer with quick links, legal, and newsletter sign-up
 
   All interactive behaviour (menu toggling, animations, etc.) is handled by
-  /js/main.2a7c3b80.js which is loaded at the bottom of the page.
+  /js/main.bfd1e82a.js which is loaded at the bottom of the page.
 -->
 <html lang="en" class="scroll-smooth overflow-x-hidden">
 <head>
@@ -105,7 +105,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
     <!-- Pre-built Tailwind CSS (replaces CDN runtime — 47 KB vs 3 MB) -->
-    <link rel="stylesheet" href="/css/tailwind.min.d6d89805.css">
+    <link rel="stylesheet" href="/css/tailwind.min.03898bc7.css">
 
     <!-- Inline styles for page-specific utility classes and component overrides
          that are not available through Tailwind's default configuration. -->
@@ -144,7 +144,7 @@
         /* removed sidebar full-width; keep original sizing */
     </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
-    <link rel="stylesheet" href="/css/main.8e20beda.css">
+    <link rel="stylesheet" href="/css/main.f76fa515.css">
     <link rel="stylesheet" href="/css/ticker.css?v=20261005a">
     <link rel="stylesheet" href="/css/aos.1aa8845f.css">
 </head>
@@ -185,7 +185,7 @@
          Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
          Shows the logo and a hamburger button that toggles #mobile-menu.
          The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.2a7c3b80.js.
+         /js/main.bfd1e82a.js.
          ================================================================ -->
     <!-- Mobile Header -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
@@ -218,7 +218,7 @@
          A continuously scrolling row of client / authority logos powered
          by Embla Carousel (loop + dragFree + AutoScroll plugin) which
          provides reliable touch-drag on iOS Safari without manual event
-         hacks.  initializeTicker() in /js/main.2a7c3b80.js sets it up.
+         hacks.  initializeTicker() in /js/main.bfd1e82a.js sets it up.
          ================================================================ -->
     <!-- Top Client Ticker -->
     <div class="w-full bg-white/40 backdrop-blur-sm border-b border-gray-100 z-40 mt-20 lg:mt-0 flex items-center h-14 sm:h-16">
@@ -484,8 +484,7 @@
                         </ul>
                         
                         <h3 class="text-lg font-bold mb-4 text-compass-teal">Newsletter</h3>
-                        <form name="newsletter-subscribe" method="POST" data-netlify="true" netlify data-netlify-honeypot="bot-field" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
-                            <input type="hidden" name="form-name" value="newsletter-subscribe" />
+                        <form name="newsletter-subscribe" method="POST" action="/api/subscribers" class="flex flex-row md:flex-col flex-wrap gap-2 w-full">
                             <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
                             <input type="email" name="email" autocomplete="email" placeholder="Enter your email" required class="bg-gray-800 border border-gray-700 text-white text-sm rounded-lg focus:ring-compass-teal focus:border-compass-teal block w-full flex-1 min-w-0 p-2.5 placeholder-gray-400" />
                             <button type="submit" class="bg-compass-teal hover:bg-compass-lightTeal text-white text-sm font-semibold rounded-lg px-4 py-2.5 transition-colors w-auto md:w-full flex-shrink-0 inline-flex items-center justify-center gap-1.5">Subscribe <i data-lucide="send" class="w-3.5 h-3.5" aria-hidden="true"></i></button>
@@ -507,8 +506,8 @@
     <script src="/js/aos.min.a5005b2e.js"></script>
     <script defer src="/js/embla-carousel.umd.js"></script>
     <script defer src="/js/embla-carousel-auto-scroll.umd.js"></script>
-    <script defer src="/js/lucide.min.2da98d36.js"></script>
-    <script defer src="/js/main.2a7c3b80.js?v=20260827a"></script>
+    <script defer src="/js/lucide.min.735e99c1.js"></script>
+    <script defer src="/js/main.bfd1e82a.js?v=20260827a"></script>
     <script defer src="/js/ticker-fix.js?v=20261005a"></script>
 </body>
 </html>

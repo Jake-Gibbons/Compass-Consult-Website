@@ -3,7 +3,7 @@ import globals from "globals";
 
 export default [
   {
-    ignores: ["js/*.min.js", "js/*.????????.js"],
+    ignores: ["js/*.min.js", "js/*.????????.js", "js/*.umd.js"],
   },
   {
     files: ["js/**/*.js"],
@@ -12,7 +12,9 @@ export default [
       sourceType: "script",
       globals: {
         ...globals.browser,
-        AOS: "readonly"
+        AOS: "readonly",
+        EmblaCarousel: "readonly",
+        EmblaCarouselAutoScroll: "readonly"
       }
     },
     rules: {

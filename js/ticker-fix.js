@@ -1,3 +1,4 @@
+/* global initializeTicker */
 /**
  * Homepage ticker repair and performance.
  * Keeps logos in one evenly spaced row and avoids extra clone/composite work.
