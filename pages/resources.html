@@ -529,6 +529,52 @@
             background: #ffffff;
         }
 
+        .resource-directory-switch {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-height: 3.25rem;
+            padding: 0.55rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            background: #ffffff;
+        }
+
+        .resource-directory-switch__label {
+            color: #64748b;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .resource-directory-switch__options {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.2rem;
+            padding: 0.2rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.55rem;
+            background: #ffffff;
+        }
+
+        .resource-directory-switch__button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            min-width: 7.5rem;
+            padding: 0.4rem 0.65rem;
+            border-radius: 0.35rem;
+            color: #64748b;
+            font-size: 0.68rem;
+            font-weight: 800;
+            transition: background-color 0.18s ease, color 0.18s ease;
+        }
+
+        .resource-directory-switch__button:hover,
+        .resource-directory-switch__button:focus-visible { color: #483086; }
+        .resource-directory-switch__button.is-active { background: #19b5b0; color: #ffffff; }
+
         .resource-tree__view {
             display: inline-flex;
             align-items: center;
@@ -548,6 +594,14 @@
         .resource-tree__view.is-active { background: #483086; color: #ffffff; }
 
         .resource-tree__folder + .resource-tree__folder { border-top: 1px solid #eef2f7; }
+
+        .resource-tree__folder--nested { border-top: 1px solid #f1f5f9; }
+        .resource-tree__folder--nested .resource-tree__folder-toggle {
+            min-height: 2.5rem;
+            padding-block: 0.5rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
 
         .resource-tree__folder-toggle {
             display: flex;
@@ -690,6 +744,37 @@
         .resource-tree__download:hover,
         .resource-tree__download:focus-visible { background: #e9fbfb; color: #483086; transform: translateY(-1px); }
 
+        .resource-tree__preview-button { width: auto; padding-inline: 0.55rem; color: #483086; font-size: 0.65rem; font-weight: 800; }
+
+        .infographic-viewer {
+            width: min(94vw, 1280px);
+            max-width: none;
+            max-height: 92vh;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            background: #ffffff;
+            color: #111827;
+            box-shadow: 0 24px 80px rgba(15, 23, 42, 0.35);
+        }
+
+        .infographic-viewer::backdrop { background: rgba(15, 23, 42, 0.78); }
+        .infographic-viewer__header,
+        .infographic-viewer__footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.85rem 1rem; }
+        .infographic-viewer__header { border-bottom: 1px solid #e2e8f0; }
+        .infographic-viewer__title { min-width: 0; margin: 0; color: #111827; font-size: 0.95rem; font-weight: 800; line-height: 1.4; }
+        .infographic-viewer__close { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; width: 2rem; height: 2rem; border-radius: 0.35rem; color: #475569; }
+        .infographic-viewer__close:hover,
+        .infographic-viewer__close:focus-visible { background: #f1f5f9; color: #111827; }
+        .infographic-viewer__image-wrap { display: grid; place-items: center; min-height: 12rem; max-height: calc(92vh - 9rem); overflow: auto; padding: 0.75rem; background: #f1f5f9; }
+        .infographic-viewer__image { display: block; max-width: 100%; max-height: calc(92vh - 10.5rem); object-fit: contain; }
+        .infographic-viewer__error { padding: 2rem; color: #64748b; font-size: 0.85rem; }
+        .infographic-viewer__category { color: #64748b; font-size: 0.72rem; font-weight: 700; }
+        .infographic-viewer__download { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 0.4rem; padding: 0.5rem 0.7rem; border-radius: 0.35rem; background: #19b5b0; color: #ffffff; font-size: 0.72rem; font-weight: 800; }
+        .infographic-viewer__download:hover,
+        .infographic-viewer__download:focus-visible { background: #148f8a; }
+
         .resource-tree__details {
             display: grid;
             grid-template-columns: minmax(0, 1fr) auto;
@@ -755,6 +840,8 @@
         @media (max-width: 640px) {
             .resource-tree__root { gap: 0.45rem; }
             .resource-tree__views { order: 3; width: 100%; margin-left: 0; }
+            .resource-directory-switch { justify-content: space-between; padding-inline: 0.75rem; }
+            .resource-directory-switch__button { min-width: 0; }
             .resource-tree__view { flex: 1; text-align: center; }
             .resource-tree__row { grid-template-columns: minmax(0, 1fr) auto auto; gap: 0.45rem; padding-right: 0.55rem; }
             .resource-tree__type { display: none; }
@@ -764,6 +851,10 @@
             .resource-tree__row::before,
             .resource-tree__row::after { left: -0.8rem; }
             .resource-tree__details { grid-template-columns: minmax(0, 1fr); }
+            .infographic-viewer { width: 96vw; max-height: 94vh; }
+            .infographic-viewer__image-wrap { max-height: calc(94vh - 9rem); }
+            .infographic-viewer__image { max-height: calc(94vh - 10.5rem); }
+            .infographic-viewer__footer { align-items: flex-start; }
         }
 
         @media (max-width: 420px) {
@@ -898,10 +989,31 @@
                             </select>
                         </div>
                     </div>
+                    <div class="resource-directory-switch" role="group" aria-label="Choose resource directory">
+                        <span class="resource-directory-switch__label">Browse</span>
+                        <div class="resource-directory-switch__options">
+                            <button type="button" class="resource-directory-switch__button" data-directory="infographics" aria-pressed="false"><i data-lucide="file-text" class="shrink-0 w-3.5 h-3.5" aria-hidden="true"></i>Infographics</button>
+                            <button type="button" class="resource-directory-switch__button" data-directory="files" aria-pressed="true"><i data-lucide="folder-open" class="shrink-0 w-3.5 h-3.5" aria-hidden="true"></i>Files</button>
+                        </div>
+                    </div>
                     <div id="resourceGrid" class="resource-tree">
                         <!-- Dynamic content will be injected here -->
                     </div>
                 </div>
+                <dialog id="infographicViewer" class="infographic-viewer" aria-labelledby="infographicViewerTitle">
+                    <div class="infographic-viewer__header">
+                        <h2 id="infographicViewerTitle" class="infographic-viewer__title"></h2>
+                        <button type="button" class="infographic-viewer__close" data-viewer-close aria-label="Close infographic viewer" title="Close viewer"><i data-lucide="x" class="shrink-0 w-4 h-4" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="infographic-viewer__image-wrap">
+                        <img id="infographicViewerImage" class="infographic-viewer__image" alt="">
+                        <p id="infographicViewerError" class="infographic-viewer__error" hidden>Preview unavailable.</p>
+                    </div>
+                    <div class="infographic-viewer__footer">
+                        <span id="infographicViewerCategory" class="infographic-viewer__category"></span>
+                        <a id="infographicViewerDownload" class="infographic-viewer__download" download><i data-lucide="download" class="shrink-0 w-3.5 h-3.5" aria-hidden="true"></i>Download</a>
+                    </div>
+                </dialog>
                 <div id="resourceGridSpacer" class="h-20 lg:h-28" aria-hidden="true"></div>
                 
                 <!-- No Results State -->

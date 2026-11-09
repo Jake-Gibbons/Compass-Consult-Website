@@ -426,6 +426,90 @@
             }
         ];
 
+        const infographicFiles = [
+            "Education & Skills/OFSTED Safeguarding Oct 26.png",
+            "Education & Skills/Impact of ISL Oct 26.png",
+            "Education & Skills/OFSTED Teacher Checklist 2026.png",
+            "Education & Skills/Skills England LMI Oct 26.png",
+            "Employability/Employment Law Changes Aug 26.png",
+            "Employability/Health Connected Employment Support.png",
+            "Employability/Re-Wiring the State NEET Taskforce.png",
+            "Employability/UKET Oct 26.png",
+            "Employability/Future Employment Support/FES Employer Relationship Model.png",
+            "Employability/Future Employment Support/FES Partnership.png",
+            "Employability/Future Employment Support/FES Support.png",
+            "Employability/Job Seeker Websites Oct 26.png",
+            "Governance & Project Management/Change Function Nov 26.png",
+            "Governance & Project Management/Consultant Strategy Wheel.png",
+            "Governance & Project Management/ISO 9001 Visual Nov 26.png",
+            "Governance & Project Management/LEAN Six Sigma Nov 26.png",
+            "Governance & Project Management/McKinsey 7S Model.png",
+            "Governance & Project Management/POS Scaling Business Nov 26.png",
+            "Governance & Project Management/Prince 2 Agile Oct 26.png",
+            "Governance & Project Management/Prince 2 Visual Nov 26.png",
+            "Governance & Project Management/Role of a Steering Group Nov 26.png",
+            "Health & Social  Care/Looked After Children Oct 26.png",
+            "Health & Social  Care/National Carers Week CLF Nov 26.png",
+            "Health & Social  Care/NHS Cost of Beds November 2026.png",
+            "Health & Social  Care/NHS/46382.png",
+            "Health & Social  Care/NHS/46383.png",
+            "Health & Social  Care/NHS/46385 (1).png",
+            "Health & Social  Care/NHS/46394 (1).png",
+            "Health & Social  Care/NHS/46395 (1).png",
+            "Health & Social  Care/NHS/46466 (1).png",
+            "Health & Social  Care/NHS/46846 (1).png",
+            "Housing/New Housing Benefit Rules Oct 26.png",
+            "Housing/Supported Housing Week Oct 2026.png",
+            "Institute of Employability Professionals/JS IEP Chester Presentation.pptx",
+            "Leadership & Management/Coach Mentor Manage Nov 26.png",
+            "Leadership & Management/Layers of Leadership Maturity.png",
+            "Leadership & Management/Mentor Like a Leader.png",
+            "Leadership & Management/Performance Management Cycle Nov 26.png",
+            "Leadership & Management/Work Home Health Model.png",
+            "Leadership & Management/Rescuing Not Leading.png",
+            "Local Government & Devolution/MCSA Proposals Oct 2026.png",
+            "Local Government & Devolution/LGR update Oct 26.png",
+            "Local Government & Devolution/Devolution Reading List Oct 26.png",
+            "Local Government & Devolution/UK Budget Autumn 2026.png"
+        ];
+
+        const featuredInfographicTitles = new Set([
+            'Skills England LMI Oct 26',
+            'Health Connected Employment Support',
+            'Consultant Strategy Wheel',
+            'NHS Cost of Beds November 2026',
+            'Supported Housing Week Oct 2026',
+            'JS IEP Chester Presentation',
+            'Layers of Leadership Maturity',
+            'MCSA Proposals Oct 2026'
+        ]);
+
+        const infographicResources = infographicFiles.map((assetPath, index) => {
+            const pathParts = assetPath.split('/');
+            const filename = pathParts.pop();
+            const extension = filename.split('.').pop().toLowerCase();
+            const title = filename
+                .replace(/\.[^.]+$/, '')
+                .replace(/\s+/g, ' ')
+                .trim();
+            const category = pathParts.shift().replace(/\s+/g, ' ').trim();
+
+            return {
+                id: `infographic-${index + 1}`,
+                title: /^\d+$/.test(title) ? `NHS infographic ${title}` : title,
+                category,
+                subcategory: pathParts.join(' / ').replace(/\s+/g, ' ').trim(),
+                type: 'Infographic',
+                size: extension === 'pptx' ? 'PowerPoint presentation' : 'PNG image',
+                desc: `Infographic from the ${[category, pathParts.join(' / ')].filter(Boolean).join(' / ')} collection.`,
+                icon: extension === 'pptx' ? 'file-text' : 'image',
+                color: 'purple',
+                isNew: true,
+                featured: featuredInfographicTitles.has(title),
+                url: `/assets/images/infographics/${assetPath}`
+            };
+        });
+
         // --- RENDER LOGIC (No need to edit below this line) ---
 
         const grid = document.getElementById('resourceGrid');
@@ -433,8 +517,16 @@
         const noResults = document.getElementById('noResults');
         const searchInput = document.getElementById('searchInput');
         const sortSelect = document.getElementById('sortSelect');
+        const infographicViewer = document.getElementById('infographicViewer');
+        const infographicViewerImage = document.getElementById('infographicViewerImage');
+        const infographicViewerTitle = document.getElementById('infographicViewerTitle');
+        const infographicViewerCategory = document.getElementById('infographicViewerCategory');
+        const infographicViewerDownload = document.getElementById('infographicViewerDownload');
+        const infographicViewerError = document.getElementById('infographicViewerError');
         const scopeButtons = document.querySelectorAll('.resource-window__scope');
+        const directoryButtons = document.querySelectorAll('[data-directory]');
         const stateStorageKey = 'compass-resource-library-state';
+        let infographicViewerTrigger = null;
 
         const resourceMetadata = {
             1: { publishedDate: '2026-01-15', audience: 'Employability providers' },
@@ -486,8 +578,9 @@
         }
 
         let currentView = 'type';
+        let currentDirectory = savedState.directory === 'infographics' ? 'infographics' : 'files';
         let currentSort = savedState.sort || 'newest';
-        let currentScope = savedState.scope || 'all';
+        let currentScope = currentDirectory === 'infographics' ? 'all' : (savedState.scope || 'all');
 
         if (['type', 'organization', 'topic'].includes(savedState.view)) currentView = savedState.view;
         if (!['newest', 'alphabetical', 'added'].includes(currentSort)) currentSort = 'newest';
@@ -614,9 +707,10 @@
 
         function renderResourceRow(item) {
             const downloadUrl = encodeURI(item.url);
-            const badge = item.isNew
-                    ? '<span class="resource-tree__new" aria-label="New"><span class="tag-dot" aria-hidden="true"></span><span class="tag-text">New</span></span>'
-                    : '';
+            const badge = [
+                item.isNew ? '<span class="resource-tree__new" aria-label="New"><span class="tag-dot" aria-hidden="true"></span><span class="tag-text">New</span></span>' : '',
+                item.featured ? '<span class="resource-tree__featured" aria-label="Featured"><span class="tag-dot" aria-hidden="true"></span><span class="tag-text">Featured</span></span>' : ''
+            ].join('');
             const publishedDate = item.publishedDate ? new Date(`${item.publishedDate}T00:00:00`).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : 'Date not set';
 
             return `
@@ -631,6 +725,7 @@
                     </div>
                     <span class="resource-tree__meta">${badge}<span class="resource-tree__type">${item.type}</span></span>
                     <span class="resource-tree__meta">
+                        ${item.type === 'Infographic' && item.size === 'PNG image' ? `<button type="button" class="resource-tree__download resource-tree__preview-button" data-resource-view="${item.id}" aria-label="View ${item.title}" title="View infographic">View</button>` : ''}
                         <button type="button" class="resource-tree__download resource-tree__info" data-resource-info="${item.id}" aria-expanded="false" aria-label="View details for ${item.title}" title="View details">
                             <i data-lucide="info" class="shrink-0 w-4 h-4"></i>
                         </button>
@@ -706,7 +801,7 @@
 
         function saveDirectoryState() {
             try {
-                localStorage.setItem(stateStorageKey, JSON.stringify({ view: currentView, sort: currentSort, scope: currentScope, search: searchInput.value }));
+                localStorage.setItem(stateStorageKey, JSON.stringify({ directory: currentDirectory, view: currentView, sort: currentSort, scope: currentScope, search: searchInput.value }));
             } catch {
                 // Storage is optional; the directory remains usable without it.
             }
@@ -750,10 +845,98 @@
             renderResourceIcons();
         }
 
+        function showInfographicViewer(item, trigger) {
+            infographicViewerTrigger = trigger;
+            infographicViewerTitle.textContent = item.title;
+            infographicViewerCategory.textContent = item.subcategory ? `${item.category} / ${item.subcategory}` : item.category;
+            infographicViewerImage.alt = item.title;
+            infographicViewerImage.src = encodeURI(item.url);
+            infographicViewerDownload.href = encodeURI(item.url);
+            infographicViewerError.hidden = true;
+            infographicViewerImage.hidden = false;
+            infographicViewerImage.onerror = () => {
+                infographicViewerImage.hidden = true;
+                infographicViewerError.hidden = false;
+            };
+            if (!infographicViewer.open) infographicViewer.showModal();
+        }
+
+        infographicViewer.querySelector('[data-viewer-close]').addEventListener('click', () => infographicViewer.close());
+        infographicViewer.addEventListener('click', event => {
+            if (event.target === infographicViewer) infographicViewer.close();
+        });
+        infographicViewer.addEventListener('cancel', event => {
+            event.preventDefault();
+            infographicViewer.close();
+        });
+        infographicViewer.addEventListener('close', () => {
+            if (infographicViewerTrigger?.isConnected) infographicViewerTrigger.focus();
+            infographicViewerTrigger = null;
+            infographicViewerImage.removeAttribute('src');
+        });
+
         function compareResources(left, right) {
             if (currentSort === 'alphabetical') return left.title.localeCompare(right.title);
-            if (currentSort === 'added') return right.id - left.id;
-            return (right.publishedDate || '').localeCompare(left.publishedDate || '') || right.id - left.id;
+            if (currentSort === 'added') return typeof left.id === 'number' && typeof right.id === 'number' ? right.id - left.id : left.title.localeCompare(right.title);
+            const dateOrder = (right.publishedDate || '').localeCompare(left.publishedDate || '');
+            if (dateOrder) return dateOrder;
+            return typeof left.id === 'number' && typeof right.id === 'number' ? right.id - left.id : left.title.localeCompare(right.title);
+        }
+
+        function renderInfographicFolders(data) {
+            const folders = new Map();
+            data.forEach(item => {
+                if (!folders.has(item.category)) folders.set(item.category, { direct: [], children: new Map(), count: 0 });
+                const folder = folders.get(item.category);
+                folder.count += 1;
+                if (!item.subcategory) {
+                    folder.direct.push(item);
+                    return;
+                }
+                if (!folder.children.has(item.subcategory)) folder.children.set(item.subcategory, []);
+                folder.children.get(item.subcategory).push(item);
+            });
+
+            const featuredFolder = data.some(item => item.featured) ? `
+                <section class="resource-tree__folder resource-tree__folder--featured" data-category="Featured">
+                    <button type="button" class="resource-tree__folder-toggle" aria-expanded="true" aria-controls="infographic-featured-folder">
+                        <i data-lucide="chevron-down" class="shrink-0 resource-tree__chevron w-4 h-4" aria-hidden="true"></i>
+                        <i data-lucide="star" class="shrink-0 resource-tree__folder-icon w-4 h-4" aria-hidden="true"></i>
+                        <span>Featured</span>
+                        <span class="resource-tree__count">${data.filter(item => item.featured).length}</span>
+                    </button>
+                    <div id="infographic-featured-folder" class="resource-tree__files">
+                        ${data.filter(item => item.featured).sort(compareResources).map(item => renderResourceRow(item)).join('')}
+                    </div>
+                </section>
+            ` : '';
+
+            return featuredFolder + [...folders.entries()].sort(([left], [right]) => left.localeCompare(right)).map(([name, folder], index) => `
+                <section class="resource-tree__folder is-collapsed" data-category="${name}">
+                    <button type="button" class="resource-tree__folder-toggle" aria-expanded="false" aria-controls="resource-folder-${index}">
+                        <i data-lucide="chevron-down" class="shrink-0 resource-tree__chevron w-4 h-4" aria-hidden="true"></i>
+                        <i data-lucide="folder-open" class="shrink-0 resource-tree__folder-icon w-4 h-4" aria-hidden="true"></i>
+                        <span>${name}</span>
+                        <span class="resource-tree__count">${folder.count}</span>
+                    </button>
+                    <div id="resource-folder-${index}" class="resource-tree__files">
+                        ${folder.direct.sort(compareResources).map(item => renderResourceRow(item)).join('')}
+                        ${[...folder.children.entries()].sort(([left], [right]) => left.localeCompare(right)).map(([childName, items], childIndex) => `
+                            <section class="resource-tree__folder resource-tree__folder--nested is-collapsed" data-category="${name} / ${childName}">
+                                <button type="button" class="resource-tree__folder-toggle" aria-expanded="false" aria-controls="resource-folder-${index}-${childIndex}">
+                                    <i data-lucide="chevron-down" class="shrink-0 resource-tree__chevron w-4 h-4" aria-hidden="true"></i>
+                                    <i data-lucide="folder-open" class="shrink-0 resource-tree__folder-icon w-4 h-4" aria-hidden="true"></i>
+                                    <span>${childName}</span>
+                                    <span class="resource-tree__count">${items.length}</span>
+                                </button>
+                                <div id="resource-folder-${index}-${childIndex}" class="resource-tree__files">
+                                    ${items.sort(compareResources).map(item => renderResourceRow(item)).join('')}
+                                </div>
+                            </section>
+                        `).join('')}
+                    </div>
+                </section>
+            `).join('');
         }
 
         // Render Function
@@ -761,15 +944,14 @@
             grid.innerHTML = '';
 
             if (data.length === 0) {
-                grid.classList.add('hidden');
+                grid.classList.remove('hidden');
                 if (gridSpacer) gridSpacer.classList.add('hidden');
                 noResults.classList.remove('hidden');
-                return;
+            } else {
+                grid.classList.remove('hidden');
+                if (gridSpacer) gridSpacer.classList.remove('hidden');
+                noResults.classList.add('hidden');
             }
-
-            grid.classList.remove('hidden');
-            if (gridSpacer) gridSpacer.classList.remove('hidden');
-            noResults.classList.add('hidden');
 
             const groupedResources = data.reduce((groups, item) => {
                 if (item.featured) {
@@ -802,16 +984,16 @@
             grid.innerHTML = `
                 <div class="resource-tree__root">
                     <i data-lucide="folder-open" class="shrink-0 w-4 h-4" aria-hidden="true"></i>
-                    <span>Resource Library</span>
-                    <span class="resource-tree__count">${data.length} documents</span>
-                    <span class="resource-tree__breadcrumb" aria-label="Current directory">/ ${currentView === 'type' ? 'Document type' : currentView === 'organization' ? 'Company / organization' : 'Topic / programme'}</span>
-                    <div class="resource-tree__views" role="tablist" aria-label="Resource directory view">
+                    <span>${currentDirectory === 'infographics' ? 'Infographics' : 'Files'}</span>
+                    <span class="resource-tree__count">${data.length} ${currentDirectory === 'infographics' ? 'items' : 'documents'}</span>
+                    <span class="resource-tree__breadcrumb" aria-label="Current directory">/ ${currentDirectory === 'infographics' ? 'Infographic folders' : currentView === 'type' ? 'Document type' : currentView === 'organization' ? 'Company / organization' : 'Topic / programme'}</span>
+                    ${currentDirectory === 'files' ? `<div class="resource-tree__views" role="tablist" aria-label="File directory view">
                         <button type="button" class="resource-tree__view ${currentView === 'type' ? 'is-active' : ''}" data-view="type" role="tab" aria-selected="${currentView === 'type'}"><i data-lucide="file-text" class="shrink-0 w-3 h-3" aria-hidden="true"></i>Document type</button>
                         <button type="button" class="resource-tree__view ${currentView === 'organization' ? 'is-active' : ''}" data-view="organization" role="tab" aria-selected="${currentView === 'organization'}"><i data-lucide="building-2" class="shrink-0 w-3 h-3" aria-hidden="true"></i>Company / organization</button>
                         <button type="button" class="resource-tree__view ${currentView === 'topic' ? 'is-active' : ''}" data-view="topic" role="tab" aria-selected="${currentView === 'topic'}"><i data-lucide="tag" class="shrink-0 w-3 h-3" aria-hidden="true"></i>Topic / programme</button>
-                    </div>
+                    </div>` : ''}
                 </div>
-                ${categories.map((category, index) => `
+                ${currentDirectory === 'infographics' ? renderInfographicFolders(data) : categories.map((category, index) => `
                     <section class="resource-tree__folder${category !== 'Featured' ? ' is-collapsed' : ''}${category === 'Featured' ? ' resource-tree__folder--featured' : ''}" data-category="${category}">
                         <button type="button" class="resource-tree__folder-toggle" aria-expanded="${category === 'Featured' ? 'true' : 'false'}" aria-controls="resource-folder-${index}">
                             <i data-lucide="chevron-down" class="shrink-0 resource-tree__chevron w-4 h-4" aria-hidden="true"></i>
@@ -826,6 +1008,15 @@
                 `).join('')}
             `;
 
+            scopeButtons.forEach(button => {
+                button.classList.remove('hidden');
+            });
+            directoryButtons.forEach(button => {
+                const isActive = button.dataset.directory === currentDirectory;
+                button.classList.toggle('is-active', isActive);
+                button.setAttribute('aria-pressed', String(isActive));
+            });
+
             grid.querySelectorAll('.resource-tree__folder-toggle').forEach(toggle => {
                 toggle.addEventListener('click', () => {
                     const folder = toggle.closest('.resource-tree__folder');
@@ -835,7 +1026,7 @@
                 });
             });
 
-            grid.querySelectorAll('.resource-tree__view').forEach(viewButton => {
+            grid.querySelectorAll('[data-view]').forEach(viewButton => {
                 viewButton.addEventListener('click', () => {
                     currentView = viewButton.dataset.view;
                     saveDirectoryState();
@@ -845,7 +1036,7 @@
 
             grid.querySelectorAll('[data-resource-info]').forEach(infoButton => {
                 infoButton.addEventListener('click', () => {
-                    const item = resources.find(resource => String(resource.id) === infoButton.dataset.resourceInfo);
+                    const item = [...resources, ...infographicResources].find(resource => String(resource.id) === infoButton.dataset.resourceInfo);
                     const row = infoButton.closest('.resource-tree__row');
                     const inlineDetails = row.nextElementSibling;
                     if (inlineDetails?.classList.contains('resource-tree__inline-details')) {
@@ -857,13 +1048,21 @@
                 });
             });
 
+            grid.querySelectorAll('[data-resource-view]').forEach(viewButton => {
+                viewButton.addEventListener('click', () => {
+                    const item = infographicResources.find(resource => resource.id === viewButton.dataset.resourceView);
+                    if (item) showInfographicViewer(item, viewButton);
+                });
+            });
+
             renderResourceIcons();
         }
 
         // Filter Logic
         function filterData() {
             const searchTerm = searchInput.value.toLowerCase();
-            const filtered = resources.filter(item => {
+            const source = currentDirectory === 'infographics' ? infographicResources : resources;
+            const filtered = source.filter(item => {
                 const organizationText = getOrganizations(item).join(' ').toLowerCase();
                 const topicText = getTopics(item).join(' ').toLowerCase();
                 const searchText = `${item.title} ${item.desc} ${item.url} ${organizationText} ${topicText}`.toLowerCase();
@@ -889,6 +1088,16 @@
             button.addEventListener('click', () => {
                 currentScope = button.dataset.scope;
                 scopeButtons.forEach(scopeButton => scopeButton.classList.toggle('is-active', scopeButton === button));
+                saveDirectoryState();
+                filterData();
+            });
+        });
+
+        directoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                currentDirectory = button.dataset.directory;
+                currentScope = 'all';
+                scopeButtons.forEach(scopeButton => scopeButton.classList.toggle('is-active', scopeButton.dataset.scope === currentScope));
                 saveDirectoryState();
                 filterData();
             });

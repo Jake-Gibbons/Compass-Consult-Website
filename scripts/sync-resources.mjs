@@ -6,7 +6,7 @@ import sharp from 'sharp';
 const rootDir = new URL('..', import.meta.url).pathname;
 const docsDir = join(rootDir, 'assets', 'downloads', 'docs');
 const previewsDir = join(rootDir, 'assets', 'images', 'resource-previews');
-const resourcesPage = join(rootDir, 'pages', 'resources.html');
+const resourcesPage = join(rootDir, 'js', 'resources.js');
 const sourceIcon = join(rootDir, 'assets', 'logos', 'compass_rose.png');
 
 const BRAND_PURPLE = '#483086';
