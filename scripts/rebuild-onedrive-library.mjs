@@ -69,6 +69,10 @@ function tomlString(value) {
   return `"${String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
 }
 
+function encodePath(urlPath) {
+  return urlPath.split('/').map((part, index) => (index === 0 ? part : encodeURIComponent(part))).join('/');
+}
+
 async function main() {
   const previous = JSON.parse(await fs.readFile(path.join(rootDir, 'data', 'resource-library.json'), 'utf8'));
   const previousByHash = new Map();
@@ -194,9 +198,11 @@ async function main() {
   const seen = new Set();
   for (const entry of entries) {
     for (const legacy of entry.legacyUrls) {
-      if (seen.has(legacy)) continue;
-      seen.add(legacy);
-      rules.push(`[[redirects]]\n  from = ${tomlString(legacy)}\n  to = ${tomlString(entry.url)}\n  status = 301\n`);
+      for (const from of [legacy, encodePath(legacy)]) {
+        if (seen.has(from) || from === entry.url) continue;
+        seen.add(from);
+        rules.push(`[[redirects]]\n  from = ${tomlString(from)}\n  to = ${tomlString(entry.url)}\n  status = 301\n`);
+      }
     }
   }
   rules.sort();
