@@ -10,6 +10,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 import {
+  directoriesForFormat,
   organisationsFor,
   parseDocumentDate,
   slugify,
@@ -244,12 +245,6 @@ function documentTypeFor(sourcePath, filename, format) {
   if (lower.includes('white paper') || lower.includes('whitepaper')) return 'Whitepapers';
   if (lower.includes('briefing') || lower.includes('update') || lower.includes('synopsis') || lower.includes('response')) return 'Briefings';
   return 'Factsheets';
-}
-
-function directoriesFor(format) {
-  if (format === 'PNG') return ['infographics'];
-  if (format === 'PPTX') return ['files', 'infographics'];
-  return ['files'];
 }
 
 function previewKindFor(format) {
@@ -546,7 +541,7 @@ async function main() {
       subtopic,
       documentType: documentTypeFor(record.relative_path, filename, format),
       format,
-      directories: directoriesFor(format),
+      directories: directoriesForFormat(format),
       bytes: record.bytes,
       sha256: hash,
       url: already ? already.url : url,

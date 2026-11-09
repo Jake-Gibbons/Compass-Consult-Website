@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import {
   compareEntries,
+  directoriesForFormat,
   filterEntries,
   groupEntries,
   parseDocumentDate,
@@ -96,6 +97,47 @@ describe('resource catalogue fidelity', () => {
       encoding: 'utf8'
     });
     expect(diff.stdout.trim()).toBe('');
+  });
+
+  it('places presentations and documents in Files, and images in Infographics', () => {
+    expect(directoriesForFormat('PNG')).toEqual(['infographics']);
+    expect(directoriesForFormat('PDF')).toEqual(['files']);
+    expect(directoriesForFormat('DOCX')).toEqual(['files']);
+    expect(directoriesForFormat('PPTX')).toEqual(['files']);
+
+    for (const entry of entries) {
+      expect(entry.directories).toEqual(directoriesForFormat(entry.format));
+    }
+
+    const presentation = entries.find((entry) => entry.format === 'PPTX');
+    expect(presentation.originalFilename).toBe('JS IEP Chester Presentation.pptx');
+    expect(filterEntries(entries, { directory: 'infographics', search: 'chester' })).toHaveLength(0);
+    expect(filterEntries(entries, { directory: 'files', search: 'chester' }).map((entry) => entry.format)).toEqual(['PPTX']);
+    expect(filterEntries(entries, { directory: 'infographics' }).every((entry) => entry.format === 'PNG')).toBe(true);
+    expect(filterEntries(entries, { directory: 'files' }).every((entry) => entry.format !== 'PNG')).toBe(true);
+  });
+
+  it('keeps mobile resource titles readable without removing the row controls', () => {
+    const page = readFileSync(path.join(rootDir, 'pages', 'resources.html'), 'utf8');
+    const mobileStart = page.lastIndexOf('@media (max-width: 640px)');
+    const mobileBlock = page.slice(mobileStart, page.indexOf('@media (max-width: 420px)'));
+    expect(mobileBlock).toContain('.resource-tree__file-name');
+    expect(mobileBlock).toContain('white-space: normal');
+    expect(mobileBlock).toContain('overflow-wrap: anywhere');
+    expect(mobileBlock).toContain('text-overflow: unset');
+    expect(mobileBlock).not.toMatch(/\.resource-tree__file-name\s*\{[^}]*white-space:\s*nowrap/);
+    expect(mobileBlock).toContain('.resource-tree__file-filename { display: none; }');
+
+    const desktopNameRule = page.slice(page.indexOf('.resource-tree__file-name {'), page.indexOf('.resource-tree__file-desc'));
+    expect(desktopNameRule).toContain('white-space: nowrap');
+
+    const entry = entries.find((item) => item.title.startsWith('MCSA proposals'));
+    const html = renderResourceRow(entry);
+    expect(html).toContain(entry.title);
+    expect(html).not.toContain('...');
+    expect(html).toContain('data-resource-view');
+    expect(html).toContain('data-resource-info');
+    expect(html).toContain(`download="${entry.originalFilename}"`);
   });
 
   it('labels DOCX and PPTX without claiming a page preview', () => {

@@ -7,6 +7,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
+  directoriesForFormat,
   organisationsFor,
   parseDocumentDate,
   slugify,
@@ -125,7 +126,7 @@ async function syncResources() {
       subtopic: '',
       documentType: documentTypeFor(filename, format),
       format,
-      directories: format === 'PNG' ? ['infographics'] : format === 'PPTX' ? ['files', 'infographics'] : ['files'],
+      directories: directoriesForFormat(format),
       bytes: buffer.length,
       sha256: hash,
       url: relative,

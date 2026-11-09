@@ -2725,8 +2725,7 @@
       "documentType": "Presentations",
       "format": "PPTX",
       "directories": [
-        "files",
-        "infographics"
+        "files"
       ],
       "bytes": 20382856,
       "sha256": "AB94D28811623DD014E9E769FE1773F00B2B0C57920F7A2D7A9197E331E98D56",

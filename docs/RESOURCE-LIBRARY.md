@@ -135,6 +135,8 @@ assets/images/infographics/Marketing/
 
 Originals live under `assets/downloads/library/`, grouped by the eight source topics. Future Employment Support stays nested. Thumbnails live under `assets/images/resource-previews/library/` and are WebP images. PNG thumbnails are compressed copies. PDF thumbnails are the first page. DOCX and PPTX use a format label, not a page or slide preview.
 
+The library browse split follows the file format. PNG infographics are listed under Infographics. PDF, DOCX and PPTX resources are listed under Files. The IEP Chester deck is a PowerPoint presentation, so it is only in Files. There is no exception that also shows it as an infographic. On narrow screens the resource title wraps in full. The original filename stays on the download and in the details, rather than competing with the title in the row.
+
 Vacancy documents remain in `assets/downloads/vacancies/`.
 
 ## Original to published mapping

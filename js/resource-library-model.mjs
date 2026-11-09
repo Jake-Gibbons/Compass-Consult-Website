@@ -107,6 +107,18 @@ export function topicSlug(topic) {
 }
 
 /**
+ * PNG artwork belongs in Infographics. PDF, DOCX and PPTX belong in Files.
+ * There is no presentation exception: a slide deck is not an infographic.
+ *
+ * @param {string} format
+ * @returns {string[]}
+ */
+export function directoriesForFormat(format) {
+  if (format === 'PNG') return ['infographics'];
+  return ['files'];
+}
+
+/**
  * @param {number} bytes
  * @returns {string}
  */

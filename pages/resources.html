@@ -843,10 +843,27 @@
             .resource-directory-switch { justify-content: space-between; padding-inline: 0.75rem; }
             .resource-directory-switch__button { min-width: 0; }
             .resource-tree__view { flex: 1; text-align: center; }
-            .resource-tree__row { grid-template-columns: minmax(0, 1fr) auto auto; gap: 0.45rem; padding-right: 0.55rem; }
+            .resource-tree__row {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: flex-start;
+                gap: 0.35rem 0.45rem;
+                padding-right: 0.55rem;
+                overflow: hidden;
+            }
+            .resource-tree__file { flex: 1 1 100%; min-width: 0; max-width: 100%; }
+            .resource-tree__file-name {
+                white-space: normal;
+                overflow: visible;
+                text-overflow: unset;
+                overflow-wrap: anywhere;
+            }
+            .resource-tree__file-filename { display: none; }
             .resource-tree__type { display: none; }
             .resource-tree__file-desc { display: none; }
-            .resource-tree__file-date { font-size: 0.6rem; }
+            .resource-tree__file-date { font-size: 0.6rem; white-space: normal; }
+            .resource-tree__meta { flex: 0 1 auto; max-width: 100%; }
+            .resource-tree__meta:last-child { margin-left: auto; }
             .resource-tree__files { padding-left: 1.65rem; }
             .resource-tree__row::before,
             .resource-tree__row::after { left: -0.8rem; }
