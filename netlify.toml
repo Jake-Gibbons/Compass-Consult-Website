@@ -79,3 +79,413 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
     Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self'; frame-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests"
+
+# BEGIN resource-library-legacy-redirects
+# Previous public resource URLs. Generated from data/resource-library.json.
+# Do not point these at the Marketing folder.
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Connect to Work Programme Factsheet.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/cces-connect-to-work-programme-factsheet.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES DWP Future Employment Support Factsheet June 2026.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/cces-dwp-future-employment-support-factsheet-june-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES DWP Future Employment Support update 19.08.26.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/cces-dwp-future-employment-support-update-19-08-26.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES DWP Governance Factsheet.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/cces-dwp-governance-factsheet.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES DWP Jobs Guarantee Phase Two update 4 June 2026.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/cces-dwp-jobs-guarantee-phase-two-update-4-june-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES DWP Keep Britain Working update 31.03.26.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/cces-dwp-keep-britain-working-update-31-03-26.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Devolution Update August 2026.pdf"
+  to = "/assets/downloads/library/government-devolution/cces-devolution-update-august-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Education Policy Factsheet April 2026.pdf"
+  to = "/assets/downloads/library/education-skills/cces-education-policy-factsheet-april-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Every Child Can Factsheet June 2026.pdf"
+  to = "/assets/downloads/library/education-skills/cces-every-child-can-factsheet-june-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Get Britain Working White Paper Factsheet.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/cces-get-britain-working-white-paper-factsheet.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Greater London Authority Factsheet.pdf"
+  to = "/assets/downloads/library/government-devolution/cces-greater-london-authority-factsheet.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Integrated Settlements Factsheet.pdf"
+  to = "/assets/downloads/library/government-devolution/cces-integrated-settlements-factsheet.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Jobs Guarantee Phase One April 26.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/cces-jobs-guarantee-phase-one-april-26.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Journeys to Access to Work Factsheet July 2026.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/cces-journeys-to-access-to-work-factsheet-july-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES King's Speech Overview 13th May 2026.pdf"
+  to = "/assets/downloads/library/government-devolution/cces-kings-speech-overview-13th-may-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Labour Market Analysis Aug 26.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/cces-labour-market-analysis-aug-26.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Local Government Reorganisation Factsheet.pdf"
+  to = "/assets/downloads/library/government-devolution/cces-local-government-reorganisation-factsheet.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Local Government Reorganisation update 25 March 2026.pdf"
+  to = "/assets/downloads/library/government-devolution/cces-local-government-reorganisation-update-25-march-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Local Growth Fund Factsheet March 2026.pdf"
+  to = "/assets/downloads/library/government-devolution/cces-local-growth-fund-factsheet-march-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Local Growth Fund Factsheet.pdf"
+  to = "/assets/downloads/library/government-devolution/cces-local-growth-fund-factsheet.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Milburn Review IR Factsheet May 2026.pdf"
+  to = "/assets/downloads/library/government-devolution/cces-milburn-review-ir-factsheet-may-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES National Youth Strategy Factsheet Dec 2025.pdf"
+  to = "/assets/downloads/library/government-devolution/cces-national-youth-strategy-factsheet-dec-2025.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Overview of Spring Statement 3rd March 2026.pdf"
+  to = "/assets/downloads/library/government-devolution/cces-overview-of-spring-statement-3rd-march-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Post-16 Education & Skills White Paper Factsheet.pdf"
+  to = "/assets/downloads/library/education-skills/cces-post-16-education-and-skills-white-paper-factsheet.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Rewiring the State Factsheet July 2026.pdf"
+  to = "/assets/downloads/library/government-devolution/cces-rewiring-the-state-factsheet-july-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Schools White Paper Factsheet.pdf"
+  to = "/assets/downloads/library/education-skills/cces-schools-white-paper-factsheet.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Test Learn and Grow Factsheet.pdf"
+  to = "/assets/downloads/library/government-devolution/cces-test-learn-and-grow-factsheet.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Youth Guarantee Advisory Panel Factsheet.pdf"
+  to = "/assets/downloads/library/government-devolution/cces-youth-guarantee-advisory-panel-factsheet.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Youth Guarantee Trailblazer Briefing 18.03.26.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/cces-youth-guarantee-trailblazer-briefing-18-03-26.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/CCES Youth Guarantee Trailblazer Factsheet.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/cces-youth-guarantee-trailblazer-factsheet.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/Compass Consult WPSC Response Aug 2026.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/compass-consult-wpsc-response-aug-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/Jon Smith Blog June 2026 (Housing Associations).pdf"
+  to = "/assets/downloads/library/housing/jon-smith-blog-june-2026-housing-associations.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/Jon Smith Broken System Blog Feb 2026.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/jon-smith-broken-system-blog-feb-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/Jon Smith Disability Employment Blog Feb 2026.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/jon-smith-disability-employment-blog-feb-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/Jon Smith Thought Leadership Blog April 2026.pdf"
+  to = "/assets/downloads/library/leadership-management/jon-smith-thought-leadership-blog-april-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/Jon Smith Volunteering Blog April 2026.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/jon-smith-volunteering-blog-april-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/downloads/docs/Jon Smith Youth Unemployment Blog Feb 2026.pdf"
+  to = "/assets/downloads/library/employment-policy-employability/jon-smith-youth-unemployment-blog-feb-2026.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Education & Skills/Impact of ISL Oct 26.png"
+  to = "/assets/downloads/library/education-skills/impact-of-isl-oct-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Education & Skills/OFSTED Safeguarding Oct 26.png"
+  to = "/assets/downloads/library/education-skills/cces-ofsted-safeguarding-oct-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Education & Skills/OFSTED Teacher Checklist 2026.png"
+  to = "/assets/downloads/library/education-skills/ofsted-teacher-checklist-2026.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Education & Skills/Skills England LMI Oct 26.png"
+  to = "/assets/downloads/library/education-skills/skills-england-lmi-oct-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Employability/Employment Law Changes Aug 26.png"
+  to = "/assets/downloads/library/employment-policy-employability/cces-employment-law-changes-aug-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Employability/Future Employment Support/FES Employer Relationship Model.png"
+  to = "/assets/downloads/library/employment-policy-employability/future-employment-support/cces-fes-employer-relationship-model.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Employability/Future Employment Support/FES Partnership.png"
+  to = "/assets/downloads/library/employment-policy-employability/future-employment-support/cces-fes-partnership.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Employability/Future Employment Support/FES Support.png"
+  to = "/assets/downloads/library/employment-policy-employability/future-employment-support/cces-fes-support.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Employability/Health Connected Employment Support.png"
+  to = "/assets/downloads/library/employment-policy-employability/cces-health-connected-employment-support.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Employability/Job Seeker Websites Oct 26.png"
+  to = "/assets/downloads/library/employment-policy-employability/job-seeker-websites-oct-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Employability/Re-Wiring the State NEET Taskforce.png"
+  to = "/assets/downloads/library/employment-policy-employability/cces-re-wiring-the-state-neet-taskforce.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Employability/UKET Oct 26.png"
+  to = "/assets/downloads/library/employment-policy-employability/cces-uket-oct-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Governance & Project Management/Change Function Nov 26.png"
+  to = "/assets/downloads/library/governance-project-management/cces-change-function-nov-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Governance & Project Management/Consultant Strategy Wheel.png"
+  to = "/assets/downloads/library/governance-project-management/cces-consultant-strategy-wheel.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Governance & Project Management/ISO 9001 Visual Nov 26.png"
+  to = "/assets/downloads/library/governance-project-management/cces-iso-9001-visual-nov-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Governance & Project Management/LEAN Six Sigma Nov 26.png"
+  to = "/assets/downloads/library/governance-project-management/cces-lean-six-sigma-nov-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Governance & Project Management/McKinsey 7S Model.png"
+  to = "/assets/downloads/library/governance-project-management/cces-mckinsey-7s-model.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Governance & Project Management/POS Scaling Business Nov 26.png"
+  to = "/assets/downloads/library/governance-project-management/cces-pos-scaling-business-nov-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Governance & Project Management/Prince 2 Agile Oct 26.png"
+  to = "/assets/downloads/library/governance-project-management/cces-prince-2-agile-oct-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Governance & Project Management/Prince 2 Visual Nov 26.png"
+  to = "/assets/downloads/library/governance-project-management/cces-prince-2-visual-nov-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Governance & Project Management/Role of a Steering Group Nov 26.png"
+  to = "/assets/downloads/library/governance-project-management/cces-role-of-a-steering-group-nov-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Health & Social  Care/Looked After Children Oct 26.png"
+  to = "/assets/downloads/library/health-social-care/cces-looked-after-children-oct-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Health & Social  Care/NHS Cost of Beds November 2026.png"
+  to = "/assets/downloads/library/health-social-care/nhs-cost-of-beds-november-2026.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Health & Social  Care/NHS/46382.png"
+  to = "/assets/downloads/library/health-social-care/nhs/neighbourhood-working-service-led-to-population-led.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Health & Social  Care/NHS/46383.png"
+  to = "/assets/downloads/library/health-social-care/nhs/activity-and-productivity-measures.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Health & Social  Care/NHS/46385 (1).png"
+  to = "/assets/downloads/library/health-social-care/nhs/neighbourhood-working-how-the-funding-could-work.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Health & Social  Care/NHS/46394 (1).png"
+  to = "/assets/downloads/library/health-social-care/nhs/neighbourhood-health-ahp-webinar-dietetics.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Health & Social  Care/NHS/46395 (1).png"
+  to = "/assets/downloads/library/health-social-care/nhs/neighbourhood-leadership-responsibilities-and-levers.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Health & Social  Care/NHS/46466 (1).png"
+  to = "/assets/downloads/library/health-social-care/nhs/understanding-the-nhs.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Health & Social  Care/NHS/46846 (1).png"
+  to = "/assets/downloads/library/health-social-care/nhs/barrier-removal-squared.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Health & Social  Care/National Carers Week CLF Nov 26.png"
+  to = "/assets/downloads/library/health-social-care/cces-national-carers-week-clf-nov-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Housing/New Housing Benefit Rules Oct 26.png"
+  to = "/assets/downloads/library/housing/new-housing-benefit-rules-oct-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Housing/Supported Housing Week Oct 2026.png"
+  to = "/assets/downloads/library/housing/supported-housing-week-oct-2026.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Institute of Employability Professionals/JS IEP Chester Presentation.pptx"
+  to = "/assets/downloads/library/institute-of-employability-professionals/js-iep-chester-presentation.pptx"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Leadership & Management/Coach Mentor Manage Nov 26.png"
+  to = "/assets/downloads/library/leadership-management/cces-coach-mentor-manage-nov-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Leadership & Management/Layers of Leadership Maturity.png"
+  to = "/assets/downloads/library/leadership-management/cces-layers-of-leadership-maturity.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Leadership & Management/Mentor Like a Leader.png"
+  to = "/assets/downloads/library/leadership-management/cces-mentor-like-a-leader.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Leadership & Management/Performance Management Cycle Nov 26.png"
+  to = "/assets/downloads/library/leadership-management/cces-performance-management-cycle-nov-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Leadership & Management/Rescuing Not Leading.png"
+  to = "/assets/downloads/library/leadership-management/rescuing-not-leading.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Leadership & Management/Work Home Health Model.png"
+  to = "/assets/downloads/library/leadership-management/cces-work-home-health-model.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Local Government & Devolution/Devolution Reading List Oct 26.png"
+  to = "/assets/downloads/library/government-devolution/devolution-reading-list-oct-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Local Government & Devolution/LGR update Oct 26.png"
+  to = "/assets/downloads/library/government-devolution/cces-lgr-update-oct-26.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Local Government & Devolution/MCSA Proposals Oct 2026.png"
+  to = "/assets/downloads/library/government-devolution/cces-mcsa-proposals-oct-2026.png"
+  status = 301
+
+[[redirects]]
+  from = "/assets/images/infographics/Local Government & Devolution/UK Budget Autumn 2026.png"
+  to = "/assets/downloads/library/government-devolution/uk-budget-autumn-2026.png"
+  status = 301
+
+# END resource-library-legacy-redirects

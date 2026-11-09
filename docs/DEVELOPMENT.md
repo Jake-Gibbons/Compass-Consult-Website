@@ -232,11 +232,12 @@ See [STRUCTURE.md](../STRUCTURE.md) for the complete folder and file reference.
 
 ### Adding downloadable resources
 
-- Drop new PDFs into `assets/downloads/docs`.
-- Run `npm run sync:resources` to update the library manually.
-- Or run `npm run watch:resources` during local work to auto-sync on file changes.
-- If `PyMuPDF` is installed from `requirements-resource-previews.txt`, the sync step renders the first PDF page into `assets/images/resource-previews/`.
-- If Python PDF rendering is unavailable, the sync step still creates a branded placeholder preview so the resource card never breaks.
+- Put the original file in the matching topic folder under `assets/downloads/library/`. Use a lower-case URL-safe name. Do not edit PNG originals.
+- Run `npm run sync:resources`, or `npm run watch:resources` while you work.
+- Then edit the new stub in `data/resource-library.json` so the title, description and alt text come from the file.
+- PDF thumbnails need PyMuPDF from `requirements-resource-previews.txt`. Word and PowerPoint files keep a format label instead of a page preview.
+- Do not add Marketing files, and do not reorganise `assets/images/infographics/Marketing/`.
+- The steps and the folder tree are in `docs/RESOURCE-LIBRARY.md`.
 
 ---
 

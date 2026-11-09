@@ -1,3 +1,40 @@
+.resource-tree__loading {
+  margin: 0;
+  padding: 1.25rem 1rem;
+  color: #475569;
+  font-size: 0.85rem;
+}
+
+.resource-tree__thumb {
+  width: 2.75rem;
+  height: 3.6rem;
+  object-fit: contain;
+  object-position: center;
+  flex: 0 0 auto;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.35rem;
+}
+
+.resource-tree__file:has(.resource-tree__thumb) .resource-tree__file-icon {
+  display: none;
+}
+
+.resource-tree__file-filename {
+  display: block;
+  overflow: hidden;
+  color: #64748b;
+  font-size: 0.65rem;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.resource-tree__format {
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
 .resource-tree__file-name {
   cursor: pointer;
 }

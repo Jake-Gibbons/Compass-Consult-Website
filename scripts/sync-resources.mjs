@@ -1,268 +1,188 @@
+/**
+ * Add new library files to the catalogue without removing or rewriting curated entries.
+ * Marketing paths are ignored. Identical SHA256 files are not stored twice.
+ */
+import { createHash } from 'node:crypto';
 import { promises as fs } from 'node:fs';
-import { spawnSync } from 'node:child_process';
-import { join, basename } from 'node:path';
-import sharp from 'sharp';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import {
+  organisationsFor,
+  parseDocumentDate,
+  slugify,
+  topicsFor
+} from '../js/resource-library-model.mjs';
+import { ensurePreview } from './lib/resource-previews.mjs';
 
-const rootDir = new URL('..', import.meta.url).pathname;
-const docsDir = join(rootDir, 'assets', 'downloads', 'docs');
-const previewsDir = join(rootDir, 'assets', 'images', 'resource-previews');
-const resourcesPage = join(rootDir, 'js', 'resources.js');
-const sourceIcon = join(rootDir, 'assets', 'logos', 'compass_rose.png');
+const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const cataloguePath = path.join(rootDir, 'data', 'resource-library.json');
+const libraryRoot = path.join(rootDir, 'assets', 'downloads', 'library');
+const legacyDocsRoot = path.join(rootDir, 'assets', 'downloads', 'docs');
 
-const BRAND_PURPLE = '#483086';
-const BRAND_TEAL = '#19b5b0';
-
-function escapeRegExp(value) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function isMarketingPath(value) {
+  return String(value).split(/[\\/]/).some((part) => part.toLowerCase() === 'marketing');
 }
 
-function escapeXml(value) {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
-}
-
-function titleFromFilename(filename) {
-  const withoutExt = filename.replace(/\.pdf$/i, '');
-  return withoutExt
-    .replace(/[_-]+/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function metadataFromFilename(filename) {
-  const lower = filename.toLowerCase();
-
-  if (lower.includes('blog')) {
-    return {
-      category: 'Blogs',
-      color: 'indigo',
-      desc: 'Blog article covering current employability and skills insights.'
-    };
+async function walkFiles(dir) {
+  const found = [];
+  let entries = [];
+  try {
+    entries = await fs.readdir(dir, { withFileTypes: true });
+  } catch {
+    return found;
   }
-
-  if (lower.includes('briefing') || lower.includes('update')) {
-    return {
-      category: 'Briefings',
-      color: 'orange',
-      desc: 'Briefing update on current policy and delivery developments.'
-    };
-  }
-
-  if (lower.includes('white paper') || lower.includes('whitepaper')) {
-    return {
-      category: 'Whitepapers',
-      color: 'teal',
-      desc: 'Summary of key white paper themes and implementation implications.'
-    };
-  }
-
-  return {
-    category: 'Factsheets',
-    color: 'purple',
-    desc: 'Factsheet outlining key points for employability and skills delivery.'
-  };
-}
-
-function buildResourceEntry(id, filename) {
-  const title = titleFromFilename(filename);
-  const meta = metadataFromFilename(filename);
-
-  return `            {\n` +
-    `                id: ${id},\n` +
-    `                title: "${title.replace(/"/g, '\\"')}",\n` +
-    `                category: "${meta.category}",\n` +
-    '                type: "PDF",\n' +
-    '                size: "PDF",\n' +
-    `                desc: "${meta.desc}",\n` +
-    '                icon: "file-text",\n' +
-    `                color: "${meta.color}",\n` +
-    '                isNew: true,\n' +
-    `                url: "/assets/downloads/docs/${filename.replace(/"/g, '\\"')}"\n` +
-    '            }';
-}
-
-function splitLinesForPreview(text, maxCharsPerLine = 34, maxLines = 3) {
-  const words = text.split(/\s+/);
-  const lines = [];
-  let current = '';
-
-  for (const word of words) {
-    const candidate = current ? `${current} ${word}` : word;
-    if (candidate.length <= maxCharsPerLine) {
-      current = candidate;
+  for (const entry of entries) {
+    const full = path.join(dir, entry.name);
+    if (isMarketingPath(full)) {
+      console.warn(`Skipped Marketing path: ${path.relative(rootDir, full)}`);
       continue;
     }
-
-    if (current) {
-      lines.push(current);
-    }
-
-    current = word;
-    if (lines.length === maxLines - 1) {
-      break;
-    }
+    if (entry.isDirectory()) found.push(...await walkFiles(full));
+    else if (entry.isFile()) found.push(full);
   }
-
-  if (current && lines.length < maxLines) {
-    lines.push(current);
-  }
-
-  if (lines.length === maxLines && words.join(' ').length > lines.join(' ').length) {
-    lines[maxLines - 1] = `${lines[maxLines - 1].replace(/\.*$/, '')}...`;
-  }
-
-  return lines;
+  return found;
 }
 
-async function generatePreview(filename) {
-  const previewPath = join(previewsDir, `${filename}.png`);
-
-  try {
-    await fs.access(previewPath);
-    return false;
-  } catch {
-    // File does not exist yet.
-  }
-
-  const title = titleFromFilename(filename);
-  const lines = splitLinesForPreview(title);
-
-  const textSvg = `
-    <svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
-      <rect width="1200" height="630" fill="#f8fafc"/>
-      <rect x="0" y="0" width="1200" height="130" fill="${BRAND_PURPLE}"/>
-      <text x="70" y="82" font-family="Arial, sans-serif" font-size="44" font-weight="700" fill="#ffffff">Compass Consult Resource</text>
-      <rect x="70" y="170" width="1060" height="390" rx="26" fill="#ffffff" stroke="#e5e7eb" stroke-width="3"/>
-      <text x="120" y="260" font-family="Arial, sans-serif" font-size="52" font-weight="700" fill="${BRAND_PURPLE}">PDF</text>
-      <line x1="120" y1="282" x2="1080" y2="282" stroke="#d1d5db" stroke-width="2"/>
-      ${lines
-        .map((line, i) => `<text x="120" y="${350 + (i * 70)}" font-family="Arial, sans-serif" font-size="44" font-weight="600" fill="#111827">${escapeXml(line)}</text>`)
-        .join('')}
-      <text x="120" y="535" font-family="Arial, sans-serif" font-size="30" font-weight="500" fill="${BRAND_TEAL}">Download from Compass Consult Resource Library</text>
-    </svg>
-  `;
-
-  const logo = await sharp(sourceIcon)
-    .resize(160, 160, { fit: 'contain' })
-    .png()
-    .toBuffer();
-
-  await sharp(Buffer.from(textSvg))
-    .composite([
-      { input: logo, left: 980, top: 18 }
-    ])
-    .png({ compressionLevel: 9 })
-    .toFile(previewPath);
-
-  return true;
+function sha256(buffer) {
+  return createHash('sha256').update(buffer).digest('hex').toUpperCase();
 }
 
-function tryGeneratePdfPreviews() {
-  const candidates = Array.from(new Set([
-    process.env.PYTHON,
-    'python3',
-    'python'
-  ].filter(Boolean)));
+function formatFor(ext) {
+  if (ext === '.pdf') return 'PDF';
+  if (ext === '.png') return 'PNG';
+  if (ext === '.docx') return 'DOCX';
+  if (ext === '.pptx') return 'PPTX';
+  return ext.replace('.', '').toUpperCase();
+}
 
-  for (const command of candidates) {
-    const result = spawnSync(command, ['_gen_thumbs.py', '--quiet'], {
-      cwd: rootDir,
-      encoding: 'utf8'
-    });
+function previewKindFor(format) {
+  if (format === 'PNG') return 'image';
+  if (format === 'PDF') return 'pdf-page';
+  return 'format-label';
+}
 
-    if (!result.error && result.status === 0) {
-      if (result.stdout.trim()) {
-        console.log(result.stdout.trim());
-      }
-      return true;
-    }
-  }
-
-  console.warn('Falling back to generated placeholder previews because Python PDF rendering is unavailable.');
-  return false;
+function documentTypeFor(filename, format) {
+  const lower = filename.toLowerCase();
+  if (format === 'PPTX') return 'Presentations';
+  if (format === 'DOCX') return 'Guides';
+  if (format === 'PNG') return 'Infographics';
+  if (lower.includes('blog')) return 'Blogs';
+  if (lower.includes('white paper') || lower.includes('whitepaper')) return 'Whitepapers';
+  if (lower.includes('briefing') || lower.includes('update') || lower.includes('synopsis')) return 'Briefings';
+  return 'Factsheets';
 }
 
 async function syncResources() {
-  const [files, resourcesContent] = await Promise.all([
-    fs.readdir(docsDir),
-    fs.readFile(resourcesPage, 'utf8'),
-    fs.mkdir(previewsDir, { recursive: true })
-  ]);
+  const catalogue = JSON.parse(await fs.readFile(cataloguePath, 'utf8'));
+  const entries = catalogue.entries;
+  const byUrl = new Map(entries.filter((entry) => !entry.aliasOf).map((entry) => [entry.url, entry]));
+  const hashes = new Set(entries.map((entry) => entry.sha256));
+  let added = 0;
+  let previewsCreated = 0;
+  let hashUpdates = 0;
+  const maxOrder = entries.reduce((max, entry) => Math.max(max, entry.addedOrder || 0), 0);
 
-  const pdfFiles = files
-    .filter((name) => name.toLowerCase().endsWith('.pdf'))
-    .sort((a, b) => a.localeCompare(b));
+  const files = [
+    ...await walkFiles(libraryRoot),
+    ...(await walkFiles(legacyDocsRoot)).filter((file) => file.toLowerCase().endsWith('.pdf'))
+  ];
 
-  const resourcesMatch = resourcesContent.match(/const resources = \[(?<body>[\s\S]*?)\n\s*\];/);
-  if (!resourcesMatch || !resourcesMatch.groups) {
-    throw new Error('Could not find resources array in pages/resources.html');
-  }
-
-  const resourcesBody = resourcesMatch.groups.body;
-
-  const urlRegex = /url:\s*"([^"]+)"/g;
-  const idRegex = /id:\s*(\d+)/g;
-  const existingUrls = new Set();
-  let maxId = 0;
-
-  for (const match of resourcesBody.matchAll(urlRegex)) {
-    existingUrls.add(match[1]);
-  }
-
-  for (const match of resourcesBody.matchAll(idRegex)) {
-    const id = Number.parseInt(match[1], 10);
-    if (id > maxId) {
-      maxId = id;
+  for (const file of files) {
+    const relative = `/${path.relative(rootDir, file).split(path.sep).join('/')}`;
+    const buffer = await fs.readFile(file);
+    const hash = sha256(buffer);
+    const existing = byUrl.get(relative);
+    if (existing) {
+      if (existing.sha256 !== hash || existing.bytes !== buffer.length) {
+        existing.sha256 = hash;
+        existing.bytes = buffer.length;
+        hashUpdates += 1;
+      }
+      continue;
     }
-  }
-
-  const newEntries = [];
-  for (const filename of pdfFiles) {
-    const url = `/assets/downloads/docs/${filename}`;
-    if (existingUrls.has(url)) {
+    if (hashes.has(hash)) {
+      console.warn(`Skipped duplicate bytes already catalogued: ${relative}`);
       continue;
     }
 
-    maxId += 1;
-    newEntries.push(buildResourceEntry(maxId, filename));
+    const filename = path.basename(file);
+    const ext = path.extname(filename).toLowerCase();
+    const format = formatFor(ext);
+    const date = parseDocumentDate(filename);
+    const inLibrary = relative.startsWith('/assets/downloads/library/');
+    const parts = relative.split('/').filter(Boolean);
+    const topicSlugPart = inLibrary ? parts[3] : '';
+    const topic = inLibrary ? topicSlugPart.replace(/-/g, ' ') : 'Unsorted';
+    const entry = {
+      id: `sync-${slugify(filename)}`,
+      canonicalId: `sync-${slugify(filename)}`,
+      title: filename.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' '),
+      description: 'Added by resource sync. Replace this description with a summary taken from the file.',
+      alt: '',
+      originalFilename: filename,
+      sourcePath: '',
+      topic,
+      subtopic: '',
+      documentType: documentTypeFor(filename, format),
+      format,
+      directories: format === 'PNG' ? ['infographics'] : format === 'PPTX' ? ['files', 'infographics'] : ['files'],
+      bytes: buffer.length,
+      sha256: hash,
+      url: relative,
+      previewUrl: inLibrary
+        ? relative.replace('/assets/downloads/library/', '/assets/images/resource-previews/library/').replace(/\.[^.]+$/, '.webp')
+        : `/assets/images/resource-previews/library/unsorted/${slugify(filename)}.webp`,
+      previewKind: previewKindFor(format),
+      previewWidth: 0,
+      previewHeight: 0,
+      legacyUrls: [],
+      documentDateLabel: date.label,
+      sortDate: date.sortDate,
+      isNew: true,
+      featured: false,
+      addedOrder: maxOrder + added + 1,
+      audience: '',
+      origin: 'sync',
+      aliasOf: ''
+    };
+    entry.alt = format === 'PNG'
+      ? `Infographic: ${entry.title}.`
+      : format === 'PDF'
+        ? `First page of ${entry.title}.`
+        : `Format label for ${entry.originalFilename}. This image is not a preview of the file contents.`;
+    entry.organizations = organisationsFor(entry);
+    entry.topics = topicsFor(entry);
+    entries.push(entry);
+    byUrl.set(entry.url, entry);
+    hashes.add(hash);
+    added += 1;
   }
 
-  // Only rotate isNew flags when there are actually new docs to add.
-  let updatedResourcesContent = resourcesContent;
-  if (newEntries.length > 0) {
-    // Strip all existing isNew flags so only the current batch is marked New.
-    updatedResourcesContent = resourcesContent.replace(/,?\s*isNew:\s*true,?/g, (match) => {
-      return match.startsWith(',') && match.endsWith(',') ? ',' : '';
-    });
-
-    const refreshedMatch = updatedResourcesContent.match(/const resources = \[(?<body>[\s\S]*?)\n\s*\];/);
-    if (!refreshedMatch || !refreshedMatch.groups) {
-      throw new Error('Could not find resources array after stripping isNew flags');
+  for (const entry of entries) {
+    if (entry.aliasOf) continue;
+    const original = path.join(rootDir, entry.url.replace(/^\//, ''));
+    try {
+      await fs.access(original);
+    } catch {
+      console.warn(`Catalogue entry has no file: ${entry.url}`);
+      continue;
     }
-    const insertionPoint = refreshedMatch[0];
-    const originalBody = refreshedMatch.groups.body;
-    const trimmedBody = originalBody.trimEnd();
-    const nextBody = `${trimmedBody},\n${newEntries.join(',\n')}`;
-    const nextArray = insertionPoint.replace(originalBody, nextBody);
-    updatedResourcesContent = updatedResourcesContent.replace(insertionPoint, nextArray);
-    await fs.writeFile(resourcesPage, updatedResourcesContent, 'utf8');
+    const created = await ensurePreview(entry, original);
+    if (created) previewsCreated += 1;
   }
 
-  tryGeneratePdfPreviews();
-
-  let previewsCreated = 0;
-  for (const filename of pdfFiles) {
-    const created = await generatePreview(filename);
-    if (created) {
-      previewsCreated += 1;
-    }
+  if (added || hashUpdates || previewsCreated) {
+    catalogue.entries = entries;
+    catalogue.counts = {
+      ...catalogue.counts,
+      catalogueEntries: entries.length,
+      storedOriginals: new Set(entries.map((entry) => entry.url)).size
+    };
+    await fs.writeFile(cataloguePath, `${JSON.stringify(catalogue, null, 2)}\n`);
   }
 
-  console.log(`Resources added: ${newEntries.length}`);
+  console.log(`Resources added: ${added}`);
+  console.log(`Hash updates: ${hashUpdates}`);
   console.log(`Previews created: ${previewsCreated}`);
 }
 

@@ -225,11 +225,13 @@ Core editable content is represented in JSON under `data/` (for example team, se
 
 ## Resource Library Automation
 
-When PDFs are added under `assets/downloads/docs`:
+When resources are added under `assets/downloads/library/`:
 
-- resource entries can be synced to `pages/resources.html`
-- preview images can be generated from PDF first pages when Python preview deps are available
-- fallback placeholder previews are generated when rendering dependencies are missing
+- `npm run sync:resources` adds a catalogue stub in `data/resource-library.json` and a WebP thumbnail
+- curated titles and descriptions are left in place
+- PDF thumbnails use the first page when Python preview dependencies are available
+- Word and PowerPoint files get a format label, not a page preview
+- see `docs/RESOURCE-LIBRARY.md` for the topic folders and the original-to-published mapping
 
 For PDF-based previews locally:
 

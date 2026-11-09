@@ -12,6 +12,10 @@ members, services, and client organisations.
 
 ## Files
 
+### `resource-library.json`
+
+Catalogue for the resource library. Each entry records the published URL, original filename, SHA256, topic, format and thumbnail. The page loads this file directly. See `docs/RESOURCE-LIBRARY.md` for how to add an infographic.
+
 ### `clients.json`
 
 An array of client organisation objects displayed in the client ticker

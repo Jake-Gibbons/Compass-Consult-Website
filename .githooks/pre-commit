@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "[pre-commit] Syncing docs into resource library..."
+echo "[pre-commit] Syncing the resource library..."
 node scripts/sync-resources.mjs
 
-git add pages/resources.html assets/images/resource-previews
+git add data/resource-library.json assets/images/resource-previews/library
