@@ -1,6 +1,5 @@
 import {
   compareEntries,
-  dedupeEntries,
   escapeHtml,
   filterEntries,
   formatBytes,
@@ -157,17 +156,9 @@ function renderResources(data) {
     noResults.classList.add('hidden');
   }
 
-  const view = currentDirectory === 'infographics' ? 'folders' : currentView;
-  const grouped = groupEntries(data, view);
-  const listedCount = view === 'folders' || view === 'collection' ? data.length : dedupeEntries(data).length;
+  const grouped = groupEntries(data, 'folders');
+  const listedCount = data.length;
   const sortWithin = (items) => [...items].sort((left, right) => compareEntries(left, right, currentSort));
-  const featured = sortWithin(grouped.featured);
-  const featuredHtml = featured.length ? renderFolder('Featured', 'resource-folder-featured', featured, {
-    featured: true,
-    expanded: true,
-    count: featured.length,
-    children: []
-  }) : '';
   const foldersHtml = grouped.groups.map((group, index) => {
     const direct = sortWithin(group.direct);
     const children = group.children.map((child) => ({ name: child.name, entries: sortWithin(child.entries) }));
@@ -179,30 +170,13 @@ function renderResources(data) {
     });
   }).join('');
 
-  const breadcrumb = currentDirectory === 'infographics'
-    ? 'Infographic folders'
-    : currentView === 'collection'
-      ? 'Topic folder'
-      : currentView === 'organization'
-        ? 'Company / organization'
-        : currentView === 'topic'
-          ? 'Topic / programme'
-          : 'Document type';
-
   grid.innerHTML = `
     <div class="resource-tree__root">
       <i data-lucide="folder-open" class="shrink-0 w-4 h-4" aria-hidden="true"></i>
-      <span>${currentDirectory === 'infographics' ? 'Infographics' : 'Files'}</span>
-      <span class="resource-tree__count">${listedCount} ${currentDirectory === 'infographics' ? 'items' : 'documents'}</span>
-      <span class="resource-tree__breadcrumb" aria-label="Current directory">/ ${breadcrumb}</span>
-      ${currentDirectory === 'files' ? `<div class="resource-tree__views" role="tablist" aria-label="File directory view">
-        <button type="button" class="resource-tree__view ${currentView === 'type' ? 'is-active' : ''}" data-view="type" role="tab" aria-selected="${currentView === 'type'}"><i data-lucide="file-text" class="shrink-0 w-3 h-3" aria-hidden="true"></i>Document type</button>
-        <button type="button" class="resource-tree__view ${currentView === 'organization' ? 'is-active' : ''}" data-view="organization" role="tab" aria-selected="${currentView === 'organization'}"><i data-lucide="building-2" class="shrink-0 w-3 h-3" aria-hidden="true"></i>Company / organization</button>
-        <button type="button" class="resource-tree__view ${currentView === 'topic' ? 'is-active' : ''}" data-view="topic" role="tab" aria-selected="${currentView === 'topic'}"><i data-lucide="tag" class="shrink-0 w-3 h-3" aria-hidden="true"></i>Topic / programme</button>
-        <button type="button" class="resource-tree__view ${currentView === 'collection' ? 'is-active' : ''}" data-view="collection" role="tab" aria-selected="${currentView === 'collection'}"><i data-lucide="folder-open" class="shrink-0 w-3 h-3" aria-hidden="true"></i>Topic folder</button>
-      </div>` : ''}
+      <span>Resource library</span>
+      <span class="resource-tree__count">${listedCount} files</span>
+      <span class="resource-tree__breadcrumb" aria-label="Current directory">/ supplied folder</span>
     </div>
-    ${featuredHtml}
     ${foldersHtml}
   `;
 
@@ -256,9 +230,7 @@ function renderResources(data) {
 
 function filterData() {
   const filtered = filterEntries(entries, {
-    directory: currentDirectory,
-    search: searchInput.value,
-    scope: currentScope
+    search: searchInput.value
   }).sort((left, right) => compareEntries(left, right, currentSort));
   renderResources(filtered);
 }
@@ -323,13 +295,9 @@ function readSavedState() {
   } catch {
     savedState = {};
   }
-  currentDirectory = savedState.directory === 'infographics' ? 'infographics' : 'files';
-  currentSort = ['newest', 'alphabetical', 'added'].includes(savedState.sort) ? savedState.sort : 'newest';
-  currentScope = currentDirectory === 'infographics' ? 'all' : (['all', 'new', 'featured'].includes(savedState.scope) ? savedState.scope : 'all');
-  currentView = ['type', 'organization', 'topic', 'collection'].includes(savedState.view) ? savedState.view : 'type';
+  currentSort = ['newest', 'alphabetical', 'added'].includes(savedState.sort) ? savedState.sort : 'alphabetical';
   sortSelect.value = currentSort;
   searchInput.value = savedState.search || '';
-  scopeButtons.forEach((button) => button.classList.toggle('is-active', button.dataset.scope === currentScope));
 }
 
 readSavedState();

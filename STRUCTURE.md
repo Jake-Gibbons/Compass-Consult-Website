@@ -113,10 +113,9 @@ Downloadable resource originals and vacancy documents:
 
 | Folder | Contents |
 |---|---|
-| `library/` | Resource originals grouped by the eight topic folders. Future Employment Support is nested. Thumbnails are separate, under `assets/images/resource-previews/library/` |
 | `vacancies/` | Job description and vacancy PDFs |
 
-`assets/images/infographics/Marketing/` is not part of the resource library and is left as it is. See `docs/RESOURCE-LIBRARY.md`.
+The resource library is the single directory `assets/resources/`, copied from the supplied OneDrive folder. See `docs/RESOURCE-LIBRARY.md`. `assets/images/infographics/Marketing/` is not part of that library.
 
 ---
 

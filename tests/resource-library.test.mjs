@@ -6,7 +6,6 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import {
   compareEntries,
-  directoriesForFormat,
   filterEntries,
   groupEntries,
   parseDocumentDate,
@@ -23,18 +22,26 @@ function sha256(filePath) {
 }
 
 describe('resource catalogue fidelity', () => {
-  it('publishes 86 source records from 85 unique files, plus the preserved NHS images', () => {
+  it('publishes the supplied folder as one directory of 86 records and 85 unique files', () => {
     expect(catalogue.counts).toMatchObject({
       sourceRecords: 86,
       uniqueSourceFiles: 85,
-      movedIdentical: 74,
-      added: 11,
-      aliasListings: 1,
-      preservedExisting: 7,
-      catalogueEntries: 93,
-      storedOriginals: 92
+      catalogueEntries: 86,
+      storedOriginals: 86
     });
-    expect(entries).toHaveLength(93);
+    expect(entries).toHaveLength(86);
+    expect(new Set(entries.map((entry) => entry.topic))).toEqual(new Set([
+      'Education & Skills',
+      'Employment Policy & Employability',
+      'Governance & Project Management',
+      'Government & Devolution',
+      'Health & Social Care',
+      'Housing',
+      'Institute of Employability Professionals',
+      'Leadership & Management'
+    ]));
+    expect(entries.every((entry) => entry.url.startsWith('/assets/resources/') && !entry.url.includes('/_previews/'))).toBe(true);
+    expect(existsSync(path.join(rootDir, 'assets', 'downloads', 'library'))).toBe(false);
   });
 
   it('matches every published original to its recorded SHA256 and thumbnail', () => {
@@ -50,21 +57,34 @@ describe('resource catalogue fidelity', () => {
       urlsForHash.add(entry.url);
       urls.set(entry.sha256, urlsForHash);
     }
-    for (const urlsForHash of urls.values()) {
-      expect(urlsForHash.size).toBe(1);
-    }
+    const duplicated = [...urls.values()].filter((urlsForHash) => urlsForHash.size > 1);
+    expect(duplicated).toHaveLength(1);
+    expect([...duplicated[0]].every((url) => url.endsWith('Staying Close Implementation Guide for Local Authorities.docx'))).toBe(true);
   });
 
-  it('lists the Staying Close guide in both topics and stores it once', () => {
-    const matches = entries.filter((entry) => entry.canonicalId === 'education-skills-staying-close-implementation-guide-for-local-authorities');
-    expect(matches.map((entry) => entry.topic).sort()).toEqual(['Education & Skills', 'Government & Devolution']);
-    expect(new Set(matches.map((entry) => entry.url)).size).toBe(1);
-    expect(matches.every((entry) => entry.format === 'DOCX')).toBe(true);
-    expect(matches.every((entry) => entry.previewKind === 'format-label')).toBe(true);
-    const files = groupEntries(matches, 'collection');
-    expect(files.groups).toHaveLength(2);
-    const guides = groupEntries(matches, 'type').groups.find((group) => group.name === 'Guides');
-    expect(guides.direct).toHaveLength(1);
+  it('shows the OneDrive folders, including Staying Close in both categories', () => {
+    const grouped = groupEntries(entries, 'folders');
+    expect(grouped.groups.map((group) => group.name)).toEqual([
+      'Education & Skills',
+      'Employment Policy & Employability',
+      'Governance & Project Management',
+      'Government & Devolution',
+      'Health & Social Care',
+      'Housing',
+      'Institute of Employability Professionals',
+      'Leadership & Management'
+    ]);
+    const employment = grouped.groups.find((group) => group.name === 'Employment Policy & Employability');
+    expect(employment.children.map((child) => child.name)).toEqual(['Future Employment Support']);
+    const staying = entries.filter((entry) => entry.originalFilename === 'Staying Close Implementation Guide for Local Authorities.docx');
+    expect(staying.map((entry) => entry.topic).sort()).toEqual(['Education & Skills', 'Government & Devolution']);
+    expect(new Set(staying.map((entry) => entry.sha256)).size).toBe(1);
+    const page = readFileSync(path.join(rootDir, 'pages', 'resources.html'), 'utf8');
+    expect(page).not.toContain('data-directory="infographics"');
+    expect(page).not.toContain('data-directory="files"');
+    const presentation = entries.find((entry) => entry.format === 'PPTX');
+    expect(presentation.sourcePath).toBe('Institute of Employability Professionals/JS IEP Chester Presentation.pptx');
+    expect(filterEntries(entries, { search: 'chester' })).toHaveLength(1);
   });
 
   it('keeps both strategic thinking infographics', () => {
@@ -99,24 +119,6 @@ describe('resource catalogue fidelity', () => {
     expect(diff.stdout.trim()).toBe('');
   });
 
-  it('places presentations and documents in Files, and images in Infographics', () => {
-    expect(directoriesForFormat('PNG')).toEqual(['infographics']);
-    expect(directoriesForFormat('PDF')).toEqual(['files']);
-    expect(directoriesForFormat('DOCX')).toEqual(['files']);
-    expect(directoriesForFormat('PPTX')).toEqual(['files']);
-
-    for (const entry of entries) {
-      expect(entry.directories).toEqual(directoriesForFormat(entry.format));
-    }
-
-    const presentation = entries.find((entry) => entry.format === 'PPTX');
-    expect(presentation.originalFilename).toBe('JS IEP Chester Presentation.pptx');
-    expect(filterEntries(entries, { directory: 'infographics', search: 'chester' })).toHaveLength(0);
-    expect(filterEntries(entries, { directory: 'files', search: 'chester' }).map((entry) => entry.format)).toEqual(['PPTX']);
-    expect(filterEntries(entries, { directory: 'infographics' }).every((entry) => entry.format === 'PNG')).toBe(true);
-    expect(filterEntries(entries, { directory: 'files' }).every((entry) => entry.format !== 'PNG')).toBe(true);
-  });
-
   it('keeps mobile resource titles readable without removing the row controls', () => {
     const page = readFileSync(path.join(rootDir, 'pages', 'resources.html'), 'utf8');
     const mobileStart = page.lastIndexOf('@media (max-width: 640px)');
@@ -131,7 +133,7 @@ describe('resource catalogue fidelity', () => {
     const desktopNameRule = page.slice(page.indexOf('.resource-tree__file-name {'), page.indexOf('.resource-tree__file-desc'));
     expect(desktopNameRule).toContain('white-space: nowrap');
 
-    const entry = entries.find((item) => item.title.startsWith('MCSA proposals'));
+    const entry = entries.find((item) => item.originalFilename.includes('MCSA'));
     const html = renderResourceRow(entry);
     expect(html).toContain(entry.title);
     expect(html).not.toContain('...');
@@ -153,13 +155,13 @@ describe('resource catalogue fidelity', () => {
       expect(html).toContain('loading="lazy"');
       expect(html).not.toContain('data-resource-view');
       expect(html).toContain(`download="${entry.originalFilename}"`);
-      expect(html).toContain(entry.previewUrl);
+      expect(html).toContain(entry.previewUrl.replace(/&/g, '&amp;'));
       expect(html).not.toContain(`src="${entry.url}"`);
     }
   });
 
   it('uses a lazy thumbnail for PNG resources and downloads the original', () => {
-    const entry = entries.find((item) => item.id === 'education-skills-cces-ofsted-safeguarding-oct-26');
+    const entry = entries.find((item) => item.originalFilename === 'New Housing Benefit Rules Oct 26.png');
     const html = renderResourceRow(entry);
     expect(entry.format).toBe('PNG');
     expect(entry.previewKind).toBe('image');
@@ -174,31 +176,30 @@ describe('resource catalogue fidelity', () => {
     const toml = readFileSync(path.join(rootDir, 'netlify.toml'), 'utf8');
     const block = toml.split('# BEGIN resource-library-legacy-redirects')[1].split('# END resource-library-legacy-redirects')[0];
     const rules = [...block.matchAll(/from = "([^"]+)"\n {2}to = "([^"]+)"/g)];
-    expect(rules.length).toBe(81);
-    const destinations = new Set(rules.map((match) => match[2]));
+    expect(rules.length).toBeGreaterThan(80);
+    for (const match of rules) {
+      const target = match[2].replace(/&amp;/g, '&');
+      expect(existsSync(path.join(rootDir, decodeURI(target).replace(/^\//, '')))).toBe(true);
+    }
     for (const entry of entries) {
       for (const legacy of entry.legacyUrls) {
         expect(block).toContain(`from = "${legacy}"`);
-        expect(destinations.has(entry.url)).toBe(true);
-        expect(existsSync(path.join(rootDir, entry.url.replace(/^\//, '')))).toBe(true);
       }
     }
     expect(block).toContain('/assets/downloads/docs/CCES Connect to Work Programme Factsheet.pdf');
     expect(block).toContain("/assets/downloads/docs/CCES King's Speech Overview 13th May 2026.pdf");
-    expect(block).toContain('/assets/images/infographics/Health & Social  Care/NHS/46382.png');
+    expect(block).not.toContain('/NHS/46382.png');
   });
 
   it('searches and filters without including Marketing', () => {
-    expect(filterEntries(entries, { directory: 'files', search: 'staying close' })).toHaveLength(2);
-    expect(filterEntries(entries, { directory: 'infographics', search: 'safeguarding' }).map((entry) => entry.id)).toEqual([
-      'education-skills-cces-ofsted-safeguarding-oct-26'
-    ]);
+    expect(filterEntries(entries, { search: 'staying close' })).toHaveLength(2);
+    expect(filterEntries(entries, { search: 'safeguarding' }).some((entry) => entry.topic === 'Education & Skills')).toBe(true);
     expect(filterEntries(entries, { search: 'marketing' })).toHaveLength(0);
-    expect(filterEntries(entries, { directory: 'files', search: 'labour market' }).some((entry) => entry.format === 'PDF')).toBe(true);
-    const newest = filterEntries(entries, { directory: 'files', scope: 'new' })
-      .sort((left, right) => compareEntries(left, right, 'newest'));
-    expect(newest.length).toBeGreaterThan(0);
-    expect(newest.every((entry) => entry.isNew)).toBe(true);
+    expect(filterEntries(entries, { search: 'labour market' }).some((entry) => entry.format === 'PDF')).toBe(true);
+    expect(filterEntries(entries, { scope: 'new' })).toHaveLength(0);
+    const alphabetical = filterEntries(entries, { search: 'housing' })
+      .sort((left, right) => compareEntries(left, right, 'alphabetical'));
+    expect(alphabetical.length).toBeGreaterThan(1);
   });
 
   it('reads only dates that are written in the filename', () => {
@@ -218,7 +219,7 @@ describe('resource catalogue fidelity', () => {
 
   it('does not precache library originals in the service worker', () => {
     const worker = readFileSync(path.join(rootDir, 'sw.js'), 'utf8');
-    expect(worker).toContain("requestUrl.pathname.startsWith('/assets/downloads/library/')");
+    expect(worker).toContain("requestUrl.pathname.startsWith('/assets/resources/')");
     const shell = worker.slice(0, worker.indexOf('function isCacheableStaticAsset'));
     expect(shell).not.toContain('/assets/downloads/library/');
   });

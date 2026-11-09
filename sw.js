@@ -17,7 +17,7 @@ function isCacheableStaticAsset(requestUrl, request) {
   }
 
   // Resource originals are large. Keep them on the network instead of the offline cache.
-  if (requestUrl.pathname.startsWith('/assets/downloads/library/')) {
+  if (requestUrl.pathname.startsWith('/assets/resources/') && !requestUrl.pathname.startsWith('/assets/resources/_previews/')) {
     return false;
   }
 

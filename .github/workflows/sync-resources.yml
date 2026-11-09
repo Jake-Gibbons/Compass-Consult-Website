@@ -5,8 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'assets/downloads/library/**'
-      - 'assets/downloads/docs/**'
+      - 'assets/resources/**'
       - 'data/resource-library.json'
       - 'scripts/sync-resources.mjs'
       - 'scripts/lib/resource-previews.mjs'

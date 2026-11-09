@@ -225,7 +225,7 @@ Core editable content is represented in JSON under `data/` (for example team, se
 
 ## Resource Library Automation
 
-When resources are added under `assets/downloads/library/`:
+When resources are added under `assets/resources/`:
 
 - `npm run sync:resources` adds a catalogue stub in `data/resource-library.json` and a WebP thumbnail
 - curated titles and descriptions are left in place

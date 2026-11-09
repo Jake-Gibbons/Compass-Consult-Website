@@ -232,7 +232,7 @@ See [STRUCTURE.md](../STRUCTURE.md) for the complete folder and file reference.
 
 ### Adding downloadable resources
 
-- Put the original file in the matching topic folder under `assets/downloads/library/`. Use a lower-case URL-safe name. Do not edit PNG originals.
+- Put the original file in the matching category under `assets/resources/`, keeping the filename visitors should see. Do not edit PNG originals.
 - Run `npm run sync:resources`, or `npm run watch:resources` while you work.
 - Then edit the new stub in `data/resource-library.json` so the title, description and alt text come from the file.
 - PDF thumbnails need PyMuPDF from `requirements-resource-previews.txt`. Word and PowerPoint files keep a format label instead of a page preview.

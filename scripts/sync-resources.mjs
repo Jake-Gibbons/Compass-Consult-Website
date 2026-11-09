@@ -7,7 +7,6 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  directoriesForFormat,
   organisationsFor,
   parseDocumentDate,
   slugify,
@@ -17,8 +16,7 @@ import { ensurePreview } from './lib/resource-previews.mjs';
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const cataloguePath = path.join(rootDir, 'data', 'resource-library.json');
-const libraryRoot = path.join(rootDir, 'assets', 'downloads', 'library');
-const legacyDocsRoot = path.join(rootDir, 'assets', 'downloads', 'docs');
+const libraryRoot = path.join(rootDir, 'assets', 'resources');
 
 function isMarketingPath(value) {
   return String(value).split(/[\\/]/).some((part) => part.toLowerCase() === 'marketing');
@@ -36,6 +34,10 @@ async function walkFiles(dir) {
     const full = path.join(dir, entry.name);
     if (isMarketingPath(full)) {
       console.warn(`Skipped Marketing path: ${path.relative(rootDir, full)}`);
+      continue;
+    }
+    if (entry.name === '_previews' || entry.name.toLowerCase() === 'marketing') {
+      console.warn(`Skipped ${path.relative(rootDir, full)}`);
       continue;
     }
     if (entry.isDirectory()) found.push(...await walkFiles(full));
@@ -83,10 +85,7 @@ async function syncResources() {
   let hashUpdates = 0;
   const maxOrder = entries.reduce((max, entry) => Math.max(max, entry.addedOrder || 0), 0);
 
-  const files = [
-    ...await walkFiles(libraryRoot),
-    ...(await walkFiles(legacyDocsRoot)).filter((file) => file.toLowerCase().endsWith('.pdf'))
-  ];
+  const files = await walkFiles(libraryRoot);
 
   for (const file of files) {
     const relative = `/${path.relative(rootDir, file).split(path.sep).join('/')}`;
@@ -110,10 +109,8 @@ async function syncResources() {
     const ext = path.extname(filename).toLowerCase();
     const format = formatFor(ext);
     const date = parseDocumentDate(filename);
-    const inLibrary = relative.startsWith('/assets/downloads/library/');
     const parts = relative.split('/').filter(Boolean);
-    const topicSlugPart = inLibrary ? parts[3] : '';
-    const topic = inLibrary ? topicSlugPart.replace(/-/g, ' ') : 'Unsorted';
+    const topic = parts[2] || 'Resource library';
     const entry = {
       id: `sync-${slugify(filename)}`,
       canonicalId: `sync-${slugify(filename)}`,
@@ -126,13 +123,11 @@ async function syncResources() {
       subtopic: '',
       documentType: documentTypeFor(filename, format),
       format,
-      directories: directoriesForFormat(format),
+      directories: ['library'],
       bytes: buffer.length,
       sha256: hash,
       url: relative,
-      previewUrl: inLibrary
-        ? relative.replace('/assets/downloads/library/', '/assets/images/resource-previews/library/').replace(/\.[^.]+$/, '.webp')
-        : `/assets/images/resource-previews/library/unsorted/${slugify(filename)}.webp`,
+      previewUrl: relative.replace('/assets/resources/', '/assets/resources/_previews/').replace(/\.[^.]+$/, '.webp'),
       previewKind: previewKindFor(format),
       previewWidth: 0,
       previewHeight: 0,
