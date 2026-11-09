@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'compass-static-v10';
+const CACHE_VERSION = 'compass-static-v11';
 const APP_SHELL_ASSETS = [
   '/offline.html',
   '/assets/icons/favicon/site.webmanifest',
@@ -13,6 +13,11 @@ const APP_SHELL_ASSETS = [
 
 function isCacheableStaticAsset(requestUrl, request) {
   if (requestUrl.pathname.startsWith('/api/')) {
+    return false;
+  }
+
+  // Resource originals are large. Keep them on the network instead of the offline cache.
+  if (requestUrl.pathname.startsWith('/assets/resources/') && !requestUrl.pathname.startsWith('/assets/resources/_previews/')) {
     return false;
   }
 

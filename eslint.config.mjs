@@ -6,6 +6,21 @@ export default [
     ignores: ["js/*.min.js", "js/*.????????.js"],
   },
   {
+    files: ["js/**/*.mjs"],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: "module",
+      globals: {
+        ...globals.browser
+      }
+    },
+    rules: {
+      ...js.configs.recommended.rules,
+      "no-console": "error",
+      "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
+    }
+  },
+  {
     files: ["js/**/*.js"],
     languageOptions: {
       ecmaVersion: 2022,
@@ -19,6 +34,17 @@ export default [
       ...js.configs.recommended.rules,
       "no-console": "error",
       "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
+    }
+  },
+  {
+    files: ["js/resources.js"],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: "module",
+      globals: {
+        ...globals.browser,
+        AOS: "readonly"
+      }
     }
   }
 ];

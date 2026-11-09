@@ -5,9 +5,10 @@ on:
     branches:
       - main
     paths:
-      - 'assets/downloads/docs/**'
+      - 'assets/resources/**'
+      - 'data/resource-library.json'
       - 'scripts/sync-resources.mjs'
-      - 'pages/resources.html'
+      - 'scripts/lib/resource-previews.mjs'
       - 'package.json'
   workflow_dispatch:
 
@@ -48,7 +49,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add pages/resources.html assets/images/resource-previews
+          git add data/resource-library.json assets/images/resource-previews/library
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else

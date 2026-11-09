@@ -82,7 +82,7 @@ Site imagery, organised into sub-folders:
 | `authorities/` | Logos and images for client organisations / local authorities |
 | `events/` | Photos and graphics for the news & events page |
 | `partners/` | Partner organisation logos |
-| `resource-previews/` | Thumbnail previews for downloadable resources |
+| `resource-previews/` | Thumbnail previews for downloadable resources. Library thumbnails are under `library/` |
 | `team/` | Profile photos for team members |
 | `work-for-us/` | Imagery for the careers / vacancies page |
 
@@ -109,12 +109,13 @@ PWA-ready favicon set including:
 
 ### `assets/downloads/`
 
-Downloadable PDF documents served from the resources page:
+Downloadable resource originals and vacancy documents:
 
 | Folder | Contents |
 |---|---|
-| `docs/` | General information factsheets and guides |
 | `vacancies/` | Job description and vacancy PDFs |
+
+The resource library is the single directory `assets/resources/`, copied from the supplied OneDrive folder. See `docs/RESOURCE-LIBRARY.md`. `assets/images/infographics/Marketing/` is not part of that library.
 
 ---
 
@@ -157,7 +158,7 @@ full list of aliases.
 | `generate-pwa-icons.mjs` | `generate:pwa-icons` | Generates the full PWA icon set from the source logo using sharp |
 | `link-check.mjs` | `link-check` | Crawls all HTML files and reports broken internal and external links |
 | `optimize-images.mjs` | `optimize:images` | Batch-compresses images to WebP / optimised JPEG using sharp |
-| `sync-resources.mjs` | `sync:resources` | Synchronises downloadable resource files |
+| `sync-resources.mjs` | `sync:resources` | Adds new library files to `data/resource-library.json` and creates missing thumbnails. It does not remove curated entries |
 | `version-assets.mjs` | `build:assets` | Appends a content hash to CSS/JS filenames and writes `assets-manifest.json` |
 | `perf-update.mjs` | *(manual)* | Performance audit and update helper |
 

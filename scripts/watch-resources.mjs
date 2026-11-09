@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const rootDir = join(scriptDir, '..');
-const docsDir = join(rootDir, 'assets', 'downloads', 'docs');
+const docsDir = join(rootDir, 'assets', 'resources');
 
 let timer = null;
 let activeProcess = null;
@@ -51,6 +51,6 @@ function scheduleSync(eventType, filename) {
 console.log(`[watch:resources] Watching ${docsDir}`);
 runSync();
 
-watch(docsDir, (eventType, filename) => {
+watch(docsDir, { recursive: true }, (eventType, filename) => {
   scheduleSync(eventType, filename);
 });
