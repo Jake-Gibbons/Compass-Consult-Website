@@ -1901,6 +1901,15 @@ function registerServiceWorker() {
   }
 
   window.addEventListener('load', () => {
+    const hadController = Boolean(navigator.serviceWorker.controller);
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!hadController || refreshing) {
+        return;
+      }
+      refreshing = true;
+      window.location.reload();
+    });
     navigator.serviceWorker.register('/sw.js').catch(() => {
       // Gracefully degrade when service worker registration is unavailable.
     });

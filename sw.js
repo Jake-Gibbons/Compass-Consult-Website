@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'compass-static-v11';
+const CACHE_VERSION = 'compass-static-v12';
 const APP_SHELL_ASSETS = [
   '/offline.html',
   '/assets/icons/favicon/site.webmanifest',
@@ -10,6 +10,10 @@ const APP_SHELL_ASSETS = [
   '/assets/icons/favicon/maskable-icon-192x192.png',
   '/assets/icons/favicon/maskable-icon-512x512.png'
 ];
+
+function isContentHashed(pathname) {
+  return /\.[a-f0-9]{8}\.[^.]+$/i.test(pathname);
+}
 
 function isCacheableStaticAsset(requestUrl, request) {
   if (requestUrl.pathname.startsWith('/api/')) {
@@ -76,7 +80,8 @@ self.addEventListener('fetch', (event) => {
         return cachedResponse;
       }
 
-      return fetch(event.request)
+      const fetchOptions = isContentHashed(requestUrl.pathname) ? undefined : { cache: 'reload' };
+      return fetch(event.request, fetchOptions)
         .then((networkResponse) => {
           if (networkResponse.ok) {
             const responseCopy = networkResponse.clone();
