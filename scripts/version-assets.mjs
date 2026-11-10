@@ -9,9 +9,13 @@ const ASSETS = [
   'css/tailwind.min.css',
   'css/main.css',
   'css/aos.css',
+  'css/resource-extras.css',
   'js/main.js',
   'js/lucide.min.js',
   'js/aos.min.js',
+  'js/resource-library-model.mjs',
+  'js/resources.js',
+  'js/resource-extras.js',
 ];
 
 const REF_PATTERNS = [
@@ -39,6 +43,18 @@ const REF_PATTERNS = [
     key: 'aosJs',
     regex: /\/js\/aos\.min(?:\.[a-f0-9]{8})?\.js/g,
   },
+  {
+    key: 'resourceExtrasCss',
+    regex: /\/css\/resource-extras(?:\.[a-f0-9]{8})?\.css/g,
+  },
+  {
+    key: 'resourcesJs',
+    regex: /\/js\/resources(?:\.[a-f0-9]{8})?\.js/g,
+  },
+  {
+    key: 'resourceExtrasJs',
+    regex: /\/js\/resource-extras(?:\.[a-f0-9]{8})?\.js/g,
+  },
 ];
 
 const KEY_BY_ASSET = {
@@ -48,6 +64,10 @@ const KEY_BY_ASSET = {
   'js/main.js': 'mainJs',
   'js/lucide.min.js': 'lucideJs',
   'js/aos.min.js': 'aosJs',
+  'css/resource-extras.css': 'resourceExtrasCss',
+  'js/resources.js': 'resourcesJs',
+  'js/resource-extras.js': 'resourceExtrasJs',
+  'js/resource-library-model.mjs': 'resourceModel',
 };
 
 async function getVersionedContent(relPath, sourceContent) {
@@ -140,7 +160,14 @@ async function main() {
     }
 
     const sourceContent = await fs.readFile(absPath);
-    const content = await getVersionedContent(relPath, sourceContent);
+    let content = await getVersionedContent(relPath, sourceContent);
+
+    if (relPath === 'js/resources.js' && manifest.resourceModel) {
+      content = Buffer.from(content.toString('utf8').replace(
+        './resource-library-model.mjs',
+        `.${manifest.resourceModel.slice(manifest.resourceModel.lastIndexOf('/'))}`
+      ));
+    }
     const hash = createHash('sha256').update(content).digest('hex').slice(0, 8);
     const versionedRel = hashedFilename(relPath, hash);
     const versionedAbs = path.join(ROOT, versionedRel);
