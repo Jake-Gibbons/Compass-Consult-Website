@@ -7,7 +7,7 @@
     - Search, filter, and download support
 
   Interactive behaviour is handled by the page scripts loaded at the bottom of
-  the page, including /js/main.93deb2f0.js, /js/resources.911cd620.js, and
+  the page, including /js/main.93deb2f0.js, /js/resources.7c28aeca.js, and
   /js/resource-extras.aadaf9ad.js.
 -->
 <!DOCTYPE html>
@@ -994,7 +994,10 @@
                             <i data-lucide="search" class="shrink-0 resource-window__search-icon" aria-hidden="true"></i>
                             <input type="search" id="searchInput" aria-label="Search the resource library" class="block w-full h-10 pl-10 pr-3 border border-gray-200 rounded-lg leading-none bg-white placeholder-gray-400 focus:outline-none focus:border-compass-purple focus:ring-1 focus:ring-compass-purple sm:text-sm transition-all" placeholder="Search resources...">
                         </div>
-                        <div class="resource-window__tools" aria-label="Resource sorting">
+                        <div class="resource-window__tools" aria-label="Resource sorting and scopes">
+                            <button type="button" class="resource-window__scope is-active" data-scope="all"><i data-lucide="layers" class="shrink-0 w-3.5 h-3.5" aria-hidden="true"></i>All</button>
+                            <button type="button" class="resource-window__scope" data-scope="new"><i data-lucide="sparkles" class="shrink-0 w-3.5 h-3.5" aria-hidden="true"></i>New</button>
+                            <button type="button" class="resource-window__scope" data-scope="featured"><i data-lucide="star" class="shrink-0 w-3.5 h-3.5" aria-hidden="true"></i>Featured</button>
                             <label class="sr-only" for="sortSelect">Sort resources</label>
                             <select id="sortSelect" class="resource-window__select" aria-label="Sort resources">
                                 <option value="newest">Newest first</option>
@@ -1099,7 +1102,7 @@
     <script src="/js/aos.min.a5005b2e.js"></script>
     <script defer src="/js/lucide.min.2da98d36.js"></script>
     <script defer src="/js/main.93deb2f0.js?v=20260406c"></script>
-    <script type="module" src="/js/resources.911cd620.js"></script>
+    <script type="module" src="/js/resources.7c28aeca.js"></script>
     <script src="/js/resource-extras.aadaf9ad.js"></script>
     </body>
 </html>

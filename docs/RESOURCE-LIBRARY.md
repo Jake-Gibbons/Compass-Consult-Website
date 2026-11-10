@@ -8,6 +8,14 @@ The webpage lists this folder tree. It does not split the same files into separa
 
 The Staying Close Word guide is in both Education & Skills and Government & Devolution, matching the supplied folder. The two copies are the same file.
 
+Featured is a virtual section shown first. It is not a folder on disk. One draw with Node `crypto.randomInt`, without replacement, chose three distinct non-image documents. The selection is stored on those catalogue entries so it stays the same on later visits:
+
+- `Employment Policy & Employability/CCES Jobs Guarantee Phase One April 26.pdf`
+- `Leadership & Management/Jon Smith Thought Leadership Blog April 2026.pdf`
+- `Government & Devolution/CCES LGR Update Briefing Oct 2026.pdf`
+
+Each file also stays in its original category. Every PNG infographic has the New label. That label is the catalogue `isNew` flag, not a date cutoff.
+
 PDF thumbnails are the first page. DOCX and PPTX use a format label, not a page or slide preview. PNG rows can open the original image.
 
 Previous public URLs redirect to the new paths. The rules are marked in `netlify.toml`.

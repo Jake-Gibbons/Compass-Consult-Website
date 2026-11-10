@@ -159,6 +159,13 @@ function renderResources(data) {
   const grouped = groupEntries(data, 'folders');
   const listedCount = data.length;
   const sortWithin = (items) => [...items].sort((left, right) => compareEntries(left, right, currentSort));
+  const featured = sortWithin(grouped.featured);
+  const featuredHtml = featured.length ? renderFolder('Featured', 'resource-folder-featured', featured, {
+    featured: true,
+    expanded: true,
+    count: featured.length,
+    children: []
+  }) : '';
   const foldersHtml = grouped.groups.map((group, index) => {
     const direct = sortWithin(group.direct);
     const children = group.children.map((child) => ({ name: child.name, entries: sortWithin(child.entries) }));
@@ -177,6 +184,7 @@ function renderResources(data) {
       <span class="resource-tree__count">${listedCount} files</span>
       <span class="resource-tree__breadcrumb" aria-label="Current directory">/ supplied folder</span>
     </div>
+    ${featuredHtml}
     ${foldersHtml}
   `;
 
@@ -230,7 +238,8 @@ function renderResources(data) {
 
 function filterData() {
   const filtered = filterEntries(entries, {
-    search: searchInput.value
+    search: searchInput.value,
+    scope: currentScope
   }).sort((left, right) => compareEntries(left, right, currentSort));
   renderResources(filtered);
 }
@@ -296,8 +305,10 @@ function readSavedState() {
     savedState = {};
   }
   currentSort = ['newest', 'alphabetical', 'added'].includes(savedState.sort) ? savedState.sort : 'alphabetical';
+  currentScope = ['all', 'new', 'featured'].includes(savedState.scope) ? savedState.scope : 'all';
   sortSelect.value = currentSort;
   searchInput.value = savedState.search || '';
+  scopeButtons.forEach((button) => button.classList.toggle('is-active', button.dataset.scope === currentScope));
 }
 
 readSavedState();
