@@ -209,7 +209,10 @@ describe('resource catalogue fidelity', () => {
     const page = readFileSync(path.join(rootDir, 'pages', 'resources.html'), 'utf8');
     expect(page).toContain('data-zoom="in"');
     expect(page).toContain('data-page="next"');
+    expect(page).toContain('infographicViewerPagesStream');
     expect(page).toContain('touch-action: none');
+    const viewer = readFileSync(new URL('../js/resources.js', import.meta.url), 'utf8');
+    expect(viewer).toContain('event.ctrlKey || event.metaKey');
   });
 
   it('uses a lazy thumbnail for PNG resources and downloads the original', () => {
