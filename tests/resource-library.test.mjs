@@ -5,12 +5,14 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import {
+  clampViewerZoom,
   compareEntries,
   filterEntries,
   groupEntries,
   parseDocumentDate,
   renderResourceRow,
-  slugify
+  slugify,
+  zoomViewerAt
 } from '../js/resource-library-model.mjs';
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -183,6 +185,34 @@ describe('resource catalogue fidelity', () => {
       expect(html).toContain(entry.previewUrl.replace(/&/g, '&amp;'));
       expect(html).not.toContain(`src="${entry.url}"`);
     }
+  });
+
+  it('offers an in-page view for PDFs and keeps magnification bounded', () => {
+    const pdf = entries.find((item) => item.format === 'PDF' && item.originalFilename.includes('Future Employment Support update'));
+    const html = renderResourceRow(pdf);
+    expect(html).toContain('data-resource-view');
+    expect(html).toContain('View PDF');
+    const docx = entries.find((item) => item.format === 'DOCX');
+    expect(renderResourceRow(docx)).not.toContain('data-resource-view');
+    expect(clampViewerZoom(20)).toBe(6);
+    expect(clampViewerZoom(0.1)).toBe(0.5);
+    const zoomed = zoomViewerAt({ scale: 1, x: 0, y: 0 }, {
+      clientX: 100,
+      clientY: 80,
+      left: 0,
+      top: 0,
+      width: 200,
+      height: 160,
+      factor: 2
+    });
+    expect(zoomed.scale).toBe(2);
+    const page = readFileSync(path.join(rootDir, 'pages', 'resources.html'), 'utf8');
+    expect(page).toContain('data-zoom="in"');
+    expect(page).toContain('data-page="next"');
+    expect(page).toContain('infographicViewerPagesStream');
+    expect(page).toContain('touch-action: none');
+    const viewer = readFileSync(new URL('../js/resources.js', import.meta.url), 'utf8');
+    expect(viewer).toContain('event.ctrlKey || event.metaKey');
   });
 
   it('uses a lazy thumbnail for PNG resources and downloads the original', () => {

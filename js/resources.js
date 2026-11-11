@@ -4,7 +4,8 @@ import {
   filterEntries,
   formatBytes,
   groupEntries,
-  renderResourceRow
+  renderResourceRow,
+  zoomViewerAt
 } from './resource-library-model.mjs';
 
 const grid = document.getElementById('resourceGrid');
@@ -18,11 +19,36 @@ const infographicViewerTitle = document.getElementById('infographicViewerTitle')
 const infographicViewerCategory = document.getElementById('infographicViewerCategory');
 const infographicViewerDownload = document.getElementById('infographicViewerDownload');
 const infographicViewerError = document.getElementById('infographicViewerError');
+const infographicViewerStage = document.getElementById('infographicViewerStage');
+const infographicViewerContent = document.getElementById('infographicViewerContent');
+const infographicViewerCanvas = document.getElementById('infographicViewerCanvas');
+const infographicViewerPagesStream = document.getElementById('infographicViewerPagesStream');
+const infographicViewerStatus = document.getElementById('infographicViewerStatus');
+const infographicViewerPages = document.getElementById('infographicViewerPages');
+const infographicViewerPage = document.getElementById('infographicViewerPage');
+const infographicViewerZoom = document.getElementById('infographicViewerZoom');
+const infographicViewerOpen = document.getElementById('infographicViewerOpen');
 const scopeButtons = document.querySelectorAll('.resource-window__scope');
 const directoryButtons = document.querySelectorAll('[data-directory]');
 const stateStorageKey = 'compass-resource-library-state';
 
 let infographicViewerTrigger = null;
+const viewerState = {
+  mode: '',
+  scale: 1,
+  x: 0,
+  y: 0,
+  page: 1,
+  pages: 1,
+  pdf: null,
+  loadingTask: null,
+  renderTask: null,
+  renderToken: 0,
+  renderTimer: 0
+};
+const viewerPointers = new Map();
+let viewerPinch = null;
+let viewerGeneration = 0;
 let entries = [];
 let currentView = 'type';
 let currentDirectory = 'files';
@@ -85,7 +111,7 @@ function showResourceDetails(entry, row, infoButton) {
     </div>
     <div class="resource-tree__details-actions">
       <button type="button" class="resource-tree__download resource-tree__details-close" aria-label="Close document details" title="Close details"><i data-lucide="x" class="shrink-0 w-4 h-4"></i></button>
-      ${entry.format === 'PNG' ? `<button type="button" class="resource-tree__details-download" data-resource-view="${escapeHtml(entry.id)}">View infographic</button>` : ''}
+      ${entry.format === 'PNG' || entry.format === 'PDF' ? `<button type="button" class="resource-tree__details-download" data-resource-view="${escapeHtml(entry.id)}">View</button>` : ''}
       <a href="${escapeHtml(encodeURI(entry.url))}" download="${escapeHtml(entry.originalFilename)}" class="resource-tree__details-download"><i data-lucide="download" class="shrink-0 w-4 h-4"></i>Download ${escapeHtml(entry.format)}</a>
     </div>
   `;
@@ -102,22 +128,262 @@ function showResourceDetails(entry, row, infoButton) {
   renderResourceIcons();
 }
 
+function pointerDistance() {
+  const points = [...viewerPointers.values()];
+  if (points.length < 2) return 0;
+  return Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
+}
+
+function resetViewerTransform() {
+  viewerState.scale = 1;
+  viewerState.x = 0;
+  viewerState.y = 0;
+  applyViewerTransform();
+  infographicViewerStage.scrollTop = 0;
+  infographicViewerStage.scrollLeft = 0;
+}
+
+function applyViewerTransform() {
+  infographicViewerContent.style.transform = 'none';
+  infographicViewerZoom.textContent = `${Math.round(viewerState.scale * 100)}%`;
+  if (viewerState.mode === 'image') layoutImage();
+  if (viewerState.mode === 'pdf') layoutPdfPages();
+}
+
+function viewerRect() {
+  return infographicViewerStage.getBoundingClientRect();
+}
+
+function zoomViewerBy(factor, clientX, clientY) {
+  const rect = viewerRect();
+  const focusX = clientX ?? rect.left + rect.width / 2;
+  const focusY = clientY ?? rect.top + rect.height / 2;
+  const anchorX = focusX - rect.left + infographicViewerStage.scrollLeft;
+  const anchorY = focusY - rect.top + infographicViewerStage.scrollTop;
+  const previous = viewerState.scale || 1;
+  const next = zoomViewerAt({ scale: previous, x: 0, y: 0 }, {
+    clientX: focusX,
+    clientY: focusY,
+    left: rect.left,
+    top: rect.top,
+    width: rect.width,
+    height: rect.height,
+    factor
+  });
+  viewerState.scale = next.scale;
+  applyViewerTransform();
+  const ratio = next.scale / previous;
+  infographicViewerStage.scrollLeft = anchorX * ratio - (focusX - rect.left);
+  infographicViewerStage.scrollTop = anchorY * ratio - (focusY - rect.top);
+  if (viewerState.mode === 'pdf') schedulePdfRender();
+}
+
+function layoutImage() {
+  const width = Math.max(infographicViewerStage.clientWidth - 24, 1) * viewerState.scale;
+  infographicViewerImage.style.width = `${width}px`;
+  infographicViewerImage.style.height = 'auto';
+  infographicViewerImage.style.maxWidth = 'none';
+  infographicViewerImage.style.maxHeight = 'none';
+}
+
+function showViewerMessage(kind) {
+  infographicViewerStatus.hidden = kind !== 'loading';
+  infographicViewerError.hidden = kind !== 'error';
+  infographicViewerImage.hidden = kind !== 'image';
+  infographicViewerCanvas.hidden = true;
+  infographicViewerPagesStream.hidden = kind !== 'pdf';
+}
+
+async function releasePdf() {
+  viewerState.renderToken += 1;
+  window.clearTimeout(viewerState.renderTimer);
+  const renderTask = viewerState.renderTask;
+  const loadingTask = viewerState.loadingTask;
+  const pdf = viewerState.pdf;
+  viewerState.renderTask = null;
+  viewerState.loadingTask = null;
+  viewerState.pdf = null;
+  if (renderTask) {
+    try { await renderTask.cancel(); } catch { /* already finished */ }
+  }
+  if (loadingTask) {
+    try { await loadingTask.destroy(); } catch { /* already closed */ }
+  }
+  if (pdf) {
+    try { await pdf.destroy(); } catch { /* already closed */ }
+  }
+  infographicViewerCanvas.width = 0;
+  infographicViewerCanvas.height = 0;
+  infographicViewerPagesStream.replaceChildren();
+}
+
+function layoutPdfPages() {
+  const fitWidth = Math.max(infographicViewerStage.clientWidth - 24, 1) * viewerState.scale;
+  infographicViewerPagesStream.querySelectorAll('.infographic-viewer__page').forEach((shell) => {
+    const baseWidth = Number(shell.dataset.baseWidth) || 1;
+    const baseHeight = Number(shell.dataset.baseHeight) || 1;
+    shell.style.width = `${fitWidth}px`;
+    shell.style.height = `${(baseHeight / baseWidth) * fitWidth}px`;
+    shell.dataset.renderedScale = '';
+  });
+}
+
+function updateVisiblePdfPage() {
+  const shells = [...infographicViewerPagesStream.children];
+  if (!shells.length) return;
+  const stageTop = infographicViewerStage.getBoundingClientRect().top;
+  let best = 1;
+  let bestDistance = Infinity;
+  shells.forEach((shell, index) => {
+    const distance = Math.abs(shell.getBoundingClientRect().top - stageTop);
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      best = index + 1;
+    }
+  });
+  viewerState.page = best;
+  infographicViewerPage.textContent = `Page ${best} of ${viewerState.pages}`;
+  infographicViewerPages.querySelector('[data-page="prev"]').disabled = best <= 1;
+  infographicViewerPages.querySelector('[data-page="next"]').disabled = best >= viewerState.pages;
+}
+
+async function renderPdfShell(shell) {
+  const pdf = viewerState.pdf;
+  if (!pdf || shell.dataset.renderedScale === String(viewerState.scale)) return;
+  const token = viewerState.renderToken;
+  const page = await pdf.getPage(Number(shell.dataset.page));
+  if (token !== viewerState.renderToken) return;
+  const baseWidth = Number(shell.dataset.baseWidth) || 1;
+  const baseHeight = Number(shell.dataset.baseHeight) || 1;
+  const cssWidth = shell.clientWidth || Number.parseFloat(shell.style.width) || baseWidth;
+  let pixelScale = (cssWidth / baseWidth) * Math.min(window.devicePixelRatio || 1, 2);
+  const longest = Math.max(baseWidth, baseHeight) * pixelScale;
+  if (longest > 2200) pixelScale *= 2200 / longest;
+  const viewport = page.getViewport({ scale: Math.max(pixelScale, 0.2) });
+  const canvas = shell.querySelector('canvas');
+  canvas.width = Math.floor(viewport.width);
+  canvas.height = Math.floor(viewport.height);
+  const task = page.render({ canvasContext: canvas.getContext('2d'), viewport });
+  try {
+    await task.promise;
+  } catch (error) {
+    if (error?.name === 'RenderingCancelledException') return;
+    throw error;
+  }
+  if (token !== viewerState.renderToken) return;
+  shell.dataset.renderedScale = String(viewerState.scale);
+}
+
+function releaseDistantPdfPages(visible) {
+  const shells = [...infographicViewerPagesStream.children];
+  shells.forEach((shell, index) => {
+    if (Math.abs(index + 1 - visible) <= 2) return;
+    const canvas = shell.querySelector('canvas');
+    if (canvas.width) {
+      canvas.width = 0;
+      canvas.height = 0;
+      shell.dataset.renderedScale = '';
+    }
+  });
+}
+
+async function renderVisiblePdfPages() {
+  const shells = [...infographicViewerPagesStream.children];
+  const stage = infographicViewerStage.getBoundingClientRect();
+  const center = (stage.top + stage.bottom) / 2;
+  const nearby = shells
+    .map((shell) => {
+      const rect = shell.getBoundingClientRect();
+      return { shell, rect, distance: Math.abs((rect.top + rect.bottom) / 2 - center) };
+    })
+    .filter(({ rect }) => rect.bottom > stage.top - 800 && rect.top < stage.bottom + 800)
+    .sort((left, right) => left.distance - right.distance);
+  updateVisiblePdfPage();
+  releaseDistantPdfPages(viewerState.page);
+  for (const { shell } of nearby.slice(0, 4)) {
+    await renderPdfShell(shell);
+  }
+}
+
+function schedulePdfRender() {
+  window.clearTimeout(viewerState.renderTimer);
+  viewerState.renderTimer = window.setTimeout(() => {
+    renderVisiblePdfPages().catch(() => showViewerMessage('error'));
+  }, 120);
+}
+
+async function openPdf(url, generation) {
+  showViewerMessage('loading');
+  infographicViewerPages.hidden = false;
+  const pdfjs = await import('/js/pdfjs/pdf.min.mjs');
+  if (generation !== viewerGeneration) return;
+  pdfjs.GlobalWorkerOptions.workerSrc = '/js/pdfjs/pdf.worker.min.mjs';
+  const loadingTask = pdfjs.getDocument({ url, disableAutoFetch: true });
+  viewerState.loadingTask = loadingTask;
+  const pdf = await loadingTask.promise;
+  if (generation !== viewerGeneration) {
+    pdf.destroy();
+    return;
+  }
+  viewerState.pdf = pdf;
+  viewerState.pages = pdf.numPages;
+  viewerState.page = 1;
+  infographicViewerPagesStream.replaceChildren();
+  for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
+    if (generation !== viewerGeneration) return;
+    const page = await pdf.getPage(pageNumber);
+    const viewport = page.getViewport({ scale: 1 });
+    const shell = document.createElement('div');
+    shell.className = 'infographic-viewer__page';
+    shell.dataset.page = String(pageNumber);
+    shell.dataset.baseWidth = String(viewport.width);
+    shell.dataset.baseHeight = String(viewport.height);
+    shell.append(document.createElement('canvas'));
+    infographicViewerPagesStream.append(shell);
+  }
+  if (generation !== viewerGeneration) return;
+  showViewerMessage('pdf');
+  layoutPdfPages();
+  infographicViewerStage.scrollTop = 0;
+  await renderVisiblePdfPages();
+}
+
 function showInfographicViewer(entry, trigger) {
-  if (entry.format !== 'PNG') return;
+  if (entry.format !== 'PNG' && entry.format !== 'PDF') return;
   infographicViewerTrigger = trigger;
   infographicViewerTitle.textContent = entry.title;
   infographicViewerCategory.textContent = entry.subtopic ? `${entry.topic} / ${entry.subtopic}` : entry.topic;
-  infographicViewerImage.alt = entry.alt || entry.title;
-  infographicViewerImage.src = encodeURI(entry.url);
-  infographicViewerDownload.href = encodeURI(entry.url);
+  const fileUrl = encodeURI(entry.url);
+  infographicViewerDownload.href = fileUrl;
   infographicViewerDownload.setAttribute('download', entry.originalFilename);
+  infographicViewerOpen.href = fileUrl;
+  resetViewerTransform();
+  viewerGeneration += 1;
+  const generation = viewerGeneration;
+  releasePdf();
+  viewerState.mode = entry.format === 'PDF' ? 'pdf' : 'image';
+  infographicViewerPages.hidden = viewerState.mode !== 'pdf';
   infographicViewerError.hidden = true;
-  infographicViewerImage.hidden = false;
-  infographicViewerImage.onerror = () => {
-    infographicViewerImage.hidden = true;
-    infographicViewerError.hidden = false;
-  };
+  if (viewerState.mode === 'image') {
+    showViewerMessage('image');
+    infographicViewerImage.alt = entry.alt || entry.title;
+    infographicViewerImage.onload = () => layoutImage();
+    infographicViewerImage.src = fileUrl;
+    infographicViewerImage.onerror = () => showViewerMessage('error');
+  } else {
+    infographicViewerImage.removeAttribute('src');
+    openPdf(fileUrl, generation).catch(() => {
+      if (generation === viewerGeneration) showViewerMessage('error');
+    });
+  }
   if (!infographicViewer.open) infographicViewer.showModal();
+  infographicViewerStage.focus();
+}
+
+function changePdfPage(delta) {
+  const next = viewerState.page + delta;
+  if (viewerState.mode !== 'pdf' || next < 1 || next > viewerState.pages) return;
+  infographicViewerPagesStream.children[next - 1]?.scrollIntoView({ block: 'start' });
 }
 
 function renderFolder(name, folderId, items, options) {
@@ -257,6 +523,116 @@ function bindControls() {
     if (infographicViewerTrigger?.isConnected) infographicViewerTrigger.focus();
     infographicViewerTrigger = null;
     infographicViewerImage.removeAttribute('src');
+    releasePdf();
+    infographicViewerStage.scrollTop = 0;
+    infographicViewerStage.scrollLeft = 0;
+    resetViewerTransform();
+    viewerPointers.clear();
+    viewerPinch = null;
+  });
+  infographicViewer.querySelectorAll('[data-zoom]').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.dataset.zoom === 'reset') {
+        resetViewerTransform();
+        if (viewerState.mode === 'pdf') schedulePdfRender();
+        return;
+      }
+      zoomViewerBy(button.dataset.zoom === 'in' ? 1.25 : 0.8);
+    });
+  });
+  infographicViewer.querySelectorAll('[data-page]').forEach((button) => {
+    button.addEventListener('click', () => changePdfPage(button.dataset.page === 'next' ? 1 : -1));
+  });
+  window.addEventListener('resize', () => {
+    if (!infographicViewer.open) return;
+    const before = infographicViewerStage.scrollHeight || 1;
+    const top = infographicViewerStage.scrollTop;
+    applyViewerTransform();
+    const after = infographicViewerStage.scrollHeight || 1;
+    infographicViewerStage.scrollTop = top * (after / before);
+    if (viewerState.mode === 'pdf') schedulePdfRender();
+  });
+  infographicViewerStage.addEventListener('scroll', () => {
+    if (viewerState.mode !== 'pdf') return;
+    updateVisiblePdfPage();
+    schedulePdfRender();
+  });
+  infographicViewerStage.addEventListener('wheel', (event) => {
+    if (!infographicViewer.open) return;
+    if (!(event.ctrlKey || event.metaKey)) return;
+    event.preventDefault();
+    zoomViewerBy(event.deltaY < 0 ? 1.12 : 0.89, event.clientX, event.clientY);
+  }, { passive: false });
+  infographicViewerStage.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'mouse') return;
+    viewerPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    infographicViewerStage.setPointerCapture(event.pointerId);
+    if (viewerPointers.size === 2) {
+      viewerPinch = { distance: pointerDistance(), scale: viewerState.scale };
+    }
+  });
+  infographicViewerStage.addEventListener('pointermove', (event) => {
+    if (!viewerPointers.has(event.pointerId)) return;
+    const previous = viewerPointers.get(event.pointerId);
+    const point = { x: event.clientX, y: event.clientY };
+    viewerPointers.set(event.pointerId, point);
+    if (viewerPointers.size >= 2 && viewerPinch) {
+      const distance = pointerDistance();
+      const points = [...viewerPointers.values()];
+      const focusX = (points[0].x + points[1].x) / 2;
+      const focusY = (points[0].y + points[1].y) / 2;
+      if (viewerPinch.distance > 0 && Math.abs(distance / viewerPinch.distance - 1) >= 0.02) {
+        const rect = viewerRect();
+        const next = zoomViewerAt({ scale: viewerPinch.scale, x: 0, y: 0 }, {
+          clientX: focusX,
+          clientY: focusY,
+          left: rect.left,
+          top: rect.top,
+          width: rect.width,
+          height: rect.height,
+          factor: distance / viewerPinch.distance
+        });
+        const prior = viewerState.scale;
+        viewerState.scale = next.scale;
+        applyViewerTransform();
+        const ratio = prior === 0 ? 1 : next.scale / prior;
+        infographicViewerStage.scrollLeft = (infographicViewerStage.scrollLeft + focusX - rect.left) * ratio - (focusX - rect.left);
+        infographicViewerStage.scrollTop = (infographicViewerStage.scrollTop + focusY - rect.top) * ratio - (focusY - rect.top);
+        if (viewerState.mode === 'pdf') schedulePdfRender();
+        return;
+      }
+      infographicViewerStage.scrollLeft -= point.x - previous.x;
+      infographicViewerStage.scrollTop -= point.y - previous.y;
+      return;
+    }
+    infographicViewerStage.scrollLeft -= point.x - previous.x;
+    infographicViewerStage.scrollTop -= point.y - previous.y;
+  });
+  const endPointer = (event) => {
+    viewerPointers.delete(event.pointerId);
+    if (viewerPointers.size < 2) viewerPinch = null;
+  };
+  infographicViewerStage.addEventListener('pointerup', endPointer);
+  infographicViewerStage.addEventListener('pointercancel', endPointer);
+  infographicViewer.addEventListener('keydown', (event) => {
+    if (!infographicViewer.open) return;
+    if (event.key === '+' || event.key === '=') {
+      event.preventDefault();
+      zoomViewerBy(1.25);
+    } else if (event.key === '-' || event.key === '_') {
+      event.preventDefault();
+      zoomViewerBy(0.8);
+    } else if (event.key === '0') {
+      event.preventDefault();
+      resetViewerTransform();
+      if (viewerState.mode === 'pdf') schedulePdfRender();
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      changePdfPage(1);
+    } else if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      changePdfPage(-1);
+    }
   });
 
   searchInput.addEventListener('input', () => {

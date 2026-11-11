@@ -355,6 +355,39 @@ export function groupEntries(entries, view) {
  * @param {object} entry
  * @returns {string}
  */
+export const VIEWER_ZOOM_MIN = 0.5;
+export const VIEWER_ZOOM_MAX = 6;
+
+/**
+ * Keep viewer magnification inside the supported range.
+ *
+ * @param {number} scale
+ * @returns {number}
+ */
+export function clampViewerZoom(scale) {
+  if (!Number.isFinite(scale)) return 1;
+  return Math.min(VIEWER_ZOOM_MAX, Math.max(VIEWER_ZOOM_MIN, scale));
+}
+
+/**
+ * Zoom around a pointer, keeping that point visually fixed.
+ *
+ * @param {{ scale: number, x: number, y: number }} current
+ * @param {{ clientX: number, clientY: number, left: number, top: number, width: number, height: number, factor: number }} pointer
+ * @returns {{ scale: number, x: number, y: number }}
+ */
+export function zoomViewerAt(current, pointer) {
+  const next = clampViewerZoom(current.scale * pointer.factor);
+  const originX = pointer.clientX - pointer.left - pointer.width / 2;
+  const originY = pointer.clientY - pointer.top - pointer.height / 2;
+  const ratio = current.scale === 0 ? 1 : next / current.scale;
+  return {
+    scale: next,
+    x: originX - ratio * (originX - current.x),
+    y: originY - ratio * (originY - current.y)
+  };
+}
+
 export function renderResourceRow(entry) {
   const downloadUrl = encodeURI(entry.url);
   const previewUrl = entry.previewUrl || '';
@@ -364,7 +397,7 @@ export function renderResourceRow(entry) {
   ].join('');
   const dateLabel = entry.documentDateLabel || 'Date not stated on the file';
   const sizeLabel = formatBytes(entry.bytes);
-  const canViewImage = entry.format === 'PNG';
+  const canView = entry.format === 'PNG' || entry.format === 'PDF';
   const thumb = previewUrl
     ? `<img class="resource-tree__thumb" src="${escapeHtml(previewUrl)}" alt="${escapeHtml(entry.alt || entry.title)}" width="${Number(entry.previewWidth) || 480}" height="${Number(entry.previewHeight) || 640}" loading="lazy" decoding="async" fetchpriority="low">`
     : '';
@@ -383,7 +416,7 @@ export function renderResourceRow(entry) {
       </div>
       <span class="resource-tree__meta">${badge}<span class="resource-tree__type">${escapeHtml(entry.format)}</span></span>
       <span class="resource-tree__meta">
-        ${canViewImage ? `<button type="button" class="resource-tree__download resource-tree__preview-button" data-resource-view="${escapeHtml(entry.id)}" aria-label="View ${escapeHtml(entry.title)}" title="View infographic">View</button>` : ''}
+        ${canView ? `<button type="button" class="resource-tree__download resource-tree__preview-button" data-resource-view="${escapeHtml(entry.id)}" aria-label="View ${escapeHtml(entry.title)}" title="View ${escapeHtml(entry.format === 'PDF' ? 'PDF' : 'infographic')}">View</button>` : ''}
         <button type="button" class="resource-tree__download resource-tree__info" data-resource-info="${escapeHtml(entry.id)}" aria-expanded="false" aria-label="View details for ${escapeHtml(entry.title)}" title="View details">
           <i data-lucide="info" class="shrink-0 w-4 h-4"></i>
         </button>

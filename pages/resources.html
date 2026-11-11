@@ -7,7 +7,7 @@
     - Search, filter, and download support
 
   Interactive behaviour is handled by the page scripts loaded at the bottom of
-  the page, including /js/main.93deb2f0.js, /js/resources.7c28aeca.js, and
+  the page, including /js/main.93deb2f0.js, /js/resources.4408b4bf.js, and
   /js/resource-extras.aadaf9ad.js.
 -->
 <!DOCTYPE html>
@@ -767,8 +767,47 @@
         .infographic-viewer__close { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; width: 2rem; height: 2rem; border-radius: 0.35rem; color: #475569; }
         .infographic-viewer__close:hover,
         .infographic-viewer__close:focus-visible { background: #f1f5f9; color: #111827; }
-        .infographic-viewer__image-wrap { display: grid; place-items: center; min-height: 12rem; max-height: calc(92vh - 9rem); overflow: auto; padding: 0.75rem; background: #f1f5f9; }
-        .infographic-viewer__image { display: block; max-width: 100%; max-height: calc(92vh - 10.5rem); object-fit: contain; }
+        .infographic-viewer__toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; }
+        .infographic-viewer__zoom-button,
+        .infographic-viewer__page-button {
+            min-height: 2rem;
+            padding: 0.25rem 0.55rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.35rem;
+            background: #ffffff;
+            color: #1e1b2e;
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+        .infographic-viewer__zoom-button:focus-visible,
+        .infographic-viewer__page-button:focus-visible { outline: 2px solid #483086; outline-offset: 2px; }
+        .infographic-viewer__zoom-level { min-width: 3rem; color: #475569; font-size: 0.72rem; font-weight: 800; text-align: center; }
+        .infographic-viewer__image-wrap {
+            position: relative;
+            display: block;
+            min-height: 12rem;
+            height: min(68vh, 760px);
+            overflow: auto;
+            background: #f1f5f9;
+            touch-action: none;
+            overscroll-behavior: contain;
+        }
+        .infographic-viewer__content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            width: max-content;
+            min-width: 100%;
+            min-height: 100%;
+            padding: 0.75rem;
+        }
+        .infographic-viewer__image,
+        .infographic-viewer__canvas,
+        .infographic-viewer__page canvas { display: block; max-width: none; background: #ffffff; }
+        .infographic-viewer__page { flex: 0 0 auto; margin: 0 auto 0.75rem; background: #ffffff; box-shadow: 0 1px 4px rgba(15, 23, 42, 0.16); }
+        .infographic-viewer__page canvas { width: 100%; height: 100%; }
+        .infographic-viewer__status { margin: 0; color: #475569; font-size: 0.85rem; }
         .infographic-viewer__error { padding: 2rem; color: #64748b; font-size: 0.85rem; }
         .infographic-viewer__category { color: #64748b; font-size: 0.72rem; font-weight: 700; }
         .infographic-viewer__download { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 0.4rem; padding: 0.5rem 0.7rem; border-radius: 0.35rem; background: #19b5b0; color: #ffffff; font-size: 0.72rem; font-weight: 800; }
@@ -869,9 +908,9 @@
             .resource-tree__row::after { left: -0.8rem; }
             .resource-tree__details { grid-template-columns: minmax(0, 1fr); }
             .infographic-viewer { width: 96vw; max-height: 94vh; }
-            .infographic-viewer__image-wrap { max-height: calc(94vh - 9rem); }
-            .infographic-viewer__image { max-height: calc(94vh - 10.5rem); }
-            .infographic-viewer__footer { align-items: flex-start; }
+            .infographic-viewer__image-wrap { height: min(58vh, 640px); }
+            .infographic-viewer__footer { align-items: flex-start; flex-wrap: wrap; }
+            .infographic-viewer__toolbar { width: 100%; }
         }
 
         @media (max-width: 420px) {
@@ -1013,14 +1052,31 @@
                 <dialog id="infographicViewer" class="infographic-viewer" aria-labelledby="infographicViewerTitle">
                     <div class="infographic-viewer__header">
                         <h2 id="infographicViewerTitle" class="infographic-viewer__title"></h2>
-                        <button type="button" class="infographic-viewer__close" data-viewer-close aria-label="Close infographic viewer" title="Close viewer"><i data-lucide="x" class="shrink-0 w-4 h-4" aria-hidden="true"></i></button>
+                        <div class="infographic-viewer__toolbar" role="group" aria-label="Magnification">
+                            <button type="button" class="infographic-viewer__zoom-button" data-zoom="out" aria-label="Zoom out">−</button>
+                            <button type="button" class="infographic-viewer__zoom-button" data-zoom="reset" aria-label="Fit to the viewer">Fit</button>
+                            <button type="button" class="infographic-viewer__zoom-button" data-zoom="in" aria-label="Zoom in">+</button>
+                            <span id="infographicViewerZoom" class="infographic-viewer__zoom-level" aria-live="polite">100%</span>
+                        </div>
+                        <button type="button" class="infographic-viewer__close" data-viewer-close aria-label="Close viewer" title="Close viewer"><i data-lucide="x" class="shrink-0 w-4 h-4" aria-hidden="true"></i></button>
                     </div>
-                    <div class="infographic-viewer__image-wrap">
-                        <img id="infographicViewerImage" class="infographic-viewer__image" alt="">
-                        <p id="infographicViewerError" class="infographic-viewer__error" hidden>The infographic could not be loaded. You can still download the original image.</p>
+                    <div id="infographicViewerStage" class="infographic-viewer__image-wrap" tabindex="0">
+                        <div id="infographicViewerContent" class="infographic-viewer__content">
+                            <img id="infographicViewerImage" class="infographic-viewer__image" alt="">
+                            <div id="infographicViewerPagesStream" hidden></div>
+                            <canvas id="infographicViewerCanvas" class="infographic-viewer__canvas" hidden></canvas>
+                        </div>
+                        <p id="infographicViewerStatus" class="infographic-viewer__status" hidden>Loading the document…</p>
+                        <p id="infographicViewerError" class="infographic-viewer__error" hidden>This file could not be shown here. You can still download it or open the original.</p>
                     </div>
                     <div class="infographic-viewer__footer">
+                        <div class="infographic-viewer__toolbar" id="infographicViewerPages" hidden>
+                            <button type="button" class="infographic-viewer__page-button" data-page="prev" aria-label="Previous page">Previous</button>
+                            <span id="infographicViewerPage" class="infographic-viewer__zoom-level" aria-live="polite"></span>
+                            <button type="button" class="infographic-viewer__page-button" data-page="next" aria-label="Next page">Next</button>
+                        </div>
                         <span id="infographicViewerCategory" class="infographic-viewer__category"></span>
+                        <a id="infographicViewerOpen" class="infographic-viewer__page-button" target="_blank" rel="noopener noreferrer">Open original</a>
                         <a id="infographicViewerDownload" class="infographic-viewer__download" download><i data-lucide="download" class="shrink-0 w-3.5 h-3.5" aria-hidden="true"></i>Download</a>
                     </div>
                 </dialog>
@@ -1102,7 +1158,7 @@
     <script src="/js/aos.min.a5005b2e.js"></script>
     <script defer src="/js/lucide.min.2da98d36.js"></script>
     <script defer src="/js/main.93deb2f0.js?v=20260406c"></script>
-    <script type="module" src="/js/resources.7c28aeca.js"></script>
+    <script type="module" src="/js/resources.4408b4bf.js"></script>
     <script src="/js/resource-extras.aadaf9ad.js"></script>
     </body>
 </html>
