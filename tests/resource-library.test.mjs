@@ -62,6 +62,31 @@ describe('resource catalogue fidelity', () => {
     expect([...duplicated[0]].every((url) => url.endsWith('Staying Close Implementation Guide for Local Authorities.docx'))).toBe(true);
   });
 
+  it('pins three distinct documents in Featured and marks every infographic New', () => {
+    const featured = entries.filter((entry) => entry.featured);
+    expect(featured).toHaveLength(3);
+    expect(featured.every((entry) => entry.format !== 'PNG')).toBe(true);
+    expect(new Set(featured.map((entry) => entry.sha256)).size).toBe(3);
+    expect(featured.map((entry) => entry.sourcePath).sort()).toEqual([
+      'Employment Policy & Employability/CCES Jobs Guarantee Phase One April 26.pdf',
+      'Government & Devolution/CCES LGR Update Briefing Oct 2026.pdf',
+      'Leadership & Management/Jon Smith Thought Leadership Blog April 2026.pdf'
+    ]);
+    const staying = entries.filter((entry) => entry.sha256 === 'D553D8F191B71F27F4204E1ED988185F8903DFB826BFFD8BF8BC87D995EF5C45');
+    expect(staying.filter((entry) => entry.featured)).toHaveLength(0);
+    const infographics = entries.filter((entry) => entry.format === 'PNG');
+    expect(infographics).toHaveLength(40);
+    expect(infographics.every((entry) => entry.isNew)).toBe(true);
+    const grouped = groupEntries(entries, 'folders');
+    expect(grouped.featured.map((entry) => entry.sha256).sort()).toEqual(featured.map((entry) => entry.sha256).sort());
+    expect(grouped.groups[0].name).toBe('Education & Skills');
+    expect(filterEntries(entries, { scope: 'new' })).toHaveLength(40);
+    expect(filterEntries(entries, { scope: 'featured' })).toHaveLength(3);
+    const row = renderResourceRow(infographics[0]);
+    expect(row).toContain('resource-tree__new');
+    expect(row).toContain('>New<');
+  });
+
   it('shows the OneDrive folders, including Staying Close in both categories', () => {
     const grouped = groupEntries(entries, 'folders');
     expect(grouped.groups.map((group) => group.name)).toEqual([
@@ -196,7 +221,7 @@ describe('resource catalogue fidelity', () => {
     expect(filterEntries(entries, { search: 'safeguarding' }).some((entry) => entry.topic === 'Education & Skills')).toBe(true);
     expect(filterEntries(entries, { search: 'marketing' })).toHaveLength(0);
     expect(filterEntries(entries, { search: 'labour market' }).some((entry) => entry.format === 'PDF')).toBe(true);
-    expect(filterEntries(entries, { scope: 'new' })).toHaveLength(0);
+    expect(filterEntries(entries, { scope: 'new' })).toHaveLength(40);
     const alphabetical = filterEntries(entries, { search: 'housing' })
       .sort((left, right) => compareEntries(left, right, 'alphabetical'));
     expect(alphabetical.length).toBeGreaterThan(1);
