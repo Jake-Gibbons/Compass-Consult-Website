@@ -20,6 +20,7 @@
 function initializeEventPagination() {
   const eventCollections = document.querySelectorAll('.events-collection');
   eventCollections.forEach(collection => {
+    if (collection.closest('[data-events-managed]')) return;
     const cards = Array.from(collection.children);
     if (cards.length > 3) {
       // Hide cards beyond the first 3

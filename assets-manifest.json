@@ -2,11 +2,13 @@
   "tailwind": "/css/tailwind.min.d6d89805.css",
   "mainCss": "/css/main.8e20beda.css",
   "aosCss": "/css/aos.1aa8845f.css",
-  "mainJs": "/js/main.93deb2f0.js",
+  "resourceExtrasCss": "/css/resource-extras.e9ab11cb.css",
+  "mainJs": "/js/main.70cbe9c0.js",
   "lucideJs": "/js/lucide.min.2da98d36.js",
   "aosJs": "/js/aos.min.a5005b2e.js",
   "resourceModel": "/js/resource-library-model.e1e70c22.mjs",
   "resourcesJs": "/js/resources.4408b4bf.js",
   "resourceExtrasJs": "/js/resource-extras.aadaf9ad.js",
-  "resourceExtrasCss": "/css/resource-extras.e9ab11cb.css"
+  "newsEventsStatus": "/js/news-events-status.1a8d74c0.mjs",
+  "eventsMjs": "/js/events.6a466ca4.mjs"
 }
