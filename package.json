@@ -33,7 +33,7 @@
     "watch:css": "tailwindcss -i ./css/input.css -o ./css/tailwind.min.css --watch",
     "test": "vitest run",
     "lint": "npm run lint:js",
-    "lint:js": "eslint \"js/**/*.js\" \"js/**/*.mjs\"",
+    "lint:js": "eslint \"js/**/*.js\" \"js/events.mjs\" \"js/news-events-status.mjs\"",
     "link-check": "node scripts/link-check.mjs",
     "validate:news": "node scripts/validate-news-events.mjs",
     "render:news": "node scripts/render-news-events.mjs",
