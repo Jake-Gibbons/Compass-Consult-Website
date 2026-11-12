@@ -8,6 +8,8 @@ News and events on the site come from the Compass Consult company LinkedIn page 
 
 https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all
 
+The public page uses a short visitor introduction and does not repeat this coverage note. The note stays here and in `coverage.publicNote`.
+
 This is a selected review, not a complete one. On 11 November 2026, 114 company posts were listed and 64 were read in full. Still unreviewed: 37 preview-only posts, 5 third-party reposts, and 4 document titles. 4 job adverts were excluded. There is no confirmed end of that feed. Personal profile posts are not a source. Where the same story had also been read on a personal profile, the page cites the company post.
 
 No company post showed an absolute publication time. Undated items follow the order of the reviewed company posts. They are not dated by activity IDs or by labels such as "1w".
@@ -36,11 +38,14 @@ npm run render:news
       "title": "Short title",
       "body": "Full company post text.",
       "kind": "news",
-      "links": [{ "label": "Related page", "href": "https://example.com/source" }]
+      "links": [{ "label": "Related page", "href": "https://example.com/source" }],
+      "image": { "src": "/assets/images/news-events/1234567890123456789.webp", "alt": "Short title", "width": 1200, "height": 675 }
     }
   ]
 }
 ```
+
+`image` is optional. `src` must be a local path under `/assets/images/`. Do not use a LinkedIn or `media.licdn.com` URL. `alt`, `width` and `height` are required when `src` is set. `npm run news:sync` fills this from the Images API when the post has an image.
 
 For an event, add `event`. Use `start` and `end` only when the post or an organiser page states them (`YYYY-MM-DD` or `YYYY-MM-DDTHH:mm`). If there is no date, set `event.sectionStatus` to `upcoming` or `past` instead of guessing. `attendance` is optional wording taken from the company post.
 
@@ -54,7 +59,7 @@ For an event, add `event`. Use `start` and `end` only when the post or an organi
 
 Publication times were not shown as absolute dates, so new stories have no publication date. They are ordered by their place in the company feed. Existing on-site dates stay unless a source disproved them. Event dates come from the existing page, an organiser page, or an explicit date in a post or post image.
 
-The Full Potential celebration is shown as 18 May with no year. It is not on the calendar.
+The Full Potential celebration is shown as 18 May with the year labelled “Year not stated”. No year is invented.
 
 An all-day event stays in Upcoming through the end date in Europe/London, and moves to Past on the next London day. A timed event moves to Past at its end time. A card with no machine date stays in the section it was given.
 

@@ -22,6 +22,201 @@ function escapeHtml(value) {
     .replace(/"/g, "&quot;");
 }
 
+function summaryText(entry) {
+  const first = (entry.paragraphs || []).find((paragraph) => paragraph.trim()) || entry.subtitle || "";
+  const clean = first.replace(/\s+/g, " ").trim();
+  if (clean.length <= 180) return clean;
+  return `${clean.slice(0, 177).replace(/\s+\S*$/, "")}…`;
+}
+
+function dateBlock(entry) {
+  const schedule = entry.schedule || {};
+  const label = schedule.dateLabel || "Date not stated";
+  if (schedule.precision === "day-month") {
+    const match = label.match(/(\d{1,2})\s+([A-Za-z]+)/);
+    return {
+      day: match?.[1] || "",
+      month: match?.[2]?.slice(0, 3) || label,
+      year: "Year not stated",
+      time: ""
+    };
+  }
+  if (!schedule.start || schedule.precision === "unknown") {
+    if (entry.kind === "news") return { day: "", month: "", year: "", time: "", badge: "news" };
+    return { day: "", month: "", year: "", time: "", undated: "Date not stated" };
+  }
+  const dayKey = schedule.start.slice(0, 10);
+  const [year, monthNumber, day] = dayKey.split("-");
+  const month = new Intl.DateTimeFormat("en-GB", { month: "short", timeZone: "UTC" }).format(new Date(`${dayKey}T12:00:00Z`));
+  let time = "";
+  if (String(schedule.start).includes("T") && schedule.allDay !== true) {
+    const clock = (value) => {
+      const match = String(value).match(/T(\d{2}):(\d{2})/);
+      if (!match) return "";
+      const hours = Number(match[1]);
+      const suffix = hours >= 12 ? "pm" : "am";
+      const hour12 = hours % 12 || 12;
+      return `${hour12}:${match[2]}${suffix}`;
+    };
+    const startTime = clock(schedule.start);
+    const endTime = schedule.end ? clock(schedule.end) : "";
+    time = endTime && endTime !== startTime ? `${startTime}–${endTime}` : startTime;
+  }
+  return { day: String(Number(day)), month, year, time };
+}
+
+function primaryLink(entry) {
+  const links = entry.links || [];
+  const linkedin = links.find((link) => /linkedin\.com/i.test(link.href || ""));
+  if (linkedin) return { href: linkedin.href, label: "Read on LinkedIn" };
+  const external = links.find((link) => /^https?:/i.test(link.href || ""));
+  if (!external) return null;
+  return { href: external.href, label: entry.kind === "event" ? "Event details" : external.label || "Event details" };
+}
+
+const NEWS_MARK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg>`;
+
+function renderDateBlock(parts) {
+  if (parts.badge === "news") {
+    return `<div class="story-mark" aria-hidden="true">${NEWS_MARK}<span>News</span></div>`;
+  }
+  if (parts.undated) {
+    return `<div class="story-date story-date-undated"><span>${escapeHtml(parts.undated)}</span></div>`;
+  }
+  return `<div class="story-date">
+    ${parts.day ? `<span class="story-date-day">${escapeHtml(parts.day)}</span>` : ""}
+    <span class="story-date-month">${escapeHtml(parts.month)}</span>
+    <span class="story-date-year">${escapeHtml(parts.year)}</span>
+  </div>`;
+}
+
+const COMPASS_MARK = `<svg class="story-media-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="32" cy="32" r="22" stroke="white" stroke-width="3"/><path d="M32 12 L39 32 L32 52 L25 32 Z" fill="white"/></svg>`;
+
+function renderMedia(entry, kindLabel) {
+  const image = entry.image;
+  if (image?.src) {
+    const width = Number(image.width) || 1280;
+    const height = Number(image.height) || 720;
+    const contain = width / height < 1.55;
+    return `<div class="story-media${contain ? " story-media-contain" : ""}"><img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt || entry.title)}" width="${width}" height="${height}" loading="lazy" decoding="async"></div>`;
+  }
+  return `<div class="story-media story-media-fallback" aria-hidden="true">${COMPASS_MARK}<span>${kindLabel}</span></div>`;
+}
+
+function renderStoryCard(entry, placement) {
+  const parts = datePartsSafe(entry);
+  const kindLabel = entry.kind === "news" ? "News" : "Event";
+  const link = primaryLink(entry);
+  const chips = [
+    parts.time ? `<li>${escapeHtml(parts.time)}</li>` : "",
+    entry.location ? `<li>${escapeHtml(entry.location)}</li>` : ""
+  ].join("");
+  const action = link
+    ? `<a class="story-action" href="${escapeHtml(link.href)}"${/^https?:/i.test(link.href) ? ' target="_blank" rel="noopener noreferrer"' : ""}>${escapeHtml(link.label)}</a>`
+    : "";
+  return `<article ${dataAttributes(entry, placement)} class="story-card" data-search="${escapeHtml(`${entry.title} ${entry.subtitle || ""} ${entry.location || ""} ${summaryText(entry)}`.toLowerCase())}">
+    ${renderMedia(entry, kindLabel)}
+    <div class="story-main">
+    ${renderDateBlock(parts)}
+    <div class="story-body">
+      <p class="story-meta"><span class="story-tag">${kindLabel}</span>${entry.kicker ? `<span class="story-kicker">${escapeHtml(entry.kicker)}</span>` : ""}</p>
+      <h3 class="story-title">${escapeHtml(entry.title)}</h3>
+      ${entry.subtitle ? `<p class="story-subtitle">${escapeHtml(entry.subtitle)}</p>` : ""}
+      <p class="story-summary">${escapeHtml(summaryText(entry))}</p>
+      ${chips ? `<ul class="story-chips">${chips}</ul>` : ""}
+      <div class="story-actions">${action}</div>
+      <details class="story-more">
+        <summary>Full details</summary>
+        <div class="story-full">${renderBody(entry)}</div>
+      </details>
+    </div>
+    </div>
+  </article>`;
+}
+
+function datePartsSafe(entry) {
+  return dateBlock(entry);
+}
+
+export function renderEventCard(entry, placement) {
+  return renderStoryCard(entry, placement);
+}
+
+export function renderNewsCard(entry) {
+  return renderStoryCard(entry, "news");
+}
+
+function byStart(left, right, direction) {
+  const leftStart = left.schedule?.start || "";
+  const rightStart = right.schedule?.start || "";
+  if (!leftStart && !rightStart) return (left.feedOrder || 0) - (right.feedOrder || 0);
+  if (!leftStart) return 1;
+  if (!rightStart) return -1;
+  const delta = leftStart < rightStart ? -1 : leftStart > rightStart ? 1 : 0;
+  return direction === "soonest" ? delta : -delta;
+}
+
+export function renderRegion(catalogue, now) {
+  const errors = validateCatalogue(catalogue);
+  if (errors.length) throw new Error(errors.join("\n"));
+  const events = catalogue.entries.filter((entry) => entry.kind === "event");
+  const upcoming = events.filter((entry) => resolvedPlacement(entry, now) === "upcoming").sort((left, right) => byStart(left, right, "soonest"));
+  const past = events.filter((entry) => resolvedPlacement(entry, now) !== "upcoming").sort((left, right) => byStart(left, right, "newest"));
+  const latest = sortNews(catalogue.entries, "latest");
+  const archive = sortNews(catalogue.entries, "archive");
+  return `${START}
+<div class="story-controls">
+  <p class="story-intro">Upcoming events Compass Consult is attending or supporting, plus our latest news from LinkedIn.</p>
+  <p class="story-follow"><a class="story-action" href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer">Follow us on LinkedIn</a></p>
+  <div class="story-filters">
+    <div class="story-tabs" role="tablist" aria-label="Filter news and events">
+      <button type="button" class="story-tab is-active" role="tab" id="filter-all" aria-selected="true" aria-controls="story-lists" data-filter="all">All</button>
+      <button type="button" class="story-tab" role="tab" id="filter-event" aria-selected="false" aria-controls="story-lists" data-filter="event">Events</button>
+      <button type="button" class="story-tab" role="tab" id="filter-news" aria-selected="false" aria-controls="story-lists" data-filter="news">News</button>
+    </div>
+    <label class="story-search-label" for="story-search">Search</label>
+    <input id="story-search" class="story-search" type="search" placeholder="Search titles and places" autocomplete="off">
+  </div>
+  <p id="story-search-empty" class="story-empty" hidden>Nothing matches that search.</p>
+</div>
+<div id="story-lists">
+<section id="upcoming-section" class="story-section" data-section-kind="event">
+  <h2>Upcoming events</h2>
+  <p class="story-section-note">Soonest first.</p>
+  <p id="upcoming-empty" class="story-empty"${upcoming.length ? " hidden" : ""}>No upcoming events are listed at the moment.</p>
+  <div id="upcoming-events-list" class="story-list" data-events-managed="true">
+    ${upcoming.map((entry) => renderStoryCard(entry, "upcoming")).join("\n")}
+  </div>
+</section>
+<section id="news-section" class="story-section" data-section-kind="news">
+  <h2>Latest news</h2>
+  <p class="story-section-note">Newest first.</p>
+  <div id="latest-news-list" class="story-list">
+    ${latest.map((entry) => renderStoryCard(entry, "news")).join("\n")}
+  </div>
+</section>
+<details id="past-events-section" class="story-archive" data-section-kind="event">
+  <summary>Past events <span class="story-count">${past.length}</span></summary>
+  <div id="past-events-list" class="story-list" data-events-managed="true">
+    ${past.map((entry) => renderStoryCard(entry, "past")).join("\n")}
+  </div>
+</details>
+<details id="news-archive" class="story-archive" data-section-kind="news">
+  <summary>Earlier news <span class="story-count">${archive.length}</span></summary>
+  <div id="news-archive-list" class="story-list">
+    ${archive.map((entry) => renderStoryCard(entry, "news")).join("\n")}
+  </div>
+</details>
+</div>
+${END}`;
+}
+
+function splicePage(html, region) {
+  if (!html.includes(START) || !html.includes(END)) {
+    throw new Error("Could not find the news and events region.");
+  }
+  return html.replace(new RegExp(`${START}[\\s\\S]*${END}`), region);
+}
 function renderLinks(links) {
   if (!links?.length) return "";
   return `<div class="flex flex-wrap items-center gap-4 mt-4">${links.map((link) => {
@@ -57,134 +252,6 @@ function dataAttributes(entry, placement) {
   if (schedule.end) attrs.push(`data-event-end="${escapeHtml(schedule.end)}"`);
   if (placement === "upcoming" || placement === "past") attrs.push(`data-resolved-placement="${placement}"`);
   return attrs.join(" ");
-}
-
-export function renderEventCard(entry, placement) {
-  const image = entry.image
-    ? `<div class="event-card-image"><img src="${escapeHtml(entry.image.src)}" alt="${escapeHtml(entry.image.alt || entry.title)}"></div>`
-    : `<div class="event-card-image" style="background-color:#f3f0ff;display:flex;align-items:center;justify-content:center;"><i data-lucide="${escapeHtml(entry.icon || "calendar-days")}" class="w-12 h-12 text-compass-purple"></i></div>`;
-  const location = entry.location
-    ? `<div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>${escapeHtml(entry.location)}</span></div>`
-    : "";
-  const subdued = placement === "past" ? " opacity-80 hover:opacity-100 transition-opacity" : "";
-  return `<article ${dataAttributes(entry, placement)} class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100${subdued}">
-    ${image}
-    <div class="event-card-summary">
-      <h2>${escapeHtml(entry.title)}</h2>
-      ${entry.subtitle ? `<h3>${escapeHtml(entry.subtitle)}</h3>` : ""}
-      <div class="event-card-details">
-        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>${escapeHtml(entry.schedule.dateLabel)}</span></div>
-        ${location}
-      </div>
-    </div>
-    <div class="event-card-hidden text-gray-700 space-y-4">${renderBody(entry)}</div>
-    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-  </article>`;
-}
-
-export function renderNewsCard(entry) {
-  const icon = entry.icon || "newspaper";
-  return `<article ${dataAttributes(entry, "news")} class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
-    <div class="flex flex-col md:flex-row md:gap-8 items-start">
-      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
-        <i data-lucide="${escapeHtml(icon)}" class="w-12 h-12 text-compass-purple mb-2"></i>
-        <span class="text-compass-purple font-bold text-lg">${escapeHtml(entry.schedule.dateLabel)}</span>
-        ${entry.kicker ? `<span class="text-sm text-gray-500 mt-1">${escapeHtml(entry.kicker)}</span>` : ""}
-      </div>
-      <div class="w-full md:w-2/3">
-        <h2 class="text-3xl font-bold text-gray-900 mb-2">${escapeHtml(entry.title)}</h2>
-        <div class="prose max-w-none text-gray-700 space-y-4">${renderBody(entry)}</div>
-      </div>
-    </div>
-  </article>`;
-}
-
-export function renderRegion(catalogue, now) {
-  const errors = validateCatalogue(catalogue);
-  if (errors.length) {
-    throw new Error(errors.join("\n"));
-  }
-  const events = sortEvents(catalogue.entries.filter((entry) => entry.kind === "event"));
-  const upcoming = [];
-  const past = [];
-  for (const entry of events) {
-    const placement = resolvedPlacement(entry, now);
-    (placement === "upcoming" ? upcoming : past).push(renderEventCard(entry, placement));
-  }
-  const latest = sortNews(catalogue.entries, "latest").map(renderNewsCard).join("\n");
-  const archive = sortNews(catalogue.entries, "archive").map(renderNewsCard).join("\n");
-  const coverage = catalogue.coverage?.publicNote || "";
-  return `${START}
-<div>
-  <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Upcoming events</h2>
-  <p id="upcoming-empty" class="text-center text-gray-600 mb-8"${upcoming.length ? " hidden" : ""}>No upcoming events are listed at the moment.</p>
-  <div id="upcoming-events-list" class="events-collection space-y-12" data-events-managed="true">
-    ${upcoming.join("\n")}
-  </div>
-</div>
-<details id="past-events-section" class="events-disclosure pt-12 border-t border-gray-100" open>
-  <summary class="text-3xl font-bold text-gray-900 mb-8 text-center">Past events</summary>
-  <div id="past-events-list" class="events-collection space-y-8" data-events-managed="true">
-    ${past.join("\n")}
-  </div>
-</details>
-<div id="news-section" class="pt-12 border-t border-gray-100">
-  <h2 class="text-3xl font-bold text-gray-900 mb-4 text-center">Latest news</h2>
-  <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">${escapeHtml(coverage)}</p>
-  <div id="latest-news-list" class="space-y-12">${latest}</div>
-  <details id="news-archive" class="events-disclosure pt-12" open>
-    <summary class="text-2xl font-bold text-gray-900 mb-8 text-center">Earlier updates</summary>
-    <div id="news-archive-list" class="space-y-12">${archive}</div>
-  </details>
-</div>
-${END}`;
-}
-
-const CALENDAR_SHELL = `
-                </div>
-                <div id="events-calendar-view" class="hidden" aria-live="polite">
-                    <div class="calendar-shell" data-aos="fade-up">
-                        <div class="calendar-toolbar">
-                            <button id="calendarPrevMonth" type="button" class="calendar-nav-button" aria-label="Show previous event month">
-                                <span class="calendar-nav-glyph" aria-hidden="true">&larr;</span>
-                                <span>Prev</span>
-                            </button>
-                            <div>
-                                <p id="calendarMonthLabel" class="calendar-month-label">Event calendar</p>
-                                <p id="calendarMonthSummary" class="calendar-month-summary">Browse events by month.</p>
-                            </div>
-                            <button id="calendarNextMonth" type="button" class="calendar-nav-button" aria-label="Show next event month">
-                                <span>Next</span>
-                                <span class="calendar-nav-glyph" aria-hidden="true">&rarr;</span>
-                            </button>
-                        </div>
-                        <div class="calendar-grid-scroll">
-                            <div id="eventsCalendarGrid" class="calendar-grid"></div>
-                        </div>
-                        <div class="calendar-agenda">
-                            <div class="calendar-agenda-header">
-                                <h3 class="text-xl font-bold text-gray-900">Events this month</h3>
-                                <button id="calendarViewAllEvents" type="button" class="calendar-view-all-button">View full list</button>
-                            </div>
-                            <div id="eventsCalendarAgenda" class="calendar-agenda-list"></div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-`;
-
-function splicePage(html, region) {
-  const newsAt = region.indexOf('<div id="news-section"');
-  if (newsAt === -1) throw new Error("News section missing from render.");
-  const eventsPart = region.slice(0, newsAt);
-  const newsPart = region.slice(newsAt);
-  if (html.includes(START) && html.includes(END)) {
-    return html.replace(new RegExp(`${START}[\\s\\S]*${END}`), `${eventsPart}${CALENDAR_SHELL}\n${newsPart}`);
-  }
-  const start = html.indexOf("<!-- Upcoming Events -->");
-  const end = html.indexOf("<!-- Footer -->");
-  if (start === -1 || end === -1) throw new Error("Could not find the news and events region.");
-  return `${html.slice(0, start)}${eventsPart}${CALENDAR_SHELL}\n${newsPart}\n            </div>\n        </section>\n\n        ${html.slice(end)}`;
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

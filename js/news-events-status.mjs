@@ -148,6 +148,20 @@ export function activityIdsForEntry(entry) {
   return [...new Set(found)];
 }
 
+export function imageFieldErrors(image, label) {
+  if (image == null) return [];
+  const errors = [];
+  const src = String(image.src || "");
+  if (!src.startsWith("/assets/images/") || src.includes("..") || /^https?:/i.test(src) || /licdn|media\.licdn/i.test(src)) {
+    errors.push(`${label} image must be a local file under /assets/images/`);
+  }
+  if (!String(image.alt || "").trim()) errors.push(`${label} image needs alt text`);
+  if (!Number.isInteger(image.width) || image.width < 1 || !Number.isInteger(image.height) || image.height < 1) {
+    errors.push(`${label} image width and height must be positive integers`);
+  }
+  return errors;
+}
+
 export function validateCatalogue(catalogue) {
   const errors = [];
   const entries = catalogue.entries || [];
@@ -195,6 +209,7 @@ export function validateCatalogue(catalogue) {
     if (entry.schedule?.precision === "unknown" && (entry.schedule.start || entry.schedule.end)) {
       errors.push(`${entry.id} unknown date must not have a machine start or end`);
     }
+    errors.push(...imageFieldErrors(entry.image, entry.id));
 
     for (const activityId of activityIdsForEntry(entry)) {
       const previous = activities.get(activityId);

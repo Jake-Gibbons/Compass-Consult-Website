@@ -4,6 +4,7 @@ import {
   configurationMessage,
   fetchAllPosts,
   mapCompanyPosts,
+  optimiseNewsImage,
   parseExplicitDate,
   resolveAccessToken,
   syncLinkedIn
@@ -104,6 +105,58 @@ describe("LinkedIn company sync", () => {
     expect(result.added).toEqual(["event-6666666666666666666"]);
     expect(result.skipped).toContain("1111111111111111111");
     expect(result.catalogue.entries.find((entry) => entry.id === "event-6666666666666666666").schedule.start).toBe("2026-10-08");
+  });
+
+  it("downloads a Posts API image and stores a local file", async () => {
+    const calls = [];
+    const png = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==", "base64");
+    const fetchImpl = async (url) => {
+      const href = String(url);
+      calls.push(href);
+      if (href.includes("/rest/posts")) {
+        return jsonResponse({
+          elements: [{
+            id: "urn:li:share:7777777777777777777",
+            lifecycleState: "PUBLISHED",
+            commentary: "A short company update.",
+            publishedAt: Date.parse("2026-11-01T10:00:00Z"),
+            content: { media: { id: "urn:li:image:C4E10AQExample" } }
+          }],
+          paging: { total: 1 }
+        });
+      }
+      if (href.includes("/rest/images/")) {
+        return jsonResponse({ downloadUrl: "https://download.example/image", altText: "Team at the event" });
+      }
+      return { ok: true, status: 200, arrayBuffer: async () => png.buffer.slice(png.byteOffset, png.byteOffset + png.byteLength) };
+    };
+    const saved = [];
+    const result = await syncLinkedIn({
+      env: { LINKEDIN_ACCESS_TOKEN: "token", LINKEDIN_ORG_ID: "123" },
+      fetchImpl,
+      catalogue,
+      state,
+      saveImage: async ({ activityId, alt }) => {
+        saved.push({ activityId, alt });
+        return { src: `/assets/images/news-events/${activityId}.webp`, alt, width: 640, height: 360 };
+      }
+    });
+    expect(calls.some((href) => href.includes("urn%3Ali%3Aimage%3AC4E10AQExample"))).toBe(true);
+    expect(saved).toEqual([{ activityId: "7777777777777777777", alt: "Team at the event" }]);
+    expect(result.catalogue.entries.find((entry) => entry.id === "news-7777777777777777777").image).toEqual({
+      src: "/assets/images/news-events/7777777777777777777.webp",
+      alt: "Team at the event",
+      width: 640,
+      height: 360
+    });
+  });
+
+  it("optimises a downloaded image to WebP", async () => {
+    const png = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==", "base64");
+    const optimised = await optimiseNewsImage(png);
+    expect(optimised.width).toBe(1);
+    expect(optimised.height).toBe(1);
+    expect(optimised.buffer.subarray(0, 4).toString("ascii")).toBe("RIFF");
   });
 
   it("does not invent a year for a day and month", () => {

@@ -42,10 +42,10 @@ jobs:
       - name: Detect data changes
         id: diff
         run: |
-          if git diff --quiet -- data/news-events.json data/linkedin-sync-state.json data/linkedin-needs-review.json pages/events.html; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
+          if git status --porcelain -- data/news-events.json data/linkedin-sync-state.json data/linkedin-needs-review.json pages/events.html assets/images/news-events | grep -q .; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Test the catalogue
@@ -61,6 +61,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -B automation/linkedin-news
           git add data/news-events.json data/linkedin-sync-state.json data/linkedin-needs-review.json pages/events.html
+          if [ -d assets/images/news-events ]; then git add assets/images/news-events; fi
           git commit -m "chore: import new Compass company LinkedIn posts"
           git push --force-with-lease -u origin automation/linkedin-news
           REVIEW=$(node -e "const fs=require('fs'); const p='data/linkedin-needs-review.json'; const data=fs.existsSync(p)?JSON.parse(fs.readFileSync(p,'utf8')):{items:[]}; const items=(data.items||[]).map(item=>'- '+(item.activityId||item.id)+': '+(item.reason||'review')).join('\n')||'- None'; console.log(items)")

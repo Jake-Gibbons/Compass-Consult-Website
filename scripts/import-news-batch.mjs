@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from "node:fs";
-import { formatLondonDate, londonDateKey } from "../js/news-events-status.mjs";
+import { formatLondonDate, imageFieldErrors, londonDateKey } from "../js/news-events-status.mjs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -65,6 +65,7 @@ export function validateBatch(batch) {
     if (!String(post.body || "").trim()) errors.push(`${label} needs the full post body.`);
     if (!String(post.title || "").trim()) errors.push(`${label} needs a title.`);
     if (post.kind !== "news" && post.kind !== "event") errors.push(`${label} kind must be news or event.`);
+    errors.push(...imageFieldErrors(post.image, label));
     if (post.kind === "event") {
       const event = post.event || {};
       const start = event.start || null;
@@ -139,7 +140,7 @@ function entryFromPost(post) {
     paragraphs,
     links,
     sources: [{ role: "company", activityId: String(post.activityId), url: post.canonicalSourceUrl }],
-    image: null,
+    image: post.image || null,
     icon: post.kind === "news" ? "newspaper" : "calendar-days",
     location: post.kind === "event" ? (post.event?.location || null) : null,
     newsList: post.kind === "news" ? "latest" : null,

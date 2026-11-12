@@ -105,9 +105,28 @@ describe("rendered page", () => {
     expect(basecamp).toContain("looking forward to attending");
     expect(basecamp).not.toContain("will be at");
     expect(html).not.toContain('data-event-start="2026-05-18"');
-    expect(html).toContain(">18 May<");
+    expect(html).toContain(">18<");
+    expect(html).toContain("Year not stated");
+    expect(html).toContain("Date not stated");
+    expect(html).toContain('src="/assets/images/events/sercoersaawards.webp"');
+    expect(html).toContain('loading="lazy"');
+    expect(html).toContain("story-media-fallback");
+    expect(html).toContain("Follow us on LinkedIn");
+    expect(html).toContain("Upcoming events Compass Consult is attending or supporting");
+    expect(html).toContain(">Soonest first.<");
+    expect(html).toContain(">Newest first.<");
+    expect(html).not.toContain("not a complete record");
+    expect(html).not.toContain("114-post");
+    expect(html).not.toContain("order they were reviewed");
+    expect(html).not.toContain("Europe/London clock");
+    const stayingAt = html.indexOf('id="news-staying-close-leaving-care"');
+    const staying = html.slice(stayingAt, html.indexOf("<article", stayingAt + 10));
+    expect(staying).toContain('class="story-mark"');
+    expect(staying).not.toContain("Date not stated");
+    expect(html).toContain('<details id="past-events-section"');
+    expect(html).not.toContain('<details id="past-events-section" class="story-archive" data-section-kind="event" open');
+    expect(html.indexOf('id="ersa-annual-conference"')).toBeLessThan(html.indexOf('id="esec-liverpool-2026"'));
     expect(html).not.toContain("Recent update");
-    expect(html).toContain("not a complete record");
     expect(html).toContain("Fedcap");
     expect(html).not.toContain("headline sponsor Serco");
     expect(html).not.toContain("Scott Parkin");
@@ -121,5 +140,16 @@ describe("rendered page", () => {
     expect(lecture).toContain("7:00pm to 11:00pm");
     expect(lecture).not.toContain("RSA House");
     expect(html).not.toContain('id="event-sector-supplier-awards-2027"');
+    expect(basecamp).toContain("/assets/images/news-events/iep-basecamp-2026.webp");
+    expect(basecamp).toContain("story-media-contain");
+    expect(html).toContain('id="iep-fellows-chester-2026"');
+    const chesterAt = html.indexOf('id="iep-fellows-chester-2026"');
+    const chester = html.slice(chesterAt, html.indexOf("<article", chesterAt + 10));
+    expect(chester).toContain("story-media-fallback");
+  });
+
+  it("does not hide the past-events list on small screens", () => {
+    const page = readFileSync(path.join(rootDir, "pages", "events.html"), "utf8");
+    expect(page).not.toContain("#past-events-section:not(.is-open)");
   });
 });

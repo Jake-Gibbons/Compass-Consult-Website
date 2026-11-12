@@ -50,7 +50,12 @@
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7511874188677386240/"
         }
       ],
-      "image": null,
+      "image": {
+        "src": "/assets/images/news-events/iep-basecamp-2026.webp",
+        "alt": "IEP Basecamp 2026 event graphic",
+        "width": 800,
+        "height": 800
+      },
       "icon": "calendar-days",
       "location": "Trent Conference Centre, Nottingham",
       "lists": [],
@@ -90,7 +95,9 @@
       ],
       "image": {
         "src": "/assets/images/events/baseliverpool.webp",
-        "alt": "16th European Supported Employment Conference Liverpool 2026"
+        "alt": "16th European Supported Employment Conference Liverpool 2026",
+        "width": 1200,
+        "height": 1200
       },
       "icon": "calendar-days",
       "location": "ACC, Liverpool",
@@ -132,7 +139,9 @@
       ],
       "image": {
         "src": "/assets/images/events/sercoersaawards.webp",
-        "alt": "ERSA Annual Conference and Employability Awards"
+        "alt": "ERSA Annual Conference and Employability Awards",
+        "width": 1536,
+        "height": 1536
       },
       "icon": "calendar-days",
       "location": "Leonardo Royal London St Paul's, EC4V 5AJ",
@@ -172,7 +181,9 @@
       ],
       "image": {
         "src": "/assets/images/events/connectionsforprosperity.webp",
-        "alt": "Centre for the New Midlands CFP26 conference at Edgbaston Stadium"
+        "alt": "Centre for the New Midlands CFP26 conference at Edgbaston Stadium",
+        "width": 1200,
+        "height": 627
       },
       "icon": "calendar-days",
       "location": "Edgbaston Stadium",
@@ -210,7 +221,9 @@
       ],
       "image": {
         "src": "/assets/images/events/escon.webp",
-        "alt": "Employment and Skills Convention 2026"
+        "alt": "Employment and Skills Convention 2026",
+        "width": 1280,
+        "height": 847
       },
       "icon": "calendar-days",
       "location": "Online",
@@ -251,7 +264,9 @@
       ],
       "image": {
         "src": "/assets/images/events/chamberofcommerce.webp",
-        "alt": "British Chambers of Commerce Global Annual Conference 2026"
+        "alt": "British Chambers of Commerce Global Annual Conference 2026",
+        "width": 1200,
+        "height": 675
       },
       "icon": "calendar-days",
       "location": "QEII Centre, London",
@@ -302,7 +317,9 @@
       ],
       "image": {
         "src": "/assets/images/events/iepLondon.webp",
-        "alt": "The IEP Summit 2026 at 116 Pall Mall, London"
+        "alt": "The IEP Summit 2026 at 116 Pall Mall, London",
+        "width": 1200,
+        "height": 382
       },
       "icon": "calendar-days",
       "location": "116 Pall Mall, London",
@@ -389,7 +406,9 @@
       ],
       "image": {
         "src": "/assets/images/events/iepcardiff.webp",
-        "alt": "IEP Talks Live Cardiff 2026"
+        "alt": "IEP Talks Live Cardiff 2026",
+        "width": 1080,
+        "height": 1080
       },
       "icon": "calendar-days",
       "location": "Museum of Cardiff, The Old Library",
@@ -433,7 +452,9 @@
       ],
       "image": {
         "src": "/assets/images/events/ieptalksbirmingham.webp",
-        "alt": "IEP Talks Live and Fellows Dinner Birmingham"
+        "alt": "IEP Talks Live and Fellows Dinner Birmingham",
+        "width": 1080,
+        "height": 1440
       },
       "icon": "calendar-days",
       "location": "Birmingham",
@@ -525,7 +546,12 @@
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7418631335012986880/"
         }
       ],
-      "image": null,
+      "image": {
+        "src": "/assets/images/news-events/iep-manchester-networking-day.webp",
+        "alt": "IEP Talks Live and Fellows Dinner Manchester event graphic",
+        "width": 800,
+        "height": 1000
+      },
       "icon": "calendar-days",
       "location": "Manchester Hall",
       "lists": [],
@@ -581,7 +607,9 @@
       ],
       "image": {
         "src": "/assets/images/events/ieptalkssweden.webp",
-        "alt": "IEP Talks Live Sweden Stockholm 2026"
+        "alt": "IEP Talks Live Sweden Stockholm 2026",
+        "width": 800,
+        "height": 800
       },
       "icon": "calendar-days",
       "location": "Sjofartshuset, Skeppsbron 10, Stockholm",
@@ -613,7 +641,9 @@
       ],
       "image": {
         "src": "/assets/images/events/venturefest.webp",
-        "alt": "Venturefest West Midlands 2026"
+        "alt": "Venturefest West Midlands 2026",
+        "width": 940,
+        "height": 470
       },
       "icon": "calendar-days",
       "location": "Billy Wright Stand, Molineux Stadium, Wolverhampton",
@@ -646,7 +676,9 @@
       ],
       "image": {
         "src": "/assets/images/events/iepwales.webp",
-        "alt": "Connecting Wales – Work, Health and Skills"
+        "alt": "Connecting Wales – Work, Health and Skills",
+        "width": 800,
+        "height": 800
       },
       "icon": "calendar-days",
       "location": "Online (Microsoft Teams)",
@@ -691,7 +723,12 @@
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7430015421031821314/"
         }
       ],
-      "image": null,
+      "image": {
+        "src": "/assets/images/news-events/apprenticeships-conference-2026.webp",
+        "alt": "Annual Apprenticeships Conference graphic featuring Jon Smith",
+        "width": 937,
+        "height": 931
+      },
       "icon": "calendar-days",
       "location": "Millennium Point, Birmingham",
       "lists": [],
@@ -736,7 +773,9 @@
       ],
       "image": {
         "src": "/assets/images/events/workmatters.webp",
-        "alt": "Work Foundation NEET event"
+        "alt": "Work Foundation NEET event",
+        "width": 1600,
+        "height": 900
       },
       "icon": "calendar-days",
       "location": "Online event",
@@ -773,7 +812,9 @@
       ],
       "image": {
         "src": "/assets/images/events/youthgaruntee.webp",
-        "alt": "Youth Guarantee webinar"
+        "alt": "Youth Guarantee webinar",
+        "width": 800,
+        "height": 800
       },
       "icon": "calendar-days",
       "location": "Online webinar",
@@ -864,7 +905,12 @@
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7516887682799763457/"
         }
       ],
-      "image": null,
+      "image": {
+        "src": "/assets/images/news-events/supported-housing-week-2026.webp",
+        "alt": "Illustrated Supported Housing Week campaign graphic",
+        "width": 1200,
+        "height": 848
+      },
       "icon": "home",
       "location": null,
       "schedule": {
@@ -900,7 +946,12 @@
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7465536565788766208/"
         }
       ],
-      "image": null,
+      "image": {
+        "src": "/assets/images/news-events/full-potential-celebrating-success.webp",
+        "alt": "Audience watching the screen at the Full Potential Celebrating Success event",
+        "width": 1200,
+        "height": 748
+      },
       "icon": "calendar-days",
       "location": "Guildhall, City of London",
       "schedule": {
@@ -941,7 +992,12 @@
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7417476735589445632/"
         }
       ],
-      "image": null,
+      "image": {
+        "src": "/assets/images/news-events/iep-fellows-lecture-london.webp",
+        "alt": "IEP Fellows Dinner London event graphic",
+        "width": 800,
+        "height": 800
+      },
       "icon": "calendar-days",
       "location": "Judge's Court Private Room, Browns Brasserie and Bar, London, WC2N 4AG",
       "schedule": {
@@ -983,7 +1039,12 @@
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7428090872098902016/"
         }
       ],
-      "image": null,
+      "image": {
+        "src": "/assets/images/news-events/full-potential-best-practice.webp",
+        "alt": "Attendees working together around tables at the Full Potential best practice event",
+        "width": 480,
+        "height": 1038
+      },
       "icon": "users",
       "location": "Hosted by the London Borough of Lambeth",
       "schedule": {
