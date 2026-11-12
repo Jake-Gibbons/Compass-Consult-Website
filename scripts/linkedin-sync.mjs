@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { formatLondonDate, londonDateKey } from "../js/news-events-status.mjs";
@@ -6,6 +6,8 @@ import { importCompanyBatch } from "./import-news-batch.mjs";
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const POSTS_URL = "https://api.linkedin.com/rest/posts";
+const IMAGES_URL = "https://api.linkedin.com/rest/images";
+const IMAGE_DIR = "assets/images/news-events";
 const TOKEN_URL = "https://www.linkedin.com/oauth/v2/accessToken";
 const DEFAULT_VERSION = "202609";
 const COMPANY_FEED = "https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all";
@@ -125,6 +127,54 @@ function canonicalUrl(urn) {
   return `https://www.linkedin.com/feed/update/${urn}/`;
 }
 
+export function mediaImageId(post) {
+  const id = post?.content?.media?.id || "";
+  return String(id).startsWith("urn:li:image:") ? String(id) : null;
+}
+
+export async function fetchLinkedInImage({ token, version, mediaId, fetchImpl }) {
+  const response = await fetchImpl(`${IMAGES_URL}/${encodeURIComponent(mediaId)}`, { headers: headers(token, version) });
+  if (!response.ok) throw new Error(`LinkedIn image request failed (${response.status}).`);
+  const payload = await response.json();
+  if (!payload.downloadUrl) throw new Error("LinkedIn image response did not include downloadUrl.");
+  return { downloadUrl: payload.downloadUrl, altText: payload.altText || "" };
+}
+
+export async function optimiseNewsImage(bytes) {
+  const { default: sharp } = await import("sharp");
+  const buffer = await sharp(bytes, { failOn: "none" }).rotate().resize({ width: 1280, withoutEnlargement: true }).webp({ quality: 78 }).toBuffer();
+  const meta = await sharp(buffer).metadata();
+  return { buffer, width: meta.width, height: meta.height };
+}
+
+export async function saveOptimisedNewsImage({ bytes, activityId, alt, root = rootDir }) {
+  const optimised = await optimiseNewsImage(bytes);
+  const relative = `${IMAGE_DIR}/${activityId}.webp`;
+  mkdirSync(path.join(root, IMAGE_DIR), { recursive: true });
+  writeFileSync(path.join(root, relative), optimised.buffer);
+  return { src: `/${relative}`, alt, width: optimised.width, height: optimised.height };
+}
+
+export async function enrichPostsWithImages(posts, elements, { token, version, fetchImpl, saveImage }) {
+  const byActivity = new Map();
+  for (const element of elements) {
+    const activityId = activityIdFromUrn(element.id);
+    if (activityId) byActivity.set(activityId, element);
+  }
+  for (const post of posts) {
+    const element = byActivity.get(String(post.activityId));
+    const mediaId = element ? mediaImageId(element) : null;
+    if (!mediaId) continue;
+    const meta = await fetchLinkedInImage({ token, version, mediaId, fetchImpl });
+    const response = await fetchImpl(meta.downloadUrl);
+    if (!response.ok) throw new Error(`LinkedIn image download failed (${response.status}).`);
+    const bytes = Buffer.from(await response.arrayBuffer());
+    const saved = await saveImage({ bytes, activityId: post.activityId, alt: meta.altText || post.title });
+    post.image = { src: saved.src, alt: saved.alt, width: saved.width, height: saved.height };
+  }
+  return posts;
+}
+
 function articleLinks(post) {
   const article = post.content?.article;
   if (!article?.source) return [];
@@ -196,7 +246,7 @@ export function mapCompanyPosts(elements) {
   return { posts, needsReview, skipped };
 }
 
-export async function syncLinkedIn({ env, fetchImpl, catalogue, state, now = new Date() }) {
+export async function syncLinkedIn({ env, fetchImpl, catalogue, state, now = new Date(), saveImage = saveOptimisedNewsImage }) {
   const message = configurationMessage(env);
   if (message) return { configured: false, message, needsReview: [], added: [], skipped: [] };
   const { token, refreshed } = await resolveAccessToken(env, fetchImpl);
@@ -207,6 +257,12 @@ export async function syncLinkedIn({ env, fetchImpl, catalogue, state, now = new
     fetchImpl
   });
   const mapped = mapCompanyPosts(elements);
+  await enrichPostsWithImages(mapped.posts, elements, {
+    token,
+    version: env.LINKEDIN_VERSION || DEFAULT_VERSION,
+    fetchImpl,
+    saveImage
+  });
   const imported = importCompanyBatch({
     catalogue,
     state,

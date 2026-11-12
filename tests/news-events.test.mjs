@@ -108,6 +108,9 @@ describe("rendered page", () => {
     expect(html).toContain(">18<");
     expect(html).toContain("Year not stated");
     expect(html).toContain("Date not stated");
+    expect(html).toContain('src="/assets/images/events/sercoersaawards.webp"');
+    expect(html).toContain('loading="lazy"');
+    expect(html).toContain("story-media-fallback");
     expect(html).toContain("Follow us on LinkedIn");
     expect(html).toContain("Upcoming events Compass Consult is attending or supporting");
     expect(html).toContain(">Soonest first.<");
@@ -137,5 +140,11 @@ describe("rendered page", () => {
     expect(lecture).toContain("7:00pm to 11:00pm");
     expect(lecture).not.toContain("RSA House");
     expect(html).not.toContain('id="event-sector-supplier-awards-2027"');
+    expect(basecamp).toContain("story-media-fallback");
+  });
+
+  it("does not hide the past-events list on small screens", () => {
+    const page = readFileSync(path.join(rootDir, "pages", "events.html"), "utf8");
+    expect(page).not.toContain("#past-events-section:not(.is-open)");
   });
 });

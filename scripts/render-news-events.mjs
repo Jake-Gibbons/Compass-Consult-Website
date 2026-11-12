@@ -90,6 +90,18 @@ function renderDateBlock(parts) {
   </div>`;
 }
 
+const COMPASS_MARK = `<svg class="story-media-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="32" cy="32" r="22" stroke="white" stroke-width="3"/><path d="M32 12 L39 32 L32 52 L25 32 Z" fill="white"/></svg>`;
+
+function renderMedia(entry, kindLabel) {
+  const image = entry.image;
+  if (image?.src) {
+    const width = Number(image.width) || 1280;
+    const height = Number(image.height) || 720;
+    return `<div class="story-media"><img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt || entry.title)}" width="${width}" height="${height}" loading="lazy" decoding="async"></div>`;
+  }
+  return `<div class="story-media story-media-fallback" aria-hidden="true">${COMPASS_MARK}<span>${kindLabel}</span></div>`;
+}
+
 function renderStoryCard(entry, placement) {
   const parts = datePartsSafe(entry);
   const kindLabel = entry.kind === "news" ? "News" : "Event";
@@ -102,6 +114,8 @@ function renderStoryCard(entry, placement) {
     ? `<a class="story-action" href="${escapeHtml(link.href)}"${/^https?:/i.test(link.href) ? ' target="_blank" rel="noopener noreferrer"' : ""}>${escapeHtml(link.label)}</a>`
     : "";
   return `<article ${dataAttributes(entry, placement)} class="story-card" data-search="${escapeHtml(`${entry.title} ${entry.subtitle || ""} ${entry.location || ""} ${summaryText(entry)}`.toLowerCase())}">
+    ${renderMedia(entry, kindLabel)}
+    <div class="story-main">
     ${renderDateBlock(parts)}
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">${kindLabel}</span>${entry.kicker ? `<span class="story-kicker">${escapeHtml(entry.kicker)}</span>` : ""}</p>
@@ -114,6 +128,7 @@ function renderStoryCard(entry, placement) {
         <summary>Full details</summary>
         <div class="story-full">${renderBody(entry)}</div>
       </details>
+    </div>
     </div>
   </article>`;
 }

@@ -90,7 +90,9 @@
       ],
       "image": {
         "src": "/assets/images/events/baseliverpool.webp",
-        "alt": "16th European Supported Employment Conference Liverpool 2026"
+        "alt": "16th European Supported Employment Conference Liverpool 2026",
+        "width": 1200,
+        "height": 1200
       },
       "icon": "calendar-days",
       "location": "ACC, Liverpool",
@@ -132,7 +134,9 @@
       ],
       "image": {
         "src": "/assets/images/events/sercoersaawards.webp",
-        "alt": "ERSA Annual Conference and Employability Awards"
+        "alt": "ERSA Annual Conference and Employability Awards",
+        "width": 1536,
+        "height": 1536
       },
       "icon": "calendar-days",
       "location": "Leonardo Royal London St Paul's, EC4V 5AJ",
@@ -172,7 +176,9 @@
       ],
       "image": {
         "src": "/assets/images/events/connectionsforprosperity.webp",
-        "alt": "Centre for the New Midlands CFP26 conference at Edgbaston Stadium"
+        "alt": "Centre for the New Midlands CFP26 conference at Edgbaston Stadium",
+        "width": 1200,
+        "height": 627
       },
       "icon": "calendar-days",
       "location": "Edgbaston Stadium",
@@ -210,7 +216,9 @@
       ],
       "image": {
         "src": "/assets/images/events/escon.webp",
-        "alt": "Employment and Skills Convention 2026"
+        "alt": "Employment and Skills Convention 2026",
+        "width": 1280,
+        "height": 847
       },
       "icon": "calendar-days",
       "location": "Online",
@@ -251,7 +259,9 @@
       ],
       "image": {
         "src": "/assets/images/events/chamberofcommerce.webp",
-        "alt": "British Chambers of Commerce Global Annual Conference 2026"
+        "alt": "British Chambers of Commerce Global Annual Conference 2026",
+        "width": 1200,
+        "height": 675
       },
       "icon": "calendar-days",
       "location": "QEII Centre, London",
@@ -302,7 +312,9 @@
       ],
       "image": {
         "src": "/assets/images/events/iepLondon.webp",
-        "alt": "The IEP Summit 2026 at 116 Pall Mall, London"
+        "alt": "The IEP Summit 2026 at 116 Pall Mall, London",
+        "width": 1200,
+        "height": 382
       },
       "icon": "calendar-days",
       "location": "116 Pall Mall, London",
@@ -389,7 +401,9 @@
       ],
       "image": {
         "src": "/assets/images/events/iepcardiff.webp",
-        "alt": "IEP Talks Live Cardiff 2026"
+        "alt": "IEP Talks Live Cardiff 2026",
+        "width": 1080,
+        "height": 1080
       },
       "icon": "calendar-days",
       "location": "Museum of Cardiff, The Old Library",
@@ -433,7 +447,9 @@
       ],
       "image": {
         "src": "/assets/images/events/ieptalksbirmingham.webp",
-        "alt": "IEP Talks Live and Fellows Dinner Birmingham"
+        "alt": "IEP Talks Live and Fellows Dinner Birmingham",
+        "width": 1080,
+        "height": 1440
       },
       "icon": "calendar-days",
       "location": "Birmingham",
@@ -581,7 +597,9 @@
       ],
       "image": {
         "src": "/assets/images/events/ieptalkssweden.webp",
-        "alt": "IEP Talks Live Sweden Stockholm 2026"
+        "alt": "IEP Talks Live Sweden Stockholm 2026",
+        "width": 800,
+        "height": 800
       },
       "icon": "calendar-days",
       "location": "Sjofartshuset, Skeppsbron 10, Stockholm",
@@ -613,7 +631,9 @@
       ],
       "image": {
         "src": "/assets/images/events/venturefest.webp",
-        "alt": "Venturefest West Midlands 2026"
+        "alt": "Venturefest West Midlands 2026",
+        "width": 940,
+        "height": 470
       },
       "icon": "calendar-days",
       "location": "Billy Wright Stand, Molineux Stadium, Wolverhampton",
@@ -646,7 +666,9 @@
       ],
       "image": {
         "src": "/assets/images/events/iepwales.webp",
-        "alt": "Connecting Wales – Work, Health and Skills"
+        "alt": "Connecting Wales – Work, Health and Skills",
+        "width": 800,
+        "height": 800
       },
       "icon": "calendar-days",
       "location": "Online (Microsoft Teams)",
@@ -736,7 +758,9 @@
       ],
       "image": {
         "src": "/assets/images/events/workmatters.webp",
-        "alt": "Work Foundation NEET event"
+        "alt": "Work Foundation NEET event",
+        "width": 1600,
+        "height": 900
       },
       "icon": "calendar-days",
       "location": "Online event",
@@ -773,7 +797,9 @@
       ],
       "image": {
         "src": "/assets/images/events/youthgaruntee.webp",
-        "alt": "Youth Guarantee webinar"
+        "alt": "Youth Guarantee webinar",
+        "width": 800,
+        "height": 800
       },
       "icon": "calendar-days",
       "location": "Online webinar",

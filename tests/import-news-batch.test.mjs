@@ -77,6 +77,23 @@ describe("company batch import", () => {
     expect(result.catalogue.entries).toHaveLength(1);
   });
 
+  it("keeps a local image and rejects a remote one", () => {
+    const local = {
+      activityId: "3333333333333333333",
+      canonicalSourceUrl: "https://www.linkedin.com/feed/update/urn:li:activity:3333333333333333333/",
+      title: "Illustrated post",
+      body: "Full text.",
+      kind: "news",
+      image: { src: "/assets/images/news-events/3333333333333333333.webp", alt: "Illustrated post", width: 1200, height: 675 }
+    };
+    const result = importCompanyBatch({ catalogue, state, batch: batch([local]) });
+    expect(result.ok).toBe(true);
+    expect(result.catalogue.entries.find((entry) => entry.id === "news-3333333333333333333").image).toEqual(local.image);
+    expect(validateBatch(batch([{ ...local, image: { src: "https://media.licdn.com/photo.jpg", alt: "Remote", width: 10, height: 10 } }]))).toEqual(
+      expect.arrayContaining([expect.stringMatching(/local file/)])
+    );
+  });
+
   it("rejects a publication date and a personal-profile batch", () => {
     expect(validateBatch(batch([{
       activityId: "3333333333333333333",

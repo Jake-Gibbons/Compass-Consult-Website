@@ -38,11 +38,14 @@ npm run render:news
       "title": "Short title",
       "body": "Full company post text.",
       "kind": "news",
-      "links": [{ "label": "Related page", "href": "https://example.com/source" }]
+      "links": [{ "label": "Related page", "href": "https://example.com/source" }],
+      "image": { "src": "/assets/images/news-events/1234567890123456789.webp", "alt": "Short title", "width": 1200, "height": 675 }
     }
   ]
 }
 ```
+
+`image` is optional. `src` must be a local path under `/assets/images/`. Do not use a LinkedIn or `media.licdn.com` URL. `alt`, `width` and `height` are required when `src` is set. `npm run news:sync` fills this from the Images API when the post has an image.
 
 For an event, add `event`. Use `start` and `end` only when the post or an organiser page states them (`YYYY-MM-DD` or `YYYY-MM-DDTHH:mm`). If there is no date, set `event.sectionStatus` to `upcoming` or `past` instead of guessing. `attendance` is optional wording taken from the company post.
 

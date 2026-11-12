@@ -1,4 +1,4 @@
-import { classifyEvent } from "./news-events-status.0b20e395.mjs";
+import { classifyEvent } from "./news-events-status.25c4e66c.mjs";
 
 function scheduleFromCard(card) {
   return {
