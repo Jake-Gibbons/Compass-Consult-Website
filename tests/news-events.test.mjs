@@ -126,6 +126,16 @@ describe("rendered page", () => {
     expect(html).toContain('<details id="past-events-section"');
     expect(html).not.toContain('<details id="past-events-section" class="story-archive" data-section-kind="event" open');
     expect(html.indexOf('id="ersa-annual-conference"')).toBeLessThan(html.indexOf('id="esec-liverpool-2026"'));
+    expect(html.indexOf('id="esec-liverpool-2026"')).toBeLessThan(html.indexOf('id="apprenticeships-conference-2027"'));
+    expect(html.indexOf('id="apprenticeships-conference-2027"')).toBeLessThan(html.indexOf('id="past-events-list"'));
+    const conferenceAt = html.indexOf('id="apprenticeships-conference-2027"');
+    const conference = html.slice(conferenceAt, html.indexOf("<article", conferenceAt + 10));
+    expect(conference).toContain("Event details and booking");
+    expect(conference).toContain("come and say hello");
+    expect(conference).toContain("Millennium Point, Birmingham");
+    expect(conference).not.toMatch(/speaking|speaker|keynote/i);
+    expect(conference).toContain("/assets/images/news-events/apprenticeships-conference-2027.webp");
+    expect(conference).not.toContain("media.licdn.com");
     expect(html).not.toContain("Recent update");
     expect(html).toContain("Fedcap");
     expect(html).not.toContain("headline sponsor Serco");

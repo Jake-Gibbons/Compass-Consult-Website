@@ -154,12 +154,29 @@ function entryFromPost(post) {
   };
 }
 
+export function isManualEntry(entry) {
+  return entry?.source === "manual";
+}
+
+export function preserveManualEntries(original, next) {
+  const manuals = (original?.entries || []).filter(isManualEntry).map((entry) => structuredClone(entry));
+  if (!manuals.length) return next;
+  const entries = [...(next.entries || [])];
+  for (const manual of manuals) {
+    const index = entries.findIndex((entry) => entry.id === manual.id);
+    if (index === -1) entries.push(manual);
+    else entries[index] = manual;
+  }
+  return { ...next, entries };
+}
+
 export function importCompanyBatch({ catalogue, state, batch }) {
   const errors = validateBatch(batch);
   if (errors.length) return { ok: false, errors, catalogue, state, added: [], skipped: [] };
   const next = structuredClone(catalogue);
   const nextState = structuredClone(state || { processedActivityIds: [] });
   const seen = knownIds(next, nextState);
+  const manualIds = new Set((catalogue.entries || []).filter(isManualEntry).map((entry) => entry.id));
   const added = [];
   const skipped = [];
   for (const post of batch.posts) {
@@ -168,12 +185,18 @@ export function importCompanyBatch({ catalogue, state, batch }) {
       skipped.push(activityId);
       continue;
     }
-    added.push(entryFromPost({ ...post, collectedOn: post.collectedOn || batch.collectedOn }));
+    const candidate = entryFromPost({ ...post, collectedOn: post.collectedOn || batch.collectedOn });
+    if (manualIds.has(candidate.id)) {
+      skipped.push(activityId);
+      continue;
+    }
+    added.push(candidate);
     seen.add(activityId);
   }
   if (added.length) {
     const newsAdded = added.filter((entry) => entry.kind === "news");
     for (const entry of next.entries) {
+      if (isManualEntry(entry)) continue;
       if (entry.kind === "news" && entry.newsList === "latest" && Number.isInteger(entry.feedOrder)) {
         entry.feedOrder += newsAdded.length;
       }
@@ -193,7 +216,8 @@ export function importCompanyBatch({ catalogue, state, batch }) {
   nextState.lastCollectedOn = batch.collectedOn;
   nextState.lastAdded = added.map((entry) => entry.id);
   nextState.note = "newestActivityId is the first post in the newest-first batch. It is not a publication date.";
-  return { ok: true, errors: [], catalogue: next, state: nextState, added: added.map((entry) => entry.id), skipped };
+  const preserved = preserveManualEntries(catalogue, next);
+  return { ok: true, errors: [], catalogue: preserved, state: nextState, added: added.map((entry) => entry.id), skipped };
 }
 
 function readJson(filePath) {

@@ -34,6 +34,56 @@
   ],
   "entries": [
     {
+      "baseline": false,
+      "source": "manual",
+      "kind": "event",
+      "title": "Apprenticeships Conference 2027",
+      "subtitle": "Apprenticeships at a Crossroads: Navigating Change, Driving Quality, Building the Future",
+      "paragraphs": [
+        "Jon Smith, CEO of Compass Consult, will be attending the Apprenticeships Conference 2027. If you are going, come and say hello.",
+        "The conference is organised by Apprenticeships & Skills Group and takes place on 24 February 2027 at Millennium Point, Birmingham. Registration starts from 8.30am.",
+        "Tickets are £150 plus VAT. That price includes complimentary access to the Sector Supplier Awards the evening before, at the Park Regis, Birmingham.",
+        "Fiona Aldridge of the Skills Federation is the chair."
+      ],
+      "links": [
+        {
+          "label": "Event details and booking",
+          "href": "https://www.linkedin.com/pulse/have-you-bought-your-ticket-yet-apprenticeships-skillsgroup-so1xe"
+        }
+      ],
+      "image": {
+        "src": "/assets/images/news-events/apprenticeships-conference-2027.webp",
+        "alt": "Apprenticeships Conference 2027 graphic for 24 February at Millennium Point, Birmingham, with the Sector Supplier Awards the evening before at Park Regis",
+        "width": 1280,
+        "height": 720
+      },
+      "icon": "calendar-days",
+      "location": "Millennium Point, Birmingham",
+      "lists": [
+        {
+          "heading": "Topics include:",
+          "items": [
+            "Policy and funding",
+            "Quality and compliance",
+            "Growth and sustainability",
+            "Employer engagement",
+            "Youth engagement",
+            "Learner and employer perspectives"
+          ]
+        }
+      ],
+      "id": "apprenticeships-conference-2027",
+      "sources": [],
+      "schedule": {
+        "precision": "date",
+        "allDay": true,
+        "start": "2027-02-24",
+        "end": "2027-02-24",
+        "editorialPlacement": "upcoming",
+        "dateLabel": "Wed 24 Feb 2027"
+      }
+    },
+    {
       "baseline": true,
       "kind": "event",
       "title": "IEP Basecamp 2026",
