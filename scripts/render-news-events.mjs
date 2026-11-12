@@ -42,6 +42,7 @@ function dateBlock(entry) {
     };
   }
   if (!schedule.start || schedule.precision === "unknown") {
+    if (entry.kind === "news") return { day: "", month: "", year: "", time: "", badge: "news" };
     return { day: "", month: "", year: "", time: "", undated: "Date not stated" };
   }
   const dayKey = schedule.start.slice(0, 10);
@@ -73,7 +74,12 @@ function primaryLink(entry) {
   return { href: external.href, label: entry.kind === "event" ? "Event details" : external.label || "Event details" };
 }
 
+const NEWS_MARK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg>`;
+
 function renderDateBlock(parts) {
+  if (parts.badge === "news") {
+    return `<div class="story-mark" aria-hidden="true">${NEWS_MARK}<span>News</span></div>`;
+  }
   if (parts.undated) {
     return `<div class="story-date story-date-undated"><span>${escapeHtml(parts.undated)}</span></div>`;
   }
@@ -142,10 +148,10 @@ export function renderRegion(catalogue, now) {
   const past = events.filter((entry) => resolvedPlacement(entry, now) !== "upcoming").sort((left, right) => byStart(left, right, "newest"));
   const latest = sortNews(catalogue.entries, "latest");
   const archive = sortNews(catalogue.entries, "archive");
-  const coverage = catalogue.coverage?.publicNote || "";
   return `${START}
 <div class="story-controls">
-  <p class="story-intro">${escapeHtml(coverage)}</p>
+  <p class="story-intro">Upcoming events Compass Consult is attending or supporting, plus our latest news from LinkedIn.</p>
+  <p class="story-follow"><a class="story-action" href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer">Follow us on LinkedIn</a></p>
   <div class="story-filters">
     <div class="story-tabs" role="tablist" aria-label="Filter news and events">
       <button type="button" class="story-tab is-active" role="tab" id="filter-all" aria-selected="true" aria-controls="story-lists" data-filter="all">All</button>
@@ -160,7 +166,7 @@ export function renderRegion(catalogue, now) {
 <div id="story-lists">
 <section id="upcoming-section" class="story-section" data-section-kind="event">
   <h2>Upcoming events</h2>
-  <p class="story-section-note">Soonest first. Times use the Europe/London clock.</p>
+  <p class="story-section-note">Soonest first.</p>
   <p id="upcoming-empty" class="story-empty"${upcoming.length ? " hidden" : ""}>No upcoming events are listed at the moment.</p>
   <div id="upcoming-events-list" class="story-list" data-events-managed="true">
     ${upcoming.map((entry) => renderStoryCard(entry, "upcoming")).join("\n")}
@@ -168,7 +174,7 @@ export function renderRegion(catalogue, now) {
 </section>
 <section id="news-section" class="story-section" data-section-kind="news">
   <h2>Latest news</h2>
-  <p class="story-section-note">Newest company updates first. Items without a publication time stay in the order they were reviewed.</p>
+  <p class="story-section-note">Newest first.</p>
   <div id="latest-news-list" class="story-list">
     ${latest.map((entry) => renderStoryCard(entry, "news")).join("\n")}
   </div>

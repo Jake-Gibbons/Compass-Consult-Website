@@ -8,6 +8,8 @@ News and events on the site come from the Compass Consult company LinkedIn page 
 
 https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all
 
+The public page uses a short visitor introduction and does not repeat this coverage note. The note stays here and in `coverage.publicNote`.
+
 This is a selected review, not a complete one. On 11 November 2026, 114 company posts were listed and 64 were read in full. Still unreviewed: 37 preview-only posts, 5 third-party reposts, and 4 document titles. 4 job adverts were excluded. There is no confirmed end of that feed. Personal profile posts are not a source. Where the same story had also been read on a personal profile, the page cites the company post.
 
 No company post showed an absolute publication time. Undated items follow the order of the reviewed company posts. They are not dated by activity IDs or by labels such as "1w".

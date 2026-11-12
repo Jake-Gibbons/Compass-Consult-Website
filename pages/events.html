@@ -521,7 +521,10 @@
         .events-disclosure > summary { list-style: none; cursor: pointer; }
         .events-disclosure > summary::-webkit-details-marker { display: none; }
         .story-controls { margin-bottom: 2rem; }
-        .story-intro { max-width: 46rem; margin: 0 auto 1.5rem; text-align: center; color: #4b5563; }
+        .story-intro { max-width: 40rem; margin: 0 auto 0.6rem; text-align: center; color: #4b5563; }
+        .story-follow { text-align: center; margin: 0 0 1.25rem; }
+        .story-mark { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.15rem; width: 4.25rem; min-height: 4.25rem; margin: 0 auto; background: #ecfdf5; color: #0f766e; border-radius: 0.8rem; font-size: 0.75rem; font-weight: 800; }
+        .story-mark svg { width: 1.25rem; height: 1.25rem; }
         .story-filters { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; justify-content: space-between; }
         .story-tabs { display: flex; gap: 0.4rem; padding: 0.25rem; border-radius: 999px; background: #f5f3ff; }
         .story-tab { border: 0; background: transparent; color: #483086; border-radius: 999px; padding: 0.45rem 0.9rem; font-weight: 700; cursor: pointer; }
@@ -559,6 +562,7 @@
         @media (max-width: 640px) {
             .story-card { grid-template-columns: 1fr; }
             .story-date { flex-direction: row; gap: 0.4rem; min-height: 0; justify-content: flex-start; }
+            .story-mark { flex-direction: row; width: auto; min-height: 0; margin: 0; padding: 0.35rem 0.7rem; align-self: flex-start; }
         }
         @media (prefers-reduced-motion: reduce) {
             .story-card, .story-card * { scroll-behavior: auto; transition: none; }
@@ -654,7 +658,8 @@
 
                 <!-- NEWS_EVENTS_RENDER_START -->
 <div class="story-controls">
-  <p class="story-intro">A selection from the Compass Consult company LinkedIn page, not a complete record. 64 posts were read in full from a 114-post list. 37 previews, 5 reposts and 4 document titles were not fully reviewed, and 4 job adverts were left out. There is no confirmed end of the company feed. Personal profile posts are not used. Undated items follow the order of the reviewed company posts, not an invented publication time.</p>
+  <p class="story-intro">Upcoming events Compass Consult is attending or supporting, plus our latest news from LinkedIn.</p>
+  <p class="story-follow"><a class="story-action" href="https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all" target="_blank" rel="noopener noreferrer">Follow us on LinkedIn</a></p>
   <div class="story-filters">
     <div class="story-tabs" role="tablist" aria-label="Filter news and events">
       <button type="button" class="story-tab is-active" role="tab" id="filter-all" aria-selected="true" aria-controls="story-lists" data-filter="all">All</button>
@@ -669,7 +674,7 @@
 <div id="story-lists">
 <section id="upcoming-section" class="story-section" data-section-kind="event">
   <h2>Upcoming events</h2>
-  <p class="story-section-note">Soonest first. Times use the Europe/London clock.</p>
+  <p class="story-section-note">Soonest first.</p>
   <p id="upcoming-empty" class="story-empty" hidden>No upcoming events are listed at the moment.</p>
   <div id="upcoming-events-list" class="story-list" data-events-managed="true">
     <article id="ersa-annual-conference" data-kind="event" data-date-precision="datetime" data-all-day="false" data-editorial-placement="upcoming" data-date-label="Wed 25 Nov 2026, 9:30am – 10:30pm" data-location-label="Leonardo Royal London St Paul's, EC4V 5AJ" data-feed-order="0" data-event-start="2026-11-25T09:30" data-event-end="2026-11-25T22:30" data-resolved-placement="upcoming" class="story-card" data-search="ersa conference and employability awards 2026 employability awards sponsored by fedcap leonardo royal london st paul's, ec4v 5aj the ersa awards page says the 2026 employability awards winners will be announced on the evening of the annual ersa conference at leonardo royal st paul's on wednesday 25…">
@@ -714,10 +719,10 @@
 </section>
 <section id="news-section" class="story-section" data-section-kind="news">
   <h2>Latest news</h2>
-  <p class="story-section-note">Newest company updates first. Items without a publication time stay in the order they were reviewed.</p>
+  <p class="story-section-note">Newest first.</p>
   <div id="latest-news-list" class="story-list">
     <article id="news-staying-close-leaving-care" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="1" class="story-card" data-search="staying close and support for care-experienced young people   compass welcomed a development in support for young people leaving care, and said leaving care should not mean leaving support behind. it pointed to enduring relationships,…">
-    <div class="story-date story-date-undated"><span>Date not stated</span></div>
+    <div class="story-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg><span>News</span></div>
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">News</span></p>
       <h3 class="story-title">Staying Close and support for care-experienced young people</h3>
@@ -732,7 +737,7 @@
     </div>
   </article>
 <article id="news-connect-to-work" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="2" class="story-card" data-search="connect to work: devolution should not mean fragmentation   the company post is commentary on an employment related services association report by henry foulkes about provider experiences of commissioning the connect to work programme.…">
-    <div class="story-date story-date-undated"><span>Date not stated</span></div>
+    <div class="story-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg><span>News</span></div>
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">News</span></p>
       <h3 class="story-title">Connect to Work: devolution should not mean fragmentation</h3>
@@ -747,7 +752,7 @@
     </div>
   </article>
 <article id="news-jobs-and-careers-service" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="3" class="story-card" data-search="from jobcentre plus to the jobs and careers service   the company post points readers to a blog by chief executive jon smith on the new dwp jobs and careers service, published by the institute of employability professionals.">
-    <div class="story-date story-date-undated"><span>Date not stated</span></div>
+    <div class="story-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg><span>News</span></div>
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">News</span></p>
       <h3 class="story-title">From Jobcentre Plus to the Jobs and Careers Service</h3>
@@ -762,7 +767,7 @@
     </div>
   </article>
 <article id="news-lucy-powell-cst-speech" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="4" class="story-card" data-search="reflections on the education secretary's cst conference speech   the company page introduced reflections by chief executive jon smith on education secretary lucy powell's speech at the confederation of school trusts conference 2026. he…">
-    <div class="story-date story-date-undated"><span>Date not stated</span></div>
+    <div class="story-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg><span>News</span></div>
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">News</span></p>
       <h3 class="story-title">Reflections on the Education Secretary's CST Conference speech</h3>
@@ -777,7 +782,7 @@
     </div>
   </article>
 <article id="news-unemployment-figures" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="5" class="story-card" data-search="uk unemployment falls, but is the jobs market really improving?   the company page introduced commentary by chief executive jon smith on the latest unemployment figures. he argues that a falling rate is welcome, but that fewer vacancies,…">
-    <div class="story-date story-date-undated"><span>Date not stated</span></div>
+    <div class="story-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg><span>News</span></div>
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">News</span></p>
       <h3 class="story-title">UK unemployment falls, but is the jobs market really improving?</h3>
@@ -811,7 +816,7 @@
     </div>
   </article>
 <article id="news-adult-skills-fund-devolution" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="7" class="story-card" data-search="adult skills fund: from national contracts to local commissioning   compass describes the move away from nationally procured adult skills fund contracts towards locally commissioned provision as a significant moment for the adult skills system.…">
-    <div class="story-date story-date-undated"><span>Date not stated</span></div>
+    <div class="story-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg><span>News</span></div>
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">News</span></p>
       <h3 class="story-title">Adult Skills Fund: from national contracts to local commissioning</h3>
@@ -826,7 +831,7 @@
     </div>
   </article>
 <article id="news-disabled-young-people-paid-work" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="8" class="story-card" data-search="paid employment opportunities for young people with disabilities and health conditions   compass welcomes a focus on genuine, paid employment opportunities for young people with disabilities and health conditions, rather than relying only on traditional…">
-    <div class="story-date story-date-undated"><span>Date not stated</span></div>
+    <div class="story-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg><span>News</span></div>
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">News</span></p>
       <h3 class="story-title">Paid employment opportunities for young people with disabilities and health conditions</h3>
@@ -1242,7 +1247,7 @@
   <summary>Earlier news <span class="story-count">9</span></summary>
   <div id="news-archive-list" class="story-list">
     <article id="news-housing-associations-blog" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="101" class="story-card" data-search="housing associations and employability: a blog by jon smith   compass pointed readers to a blog by chief executive jon smith, published by the institute of employability professionals, on the role housing associations can play in…">
-    <div class="story-date story-date-undated"><span>Date not stated</span></div>
+    <div class="story-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg><span>News</span></div>
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">News</span></p>
       <h3 class="story-title">Housing associations and employability: a blog by Jon Smith</h3>
@@ -1257,7 +1262,7 @@
     </div>
   </article>
 <article id="news-volunteering-blog" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="102" class="story-card" data-search="any volunteers? the rewards and considerations of volunteering   compass pointed readers to a blog published by the institute of employability professionals, any volunteers? the rewards and considerations of volunteering.">
-    <div class="story-date story-date-undated"><span>Date not stated</span></div>
+    <div class="story-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg><span>News</span></div>
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">News</span></p>
       <h3 class="story-title">Any volunteers? The rewards and considerations of volunteering</h3>
@@ -1272,7 +1277,7 @@
     </div>
   </article>
 <article id="news-full-potential-evaluation" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="103" class="story-card" data-search="full potential youth guarantee trailblazer evaluation   compass welcomed the learning and work institute evaluation of the first year of full potential, central london forward's youth guarantee trailblazer, and said it had been a…">
-    <div class="story-date story-date-undated"><span>Date not stated</span></div>
+    <div class="story-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg><span>News</span></div>
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">News</span></p>
       <h3 class="story-title">Full Potential Youth Guarantee Trailblazer evaluation</h3>
@@ -1287,7 +1292,7 @@
     </div>
   </article>
 <article id="news-broken-system-blog" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="104" class="story-card" data-search="the broken system failing young people, and how we fix it   compass shared a blog by chief executive jon smith, published by the institute of employability professionals, on how a fragmented system can fail young people and how that…">
-    <div class="story-date story-date-undated"><span>Date not stated</span></div>
+    <div class="story-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg><span>News</span></div>
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">News</span></p>
       <h3 class="story-title">The broken system failing young people, and how we fix it</h3>
@@ -1302,7 +1307,7 @@
     </div>
   </article>
 <article id="news-iep-capability-partner" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="105" class="story-card" data-search="compass joins the iep as a capability partner   compass announced that it has joined the institute of employability professionals as a capability partner.">
-    <div class="story-date story-date-undated"><span>Date not stated</span></div>
+    <div class="story-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg><span>News</span></div>
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">News</span></p>
       <h3 class="story-title">Compass joins the IEP as a Capability Partner</h3>
@@ -1317,7 +1322,7 @@
     </div>
   </article>
 <article id="news-iep-fellow-finalist" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="106" class="story-card" data-search="jon smith shortlisted for iep fellow of the year 2026   compass congratulated chief executive jon smith on being a finalist for iep fellow of the year 2026. the post does not say he won. it said the company was looking forward to…">
-    <div class="story-date story-date-undated"><span>Date not stated</span></div>
+    <div class="story-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg><span>News</span></div>
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">News</span></p>
       <h3 class="story-title">Jon Smith shortlisted for IEP Fellow of the Year 2026</h3>
@@ -1332,7 +1337,7 @@
     </div>
   </article>
 <article id="news-thought-leadership-blog" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="107" class="story-card" data-search="thought leadership and emotional intelligence: a blog by jon smith   compass pointed readers to a blog by chief executive jon smith, published by the institute of employability professionals, on thought leadership and emotional intelligence.">
-    <div class="story-date story-date-undated"><span>Date not stated</span></div>
+    <div class="story-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg><span>News</span></div>
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">News</span></p>
       <h3 class="story-title">Thought leadership and emotional intelligence: a blog by Jon Smith</h3>
@@ -1347,7 +1352,7 @@
     </div>
   </article>
 <article id="news-disability-employment-gap-blog" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="108" class="story-card" data-search="the disability employment gap remains stubbornly wide   compass said its managing director, jon smith, had published a blog exploring the disability employment gap and inviting a wider conversation. no separate public article url…">
-    <div class="story-date story-date-undated"><span>Date not stated</span></div>
+    <div class="story-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg><span>News</span></div>
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">News</span></p>
       <h3 class="story-title">The disability employment gap remains stubbornly wide</h3>
@@ -1362,7 +1367,7 @@
     </div>
   </article>
 <article id="news-youth-neet-blog" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="109" class="story-card" data-search="young people not in education, employment or training   compass pointed to a blog by jon smith on the number of young people who are not in education, employment or training, posted in connection with national apprenticeship week.…">
-    <div class="story-date story-date-undated"><span>Date not stated</span></div>
+    <div class="story-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M6 17V5a2 2 0 0 1 2-2h10v16"/><path d="M10 7h6M10 11h6M10 15h4"/></svg><span>News</span></div>
     <div class="story-body">
       <p class="story-meta"><span class="story-tag">News</span></p>
       <h3 class="story-title">Young people not in education, employment or training</h3>
