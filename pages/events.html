@@ -513,6 +513,8 @@
         .story-card { display: grid; grid-template-columns: 1fr; gap: 0; background: #fff; border: 1px solid #e5e7eb; border-radius: 1rem; padding: 0; overflow: hidden; }
         .story-media { aspect-ratio: 16 / 9; background: #f5f3ff; overflow: hidden; }
         .story-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+        .story-media-contain { background: linear-gradient(145deg, #f4f1fb, #e7f6f8); }
+        .story-media-contain img { object-fit: contain; }
         .story-media-fallback { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.35rem; background: linear-gradient(145deg, #483086, #2da8b4); color: #fff; font-weight: 800; letter-spacing: 0.04em; }
         .story-media-mark { width: 2.5rem; height: 2.5rem; }
         .story-main { display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem; padding: 1rem; }
@@ -663,7 +665,7 @@
   <p id="upcoming-empty" class="story-empty" hidden>No upcoming events are listed at the moment.</p>
   <div id="upcoming-events-list" class="story-list" data-events-managed="true">
     <article id="ersa-annual-conference" data-kind="event" data-date-precision="datetime" data-all-day="false" data-editorial-placement="upcoming" data-date-label="Wed 25 Nov 2026, 9:30am – 10:30pm" data-location-label="Leonardo Royal London St Paul's, EC4V 5AJ" data-feed-order="0" data-event-start="2026-11-25T09:30" data-event-end="2026-11-25T22:30" data-resolved-placement="upcoming" class="story-card" data-search="ersa conference and employability awards 2026 employability awards sponsored by fedcap leonardo royal london st paul's, ec4v 5aj the ersa awards page says the 2026 employability awards winners will be announced on the evening of the annual ersa conference at leonardo royal st paul's on wednesday 25…">
-    <div class="story-media"><img src="/assets/images/events/sercoersaawards.webp" alt="ERSA Annual Conference and Employability Awards" width="1536" height="1536" loading="lazy" decoding="async"></div>
+    <div class="story-media story-media-contain"><img src="/assets/images/events/sercoersaawards.webp" alt="ERSA Annual Conference and Employability Awards" width="1536" height="1536" loading="lazy" decoding="async"></div>
     <div class="story-main">
     <div class="story-date">
     <span class="story-date-day">25</span>
@@ -685,7 +687,7 @@
     </div>
   </article>
 <article id="esec-liverpool-2026" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="upcoming" data-date-label="Mon 7 Dec - Tue 8 Dec 2026" data-location-label="ACC, Liverpool" data-feed-order="0" data-event-start="2026-12-07" data-event-end="2026-12-08" data-resolved-placement="upcoming" class="story-card" data-search="16th european supported employment conference the art of the possible: connecting the dots acc, liverpool base, in partnership with the association for supported employment europe (asee), is hosting the 16th european supported employment conference in liverpool.">
-    <div class="story-media"><img src="/assets/images/events/baseliverpool.webp" alt="16th European Supported Employment Conference Liverpool 2026" width="1200" height="1200" loading="lazy" decoding="async"></div>
+    <div class="story-media story-media-contain"><img src="/assets/images/events/baseliverpool.webp" alt="16th European Supported Employment Conference Liverpool 2026" width="1200" height="1200" loading="lazy" decoding="async"></div>
     <div class="story-main">
     <div class="story-date">
     <span class="story-date-day">7</span>
@@ -910,7 +912,7 @@
     </div>
   </article>
 <article id="event-supported-housing-week-2026" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="past" data-date-label="Mon 19 Oct – Fri 23 Oct 2026" data-location-label="" data-feed-order="21" data-event-start="2026-10-19" data-event-end="2026-10-23" data-resolved-placement="past" class="story-card" data-search="supported housing week 2026 national housing federation awareness campaign  compass said it was proud to support supported housing week 2026, and that housing, health and employment need to be treated together. this is a statement of support for the…">
-    <div class="story-media story-media-fallback" aria-hidden="true"><svg class="story-media-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="32" cy="32" r="22" stroke="white" stroke-width="3"/><path d="M32 12 L39 32 L32 52 L25 32 Z" fill="white"/></svg><span>Event</span></div>
+    <div class="story-media story-media-contain"><img src="/assets/images/news-events/supported-housing-week-2026.webp" alt="Illustrated Supported Housing Week campaign graphic" width="1200" height="848" loading="lazy" decoding="async"></div>
     <div class="story-main">
     <div class="story-date">
     <span class="story-date-day">19</span>
@@ -932,7 +934,7 @@
     </div>
   </article>
 <article id="iep-basecamp-2026" data-kind="event" data-date-precision="datetime" data-all-day="false" data-editorial-placement="past" data-date-label="Thu 8 Oct 2026, 9:00am – 5:00pm" data-location-label="Trent Conference Centre, Nottingham" data-feed-order="0" data-event-start="2026-10-08T09:00" data-event-end="2026-10-08T17:00" data-resolved-placement="past" class="story-card" data-search="iep basecamp 2026 practical learning, networking and the iep learning awards trent conference centre, nottingham compass was looking forward to attending iep basecamp 2026, a full day for iep members from capability partner organisations. the programme has four seminar sessions, time to…">
-    <div class="story-media story-media-fallback" aria-hidden="true"><svg class="story-media-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="32" cy="32" r="22" stroke="white" stroke-width="3"/><path d="M32 12 L39 32 L32 52 L25 32 Z" fill="white"/></svg><span>Event</span></div>
+    <div class="story-media story-media-contain"><img src="/assets/images/news-events/iep-basecamp-2026.webp" alt="IEP Basecamp 2026 event graphic" width="800" height="800" loading="lazy" decoding="async"></div>
     <div class="story-main">
     <div class="story-date">
     <span class="story-date-day">8</span>
@@ -998,7 +1000,7 @@
     </div>
   </article>
 <article id="employment-skills-convention-2026" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="past" data-date-label="Thu 2 Jul 2026" data-location-label="Online" data-feed-order="0" data-event-start="2026-07-02" data-event-end="2026-07-02" data-resolved-placement="past" class="story-card" data-search="the employment and skills convention is back! supporting learning and work institute online we're pleased to be supporting learning and work institute on this event, exploring how to grow opportunity and unlock potential in a changing workforce.">
-    <div class="story-media"><img src="/assets/images/events/escon.webp" alt="Employment and Skills Convention 2026" width="1280" height="847" loading="lazy" decoding="async"></div>
+    <div class="story-media story-media-contain"><img src="/assets/images/events/escon.webp" alt="Employment and Skills Convention 2026" width="1280" height="847" loading="lazy" decoding="async"></div>
     <div class="story-main">
     <div class="story-date">
     <span class="story-date-day">2</span>
@@ -1064,7 +1066,7 @@
     </div>
   </article>
 <article id="iep-talks-cardiff-2026" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="past" data-date-label="Thu 21 May 2026" data-location-label="Museum of Cardiff, The Old Library" data-feed-order="0" data-event-start="2026-05-21" data-event-end="2026-05-21" data-resolved-placement="past" class="story-card" data-search="iep talks live and networking dinner spend the afternoon learning. spend the evening connecting. museum of cardiff, the old library the company post said jon smith would be in wales in may for the day event and the evening dinner. that was a plan to attend, not a later confirmation that he did.">
-    <div class="story-media"><img src="/assets/images/events/iepcardiff.webp" alt="IEP Talks Live Cardiff 2026" width="1080" height="1080" loading="lazy" decoding="async"></div>
+    <div class="story-media story-media-contain"><img src="/assets/images/events/iepcardiff.webp" alt="IEP Talks Live Cardiff 2026" width="1080" height="1080" loading="lazy" decoding="async"></div>
     <div class="story-main">
     <div class="story-date">
     <span class="story-date-day">21</span>
@@ -1086,7 +1088,7 @@
     </div>
   </article>
 <article id="iep-talks-birmingham-2026" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="past" data-date-label="Thu 23 Apr 2026" data-location-label="Birmingham" data-feed-order="0" data-event-start="2026-04-23" data-event-end="2026-04-23" data-resolved-placement="past" class="story-card" data-search="iep talks live &amp; fellows dinner birmingham birmingham the iep announced iep talks live and the iep fellows dinner in birmingham on 23 april 2026. the exact venue was not shown.">
-    <div class="story-media"><img src="/assets/images/events/ieptalksbirmingham.webp" alt="IEP Talks Live and Fellows Dinner Birmingham" width="1080" height="1440" loading="lazy" decoding="async"></div>
+    <div class="story-media story-media-contain"><img src="/assets/images/events/ieptalksbirmingham.webp" alt="IEP Talks Live and Fellows Dinner Birmingham" width="1080" height="1440" loading="lazy" decoding="async"></div>
     <div class="story-main">
     <div class="story-date">
     <span class="story-date-day">23</span>
@@ -1108,7 +1110,7 @@
     </div>
   </article>
 <article id="iep-stockholm-2026" data-kind="event" data-date-precision="datetime" data-all-day="false" data-editorial-placement="past" data-date-label="Thu 19 Mar 2026" data-location-label="Sjofartshuset, Skeppsbron 10, Stockholm" data-feed-order="0" data-event-start="2026-03-19T09:30" data-event-end="2026-03-19T22:00" data-resolved-placement="past" class="story-card" data-search="iep stockholm learn by day, connect by night sjofartshuset, skeppsbron 10, stockholm iep talks live sweden 09:30 - 18:00">
-    <div class="story-media"><img src="/assets/images/events/ieptalkssweden.webp" alt="IEP Talks Live Sweden Stockholm 2026" width="800" height="800" loading="lazy" decoding="async"></div>
+    <div class="story-media story-media-contain"><img src="/assets/images/events/ieptalkssweden.webp" alt="IEP Talks Live Sweden Stockholm 2026" width="800" height="800" loading="lazy" decoding="async"></div>
     <div class="story-main">
     <div class="story-date">
     <span class="story-date-day">19</span>
@@ -1130,7 +1132,7 @@
     </div>
   </article>
 <article id="iep-manchester-2026" data-kind="event" data-date-precision="datetime" data-all-day="false" data-editorial-placement="past" data-date-label="Thu 12 Mar 2026" data-location-label="Manchester Hall" data-feed-order="0" data-event-start="2026-03-12T13:00" data-event-end="2026-03-12T22:30" data-resolved-placement="past" class="story-card" data-search="iep manchester networking day connect, contribute &amp; shape the future manchester hall spend the day with the iep at manchester hall. iep talks live runs from 1:00pm to 4:30pm, sponsored by occupational awards limited. the iep fellows dinner runs from 6:30pm to…">
-    <div class="story-media story-media-fallback" aria-hidden="true"><svg class="story-media-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="32" cy="32" r="22" stroke="white" stroke-width="3"/><path d="M32 12 L39 32 L32 52 L25 32 Z" fill="white"/></svg><span>Event</span></div>
+    <div class="story-media story-media-contain"><img src="/assets/images/news-events/iep-manchester-networking-day.webp" alt="IEP Talks Live and Fellows Dinner Manchester event graphic" width="800" height="1000" loading="lazy" decoding="async"></div>
     <div class="story-main">
     <div class="story-date">
     <span class="story-date-day">12</span>
@@ -1174,7 +1176,7 @@
     </div>
   </article>
 <article id="connecting-wales-2026" data-kind="event" data-date-precision="datetime" data-all-day="false" data-editorial-placement="past" data-date-label="Wed 4 Mar 2026, 11:00 AM - 12:30 PM" data-location-label="Online (Microsoft Teams)" data-feed-order="0" data-event-start="2026-03-04T11:00" data-event-end="2026-03-04T12:30" data-resolved-placement="past" class="story-card" data-search="connecting wales – work, health and skills hosted by the institute of employability professionals online (microsoft teams) new research from learning and work institute, undertaken with serco, explores practical and evidence-based employability approaches to strengthen outcomes in wales and close…">
-    <div class="story-media"><img src="/assets/images/events/iepwales.webp" alt="Connecting Wales – Work, Health and Skills" width="800" height="800" loading="lazy" decoding="async"></div>
+    <div class="story-media story-media-contain"><img src="/assets/images/events/iepwales.webp" alt="Connecting Wales – Work, Health and Skills" width="800" height="800" loading="lazy" decoding="async"></div>
     <div class="story-main">
     <div class="story-date">
     <span class="story-date-day">4</span>
@@ -1218,7 +1220,7 @@
     </div>
   </article>
 <article id="apprenticeships-conference-2026" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="past" data-date-label="Tue 24 Feb 2026" data-location-label="Millennium Point, Birmingham" data-feed-order="0" data-event-start="2026-02-24" data-event-end="2026-02-24" data-resolved-placement="past" class="story-card" data-search="annual apprenticeships conference 2026 millennium point, birmingham millennium point, birmingham a post image states: i am attending apprenticeships conference 2026, 24 february 2026, millennium point, birmingham, jon smith, managing director of compass consult. his note…">
-    <div class="story-media story-media-fallback" aria-hidden="true"><svg class="story-media-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="32" cy="32" r="22" stroke="white" stroke-width="3"/><path d="M32 12 L39 32 L32 52 L25 32 Z" fill="white"/></svg><span>Event</span></div>
+    <div class="story-media story-media-contain"><img src="/assets/images/news-events/apprenticeships-conference-2026.webp" alt="Annual Apprenticeships Conference graphic featuring Jon Smith" width="937" height="931" loading="lazy" decoding="async"></div>
     <div class="story-main">
     <div class="story-date">
     <span class="story-date-day">24</span>
@@ -1240,7 +1242,7 @@
     </div>
   </article>
 <article id="event-iep-fellows-lecture-london-2026" data-kind="event" data-date-precision="datetime" data-all-day="false" data-editorial-placement="past" data-date-label="Thu 12 Feb 2026, 7:00pm – 11:00pm" data-location-label="Judge's Court Private Room, Browns Brasserie and Bar, London, WC2N 4AG" data-feed-order="31" data-event-start="2026-02-12T19:00" data-event-end="2026-02-12T23:00" data-resolved-placement="past" class="story-card" data-search="iep fellows lecture and dinner, london browns brasserie and bar, london judge's court private room, browns brasserie and bar, london, wc2n 4ag the company post said compass was looking forward to attending the iep fellows lecture and dinner in london on 12 february 2026.">
-    <div class="story-media story-media-fallback" aria-hidden="true"><svg class="story-media-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="32" cy="32" r="22" stroke="white" stroke-width="3"/><path d="M32 12 L39 32 L32 52 L25 32 Z" fill="white"/></svg><span>Event</span></div>
+    <div class="story-media story-media-contain"><img src="/assets/images/news-events/iep-fellows-lecture-london.webp" alt="IEP Fellows Dinner London event graphic" width="800" height="800" loading="lazy" decoding="async"></div>
     <div class="story-main">
     <div class="story-date">
     <span class="story-date-day">12</span>
@@ -1262,7 +1264,7 @@
     </div>
   </article>
 <article id="clf-youth-guarantee-webinar" data-kind="event" data-date-precision="unknown" data-all-day="false" data-editorial-placement="past" data-date-label="Date not stated" data-location-label="Online webinar" data-feed-order="0" data-resolved-placement="past" class="story-card" data-search="central london forward youth guarantee market warming webinar hosted by joshua dearman and jon smith cmgr fcmi fiep fcipd online webinar compass said it supported central london forward with planning and delivery of the youth guarantee market warming webinar. central london forward's post says the webinar was…">
-    <div class="story-media"><img src="/assets/images/events/youthgaruntee.webp" alt="Youth Guarantee webinar" width="800" height="800" loading="lazy" decoding="async"></div>
+    <div class="story-media story-media-contain"><img src="/assets/images/events/youthgaruntee.webp" alt="Youth Guarantee webinar" width="800" height="800" loading="lazy" decoding="async"></div>
     <div class="story-main">
     <div class="story-date story-date-undated"><span>Date not stated</span></div>
     <div class="story-body">
@@ -1280,7 +1282,7 @@
     </div>
   </article>
 <article id="event-full-potential-celebrating-success" data-kind="event" data-date-precision="day-month" data-all-day="false" data-editorial-placement="past" data-date-label="18 May" data-location-label="Guildhall, City of London" data-feed-order="30" data-resolved-placement="past" class="story-card" data-search="full potential celebrating success event guildhall, city of london guildhall, city of london the company post says compass helped bring together partners, local authorities, employers, delivery organisations and young people at guildhall in the city of london to…">
-    <div class="story-media story-media-fallback" aria-hidden="true"><svg class="story-media-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="32" cy="32" r="22" stroke="white" stroke-width="3"/><path d="M32 12 L39 32 L32 52 L25 32 Z" fill="white"/></svg><span>Event</span></div>
+    <div class="story-media"><img src="/assets/images/news-events/full-potential-celebrating-success.webp" alt="Audience watching the screen at the Full Potential Celebrating Success event" width="1200" height="748" loading="lazy" decoding="async"></div>
     <div class="story-main">
     <div class="story-date">
     <span class="story-date-day">18</span>
@@ -1302,7 +1304,7 @@
     </div>
   </article>
 <article id="event-full-potential-best-practice" data-kind="event" data-date-precision="unknown" data-all-day="false" data-editorial-placement="past" data-date-label="Date not stated" data-location-label="Hosted by the London Borough of Lambeth" data-feed-order="32" data-resolved-placement="past" class="story-card" data-search="full potential best practice event hosted by the london borough of lambeth hosted by the london borough of lambeth compass said it attended a best practice event for full potential, the youth guarantee trailblazer, supporting stakeholders across central london to share practice and help…">
-    <div class="story-media story-media-fallback" aria-hidden="true"><svg class="story-media-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="32" cy="32" r="22" stroke="white" stroke-width="3"/><path d="M32 12 L39 32 L32 52 L25 32 Z" fill="white"/></svg><span>Event</span></div>
+    <div class="story-media story-media-contain"><img src="/assets/images/news-events/full-potential-best-practice.webp" alt="Attendees working together around tables at the Full Potential best practice event" width="480" height="1038" loading="lazy" decoding="async"></div>
     <div class="story-main">
     <div class="story-date story-date-undated"><span>Date not stated</span></div>
     <div class="story-body">

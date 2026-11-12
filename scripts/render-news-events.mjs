@@ -97,7 +97,8 @@ function renderMedia(entry, kindLabel) {
   if (image?.src) {
     const width = Number(image.width) || 1280;
     const height = Number(image.height) || 720;
-    return `<div class="story-media"><img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt || entry.title)}" width="${width}" height="${height}" loading="lazy" decoding="async"></div>`;
+    const contain = width / height < 1.55;
+    return `<div class="story-media${contain ? " story-media-contain" : ""}"><img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt || entry.title)}" width="${width}" height="${height}" loading="lazy" decoding="async"></div>`;
   }
   return `<div class="story-media story-media-fallback" aria-hidden="true">${COMPASS_MARK}<span>${kindLabel}</span></div>`;
 }

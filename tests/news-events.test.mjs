@@ -140,7 +140,12 @@ describe("rendered page", () => {
     expect(lecture).toContain("7:00pm to 11:00pm");
     expect(lecture).not.toContain("RSA House");
     expect(html).not.toContain('id="event-sector-supplier-awards-2027"');
-    expect(basecamp).toContain("story-media-fallback");
+    expect(basecamp).toContain("/assets/images/news-events/iep-basecamp-2026.webp");
+    expect(basecamp).toContain("story-media-contain");
+    expect(html).toContain('id="iep-fellows-chester-2026"');
+    const chesterAt = html.indexOf('id="iep-fellows-chester-2026"');
+    const chester = html.slice(chesterAt, html.indexOf("<article", chesterAt + 10));
+    expect(chester).toContain("story-media-fallback");
   });
 
   it("does not hide the past-events list on small screens", () => {

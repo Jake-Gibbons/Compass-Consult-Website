@@ -50,7 +50,12 @@
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7511874188677386240/"
         }
       ],
-      "image": null,
+      "image": {
+        "src": "/assets/images/news-events/iep-basecamp-2026.webp",
+        "alt": "IEP Basecamp 2026 event graphic",
+        "width": 800,
+        "height": 800
+      },
       "icon": "calendar-days",
       "location": "Trent Conference Centre, Nottingham",
       "lists": [],
@@ -541,7 +546,12 @@
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7418631335012986880/"
         }
       ],
-      "image": null,
+      "image": {
+        "src": "/assets/images/news-events/iep-manchester-networking-day.webp",
+        "alt": "IEP Talks Live and Fellows Dinner Manchester event graphic",
+        "width": 800,
+        "height": 1000
+      },
       "icon": "calendar-days",
       "location": "Manchester Hall",
       "lists": [],
@@ -713,7 +723,12 @@
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7430015421031821314/"
         }
       ],
-      "image": null,
+      "image": {
+        "src": "/assets/images/news-events/apprenticeships-conference-2026.webp",
+        "alt": "Annual Apprenticeships Conference graphic featuring Jon Smith",
+        "width": 937,
+        "height": 931
+      },
       "icon": "calendar-days",
       "location": "Millennium Point, Birmingham",
       "lists": [],
@@ -890,7 +905,12 @@
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7516887682799763457/"
         }
       ],
-      "image": null,
+      "image": {
+        "src": "/assets/images/news-events/supported-housing-week-2026.webp",
+        "alt": "Illustrated Supported Housing Week campaign graphic",
+        "width": 1200,
+        "height": 848
+      },
       "icon": "home",
       "location": null,
       "schedule": {
@@ -926,7 +946,12 @@
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7465536565788766208/"
         }
       ],
-      "image": null,
+      "image": {
+        "src": "/assets/images/news-events/full-potential-celebrating-success.webp",
+        "alt": "Audience watching the screen at the Full Potential Celebrating Success event",
+        "width": 1200,
+        "height": 748
+      },
       "icon": "calendar-days",
       "location": "Guildhall, City of London",
       "schedule": {
@@ -967,7 +992,12 @@
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7417476735589445632/"
         }
       ],
-      "image": null,
+      "image": {
+        "src": "/assets/images/news-events/iep-fellows-lecture-london.webp",
+        "alt": "IEP Fellows Dinner London event graphic",
+        "width": 800,
+        "height": 800
+      },
       "icon": "calendar-days",
       "location": "Judge's Court Private Room, Browns Brasserie and Bar, London, WC2N 4AG",
       "schedule": {
@@ -1009,7 +1039,12 @@
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7428090872098902016/"
         }
       ],
-      "image": null,
+      "image": {
+        "src": "/assets/images/news-events/full-potential-best-practice.webp",
+        "alt": "Attendees working together around tables at the Full Potential best practice event",
+        "width": 480,
+        "height": 1038
+      },
       "icon": "users",
       "location": "Hosted by the London Borough of Lambeth",
       "schedule": {
