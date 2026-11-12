@@ -78,14 +78,9 @@
         .partner-cta { display: inline-flex; align-items: center; justify-content: center; margin-top: 1rem; padding: 0.8rem 1.4rem; border-radius: 999px; background: #483086; color: #fff; font-weight: 700; text-decoration: none; }
         .partner-cta:hover { background: #6a4eb8; }
         .partner-cta:focus-visible { outline: 3px solid #0f766e; outline-offset: 3px; }
-        .membership-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; list-style: none; margin: 1.25rem 0 0; padding: 0; }
-        .membership-grid a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.45rem; min-height: 7.5rem; padding: 0.9rem; border: 1px solid #e5e7eb; border-radius: 0.9rem; background: #fff; color: #111827; font-weight: 700; text-align: center; text-decoration: none; }
-        .membership-grid a:focus-visible { outline: 3px solid #0f766e; outline-offset: 2px; }
-        .membership-grid img { max-height: 2.75rem; max-width: 100%; object-fit: contain; }
         @media (min-width: 640px) {
             .partner-grid { grid-template-columns: 1fr 1fr; }
             .partner-values { grid-template-columns: 1fr 1fr; }
-            .membership-grid { grid-template-columns: repeat(3, 1fr); }
         }
         @media (min-width: 1024px) {
             .partner-grid { grid-template-columns: repeat(4, 1fr); }
@@ -180,7 +175,7 @@
 
         <section class="pb-20 bg-white flex-grow" aria-labelledby="partners-heading">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 id="partners-heading" class="sr-only">Strategic partners</h2>
+                <h2 id="partners-heading" class="sr-only">Partners</h2>
                 <ul class="partner-grid">
                     <li>
                         <a href="https://www.aelp.org.uk/" target="_blank" rel="noopener noreferrer">
@@ -200,7 +195,7 @@
                     </li>
                     <li>
                         <a href="https://www.employment-studies.co.uk/" target="_blank" rel="noopener noreferrer">
-                            <span class="partner-logo"><span class="partner-wordmark">IES</span></span>
+                            <span class="partner-logo"><img src="/assets/images/partnerships/ies.webp" alt="" width="750" height="450"></span>
                             <p class="partner-name">Institute for Employment Studies</p>
                             <p class="partner-desc">Independent research and insight on employment and skills.</p>
                             <span class="sr-only">Opens in a new tab.</span>
@@ -246,6 +241,48 @@
                             <span class="sr-only">Opens in a new tab.</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="https://www.gov.uk/government/organisations/government-commercial-function" target="_blank" rel="noopener noreferrer">
+                            <span class="partner-logo"><img src="/assets/images/partnerships/gcf.webp" alt="" width="80" height="80"></span>
+                            <p class="partner-name">Government Commercial Function</p>
+                            <span class="sr-only">Opens in a new tab.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cipd.org/" target="_blank" rel="noopener noreferrer">
+                            <span class="partner-logo"><img src="/assets/images/partnerships/cipd.webp" alt="" width="296" height="169"></span>
+                            <p class="partner-name">CIPD</p>
+                            <span class="sr-only">Opens in a new tab.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.managers.org.uk/" target="_blank" rel="noopener noreferrer">
+                            <span class="partner-logo"><img src="/assets/images/partnerships/cmi.webp" alt="" width="800" height="364"></span>
+                            <p class="partner-name">CMI</p>
+                            <span class="sr-only">Opens in a new tab.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.iso.org/" target="_blank" rel="noopener noreferrer">
+                            <span class="partner-logo"><img src="/assets/images/partnerships/iso.webp" alt="" width="800" height="630"></span>
+                            <p class="partner-name">ISO</p>
+                            <span class="sr-only">Opens in a new tab.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.nebosh.org.uk/" target="_blank" rel="noopener noreferrer">
+                            <span class="partner-logo"><img src="/assets/images/partnerships/nebosh.webp" alt="" width="259" height="194"></span>
+                            <p class="partner-name">NEBOSH</p>
+                            <span class="sr-only">Opens in a new tab.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.peoplecert.org/browse-certifications/project-programme-and-portfolio-management/PRINCE2-1" target="_blank" rel="noopener noreferrer">
+                            <span class="partner-logo"><img src="/assets/images/partnerships/prince2.webp" alt="" width="650" height="262"></span>
+                            <p class="partner-name">PRINCE2</p>
+                            <span class="sr-only">Opens in a new tab.</span>
+                        </a>
+                    </li>
                 </ul>
                 <ul class="partner-values" aria-label="What partnership means">
                     <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Shared Purpose</li>
@@ -257,18 +294,6 @@
                     <p class="partner-strap">Working in partnership. Delivering impact. Changing lives.</p>
                     <a class="partner-cta" href="/pages/contact.html">Talk to us about partnering</a>
                 </div>
-                <section class="mt-16" aria-labelledby="memberships-heading">
-                    <h2 id="memberships-heading" class="text-2xl font-bold text-[#1e1b2e]">Memberships and professional standards</h2>
-                    <p class="mt-2 max-w-3xl text-gray-600">These organisations were already listed on this page. They sit alongside the partnerships above as professional memberships and standards.</p>
-                    <ul class="membership-grid">
-                        <li><a href="https://www.gov.uk/government/organisations/government-commercial-function" target="_blank" rel="noopener noreferrer"><span class="partner-wordmark">GCF</span><span>Government Commercial Function<span class="sr-only">. Opens in a new tab.</span></span></a></li>
-                        <li><a href="https://www.cipd.org/" target="_blank" rel="noopener noreferrer"><img src="/assets/images/partnerships/cipd.webp" alt="" width="296" height="169"><span>CIPD<span class="sr-only">. Opens in a new tab.</span></span></a></li>
-                        <li><a href="https://www.managers.org.uk/" target="_blank" rel="noopener noreferrer"><img src="/assets/images/partnerships/cmi.webp" alt="" width="800" height="364"><span>Chartered Management Institute<span class="sr-only">. Opens in a new tab.</span></span></a></li>
-                        <li><a href="https://www.iso.org/" target="_blank" rel="noopener noreferrer"><img src="/assets/images/partnerships/iso.webp" alt="" width="800" height="630"><span>ISO<span class="sr-only">. Opens in a new tab.</span></span></a></li>
-                        <li><a href="https://www.nebosh.org.uk/" target="_blank" rel="noopener noreferrer"><img src="/assets/images/partnerships/nebosh.webp" alt="" width="259" height="194"><span>NEBOSH<span class="sr-only">. Opens in a new tab.</span></span></a></li>
-                        <li><a href="https://www.peoplecert.org/" target="_blank" rel="noopener noreferrer"><img src="/assets/images/partnerships/prince2.webp" alt="" width="650" height="262"><span>PRINCE2<span class="sr-only">. Opens in a new tab.</span></span></a></li>
-                    </ul>
-                </section>
             </div>
         </section>
 
