@@ -53,6 +53,8 @@ For an event, add `event`. Use `start` and `end` only when the post or an organi
 
 `npm run news:import` only reads a local JSON file. It does not call LinkedIn.
 
+An entry with `"source": "manual"` stays as it was written. Import and sync do not remove or overwrite it. The Apprenticeships Conference 2027 card is one of these: Jake asked for it from the organiser's article, and it is not a Compass company post.
+
 `npm run news:sync` calls the official LinkedIn Posts API when the secrets in `docs/LINKEDIN-SYNC.md` are present. If they are missing, it prints that it is not configured and exits successfully. The daily workflow opens a review pull request and does not merge it unless the repository variable `LINKEDIN_AUTO_MERGE` is `true`. That variable is unset. There is no scraper and no committed credential.
 
 ## Dates

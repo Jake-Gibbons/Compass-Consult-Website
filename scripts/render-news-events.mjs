@@ -68,7 +68,10 @@ function dateBlock(entry) {
 function primaryLink(entry) {
   const links = entry.links || [];
   const linkedin = links.find((link) => /linkedin\.com/i.test(link.href || ""));
-  if (linkedin) return { href: linkedin.href, label: "Read on LinkedIn" };
+  if (linkedin) {
+    const custom = linkedin.label && !/linkedin post$/i.test(linkedin.label);
+    return { href: linkedin.href, label: custom ? linkedin.label : "Read on LinkedIn" };
+  }
   const external = links.find((link) => /^https?:/i.test(link.href || ""));
   if (!external) return null;
   return { href: external.href, label: entry.kind === "event" ? "Event details" : external.label || "Event details" };

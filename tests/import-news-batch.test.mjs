@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { importCompanyBatch, validateBatch } from "../scripts/import-news-batch.mjs";
+import { importCompanyBatch, preserveManualEntries, validateBatch } from "../scripts/import-news-batch.mjs";
 import { resolvedPlacement } from "../js/news-events-status.mjs";
 
 const catalogue = {
@@ -104,6 +104,53 @@ describe("company batch import", () => {
       publishedAt: "2026-11-01"
     }])).some((error) => error.includes("publishedAt"))).toBe(true);
     expect(validateBatch({ ...batch([]), account: "jon-smith" }).some((error) => error.includes("company"))).toBe(true);
+  });
+
+  it("does not remove or overwrite a manual entry", () => {
+    const manual = {
+      id: "apprenticeships-conference-2027",
+      source: "manual",
+      baseline: false,
+      kind: "event",
+      title: "Apprenticeships Conference 2027",
+      paragraphs: ["Jon Smith, CEO of Compass Consult, will be attending. Come and say hello."],
+      links: [{
+        label: "Event details and booking",
+        href: "https://www.linkedin.com/pulse/have-you-bought-your-ticket-yet-apprenticeships-skillsgroup-so1xe"
+      }],
+      sources: [],
+      location: "Millennium Point, Birmingham",
+      schedule: {
+        precision: "date",
+        allDay: true,
+        start: "2027-02-24",
+        end: "2027-02-24",
+        editorialPlacement: "upcoming",
+        dateLabel: "Wed 24 Feb 2027"
+      }
+    };
+    const withManual = { ...catalogue, entries: [...catalogue.entries, structuredClone(manual)] };
+    const result = importCompanyBatch({
+      catalogue: withManual,
+      state,
+      batch: batch([{
+        activityId: "8888888888888888888",
+        canonicalSourceUrl: "https://www.linkedin.com/feed/update/urn:li:activity:8888888888888888888/",
+        title: "A newer company post",
+        body: "Full text from the company page.",
+        kind: "news"
+      }])
+    });
+    expect(result.ok).toBe(true);
+    expect(result.added).toEqual(["news-8888888888888888888"]);
+    expect(result.catalogue.entries.filter((entry) => entry.id === manual.id)).toEqual([manual]);
+
+    const overwritten = structuredClone(withManual);
+    overwritten.entries = overwritten.entries.filter((entry) => entry.id !== manual.id);
+    overwritten.entries.push({ ...manual, title: "Replaced by sync", paragraphs: ["Speaking on the main stage."] });
+    const restored = preserveManualEntries(withManual, { ...overwritten, entries: overwritten.entries.filter((entry) => entry.source !== "manual") });
+    expect(restored.entries.find((entry) => entry.id === manual.id)).toEqual(manual);
+    expect(restored.entries.filter((entry) => entry.id === manual.id)).toHaveLength(1);
   });
 
   it("keeps an explicit event date classifiable and requires a section for an undated event", () => {
