@@ -118,6 +118,7 @@
         .reveal-right { transform: translateX(40px); }
         .reveal.active { opacity: 1; transform: translate(0) scale(1); }
         .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
+        .home-guide-card:focus-visible { outline: 3px solid #0f766e; outline-offset: 4px; }
         /* Embla ticker styles */
         .embla-ticker { overflow: hidden !important; cursor: grab; width: 100% !important; height: 50px !important; max-height: 50px !important; min-height: 50px !important; }
         .embla-ticker.is-dragging { cursor: grabbing; }
@@ -167,6 +168,8 @@
             <nav class="space-y-1" aria-label="Primary">
                 <a href="/index.html" class="nav-link active flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold text-compass-purple bg-gray-50" aria-current="page"><i data-lucide="home" class="w-4 h-4 shrink-0"></i>Home</a>
                 <a href="/pages/about.html" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-compass-purple"><i data-lucide="info" class="w-4 h-4 shrink-0"></i>About us</a>
+                <a href="/pages/what-we-do.html" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-compass-purple"><i data-lucide="compass" class="w-4 h-4 shrink-0"></i>What We Do</a>
+                <a href="/pages/why-compass.html" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-compass-purple"><i data-lucide="sparkles" class="w-4 h-4 shrink-0"></i>Why Compass</a>
                 <a href="/pages/services.html" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-compass-purple"><i data-lucide="briefcase-business" class="w-4 h-4 shrink-0"></i>Our Services</a>
                 <a href="/pages/team.html" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-compass-purple"><i data-lucide="users" class="w-4 h-4 shrink-0"></i>Meet the Team</a>
                 <a href="/pages/partnerships.html" class="nav-link flex items-center gap-3 py-3 px-4 rounded-lg text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-compass-purple"><i data-lucide="handshake" class="w-4 h-4 shrink-0"></i>Partnerships</a>
@@ -202,6 +205,8 @@
             <div class="px-4 py-4 space-y-2">
                 <a href="/index.html" class="flex items-center gap-2 py-2 px-3 text-compass-purple font-medium bg-purple-50 rounded-md"><i data-lucide="home" class="w-4 h-4 shrink-0"></i>Home</a>
                 <a href="/pages/about.html" class="flex items-center gap-2 py-2 px-3 text-gray-700 hover:text-compass-purple"><i data-lucide="info" class="w-4 h-4 shrink-0"></i>About us</a>
+                <a href="/pages/what-we-do.html" class="flex items-center gap-2 py-2 px-3 text-gray-700"><i data-lucide="compass" class="w-4 h-4 shrink-0"></i>What We Do</a>
+                <a href="/pages/why-compass.html" class="flex items-center gap-2 py-2 px-3 text-gray-700"><i data-lucide="sparkles" class="w-4 h-4 shrink-0"></i>Why Compass</a>
                 <a href="/pages/services.html" class="flex items-center gap-2 py-2 px-3 text-gray-700 hover:text-compass-purple"><i data-lucide="briefcase-business" class="w-4 h-4 shrink-0"></i>Our Services</a>
                 <a href="/pages/team.html" class="flex items-center gap-2 py-2 px-3 text-gray-700 hover:text-compass-purple"><i data-lucide="users" class="w-4 h-4 shrink-0"></i>Meet the Team</a>
                 <a href="/pages/partnerships.html" class="flex items-center gap-2 py-2 px-3 text-gray-700 hover:text-compass-purple"><i data-lucide="handshake" class="w-4 h-4 shrink-0"></i>Partnerships</a>
@@ -307,6 +312,26 @@
             </div>
             
             <!-- (old inline text ticker removed; top ticker now used) -->
+        </section>
+
+        <section class="pb-16 lg:pb-20" aria-labelledby="home-guide-heading">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 id="home-guide-heading" class="sr-only">What We Do and Why Compass</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <a href="/pages/what-we-do.html" class="home-guide-card group bg-white rounded-2xl border border-gray-100 shadow-md p-8 flex flex-col hover:-translate-y-1 hover:shadow-lg transition-all">
+                        <span class="w-12 h-12 rounded-xl bg-purple-50 text-compass-purple flex items-center justify-center mb-5" aria-hidden="true"><svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
+                        <h3 class="text-2xl font-bold text-gray-900">What We Do</h3>
+                        <p class="mt-3 text-gray-600 leading-relaxed">Guiding people. Connecting opportunities. Creating better futures.</p>
+                        <span class="mt-6 inline-flex items-center text-sm font-semibold text-compass-purple">Explore What We Do <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i></span>
+                    </a>
+                    <a href="/pages/why-compass.html" class="home-guide-card group bg-white rounded-2xl border border-gray-100 shadow-md p-8 flex flex-col hover:-translate-y-1 hover:shadow-lg transition-all">
+                        <span class="w-12 h-12 rounded-xl bg-teal-50 text-compass-teal flex items-center justify-center mb-5" aria-hidden="true"><svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z"/></svg></span>
+                        <h3 class="text-2xl font-bold text-gray-900">Why Compass</h3>
+                        <p class="mt-3 text-gray-600 leading-relaxed">Specialist expertise. Independent insight. Stronger system outcomes.</p>
+                        <span class="mt-6 inline-flex items-center text-sm font-semibold text-compass-teal">Explore Why Compass <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i></span>
+                    </a>
+                </div>
+            </div>
         </section>
 
         <!-- ================================================================
@@ -462,6 +487,8 @@
                         <ul class="space-y-4">
                             <li><a href="/index.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Home</a></li>
                             <li><a href="/pages/about.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">About Us</a></li>
+                            <li><a href="/pages/what-we-do.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">What We Do</a></li>
+                            <li><a href="/pages/why-compass.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Why Compass</a></li>
                             <li><a href="/pages/services.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Our Services</a></li>
                             <li><a href="/pages/team.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Meet the Team</a></li>
                             <li><a href="/pages/partnerships.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Partnerships</a></li>
@@ -507,7 +534,7 @@
     <script src="/js/aos.min.a5005b2e.js"></script>
     <script defer src="/js/embla-carousel.umd.js"></script>
     <script defer src="/js/embla-carousel-auto-scroll.umd.js"></script>
-    <script defer src="/js/lucide.min.2da98d36.js"></script>
+    <script defer src="/js/lucide.min.d48e1138.js"></script>
     <script defer src="/js/main.70cbe9c0.js?v=20260827a"></script>
     <script defer src="/js/ticker-fix.js?v=20261109a"></script>
 </body>

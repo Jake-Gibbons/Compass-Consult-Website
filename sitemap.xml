@@ -2,12 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://compassconsultes.co.uk/</loc>
-<lastmod>2026-11-11</lastmod>
+<lastmod>2026-11-12</lastmod>
 <changefreq>monthly</changefreq>
 </url>
 <url>
 <loc>https://compassconsultes.co.uk/pages/about</loc>
 <lastmod>2026-11-11</lastmod>
+<changefreq>monthly</changefreq>
+</url>
+<url>
+<loc>https://compassconsultes.co.uk/pages/what-we-do</loc>
+<lastmod>2026-11-12</lastmod>
+<changefreq>monthly</changefreq>
+</url>
+<url>
+<loc>https://compassconsultes.co.uk/pages/why-compass</loc>
+<lastmod>2026-11-12</lastmod>
 <changefreq>monthly</changefreq>
 </url>
 <url>
