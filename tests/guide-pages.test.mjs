@@ -46,6 +46,12 @@ describe("What We Do and Why Compass", () => {
     expect(readFileSync("sitemap.xml", "utf8")).toContain("https://compassconsultes.co.uk/pages/why-compass");
     expect(what).toContain('aria-current="page"');
     expect(why).toContain('aria-current="page"');
+    const about = readFileSync("pages/about.html", "utf8");
+    expect(about).toContain('href="/pages/why-compass.html" class="why-compass-eyebrow');
+    expect(about).toContain("Why Compass?");
+    expect(about).toContain("Our Mission");
+    const lucide = readFileSync("js/lucide.min.js", "utf8");
+    expect(lucide).toContain("Compass:");
   });
 
   it("lists both pages in every footer Quick Links block", () => {

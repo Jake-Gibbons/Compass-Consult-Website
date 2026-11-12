@@ -52,6 +52,11 @@
         .reveal-up { transform: translateY(40px); }
         .reveal.active { opacity: 1; transform: translate(0) scale(1); }
         .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
+        .why-compass-eyebrow { text-decoration: none; }
+        .why-compass-eyebrow:hover, .why-compass-eyebrow:focus-visible { text-decoration: underline; text-underline-offset: 0.22em; }
+        .why-compass-eyebrow:focus-visible { outline: 3px solid #0f766e; outline-offset: 3px; border-radius: 0.2rem; }
+        .why-compass-eyebrow svg { transition: transform 0.2s ease; }
+        .why-compass-eyebrow:hover svg, .why-compass-eyebrow:focus-visible svg { transform: translateX(3px); }
         /* Site logo sizing */
         .site-logo { display: block; height: auto; max-height: 120px; }
         @media (max-width: 1024px) { .site-logo { max-height: 80px; } }
@@ -148,7 +153,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid md:grid-cols-2 gap-16 items-center">
                     <div data-aos="fade-right">
-                         <span class="text-compass-purple font-semibold tracking-wider uppercase text-sm mb-2 block">Why Compass?</span>
+                         <a href="/pages/why-compass.html" class="why-compass-eyebrow text-compass-purple font-semibold tracking-wider uppercase text-sm mb-2 inline-flex items-center gap-1.5">Why Compass? <i data-lucide="arrow-right" class="w-3.5 h-3.5" aria-hidden="true"></i></a>
                          <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
                          <div class="h-1.5 w-20 bg-gradient-to-r from-compass-purple to-compass-teal rounded-full mb-8"></div>
                          <p class="text-lg text-gray-600 mb-6">Compass Consult exists to support private, public, and third-sector organisations to ‘find their way’ within the UK employability and skills sectors.</p>
@@ -254,7 +259,7 @@
     <!-- Page scripts — loaded at the bottom to avoid blocking render -->
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
     <script src="/js/aos.min.a5005b2e.js"></script>
-    <script defer src="/js/lucide.min.2da98d36.js"></script>
+    <script defer src="/js/lucide.min.d48e1138.js"></script>
     <script defer src="/js/main.70cbe9c0.js?v=20260406c"></script>
 </body>
 </html>
