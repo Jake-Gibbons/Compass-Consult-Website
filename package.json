@@ -33,9 +33,14 @@
     "watch:css": "tailwindcss -i ./css/input.css -o ./css/tailwind.min.css --watch",
     "test": "vitest run",
     "lint": "npm run lint:js",
-    "lint:js": "eslint \"js/**/*.js\"",
+    "lint:js": "eslint \"js/**/*.js\" \"js/events.mjs\" \"js/news-events-status.mjs\"",
     "link-check": "node scripts/link-check.mjs",
-    "check": "npm run lint && npm run link-check",
+    "validate:news": "node scripts/validate-news-events.mjs",
+    "render:news": "node scripts/render-news-events.mjs",
+    "news:import": "node scripts/import-news-batch.mjs",
+    "news:sync": "node scripts/linkedin-sync.mjs",
+    "news:oauth": "node scripts/linkedin-oauth.mjs",
+    "check": "npm run lint && npm run link-check && npm run validate:news",
     "deploy": "echo 'Deploy script to be configured'"
   },
   "devDependencies": {

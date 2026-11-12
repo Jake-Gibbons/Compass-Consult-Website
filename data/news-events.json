@@ -1,0 +1,1738 @@
+{
+  "timezone": "Europe/London",
+  "coverage": {
+    "complete": false,
+    "reachedEnd": false,
+    "verifiedOn": "2026-11-11",
+    "companyFeedManifestSize": 114,
+    "fullSelectedRecords": 64,
+    "previewScreenedFullTextNotCollected": 37,
+    "thirdPartyRepostsNotTranscribed": 5,
+    "documentTitlesNotReviewed": 4,
+    "excludedJobAdverts": 4,
+    "jonProfile": "not visited in this company batch",
+    "publicNote": "A selection from the Compass Consult company LinkedIn page, not a complete record. 64 posts were read in full from a 114-post list. 37 previews, 5 reposts and 4 document titles were not fully reviewed, and 4 job adverts were left out. There is no confirmed end of the company feed. Personal profile posts are not used. Undated items follow the order of the reviewed company posts, not an invented publication time.",
+    "jonSelectedPositions": 37,
+    "jonUniqueUrns": 36,
+    "jonManifestSize": 292,
+    "jonPreviewOnly": 255,
+    "jonReachedEnd": false,
+    "source": "company-page-only",
+    "jonProfileUsed": false
+  },
+  "held": [
+    {
+      "id": "held-lgr-briefing-promise",
+      "activityId": "7521653467967422466",
+      "reason": "The company post promised an LGR briefing the following afternoon. The resource library already contains an LGR factsheet and a 25 March 2026 update. Those files were not matched to this post, so the stale tomorrow wording is not published."
+    },
+    {
+      "id": "held-budget-synopsis-promise",
+      "activityId": "7521515449965203471",
+      "reason": "The company post promised a Budget synopsis later that day. The library contains an Autumn 2026 Budget infographic. That file was not verified as the promised synopsis, so the post is not published."
+    }
+  ],
+  "entries": [
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "IEP Basecamp 2026",
+      "subtitle": "Practical learning, networking and the IEP Learning Awards",
+      "paragraphs": [
+        "Compass was looking forward to attending IEP Basecamp 2026, a full day for IEP members from Capability Partner organisations. The programme has four seminar sessions, time to connect with colleagues, and the IEP Learning Awards in the afternoon.",
+        "Sessions cover AI and the future of employment support, participant-centred practice, employer engagement, and health and wellbeing, with coffee, lunch and end-of-day celebration drinks.",
+        "Headline sponsor CCC Powered by Asuria UK, bringing together Asuria UK, PeoplePlus UK, Standguide Ltd, The Better Health Generation, Earlybird and Transform and Achieve, is making Basecamp free to attend for eligible IEP members. Other sponsors are The Digital College, Elevate Employment Services, CogniSoft Ltd, Serco and NCFE.",
+        "Basecamp is invitation-only. To find out about becoming a Capability Partner, contact your Partnership Manager or email angela.ramage@iemployability.org."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7511874188677386240/"
+        }
+      ],
+      "image": null,
+      "icon": "calendar-days",
+      "location": "Trent Conference Centre, Nottingham",
+      "lists": [],
+      "id": "iep-basecamp-2026",
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7511874188677386240",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7511874188677386240/"
+        }
+      ],
+      "schedule": {
+        "precision": "datetime",
+        "allDay": false,
+        "start": "2026-10-08T09:00",
+        "end": "2026-10-08T17:00",
+        "editorialPlacement": "past",
+        "dateLabel": "Thu 8 Oct 2026, 9:00am – 5:00pm"
+      }
+    },
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "16th European Supported Employment Conference",
+      "subtitle": "The Art of the Possible: Connecting the Dots",
+      "paragraphs": [
+        "BASE, in partnership with the Association for Supported Employment Europe (ASEE), is hosting the 16th European Supported Employment Conference in Liverpool.",
+        "This year's conference combines the strengths of BASE's annual event with best practice, innovation and research from across Europe and beyond.",
+        "With an expected 750 delegates per day, this two-day event offers major opportunities to learn, connect, and help shape the future of supported employment and inclusive recruitment.",
+        "Delegate tickets, including early-bird offers, and sponsorship packages are launching this month."
+      ],
+      "links": [
+        {
+          "label": "Event updates and tickets",
+          "href": "https://lnkd.in/egjuE2hy"
+        }
+      ],
+      "image": {
+        "src": "/assets/images/events/baseliverpool.webp",
+        "alt": "16th European Supported Employment Conference Liverpool 2026"
+      },
+      "icon": "calendar-days",
+      "location": "ACC, Liverpool",
+      "lists": [],
+      "id": "esec-liverpool-2026",
+      "schedule": {
+        "precision": "date",
+        "allDay": true,
+        "start": "2026-12-07",
+        "end": "2026-12-08",
+        "editorialPlacement": "upcoming",
+        "dateLabel": "Mon 7 Dec - Tue 8 Dec 2026"
+      },
+      "sources": []
+    },
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "ERSA Conference and Employability Awards 2026",
+      "subtitle": "Employability Awards sponsored by Fedcap",
+      "paragraphs": [
+        "The ERSA awards page says the 2026 Employability Awards winners will be announced on the evening of the annual ERSA Conference at Leonardo Royal St Paul's on Wednesday 25 November 2026. Fedcap is named there as the awards sponsor.",
+        "ERSA's ticket listing gives the same date, 9:30am to 10:30pm, at Leonardo Royal London St Paul's, EC4V 5AJ. That listing does not print a timezone. The times are shown as Europe/London because the venue is in London.",
+        "Compass has said it is attending. The company post does not say Compass is hosting."
+      ],
+      "links": [
+        {
+          "label": "ERSA Awards official page",
+          "href": "https://ersa.org.uk/awards/"
+        },
+        {
+          "label": "ERSA ticket listing",
+          "href": "https://www.tickettailor.com/events/employmentrelatedservicesassociation/2129072"
+        },
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7525660709121073154/"
+        }
+      ],
+      "image": {
+        "src": "/assets/images/events/sercoersaawards.webp",
+        "alt": "ERSA Annual Conference and Employability Awards"
+      },
+      "icon": "calendar-days",
+      "location": "Leonardo Royal London St Paul's, EC4V 5AJ",
+      "lists": [],
+      "id": "ersa-annual-conference",
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7525660709121073154",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7525660709121073154/"
+        }
+      ],
+      "schedule": {
+        "precision": "datetime",
+        "allDay": false,
+        "start": "2026-11-25T09:30",
+        "end": "2026-11-25T22:30",
+        "editorialPlacement": "upcoming",
+        "dateLabel": "Wed 25 Nov 2026, 9:30am – 10:30pm"
+      }
+    },
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "CFP26: Centre for the New Midlands Annual Conference",
+      "subtitle": "The 4th Annual Conference",
+      "paragraphs": [
+        "CFP26 will bring together around 250 of the region's key stakeholders to explore major questions shaping the Midlands.",
+        "Primary research areas include Housing and Communities, Digital environment, Employability and Skills, and Infrastructure.",
+        "As with other Centre for the New Midlands major events, feedback gathered now will help inform the conference steering group and shape the day's content."
+      ],
+      "links": [
+        {
+          "label": "Share your thoughts",
+          "href": "https://lnkd.in/ecg9ryqj"
+        }
+      ],
+      "image": {
+        "src": "/assets/images/events/connectionsforprosperity.webp",
+        "alt": "Centre for the New Midlands CFP26 conference at Edgbaston Stadium"
+      },
+      "icon": "calendar-days",
+      "location": "Edgbaston Stadium",
+      "lists": [],
+      "id": "cfp26",
+      "schedule": {
+        "precision": "date",
+        "allDay": true,
+        "start": "2026-07-16",
+        "end": "2026-07-16",
+        "editorialPlacement": "past",
+        "dateLabel": "Thu 16 Jul 2026"
+      },
+      "sources": []
+    },
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "The Employment and Skills Convention is back!",
+      "subtitle": "Supporting Learning and Work Institute",
+      "paragraphs": [
+        "We're pleased to be supporting Learning and Work Institute on this event, exploring how to grow opportunity and unlock potential in a changing workforce.",
+        "This major annual event for the employment and skills sectors brings together delegates from across central and local government, employers, providers, and third sector organisations to tackle key issues in policy and practice.",
+        "📆 2 July 🕑 All day"
+      ],
+      "links": [
+        {
+          "label": "Don't miss out! Register now",
+          "href": "https://ow.ly/5gAi50YlT42"
+        },
+        {
+          "label": "View LinkedIn Post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7432439722246901760/"
+        }
+      ],
+      "image": {
+        "src": "/assets/images/events/escon.webp",
+        "alt": "Employment and Skills Convention 2026"
+      },
+      "icon": "calendar-days",
+      "location": "Online",
+      "lists": [],
+      "id": "employment-skills-convention-2026",
+      "schedule": {
+        "precision": "date",
+        "allDay": true,
+        "start": "2026-07-02",
+        "end": "2026-07-02",
+        "editorialPlacement": "past",
+        "dateLabel": "Thu 2 Jul 2026"
+      },
+      "sources": [
+        {
+          "role": "linkedin",
+          "activityId": "7432439722246901760",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7432439722246901760/"
+        }
+      ]
+    },
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "British Chambers of Commerce Global Annual Conference 2026",
+      "subtitle": "British Chambers of Commerce flagship gathering hosted by Sophy Ridge",
+      "paragraphs": [
+        "British Chambers of Commerce has officially launched its Global Annual Conference 2026, taking place at the iconic QEII Centre in London and hosted by Sky News presenter Sophy Ridge.",
+        "Built around the theme Delivering Growth, the conference will bring together business leaders, policymakers and innovators from across the UK and around the world to explore how opportunity can be unlocked, the economy strengthened and businesses supported to thrive.",
+        "Confirmed speakers already include Rt Hon. Ed Davey, Leader of the Liberal Democrats; Zack Polanski AM, Green Party Leader; and Rt Hon. Mel Stride, Shadow Chancellor of the Exchequer. A Senior Cabinet Minister and a Senior Representative from Reform UK will also be announced soon.",
+        "As one of the most influential events in the business calendar, the day is designed to spark vital conversations, share fresh insight and create meaningful opportunities to connect and collaborate."
+      ],
+      "links": [
+        {
+          "label": "Learn more and secure your place",
+          "href": "https://ow.ly/q8KV50YFALc"
+        }
+      ],
+      "image": {
+        "src": "/assets/images/events/chamberofcommerce.webp",
+        "alt": "British Chambers of Commerce Global Annual Conference 2026"
+      },
+      "icon": "calendar-days",
+      "location": "QEII Centre, London",
+      "lists": [
+        {
+          "heading": "Event partners:",
+          "items": [
+            "Headline Partner: NatWest",
+            "Corporate Partners: Intuit and Heathrow",
+            "Supporting Partners: DP World and Trainline Business"
+          ]
+        }
+      ],
+      "id": "bcc-global-conference-2026",
+      "schedule": {
+        "precision": "date",
+        "allDay": true,
+        "start": "2026-06-25",
+        "end": "2026-06-25",
+        "editorialPlacement": "past",
+        "dateLabel": "Thu 25 Jun 2026"
+      },
+      "sources": []
+    },
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "The IEP Summit 2026",
+      "subtitle": "The employability sector's flagship gathering returns",
+      "paragraphs": [
+        "The Institute of Employability Professionals' flagship Summit will bring together senior leaders from across the sector to discuss the biggest challenges and opportunities shaping employability today.",
+        "Taking place at the historic 116 Pall Mall in London, the Summit creates space for thought-provoking keynote sessions, sector discussion and meaningful networking.",
+        "Delegates will connect with leaders from across:",
+        "A huge thank you to the organisations supporting the Summit this year:",
+        "And for the IEP Summit Networking Dinner:",
+        "Secure your place and join colleagues from across the sector for a day of insight, debate and collaboration. Take advantage of tiered pricing and book early to secure the best value tickets.",
+        "A company post says chief executive Jon Smith attended the Summit. A related company post records that he was a finalist for IEP Fellow of the Year 2026, not the winner."
+      ],
+      "links": [
+        {
+          "label": "Secure your place",
+          "href": "https://lnkd.in/gffcb9jE"
+        },
+        {
+          "label": "Company post on attendance",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7471237269337653248/"
+        }
+      ],
+      "image": {
+        "src": "/assets/images/events/iepLondon.webp",
+        "alt": "The IEP Summit 2026 at 116 Pall Mall, London"
+      },
+      "icon": "calendar-days",
+      "location": "116 Pall Mall, London",
+      "lists": [
+        {
+          "heading": "Delegates will connect with leaders from across:",
+          "items": [
+            "Local authorities",
+            "Prime providers and supply chains",
+            "International employability organisations",
+            "Skills, education, health and housing sectors"
+          ]
+        },
+        {
+          "heading": "Organisations supporting the Summit:",
+          "items": [
+            "Headline Sponsor: City & Guilds",
+            "Lunch sponsored by The Digital College",
+            "Drinks reception sponsored by Beam",
+            "Breakfast, Networking Break & Notebooks sponsored by ICONI Software",
+            "Lanyards sponsored by CogniSoft Ltd"
+          ]
+        },
+        {
+          "heading": "IEP Summit Networking Dinner:",
+          "items": [
+            "Headline Dinner Sponsor: Get Set UK",
+            "Drinks Reception Sponsor: Elevate Employment Services",
+            "Fellow of the Year Award Sponsor: Fedcap UK"
+          ]
+        }
+      ],
+      "id": "iep-summit-2026",
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7471237269337653248",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7471237269337653248/"
+        },
+        {
+          "role": "company",
+          "activityId": "7416949968911101952",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7416949968911101952/"
+        },
+        {
+          "role": "company",
+          "activityId": "7430227568777330689",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7430227568777330689/"
+        }
+      ],
+      "schedule": {
+        "precision": "date",
+        "allDay": true,
+        "start": "2026-06-11",
+        "end": "2026-06-11",
+        "editorialPlacement": "past",
+        "dateLabel": "Thu 11 Jun 2026"
+      }
+    },
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "IEP Talks Live and Networking Dinner",
+      "subtitle": "Spend the afternoon learning. Spend the evening connecting.",
+      "paragraphs": [
+        "The company post said Jon Smith would be in Wales in May for the day event and the evening dinner. That was a plan to attend, not a later confirmation that he did.",
+        "IEP Talks Live is coming to Cardiff on 21 May 2026, sponsored by The BUSY Group, with seminars, speed networking and valuable peer discussion, free for IEP Members.",
+        "Then join the IEP Networking Dinner, where like-minded professionals gather for an evening of thoughtful, future-focused conversation and relationship building.",
+        "If you're passionate about shaping the future of employability, this is one not to miss."
+      ],
+      "links": [
+        {
+          "label": "Book IEP Talks Live",
+          "href": "https://lnkd.in/gTbY5_K7"
+        },
+        {
+          "label": "Book IEP Networking Dinner",
+          "href": "https://lnkd.in/g7dFN9rD"
+        },
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7436900683859165185/"
+        }
+      ],
+      "image": {
+        "src": "/assets/images/events/iepcardiff.webp",
+        "alt": "IEP Talks Live Cardiff 2026"
+      },
+      "icon": "calendar-days",
+      "location": "Museum of Cardiff, The Old Library",
+      "lists": [],
+      "id": "iep-talks-cardiff-2026",
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7436900683859165185",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7436900683859165185/"
+        },
+        {
+          "role": "organiser",
+          "activityId": "7436017819793911808",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7436017819793911808/"
+        }
+      ],
+      "schedule": {
+        "precision": "date",
+        "allDay": true,
+        "start": "2026-05-21",
+        "end": "2026-05-21",
+        "editorialPlacement": "past",
+        "dateLabel": "Thu 21 May 2026"
+      }
+    },
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "IEP Talks Live & Fellows Dinner",
+      "subtitle": "Birmingham",
+      "paragraphs": [
+        "The IEP announced IEP Talks Live and the IEP Fellows Dinner in Birmingham on 23 April 2026. The exact venue was not shown.",
+        "Compass said it would be attending the IEP Fellows dinner."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7418627496314753024/"
+        }
+      ],
+      "image": {
+        "src": "/assets/images/events/ieptalksbirmingham.webp",
+        "alt": "IEP Talks Live and Fellows Dinner Birmingham"
+      },
+      "icon": "calendar-days",
+      "location": "Birmingham",
+      "lists": [],
+      "id": "iep-talks-birmingham-2026",
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7418627496314753024",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7418627496314753024/"
+        },
+        {
+          "role": "organiser",
+          "activityId": "7418623207835975680",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7418623207835975680/"
+        }
+      ],
+      "schedule": {
+        "precision": "date",
+        "allDay": true,
+        "start": "2026-04-23",
+        "end": "2026-04-23",
+        "editorialPlacement": "past",
+        "dateLabel": "Thu 23 Apr 2026"
+      }
+    },
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "IEP Fellows Networking Dinner, Chester",
+      "subtitle": "The first IEP Fellows dinner in the city",
+      "paragraphs": [
+        "The company post says chief executive Jon Smith was speaking at this dinner. It is not a report written after the event.",
+        "The date and time already published on this page are Thursday 17 September 2026, 6:00pm to 10:30pm, at OddFellows, Chester. The IEP post included in the company update names Thursday 17 September and does not print a year.",
+        "The dinner was sponsored by ICONI Software Ltd."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7500927532842774529/"
+        }
+      ],
+      "image": null,
+      "icon": "calendar-days",
+      "location": "OddFellows, Chester",
+      "lists": [],
+      "id": "iep-fellows-chester-2026",
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7500927532842774529",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7500927532842774529/"
+        },
+        {
+          "role": "organiser",
+          "activityId": "7500145390956986368",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7500145390956986368/"
+        }
+      ],
+      "schedule": {
+        "precision": "datetime",
+        "allDay": false,
+        "start": "2026-09-17T18:00",
+        "end": "2026-09-17T22:30",
+        "editorialPlacement": "past",
+        "dateLabel": "Thu 17 Sep 2026, 6:00pm – 10:30pm"
+      }
+    },
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "IEP Manchester Networking Day",
+      "subtitle": "Connect, Contribute & Shape the Future",
+      "paragraphs": [
+        "Spend the day with the IEP at Manchester Hall. IEP Talks Live runs from 1:00pm to 4:30pm, sponsored by Occupational Awards Limited. The IEP Fellows Dinner runs from 6:30pm to 10:30pm, sponsored by CogniSoft Ltd.",
+        "Compass said it was looking forward to attending."
+      ],
+      "links": [
+        {
+          "label": "Register Here",
+          "href": "https://lnkd.in/eHc7GmZ4"
+        },
+        {
+          "label": "Book Your Place",
+          "href": "https://lnkd.in/eah75ZFw"
+        },
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7418631335012986880/"
+        }
+      ],
+      "image": null,
+      "icon": "calendar-days",
+      "location": "Manchester Hall",
+      "lists": [],
+      "id": "iep-manchester-2026",
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7418631335012986880",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7418631335012986880/"
+        },
+        {
+          "role": "organiser",
+          "activityId": "7417173700854321153",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7417173700854321153/"
+        }
+      ],
+      "schedule": {
+        "precision": "datetime",
+        "allDay": false,
+        "start": "2026-03-12T13:00",
+        "end": "2026-03-12T22:30",
+        "editorialPlacement": "past",
+        "dateLabel": "Thu 12 Mar 2026"
+      }
+    },
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "IEP Stockholm",
+      "subtitle": "Learn by day, connect by night",
+      "paragraphs": [
+        "IEP Talks Live Sweden 09:30 - 18:00",
+        "An engaging daytime event featuring expert speakers, sector discussion, refreshments and lunch.",
+        "Tickets: Non-members 950 SEK. Free for IEP members (daytime event only). IEP member organisations receive two free daytime places per organisation.",
+        "IEP Fellows Dinner Sweden 19:00 - 22:00",
+        "An evening event for Fellows and senior professionals to reflect, build relationships and connect in an informal, inspiring setting. Limited places are available and early booking is advised.",
+        "Programme and speaker details coming soon.",
+        "Questions about tickets? Contact amy.lucas@iemployability.org."
+      ],
+      "links": [
+        {
+          "label": "Book IEP Talks Live",
+          "href": "https://lnkd.in/gb3YGH3M"
+        },
+        {
+          "label": "Book Fellows Dinner",
+          "href": "https://lnkd.in/gcAtWWTH"
+        },
+        {
+          "label": "amy.lucas@iemployability.org",
+          "href": "mailto:amy.lucas@iemployability.org"
+        }
+      ],
+      "image": {
+        "src": "/assets/images/events/ieptalkssweden.webp",
+        "alt": "IEP Talks Live Sweden Stockholm 2026"
+      },
+      "icon": "calendar-days",
+      "location": "Sjofartshuset, Skeppsbron 10, Stockholm",
+      "lists": [],
+      "id": "iep-stockholm-2026",
+      "schedule": {
+        "precision": "datetime",
+        "allDay": false,
+        "start": "2026-03-19T09:30",
+        "end": "2026-03-19T22:00",
+        "editorialPlacement": "past",
+        "dateLabel": "Thu 19 Mar 2026"
+      },
+      "sources": []
+    },
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "Venturefest West Midlands 2026",
+      "subtitle": "Innovation, Growth & Collaboration",
+      "paragraphs": [
+        "Join Venturefest West Midlands 2026 to connect with innovators, entrepreneurs and partners shaping the regional growth ecosystem at the Billy Wright Stand, Molineux Stadium."
+      ],
+      "links": [
+        {
+          "label": "Register on Eventbrite",
+          "href": "https://www.eventbrite.co.uk/e/venturefest-west-midlands-2026-tickets-1978881034444?aff=linkedinbusinessstaticimage"
+        }
+      ],
+      "image": {
+        "src": "/assets/images/events/venturefest.webp",
+        "alt": "Venturefest West Midlands 2026"
+      },
+      "icon": "calendar-days",
+      "location": "Billy Wright Stand, Molineux Stadium, Wolverhampton",
+      "lists": [],
+      "id": "venturefest-wm-2026",
+      "schedule": {
+        "precision": "datetime",
+        "allDay": false,
+        "start": "2026-03-10T09:00",
+        "end": "2026-03-10T17:00",
+        "editorialPlacement": "past",
+        "dateLabel": "Tue 10 Mar 2026, 9:00 AM - 5:00 PM"
+      },
+      "sources": []
+    },
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "Connecting Wales – Work, Health and Skills",
+      "subtitle": "Hosted by the Institute of Employability Professionals",
+      "paragraphs": [
+        "New research from Learning and Work Institute, undertaken with Serco, explores practical and evidence-based employability approaches to strengthen outcomes in Wales and close long-standing support gaps.",
+        "The discussion examined what these findings mean for employability stakeholders and how they can support a more inclusive and effective system."
+      ],
+      "links": [
+        {
+          "label": "Register here",
+          "href": "https://lnkd.in/gRTRa_iR"
+        }
+      ],
+      "image": {
+        "src": "/assets/images/events/iepwales.webp",
+        "alt": "Connecting Wales – Work, Health and Skills"
+      },
+      "icon": "calendar-days",
+      "location": "Online (Microsoft Teams)",
+      "lists": [
+        {
+          "heading": "The session focused on improving employment outcomes for:",
+          "items": [
+            "Women",
+            "People from minority ethnic backgrounds",
+            "Disabled people",
+            "Individuals with long-term health conditions"
+          ]
+        }
+      ],
+      "id": "connecting-wales-2026",
+      "schedule": {
+        "precision": "datetime",
+        "allDay": false,
+        "start": "2026-03-04T11:00",
+        "end": "2026-03-04T12:30",
+        "editorialPlacement": "past",
+        "dateLabel": "Wed 4 Mar 2026, 11:00 AM - 12:30 PM"
+      },
+      "sources": []
+    },
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "Annual Apprenticeships Conference 2026",
+      "subtitle": "Millennium Point, Birmingham",
+      "paragraphs": [
+        "A post image states: I am attending Apprenticeships Conference 2026, 24 February 2026, Millennium Point, Birmingham, Jon Smith, managing director of Compass Consult. His note said he was looking forward to catching up with colleagues the following week.",
+        "The date and venue match the date already published on this page. A separate company post about an Apprenticeships and Skills Group conference in Birmingham does not give this date, and it is not treated as the same event."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7430015846195822592/"
+        },
+        {
+          "label": "Jon Smith LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7430015421031821314/"
+        }
+      ],
+      "image": null,
+      "icon": "calendar-days",
+      "location": "Millennium Point, Birmingham",
+      "lists": [],
+      "id": "apprenticeships-conference-2026",
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7430015846195822592",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7430015846195822592/"
+        },
+        {
+          "role": "jon-smith",
+          "activityId": "7430015421031821314",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7430015421031821314/"
+        }
+      ],
+      "schedule": {
+        "precision": "date",
+        "allDay": true,
+        "start": "2026-02-24",
+        "end": "2026-02-24",
+        "editorialPlacement": "past",
+        "dateLabel": "Tue 24 Feb 2026"
+      }
+    },
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "NEET Trends and Youth Labour Market Discussion",
+      "subtitle": "Hosted by the Work Foundation",
+      "paragraphs": [
+        "On 26 February, the Work Foundation and an expert panel reviewed the latest ONS figures on young people not in education, employment or training (NEET), and discussed what this means for young people, local communities, the labour market and Government.",
+        "The UK has had a significant population of young people aged 16–24 who are NEET for over 20 years, but the challenge for policymakers has evolved. The number remains stubbornly close to one million — around one in eight young people aged 16–24 — following a large post-pandemic rise.",
+        "The discussion also considered the Government’s response, including an £820 million youth participation package and work to investigate root causes of youth unemployment.",
+        "Panel: Sharon Thompson FIoL (West Midlands Combined Authority), Susannah Hardyman MBE (Impetus - Backing the best), Shuab Gamote, Chris Smyth (Financial Times), and Ben Harrison (Work Foundation at Lancaster University)."
+      ],
+      "links": [
+        {
+          "label": "View event and sign up",
+          "href": "https://lnkd.in/eiWpb984"
+        }
+      ],
+      "image": {
+        "src": "/assets/images/events/workmatters.webp",
+        "alt": "Work Foundation NEET event"
+      },
+      "icon": "calendar-days",
+      "location": "Online event",
+      "lists": [],
+      "id": "neet-work-foundation-2026",
+      "schedule": {
+        "precision": "date",
+        "allDay": true,
+        "start": "2026-02-26",
+        "end": "2026-02-26",
+        "editorialPlacement": "past",
+        "dateLabel": "Thu 26 Feb 2026"
+      },
+      "sources": []
+    },
+    {
+      "baseline": true,
+      "kind": "event",
+      "title": "Central London Forward Youth Guarantee Market Warming Webinar",
+      "subtitle": "Hosted by Joshua Dearman and Jon Smith CMgr FCMI FIEP FCIPD",
+      "paragraphs": [
+        "Compass said it supported Central London Forward with planning and delivery of the Youth Guarantee Market Warming Webinar. Central London Forward's post says the webinar was hosted by Joshua Dearman and Jon Smith and that 56 participants attended. Compass's post describes about 60 organisations. Those figures are left as each source stated them.",
+        "No exact date was shown on the posts used for this update."
+      ],
+      "links": [
+        {
+          "label": "Watch the full webinar session",
+          "href": "https://lnkd.in/gh5bUQmx"
+        },
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7422660516516532226/"
+        }
+      ],
+      "image": {
+        "src": "/assets/images/events/youthgaruntee.webp",
+        "alt": "Youth Guarantee webinar"
+      },
+      "icon": "calendar-days",
+      "location": "Online webinar",
+      "lists": [
+        {
+          "heading": "During the webinar, the session covered:",
+          "items": [
+            "How the Full Potential programme supports 17-25-year-olds who are NEET",
+            "Upcoming commissioning opportunities for delivery partners",
+            "How organisations can deliver employability, skills and wellbeing support for young people facing complex barriers"
+          ]
+        }
+      ],
+      "id": "clf-youth-guarantee-webinar",
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7422660516516532226",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7422660516516532226/"
+        }
+      ],
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "past",
+        "dateLabel": "Date not stated"
+      }
+    },
+    {
+      "id": "event-aelp-autumn-2026",
+      "baseline": false,
+      "kind": "event",
+      "title": "AELP Autumn Conference 2026",
+      "subtitle": "The Eastside Rooms, Birmingham",
+      "paragraphs": [
+        "Compass said it attended the AELP Autumn Conference 2026 at The Eastside Rooms in Birmingham. The themes it highlighted were apprenticeships, devolution and place-based delivery, young people and employment, and partnership working.",
+        "AELP's conference pages give the date as 5 November 2026 at The Eastside Rooms, 2 Woodcock Street, Birmingham, B7 4BL. Those pages do not print a start or finish time."
+      ],
+      "links": [
+        {
+          "label": "AELP Autumn Conference 2026",
+          "href": "https://aelpautumnconference.org.uk/"
+        },
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7524117620628045826/"
+        }
+      ],
+      "image": null,
+      "icon": "calendar-days",
+      "location": "The Eastside Rooms, 2 Woodcock Street, Birmingham, B7 4BL",
+      "schedule": {
+        "precision": "date",
+        "allDay": true,
+        "start": "2026-11-05",
+        "end": "2026-11-05",
+        "editorialPlacement": "past",
+        "dateLabel": "Thu 5 Nov 2026"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7524117620628045826",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7524117620628045826/"
+        }
+      ],
+      "feedOrder": 20
+    },
+    {
+      "id": "event-supported-housing-week-2026",
+      "baseline": false,
+      "kind": "event",
+      "title": "Supported Housing Week 2026",
+      "subtitle": "National Housing Federation awareness campaign",
+      "paragraphs": [
+        "Compass said it was proud to support Supported Housing Week 2026, and that housing, health and employment need to be treated together. This is a statement of support for the campaign, not a claim that Compass attended a venue.",
+        "The National Housing Federation describes the first Supported Housing Week as running from 19 to 23 October 2026. It does not give a single venue or timetable."
+      ],
+      "links": [
+        {
+          "label": "National Housing Federation",
+          "href": "https://www.housing.org.uk/our-work/supported-housing/supported-housing-week/"
+        },
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7516887682799763457/"
+        }
+      ],
+      "image": null,
+      "icon": "home",
+      "location": null,
+      "schedule": {
+        "precision": "date",
+        "allDay": true,
+        "start": "2026-10-19",
+        "end": "2026-10-23",
+        "editorialPlacement": "past",
+        "dateLabel": "Mon 19 Oct – Fri 23 Oct 2026"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7516887682799763457",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7516887682799763457/"
+        }
+      ],
+      "feedOrder": 21
+    },
+    {
+      "id": "event-full-potential-celebrating-success",
+      "baseline": false,
+      "kind": "event",
+      "title": "Full Potential Celebrating Success Event",
+      "subtitle": "Guildhall, City of London",
+      "paragraphs": [
+        "The company post says Compass helped bring together partners, local authorities, employers, delivery organisations and young people at Guildhall in the City of London to celebrate the first year of the Full Potential Youth Guarantee Trailblazer.",
+        "That post dates the event to 18 May and does not print a year, so this card is not placed on the calendar."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7465536565788766208/"
+        }
+      ],
+      "image": null,
+      "icon": "calendar-days",
+      "location": "Guildhall, City of London",
+      "schedule": {
+        "precision": "day-month",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "past",
+        "dateLabel": "18 May"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7465536565788766208",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7465536565788766208/"
+        }
+      ],
+      "feedOrder": 30,
+      "relativeTimeLabel": "5mo"
+    },
+    {
+      "id": "event-iep-fellows-lecture-london-2026",
+      "baseline": false,
+      "kind": "event",
+      "title": "IEP Fellows Lecture and dinner, London",
+      "subtitle": "Browns Brasserie and Bar, London",
+      "paragraphs": [
+        "The company post said Compass was looking forward to attending the IEP Fellows Lecture and dinner in London on 12 February 2026.",
+        "The IEP post included in that company update gives the dinner as Thursday 12 February 2026, 7:00pm to 11:00pm, in the Judge's Court Private Room at Browns Brasserie and Bar, London, WC2N 4AG, sponsored by Clarion Futures."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7417593889051627520/"
+        },
+        {
+          "label": "IEP post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7417476735589445632/"
+        }
+      ],
+      "image": null,
+      "icon": "calendar-days",
+      "location": "Judge's Court Private Room, Browns Brasserie and Bar, London, WC2N 4AG",
+      "schedule": {
+        "precision": "datetime",
+        "allDay": false,
+        "start": "2026-02-12T19:00",
+        "end": "2026-02-12T23:00",
+        "editorialPlacement": "past",
+        "dateLabel": "Thu 12 Feb 2026, 7:00pm – 11:00pm"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7417593889051627520",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7417593889051627520/"
+        },
+        {
+          "role": "organiser",
+          "activityId": "7417476735589445632",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7417476735589445632/"
+        }
+      ],
+      "feedOrder": 31
+    },
+    {
+      "id": "event-full-potential-best-practice",
+      "baseline": false,
+      "kind": "event",
+      "title": "Full Potential best practice event",
+      "subtitle": "Hosted by the London Borough of Lambeth",
+      "paragraphs": [
+        "Compass said it attended a best practice event for Full Potential, the Youth Guarantee Trailblazer, supporting stakeholders across central London to share practice and help shape year 2.",
+        "Jon's post says colleagues from all 12 Central London Forward boroughs took part, and thanks the London Borough of Lambeth for hosting and the Learning and Work Institute for facilitating.",
+        "No exact date was shown, so this card is not placed on the calendar."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7428090872098902016/"
+        }
+      ],
+      "image": null,
+      "icon": "users",
+      "location": "Hosted by the London Borough of Lambeth",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "past",
+        "dateLabel": "Date not stated"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7428090872098902016",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7428090872098902016/"
+        }
+      ],
+      "feedOrder": 32
+    },
+    {
+      "id": "news-youth-jobs-grant",
+      "baseline": true,
+      "kind": "news",
+      "title": "Youth Jobs Grant: the opportunity is real, the job has to last",
+      "subtitle": null,
+      "paragraphs": [
+        "The Youth Jobs Grant offers employers up to £3,000 for hiring an eligible 18 to 24-year-old who has been on Universal Credit and out of work for six months or more. The scheme is designed to support up to 60,000 job opportunities over three years, and it is open across Great Britain until October 2028.",
+        "Payment is staged, not paid up front: £1,800 after six weeks and £1,200 after 18 weeks, once employment and earnings are verified through HMRC. Roles must be genuine paid work of at least 25 hours a week, last at least four months, pay at least the applicable minimum wage, and not replace an existing worker.",
+        "For Compass Consult, the grant is a useful way to reduce the upfront cost and perceived risk of recruiting young people who have been out of work for longer. It is not a substitute for job quality. Employers, Jobcentres, employability providers, local government and specialist organisations need to use it to build sustained employment, skills and progression, not just job starts."
+      ],
+      "links": [
+        {
+          "label": "Youth Jobs Grant guidance",
+          "href": "https://www.gov.uk/government/publications/youth-jobs-grant"
+        },
+        {
+          "label": "LinkedIn post",
+          "href": "https://www.linkedin.com/posts/compass-consult-employability-and-skills-ltd_youth-jobs-grant-grant-guidance-activity-7512127768487251968-s83R"
+        }
+      ],
+      "image": null,
+      "icon": "badge-pound-sterling",
+      "kicker": "Grant guidance",
+      "location": null,
+      "newsList": "latest",
+      "feedOrder": 6,
+      "relativeTimeLabel": null,
+      "schedule": {
+        "precision": "date",
+        "allDay": true,
+        "start": "2026-10-03",
+        "end": "2026-10-03",
+        "editorialPlacement": "news",
+        "dateLabel": "3 October 2026"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7512127768487251968",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7512127768487251968/"
+        }
+      ]
+    },
+    {
+      "id": "news-1000-youth-workers",
+      "baseline": true,
+      "kind": "news",
+      "title": "1,000 new youth workers, and the integration test that follows",
+      "subtitle": null,
+      "paragraphs": [
+        "The announcement of 1,000 new youth workers across England matters for anyone working in youth employment, employability and skills. The first workers are expected to be in place by spring 2027, with a focus on community support for young people most at risk of becoming NEET.",
+        "Youth employment cannot be addressed through employment services alone. The new workers are expected to sit alongside education, training, health and crime-prevention services, building trusted relationships and connecting young people to sport, arts, mentoring and wider youth provision.",
+        "The recruitment drive sits inside a wider package: a £450 million Youth Matters Fund for facilities and activities, 50 Young Futures Hubs, more than £500 million through the National Youth Strategy, and the £820 million Youth Guarantee for 18 to 24-year-olds. That sits next to expanded employment support, the Jobs Guarantee and employer-led routes into work.",
+        "The practical test is integration. Local partnerships, clear referral and transition pathways, earlier identification of NEET risk, meaningful employer engagement, and better use of local data all matter more than another set of separate initiatives. Youth Matters was informed by research with more than 14,000 young people. The next phase is not only how many youth workers are recruited, but how well the system around them works."
+      ],
+      "links": [
+        {
+          "label": "Government announcement",
+          "href": "https://www.gov.uk/government/news/1000-new-youth-workers-to-help-reduce-the-risk-of-unemployment"
+        }
+      ],
+      "image": null,
+      "icon": "users",
+      "kicker": "Youth services",
+      "location": null,
+      "newsList": "latest",
+      "feedOrder": 9,
+      "relativeTimeLabel": null,
+      "schedule": {
+        "precision": "date",
+        "allDay": true,
+        "start": "2026-09-26",
+        "end": "2026-09-26",
+        "editorialPlacement": "news",
+        "dateLabel": "26 September 2026"
+      },
+      "sources": []
+    },
+    {
+      "id": "news-staying-close-leaving-care",
+      "baseline": false,
+      "kind": "news",
+      "title": "Staying Close and support for care-experienced young people",
+      "subtitle": null,
+      "paragraphs": [
+        "Compass welcomed a development in support for young people leaving care, and said leaving care should not mean leaving support behind. It pointed to enduring relationships, suitable housing and integrated mental health support, and said the test will be implementation through partnerships between local authorities, housing providers, health services, employers and specialist voluntary organisations, alongside education, skills and employment.",
+        "The post included the Department for Education's Staying Close implementation guide for local authorities, November 2026. No exact LinkedIn publication time was shown."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7525877667905306625/"
+        }
+      ],
+      "image": null,
+      "icon": "users",
+      "kicker": null,
+      "location": null,
+      "newsList": "latest",
+      "feedOrder": 1,
+      "relativeTimeLabel": "15h",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "news",
+        "dateLabel": "Source-linked"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7525877667905306625",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7525877667905306625/"
+        }
+      ]
+    },
+    {
+      "id": "news-connect-to-work",
+      "baseline": false,
+      "kind": "news",
+      "title": "Connect to Work: devolution should not mean fragmentation",
+      "subtitle": null,
+      "paragraphs": [
+        "The company post is commentary on an Employment Related Services Association report by Henry Foulkes about provider experiences of commissioning the Connect to Work programme. The company feed does not add a separate paragraph around that commentary.",
+        "It notes £1.18 billion invested in employment support across England and Wales, significant variation in commissioning, and a central message that devolution should not mean fragmentation."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7522935155746037760/"
+        }
+      ],
+      "image": null,
+      "icon": "newspaper",
+      "kicker": null,
+      "location": null,
+      "newsList": "latest",
+      "feedOrder": 2,
+      "relativeTimeLabel": "1w",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "news",
+        "dateLabel": "Source-linked"
+      },
+      "sources": [
+        {
+          "role": "jon-smith",
+          "activityId": "7522935155746037760",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7522935155746037760/"
+        }
+      ]
+    },
+    {
+      "id": "news-jobs-and-careers-service",
+      "baseline": false,
+      "kind": "news",
+      "title": "From Jobcentre Plus to the Jobs and Careers Service",
+      "subtitle": null,
+      "paragraphs": [
+        "The company post points readers to a blog by chief executive Jon Smith on the new DWP Jobs and Careers Service, published by the Institute of Employability Professionals."
+      ],
+      "links": [
+        {
+          "label": "IEP blog",
+          "href": "https://www.myiep.uk/blogs-and-opinion/from-jobcentre-plus-to-jobs-and-careers-a-new-era-for-employment-skills-careers-support/"
+        },
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7520906622580195330/"
+        }
+      ],
+      "image": null,
+      "icon": "newspaper",
+      "kicker": null,
+      "location": null,
+      "newsList": "latest",
+      "feedOrder": 3,
+      "relativeTimeLabel": "2w",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "news",
+        "dateLabel": "Source-linked"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7520906622580195330",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7520906622580195330/"
+        }
+      ]
+    },
+    {
+      "id": "news-lucy-powell-cst-speech",
+      "baseline": false,
+      "kind": "news",
+      "title": "Reflections on the Education Secretary's CST Conference speech",
+      "subtitle": null,
+      "paragraphs": [
+        "The company page introduced reflections by chief executive Jon Smith on Education Secretary Lucy Powell's speech at the Confederation of School Trusts Conference 2026. He welcomed the emphasis on widening opportunities, strengthening vocational education, and building stronger connections between education, employers and local communities."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7518270462842548225/"
+        },
+        {
+          "label": "Jon Smith LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7517251733102780417/"
+        }
+      ],
+      "image": null,
+      "icon": "newspaper",
+      "kicker": null,
+      "location": null,
+      "newsList": "latest",
+      "feedOrder": 4,
+      "relativeTimeLabel": "3w",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "news",
+        "dateLabel": "Source-linked"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7518270462842548225",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7518270462842548225/"
+        },
+        {
+          "role": "jon-smith",
+          "activityId": "7517251733102780417",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7517251733102780417/"
+        }
+      ]
+    },
+    {
+      "id": "news-unemployment-figures",
+      "baseline": false,
+      "kind": "news",
+      "title": "UK unemployment falls, but is the jobs market really improving?",
+      "subtitle": null,
+      "paragraphs": [
+        "The company page introduced commentary by chief executive Jon Smith on the latest unemployment figures. He argues that a falling rate is welcome, but that fewer vacancies, cautious recruitment and the need for sustainable, good work mean the headline figure should not be the only test."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7518269639911469056/"
+        },
+        {
+          "label": "Jon Smith LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7518268586898116609/"
+        }
+      ],
+      "image": null,
+      "icon": "newspaper",
+      "kicker": null,
+      "location": null,
+      "newsList": "latest",
+      "feedOrder": 5,
+      "relativeTimeLabel": "3w",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "news",
+        "dateLabel": "Source-linked"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7518269639911469056",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7518269639911469056/"
+        },
+        {
+          "role": "jon-smith",
+          "activityId": "7518268586898116609",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7518268586898116609/"
+        }
+      ]
+    },
+    {
+      "id": "news-adult-skills-fund-devolution",
+      "baseline": false,
+      "kind": "news",
+      "title": "Adult Skills Fund: from national contracts to local commissioning",
+      "subtitle": null,
+      "paragraphs": [
+        "Compass describes the move away from nationally procured Adult Skills Fund contracts towards locally commissioned provision as a significant moment for the adult skills system. It says local authorities may be better placed to align investment with labour-market intelligence and employer demand, but that devolution will only improve outcomes if it comes with commissioning capacity, provider engagement and strategic coordination."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7511081059699306498/"
+        }
+      ],
+      "image": null,
+      "icon": "newspaper",
+      "kicker": null,
+      "location": null,
+      "newsList": "latest",
+      "feedOrder": 7,
+      "relativeTimeLabel": "1mo",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "news",
+        "dateLabel": "Source-linked"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7511081059699306498",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7511081059699306498/"
+        }
+      ]
+    },
+    {
+      "id": "news-disabled-young-people-paid-work",
+      "baseline": false,
+      "kind": "news",
+      "title": "Paid employment opportunities for young people with disabilities and health conditions",
+      "subtitle": null,
+      "paragraphs": [
+        "Compass welcomes a focus on genuine, paid employment opportunities for young people with disabilities and health conditions, rather than relying only on traditional employability interventions. It argues that preparation, reasonable adjustments, specialist support, employer engagement and in-work support will decide whether a short opportunity becomes a pathway into lasting work."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7509980774432026624/"
+        }
+      ],
+      "image": null,
+      "icon": "newspaper",
+      "kicker": null,
+      "location": null,
+      "newsList": "latest",
+      "feedOrder": 8,
+      "relativeTimeLabel": "1mo",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "news",
+        "dateLabel": "Source-linked"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7509980774432026624",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7509980774432026624/"
+        }
+      ]
+    },
+    {
+      "id": "news-housing-associations-blog",
+      "baseline": false,
+      "kind": "news",
+      "title": "Housing associations and employability: a blog by Jon Smith",
+      "subtitle": null,
+      "paragraphs": [
+        "Compass pointed readers to a blog by chief executive Jon Smith, published by the Institute of Employability Professionals, on the role housing associations can play in employability, skills and social mobility."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7498499439972515841/"
+        }
+      ],
+      "image": null,
+      "icon": "newspaper",
+      "kicker": null,
+      "location": null,
+      "newsList": "archive",
+      "feedOrder": 101,
+      "relativeTimeLabel": "2mo",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "news",
+        "dateLabel": "Source-linked"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7498499439972515841",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7498499439972515841/"
+        }
+      ]
+    },
+    {
+      "id": "news-volunteering-blog",
+      "baseline": false,
+      "kind": "news",
+      "title": "Any volunteers? The rewards and considerations of volunteering",
+      "subtitle": null,
+      "paragraphs": [
+        "Compass pointed readers to a blog published by the Institute of Employability Professionals, Any volunteers? The rewards and considerations of volunteering."
+      ],
+      "links": [
+        {
+          "label": "IEP blog",
+          "href": "https://www.myiep.uk/blogs-and-opinion/any-volunteers-the-rewards-and-considerations-of-volunteering/"
+        },
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7493630595449659392/"
+        }
+      ],
+      "image": null,
+      "icon": "newspaper",
+      "kicker": null,
+      "location": null,
+      "newsList": "archive",
+      "feedOrder": 102,
+      "relativeTimeLabel": "2mo",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "news",
+        "dateLabel": "Source-linked"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7493630595449659392",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7493630595449659392/"
+        }
+      ]
+    },
+    {
+      "id": "news-full-potential-evaluation",
+      "baseline": false,
+      "kind": "news",
+      "title": "Full Potential Youth Guarantee Trailblazer evaluation",
+      "subtitle": null,
+      "paragraphs": [
+        "Compass welcomed the Learning and Work Institute evaluation of the first year of Full Potential, Central London Forward's Youth Guarantee Trailblazer, and said it had been a privilege to work with partners across central London supporting care-experienced young people."
+      ],
+      "links": [
+        {
+          "label": "Learning and Work Institute evaluation",
+          "href": "https://learningandwork.org.uk/evaluation-of-central-london-forwards-youth-guarantee-trailblazer/"
+        },
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7473065018347995136/"
+        }
+      ],
+      "image": null,
+      "icon": "newspaper",
+      "kicker": null,
+      "location": null,
+      "newsList": "archive",
+      "feedOrder": 103,
+      "relativeTimeLabel": "4mo",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "news",
+        "dateLabel": "Source-linked"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7473065018347995136",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7473065018347995136/"
+        }
+      ]
+    },
+    {
+      "id": "news-broken-system-blog",
+      "baseline": false,
+      "kind": "news",
+      "title": "The broken system failing young people, and how we fix it",
+      "subtitle": null,
+      "paragraphs": [
+        "Compass shared a blog by chief executive Jon Smith, published by the Institute of Employability Professionals, on how a fragmented system can fail young people and how that could be improved. The company post said the blog was published that day, but no exact LinkedIn publication time was shown."
+      ],
+      "links": [
+        {
+          "label": "IEP blog",
+          "href": "https://www.myiep.uk/blogs-and-opinion/the-broken-system-failing-young-people-and-how-we-fix-it/"
+        },
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7470237798210633729/"
+        }
+      ],
+      "image": null,
+      "icon": "newspaper",
+      "kicker": null,
+      "location": null,
+      "newsList": "archive",
+      "feedOrder": 104,
+      "relativeTimeLabel": "5mo",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "news",
+        "dateLabel": "Source-linked"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7470237798210633729",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7470237798210633729/"
+        }
+      ]
+    },
+    {
+      "id": "news-iep-capability-partner",
+      "baseline": false,
+      "kind": "news",
+      "title": "Compass joins the IEP as a Capability Partner",
+      "subtitle": null,
+      "paragraphs": [
+        "Compass announced that it has joined the Institute of Employability Professionals as a Capability Partner."
+      ],
+      "links": [
+        {
+          "label": "IEP article",
+          "href": "https://www.myiep.uk/from-the-iep/compass-consult-joins-the-institute-of-employability-professionals-as-a-capability-partner/"
+        },
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7465523755650490369/"
+        }
+      ],
+      "image": null,
+      "icon": "newspaper",
+      "kicker": null,
+      "location": null,
+      "newsList": "archive",
+      "feedOrder": 105,
+      "relativeTimeLabel": "5mo",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "news",
+        "dateLabel": "Source-linked"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7465523755650490369",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7465523755650490369/"
+        }
+      ]
+    },
+    {
+      "id": "news-iep-fellow-finalist",
+      "baseline": false,
+      "kind": "news",
+      "title": "Jon Smith shortlisted for IEP Fellow of the Year 2026",
+      "subtitle": null,
+      "paragraphs": [
+        "Compass congratulated chief executive Jon Smith on being a finalist for IEP Fellow of the Year 2026. The post does not say he won. It said the company was looking forward to the IEP Summit in London on Thursday 11 June."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7465521766270914560/"
+        }
+      ],
+      "image": null,
+      "icon": "newspaper",
+      "kicker": null,
+      "location": null,
+      "newsList": "archive",
+      "feedOrder": 106,
+      "relativeTimeLabel": "5mo",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "news",
+        "dateLabel": "Source-linked"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7465521766270914560",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7465521766270914560/"
+        }
+      ]
+    },
+    {
+      "id": "news-thought-leadership-blog",
+      "baseline": false,
+      "kind": "news",
+      "title": "Thought leadership and emotional intelligence: a blog by Jon Smith",
+      "subtitle": null,
+      "paragraphs": [
+        "Compass pointed readers to a blog by chief executive Jon Smith, published by the Institute of Employability Professionals, on thought leadership and emotional intelligence."
+      ],
+      "links": [
+        {
+          "label": "IEP blog",
+          "href": "https://www.myiep.uk/blogs-and-opinion/thought-leadership-and-emotional-intelligence-why-the-best-leaders-need-both/"
+        },
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7457749113502085120/"
+        }
+      ],
+      "image": null,
+      "icon": "newspaper",
+      "kicker": null,
+      "location": null,
+      "newsList": "archive",
+      "feedOrder": 107,
+      "relativeTimeLabel": "6mo",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "news",
+        "dateLabel": "Source-linked"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7457749113502085120",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7457749113502085120/"
+        }
+      ]
+    },
+    {
+      "id": "news-disability-employment-gap-blog",
+      "baseline": false,
+      "kind": "news",
+      "title": "The disability employment gap remains stubbornly wide",
+      "subtitle": null,
+      "paragraphs": [
+        "Compass said its managing director, Jon Smith, had published a blog exploring the disability employment gap and inviting a wider conversation. No separate public article URL was captured with this post."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7432102063691575296/"
+        }
+      ],
+      "image": null,
+      "icon": "newspaper",
+      "kicker": null,
+      "location": null,
+      "newsList": "archive",
+      "feedOrder": 108,
+      "relativeTimeLabel": "8mo",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "news",
+        "dateLabel": "Source-linked"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7432102063691575296",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7432102063691575296/"
+        }
+      ]
+    },
+    {
+      "id": "news-youth-neet-blog",
+      "baseline": false,
+      "kind": "news",
+      "title": "Young people not in education, employment or training",
+      "subtitle": null,
+      "paragraphs": [
+        "Compass pointed to a blog by Jon Smith on the number of young people who are not in education, employment or training, posted in connection with National Apprenticeship Week. No exact publication date is taken from that week reference."
+      ],
+      "links": [
+        {
+          "label": "Company LinkedIn post",
+          "href": "https://www.linkedin.com/feed/update/urn:li:activity:7426638799377596416/"
+        }
+      ],
+      "image": null,
+      "icon": "newspaper",
+      "kicker": null,
+      "location": null,
+      "newsList": "archive",
+      "feedOrder": 109,
+      "relativeTimeLabel": "9mo",
+      "schedule": {
+        "precision": "unknown",
+        "allDay": false,
+        "start": null,
+        "end": null,
+        "editorialPlacement": "news",
+        "dateLabel": "Source-linked"
+      },
+      "sources": [
+        {
+          "role": "company",
+          "activityId": "7426638799377596416",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7426638799377596416/"
+        }
+      ]
+    }
+  ]
+}

@@ -16,6 +16,8 @@ const ASSETS = [
   'js/resource-library-model.mjs',
   'js/resources.js',
   'js/resource-extras.js',
+  'js/news-events-status.mjs',
+  'js/events.mjs',
 ];
 
 const REF_PATTERNS = [
@@ -55,6 +57,10 @@ const REF_PATTERNS = [
     key: 'resourceExtrasJs',
     regex: /\/js\/resource-extras(?:\.[a-f0-9]{8})?\.js/g,
   },
+  {
+    key: 'eventsMjs',
+    regex: /\/js\/events(?:\.[a-f0-9]{8})?\.mjs/g,
+  },
 ];
 
 const KEY_BY_ASSET = {
@@ -68,6 +74,8 @@ const KEY_BY_ASSET = {
   'js/resources.js': 'resourcesJs',
   'js/resource-extras.js': 'resourceExtrasJs',
   'js/resource-library-model.mjs': 'resourceModel',
+  'js/news-events-status.mjs': 'newsEventsStatus',
+  'js/events.mjs': 'eventsMjs',
 };
 
 async function getVersionedContent(relPath, sourceContent) {
@@ -166,6 +174,12 @@ async function main() {
       content = Buffer.from(content.toString('utf8').replace(
         './resource-library-model.mjs',
         `.${manifest.resourceModel.slice(manifest.resourceModel.lastIndexOf('/'))}`
+      ));
+    }
+    if (relPath === 'js/events.mjs' && manifest.newsEventsStatus) {
+      content = Buffer.from(content.toString('utf8').replace(
+        './news-events-status.mjs',
+        `.${manifest.newsEventsStatus.slice(manifest.newsEventsStatus.lastIndexOf('/'))}`
       ));
     }
     const hash = createHash('sha256').update(content).digest('hex').slice(0, 8);

@@ -7,7 +7,7 @@
   - Links to external coverage and event details
 
   All interactive behaviour (menu toggling, animations, accessibility
-  enhancements, etc.) is handled by /js/main.93deb2f0.js which is loaded at
+  enhancements, etc.) is handled by /js/main.70cbe9c0.js which is loaded at
   the bottom of the page.
 -->
 <!DOCTYPE html>
@@ -15,7 +15,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events - Compass Consult</title>
+    <title>Latest news and events - Compass Consult</title>
     <meta name="description" content="Compass Consult supports private, public and third-sector organisations to successfully navigate the UK employability and skills landscape.">
     <meta name="theme-color" content="#ffffff">
     <!-- SEO and Social Sharing -->
@@ -518,6 +518,8 @@
                 display: none;
             }
         }
+        .events-disclosure > summary { list-style: none; cursor: pointer; }
+        .events-disclosure > summary::-webkit-details-marker { display: none; }
         </style>
     <!-- Site-wide custom stylesheet (animations, layout fixes, components) -->
     <link rel="stylesheet" href="/css/main.8e20beda.css">
@@ -560,7 +562,7 @@
          Mobile Header — hidden on screens ≥ 1024 px (lg breakpoint)
          Shows the logo and a hamburger button that toggles #mobile-menu.
          The #mobile-menu div is controlled by initializeMobileMenu() in
-         /js/main.93deb2f0.js.
+         /js/main.70cbe9c0.js.
          ================================================================ -->
     <nav class="lg:hidden fixed w-full z-50 glass-nav border-b border-gray-100">
         <div class="px-4 flex justify-between items-center h-20">
@@ -597,8 +599,8 @@
             <div class="absolute inset-0 bg-hero-gradient opacity-90"></div>
             <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none dots-bg"></div>
             <div class="relative z-10 px-4 sm:px-6 lg:px-8 pt-12 lg:pt-0" data-aos="fade-up">
-                <h1 class="text-4xl font-bold text-white">Events</h1>
-                <p class="mt-4 text-white/85">Conferences, networking, and key sector dates.</p>
+                <h1 class="text-4xl font-bold text-white">Latest news and events</h1>
+                <p class="mt-4 text-white/85">Conferences, news and sector dates. Upcoming and past events follow the Europe/London clock.</p>
                 <div class="events-toolbar">
                     <button id="eventSortToggle" type="button" class="px-4 py-2 rounded-full text-sm font-medium bg-compass-purple text-white transition-all shadow-sm whitespace-nowrap inline-flex items-center gap-2">
                         <span id="eventSortLabel">Order: Newest to Oldest</span>
@@ -618,590 +620,306 @@
                 <div id="events-view-root" data-events-view="grid" class="space-y-12">
                 <div id="events-standard-view" class="space-y-12">
 
-                <!-- Upcoming Events -->
-                <div>
-                    <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center" data-aos="fade-up">Upcoming Events</h2>
-                    <div id="upcoming-events-list" class="events-collection space-y-12">
-<article data-event-date="2026-10-08T09:00:00" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100" data-aos="fade-up" data-aos-delay="0">
-                            <div class="event-card-image" style="background-color: #f3f0ff; display: flex; align-items: center; justify-content: center;">
-                                <i data-lucide="calendar-days" class="w-12 h-12 text-compass-purple"></i>
-                            </div>
-                            <div class="event-card-summary">
-                                <h2>IEP Basecamp 2026</h2>
-                                <h3>Practical learning, networking and the IEP Learning Awards</h3>
-                                <div class="event-card-details">
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Thu 8 Oct 2026, 9:00am – 5:00pm</span>
-                                    </div>
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Trent Conference Centre, Nottingham</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-card-hidden text-gray-700 space-y-4">
-                                <p>Jon Smith will be at IEP Basecamp 2026, a full day for IEP members from Capability Partner organisations. The programme has four seminar sessions, time to connect with colleagues, and the IEP Learning Awards in the afternoon.</p>
-                                <p>Sessions cover AI and the future of employment support, participant-centred practice, employer engagement, and health and wellbeing, with coffee, lunch and end-of-day celebration drinks.</p>
-                                <p>Headline sponsor CCC Powered by Asuria UK, bringing together Asuria UK, PeoplePlus UK, Standguide Ltd, The Better Health Generation, Earlybird and Transform and Achieve, is making Basecamp free to attend for eligible IEP members. Other sponsors are The Digital College, Elevate Employment Services, CogniSoft Ltd, Serco and NCFE.</p>
-                                <p>Basecamp is invitation-only. To find out about becoming a Capability Partner, contact your Partnership Manager or email angela.ramage@iemployability.org.</p>
-                                <div class="flex flex-wrap items-center gap-4 mt-4">
-                                    <a href="https://www.linkedin.com/posts/compassconsultcces_iep-basecamp-2026-is-next-week-were-activity-7511874669646614528-PVv6" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                </div>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-
-<article data-event-date="2026-12-07T09:00:00" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100" data-aos="fade-up" data-aos-delay="0">
-                            <div class="event-card-image">
-                                <img src="/assets/images/events/baseliverpool.webp" alt="16th European Supported Employment Conference Liverpool 2026" />
-                            </div>
-                            <div class="event-card-summary">
-                                <h2>16th European Supported Employment Conference</h2>
-                                <h3>The Art of the Possible: Connecting the Dots</h3>
-                                <div class="event-card-details">
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Mon 7 Dec - Tue 8 Dec 2026</span>
-                                    </div>
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>ACC, Liverpool</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-card-hidden text-gray-700 space-y-4">
-                                <p>BASE, in partnership with the Association for Supported Employment Europe (ASEE), is hosting the 16th European Supported Employment Conference in Liverpool.</p>
-                                <p>This year&#39;s conference combines the strengths of BASE&#39;s annual event with best practice, innovation and research from across Europe and beyond.</p>
-                                <p>With an expected 750 delegates per day, this two-day event offers major opportunities to learn, connect, and help shape the future of supported employment and inclusive recruitment.</p>
-                                <p>Delegate tickets, including early-bird offers, and sponsorship packages are launching this month.</p>
-                                <div class="flex flex-wrap items-center gap-4 mt-4">
-                                    <a href="https://lnkd.in/egjuE2hy" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Event updates and tickets <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                </div>
-                                <div class="mt-4 pt-4 border-t border-gray-200">
-                                    <span class="text-xs text-gray-400">#SupportedEmploymentEurope #InclusiveRecruitment #LiverpoolEvents</span>
-                                </div>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-
-<article class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100">
-                            <div class="event-card-image">
-                                <img src="/assets/images/events/sercoersaawards.webp" alt="ERSA Annual Conference and Employability Awards" />
-                            </div>
-                            <div class="event-card-summary">
-                                <h2>ERSA Annual Conference</h2>
-                                <h3>Supported by headline sponsor Serco</h3>
-                                <div class="event-card-details">
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="megaphone" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Date to be announced. Save the date!</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-card-hidden text-gray-700 space-y-4">
-                                <p>Save the date for the Employment Related Services Association (ERSA) annual conference.</p>
-                                <p>Building on the successful 2025 conference, ERSA will bring more discussion, debate, solutions, good practice, innovation, networking and information sharing.</p>
-                                <p>That evening, ERSA will showcase the sector at The Employability Awards, with new categories to be announced.</p>
-                                <p>Organisations interested in becoming the awards headline sponsor are encouraged to get in touch with ERSA.</p>
-                                <div class="mt-4 pt-4 border-t border-gray-200">
-                                    <span class="text-xs text-gray-400">#work #skills #engagement #GetBritainWorking #PathwaysToWork</span>
-                                </div>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-                        
-                    </div>
-                </div>
-
-                <!-- Past Events -->
-                <div id="past-events-section" class="pt-12 border-t border-gray-100">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-4 text-center" data-aos="fade-up">Past Events</h2>
-                    <div class="past-events-toggle-wrap">
-                        <button type="button" id="pastEventsToggle" class="past-events-toggle" aria-expanded="false" aria-controls="past-events-list">
-                            <span class="past-events-toggle-label">Show past events</span>
-                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                    <div id="past-events-list" class="events-collection space-y-8">
-<article data-event-date="2026-07-16T09:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity" data-aos="fade-up" data-aos-delay="100">
-                            <div class="event-card-image">
-                                <img src="/assets/images/events/connectionsforprosperity.webp" alt="Centre for the New Midlands CFP26 conference at Edgbaston Stadium" />
-                            </div>
-                            <div class="event-card-summary">
-                                <h2>CFP26: Centre for the New Midlands Annual Conference</h2>
-                                <h3>The 4th Annual Conference</h3>
-                                <div class="event-card-details">
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Thu 16 Jul 2026</span>
-                                    </div>
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Edgbaston Stadium</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-card-hidden text-gray-700 space-y-4">
-                                <p>CFP26 will bring together around 250 of the region&#39;s key stakeholders to explore major questions shaping the Midlands.</p>
-                                <p>Primary research areas include Housing and Communities, Digital environment, Employability and Skills, and Infrastructure.</p>
-                                <p>As with other Centre for the New Midlands major events, feedback gathered now will help inform the conference steering group and shape the day&#39;s content.</p>
-                                <div class="flex flex-wrap items-center gap-4 mt-4">
-                                    <a href="https://lnkd.in/ecg9ryqj" target="_blank" rel="noopener noreferrer" class="text-cyan-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Share your thoughts <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                </div>
-                                <div class="mt-4 pt-4 border-t border-gray-200">
-                                    <span class="text-xs text-gray-400">#CFP26 #newmidlands #policy #devolution #conference #network #birmingham #wolverhampton #coventry #ideas #housing #skills #infrastructure #digital</span>
-                                </div>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-
-<article data-event-date="2026-07-02T00:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity" data-aos="fade-up" data-aos-delay="200">
-                            <div class="event-card-image">
-                                <img src="/assets/images/events/escon.webp" alt="Employment and Skills Convention 2026" />
-                            </div>
-                            <div class="event-card-summary">
-                                <h2>The Employment and Skills Convention is back!</h2>
-                                <h3>Supporting Learning and Work Institute</h3>
-                                <div class="event-card-details">
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Thu 2 Jul 2026</span>
-                                    </div>
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="globe" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Online</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-card-hidden text-gray-700 space-y-4">
-                                <p>We&#39;re pleased to be supporting Learning and Work Institute on this event, exploring how to grow opportunity and unlock potential in a changing workforce.</p>
-                                <p>This major annual event for the employment and skills sectors brings together delegates from across central and local government, employers, providers, and third sector organisations to tackle key issues in policy and practice.</p>
-                                <p><strong>📆 2 July<br>🕑 All day</strong></p>
-                                <div class="flex flex-wrap items-center gap-4 mt-4">
-                                    <a href="https://ow.ly/5gAi50YlT42" target="_blank" rel="noopener noreferrer" class="text-indigo-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Don&#39;t miss out! Register now <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                    <a href="https://www.linkedin.com/feed/update/urn:li:activity:7432439722246901760/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 text-sm font-bold hover:underline inline-flex items-center gap-1">View LinkedIn Post <i data-lucide="external-link" class="w-3 h-3"></i></a>
-                                </div>
-                                <div class="mt-4 pt-4 border-t border-gray-200">
-                                    <span class="text-xs text-gray-400">#EmpSkills26 #employment #skills #learning #growth #jobs #goodwork</span>
-                                </div>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-
-<article data-event-date="2026-06-25T09:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity" data-aos="fade-up" data-aos-delay="250">
-                            <div class="event-card-image">
-                                <img src="/assets/images/events/chamberofcommerce.webp" alt="British Chambers of Commerce Global Annual Conference 2026" />
-                            </div>
-                            <div class="event-card-summary">
-                                <h2>British Chambers of Commerce Global Annual Conference 2026</h2>
-                                <h3>British Chambers of Commerce flagship gathering hosted by Sophy Ridge</h3>
-                                <div class="event-card-details">
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Thu 25 Jun 2026</span>
-                                    </div>
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>QEII Centre, London</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-card-hidden text-gray-700 space-y-4">
-                                <p>British Chambers of Commerce has officially launched its Global Annual Conference 2026, taking place at the iconic QEII Centre in London and hosted by Sky News presenter Sophy Ridge.</p>
-                                <p>Built around the theme <strong>Delivering Growth</strong>, the conference will bring together business leaders, policymakers and innovators from across the UK and around the world to explore how opportunity can be unlocked, the economy strengthened and businesses supported to thrive.</p>
-                                <p>Confirmed speakers already include Rt Hon. Ed Davey, Leader of the Liberal Democrats; Zack Polanski AM, Green Party Leader; and Rt Hon. Mel Stride, Shadow Chancellor of the Exchequer. A Senior Cabinet Minister and a Senior Representative from Reform UK will also be announced soon.</p>
-                                <p>As one of the most influential events in the business calendar, the day is designed to spark vital conversations, share fresh insight and create meaningful opportunities to connect and collaborate.</p>
-                                <p><strong>Event partners:</strong></p>
-                                <ul class="list-disc list-inside">
-                                    <li>Headline Partner: NatWest</li>
-                                    <li>Corporate Partners: Intuit and Heathrow</li>
-                                    <li>Supporting Partners: DP World and Trainline Business</li>
-                                </ul>
-                                <div class="flex flex-wrap items-center gap-4 mt-4">
-                                    <a href="https://ow.ly/q8KV50YFALc" target="_blank" rel="noopener noreferrer" class="text-compass-purple text-sm font-bold hover:underline inline-flex items-center gap-1">Learn more and secure your place <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                </div>
-                                <div class="mt-4 pt-4 border-t border-gray-200">
-                                    <span class="text-xs text-gray-400">#WhereBusinessBelongs #UKBusiness #InnovationLeaders #PolicyMakers #BusinessGrowth</span>
-                                </div>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-
-<article data-event-date="2026-06-11T09:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity" data-aos="fade-up" data-aos-delay="0">
-                            <div class="event-card-image">
-                                <img src="/assets/images/events/iepLondon.webp" alt="The IEP Summit 2026 at 116 Pall Mall, London" />
-                            </div>
-                            <div class="event-card-summary">
-                                <h2>The IEP Summit 2026</h2>
-                                <h3>The employability sector&#39;s flagship gathering returns</h3>
-                                <div class="event-card-details">
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Thu 11 Jun 2026</span>
-                                    </div>
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>116 Pall Mall, London</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-card-hidden text-gray-700 space-y-4">
-                                <p>The Institute of Employability Professionals&#39; flagship Summit will bring together senior leaders from across the sector to discuss the biggest challenges and opportunities shaping employability today.</p>
-                                <p>Taking place at the historic 116 Pall Mall in London, the Summit creates space for thought-provoking keynote sessions, sector discussion and meaningful networking.</p>
-                                <p><strong>Delegates will connect with leaders from across:</strong></p>
-                                <ul class="list-disc list-inside">
-                                    <li>Local authorities</li>
-                                    <li>Prime providers and supply chains</li>
-                                    <li>International employability organisations</li>
-                                    <li>Skills, education, health and housing sectors</li>
-                                </ul>
-                                <p><strong>A huge thank you to the organisations supporting the Summit this year:</strong></p>
-                                <ul class="list-disc list-inside">
-                                    <li>Headline Sponsor: City &amp; Guilds</li>
-                                    <li>Lunch sponsored by The Digital College</li>
-                                    <li>Drinks reception sponsored by Beam</li>
-                                    <li>Breakfast, Networking Break &amp; Notebooks sponsored by ICONI Software</li>
-                                    <li>Lanyards sponsored by CogniSoft Ltd</li>
-                                </ul>
-                                <p><strong>And for the IEP Summit Networking Dinner:</strong></p>
-                                <ul class="list-disc list-inside">
-                                    <li>Headline Dinner Sponsor: Get Set UK</li>
-                                    <li>Drinks Reception Sponsor: Elevate Employment Services</li>
-                                    <li>Fellow of the Year Award Sponsor: Fedcap UK</li>
-                                </ul>
-                                <p>Secure your place and join colleagues from across the sector for a day of insight, debate and collaboration. Take advantage of tiered pricing and book early to secure the best value tickets.</p>
-                                <div class="flex flex-wrap items-center gap-4 mt-4">
-                                    <a href="https://lnkd.in/gffcb9jE" target="_blank" rel="noopener noreferrer" class="text-violet-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Secure your place <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                </div>
-                                <div class="mt-4 pt-4 border-t border-gray-200">
-                                    <span class="text-xs text-gray-400">#IEPSummit #EmployabilitySector #SkillsLeadership #IEP #IEPSummit2026</span>
-                                </div>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-
-<article data-event-date="2026-05-21T13:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity" data-aos="fade-up" data-aos-delay="0">
-                            <div class="event-card-image">
-                                <img src="/assets/images/events/iepcardiff.webp" alt="IEP Talks Live Cardiff 2026" />
-                            </div>
-                            <div class="event-card-summary">
-                                <h2>IEP Talks Live and Networking Dinner</h2>
-                                <h3>Spend the afternoon learning. Spend the evening connecting.</h3>
-                                <div class="event-card-details">
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Thu 21 May 2026</span>
-                                    </div>
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Museum of Cardiff, The Old Library</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-card-hidden text-gray-700 space-y-4">
-                                <p>IEP Talks Live is coming to Cardiff on 21 May 2026, sponsored by The BUSY Group, with seminars, speed networking and valuable peer discussion, free for IEP Members.</p>
-                                <p>Then join the IEP Networking Dinner, where like-minded professionals gather for an evening of thoughtful, future-focused conversation and relationship building.</p>
-                                <p>If you&#39;re passionate about shaping the future of employability, this is one not to miss.</p>
-                                <div class="flex flex-wrap items-center gap-4 mt-4">
-                                    <a href="https://lnkd.in/gTbY5_K7" target="_blank" rel="noopener noreferrer" class="text-violet-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Book IEP Talks Live <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                    <a href="https://lnkd.in/g7dFN9rD" target="_blank" rel="noopener noreferrer" class="text-violet-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Book IEP Networking Dinner <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                </div>
-                                <div class="mt-4 pt-4 border-t border-gray-200">
-                                    <span class="text-xs text-gray-400">#IEPTalksLive #IEPFellows #EmployabilitySector #ProfessionalDevelopment #CardiffEvents #SkillsLeadership</span>
-                                </div>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-
-<article data-event-date="2026-04-23T00:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity" data-aos="fade-up" data-aos-delay="100">
-                            <div class="event-card-image">
-                                <img src="/assets/images/events/ieptalksbirmingham.webp" alt="IEP Talks Live and Fellows Dinner Birmingham" />
-                            </div>
-                            <div class="event-card-summary">
-                                <h2>IEP Talks Live & Fellows Dinner</h2>
-                                <h3>Birmingham</h3>
-                                <div class="event-card-details">
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Thu 23 Apr 2026</span>
-                                    </div>
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Birmingham</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-card-hidden text-gray-700 space-y-4">
-                                <p>The popular IEP networking events are coming to Birmingham. Further details to be announced soon.</p>
-                                <p>Save the date for another great opportunity to connect with employability professionals from across the region.</p>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-
-
-                        <article data-event-date="2026-09-17T18:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity" data-aos="fade-up" data-aos-delay="0">
-                            <div class="event-card-image" style="height: 220px; background-color: #f3f0ff; display: flex; align-items: center; justify-content: center;">
-                                <i data-lucide="messages-square" class="w-12 h-12 text-compass-purple"></i>
-                            </div>
-                            <div class="event-card-summary">
-                                <h2 style="font-size: 1.25rem;">IEP Fellows Networking Dinner, Chester</h2>
-                                <h3 style="font-size: 0.9rem;">The first IEP Fellows dinner in the city</h3>
-                                <div class="event-card-details">
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Thu 17 Sep 2026, 6:00pm – 10:30pm</span>
-                                    </div>
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>OddFellows, Chester</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-card-hidden text-gray-700 space-y-4">
-                                <p>Jon Smith joined Fellows, aspiring Fellows and senior leaders for the first IEP Fellows Networking Dinner in Chester. The evening was a chance to catch up, celebrate the profession and talk through the changes across employability, skills and employment support, including the current devolution agenda.</p>
-                                <p>The dinner was sponsored by ICONI Software Ltd.</p>
-                                <div class="flex flex-wrap items-center gap-4 mt-4">
-                                    <a href="https://www.linkedin.com/posts/compassconsultcces_iep-employability-networking-activity-7497739831121276928-gOBA" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                </div>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-
-                        <article data-event-date="2026-03-12T00:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity" data-aos="fade-up" data-aos-delay="200">
-                            <div class="event-card-image" style="height: 220px; background-color: #dbeafe; display: flex; align-items: center; justify-content: center;">
-                                <i data-lucide="calendar" class="w-12 h-12 text-blue-600"></i>
-                            </div>
-                            <div class="event-card-summary">
-                                <h2 style="font-size: 1.25rem;">IEP Manchester Networking Day</h2>
-                                <h3 style="font-size: 0.9rem;">Connect, Contribute & Shape the Future</h3>
-                                <div class="event-card-details">
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Thu 12 Mar 2026</span>
-                                    </div>
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Manchester Hall</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-card-hidden text-gray-700 space-y-4">
-                                <p>Spend the day with the IEP connecting with peers, exchanging ideas and exploring what's next for the employability profession, all at the stunning Manchester Hall.</p>
-                                <div class="grid md:grid-cols-2 gap-4 mt-4">
-                                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                                        <h4 class="font-bold text-gray-900 mb-1">🎤 IEP Talks Live</h4>
-                                        <p class="text-xs text-gray-500 mb-2">Sponsored by Occupational Awards Limited</p>
-                                        <p class="text-sm font-semibold mb-2">🕐 1:00 PM – 4:30 PM</p>
-                                        <p class="text-sm mb-4">Insightful speakers, engaging discussion and valuable networking in an interactive afternoon session.</p>
-                                        <a href="https://lnkd.in/eHc7GmZ4" target="_blank" rel="noopener noreferrer" class="text-blue-600 text-sm font-bold hover:underline flex items-center gap-1">Register Here <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                    </div>
-                                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                                        <h4 class="font-bold text-gray-900 mb-1">🍽️ IEP Fellows Dinner</h4>
-                                        <p class="text-xs text-gray-500 mb-2">Sponsored by CogniSoft Ltd</p>
-                                        <p class="text-sm font-semibold mb-2">🕡 6:30 PM – 10:30 PM</p>
-                                        <p class="text-sm mb-4">An exclusive evening for Fellows, senior leaders and sector experts to continue conversations in a relaxed setting.</p>
-                                        <a href="https://lnkd.in/eah75ZFw" target="_blank" rel="noopener noreferrer" class="text-blue-600 text-sm font-bold hover:underline flex items-center gap-1">Book Your Place <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                    </div>
-                                </div>
-                                <div class="mt-4 pt-4 border-t border-gray-200">
-                                    <span class="text-xs text-gray-400">#IEP #EmployabilityProfessionals #Leadership #Networking</span>
-                                </div>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-
-
-
-
-                        <article data-event-date="2026-03-19T09:30:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity" data-aos="fade-up" data-aos-delay="0">
-                            <div class="event-card-image" style="height: 220px;">
-                                <img src="/assets/images/events/ieptalkssweden.webp" alt="IEP Talks Live Sweden Stockholm 2026" />
-                            </div>
-                            <div class="event-card-summary">
-                                <h2 style="font-size: 1.25rem;">IEP Stockholm</h2>
-                                <h3 style="font-size: 0.9rem;">Learn by day, connect by night</h3>
-                                <div class="event-card-details">
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Thu 19 Mar 2026</span>
-                                    </div>
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Sjofartshuset, Skeppsbron 10, Stockholm</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-card-hidden text-gray-700 space-y-4">
-                                <p><strong>IEP Talks Live Sweden</strong><br>09:30 - 18:00</p>
-                                <p>An engaging daytime event featuring expert speakers, sector discussion, refreshments and lunch.</p>
-                                <p><strong>Tickets:</strong> Non-members 950 SEK. Free for IEP members (daytime event only). IEP member organisations receive two free daytime places per organisation.</p>
-                                <p><strong>IEP Fellows Dinner Sweden</strong><br>19:00 - 22:00</p>
-                                <p>An evening event for Fellows and senior professionals to reflect, build relationships and connect in an informal, inspiring setting. Limited places are available and early booking is advised.</p>
-                                <p>Programme and speaker details coming soon.</p>
-                                <div class="flex flex-wrap items-center gap-4 mt-4">
-                                    <a href="https://lnkd.in/gb3YGH3M" target="_blank" rel="noopener noreferrer" class="text-rose-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Book IEP Talks Live <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                    <a href="https://lnkd.in/gcAtWWTH" target="_blank" rel="noopener noreferrer" class="text-rose-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Book Fellows Dinner <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                </div>
-                                <p>Questions about tickets? Contact <a href="mailto:amy.lucas@iemployability.org" class="text-rose-600 hover:underline">amy.lucas@iemployability.org</a>.</p>
-                                <div class="mt-4 pt-4 border-t border-gray-200">
-                                    <span class="text-xs text-gray-400">#IEP #IEPSweden #IEPSverige #IEPTalksLive #Employability #Arbetsmarknad #ProfessionalNetworking</span>
-                                </div>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-
-                        
-
-                        <article data-event-date="2026-03-10T09:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity" data-aos="fade-up" data-aos-delay="100">
-                            <div class="event-card-image" style="height: 220px;">
-                                <img src="/assets/images/events/venturefest.webp" alt="Venturefest West Midlands 2026" />
-                            </div>
-                            <div class="event-card-summary">
-                                <h2 style="font-size: 1.25rem;">Venturefest West Midlands 2026</h2>
-                                <h3 style="font-size: 0.9rem;">Innovation, Growth & Collaboration</h3>
-                                <div class="event-card-details">
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Tue 10 Mar 2026, 9:00 AM - 5:00 PM</span>
-                                    </div>
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Billy Wright Stand, Molineux Stadium, Wolverhampton</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-card-hidden text-gray-700 space-y-4">
-                                <p>Join Venturefest West Midlands 2026 to connect with innovators, entrepreneurs and partners shaping the regional growth ecosystem at the Billy Wright Stand, Molineux Stadium.</p>
-                                <div class="flex flex-wrap items-center gap-4 mt-4">
-                                    <a href="https://www.eventbrite.co.uk/e/venturefest-west-midlands-2026-tickets-1978881034444?aff=linkedinbusinessstaticimage" target="_blank" rel="noopener noreferrer" class="text-emerald-600 text-sm font-bold hover:underline flex items-center gap-1">Register on Eventbrite <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                </div>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-
-                        <article data-event-date="2026-03-04T11:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity" data-aos="fade-up" data-aos-delay="200">
-                            <div class="event-card-image" style="height: 220px; border-radius: 0.5rem; border: 1px solid #e0f2fe; overflow: hidden; background-color: white;">
-                                <img src="/assets/images/events/iepwales.webp" alt="Connecting Wales – Work, Health and Skills" class="w-full h-full object-cover" />
-                            </div>
-                            <div class="event-card-summary">
-                                <h2>Connecting Wales – Work, Health and Skills</h2>
-                                <h3 style="font-size: 0.95rem; color: #0369a1;">Hosted by the Institute of Employability Professionals</h3>
-                                <div class="event-card-details">
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Wed 4 Mar 2026, 11:00 AM - 12:30 PM</span>
-                                    </div>
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="link" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Online (Microsoft Teams)</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-card-hidden text-gray-700 space-y-4">
-                                <p>New research from Learning and Work Institute, undertaken with Serco, explores practical and evidence-based employability approaches to strengthen outcomes in Wales and close long-standing support gaps.</p>
-                                <p><strong>The session focused on improving employment outcomes for:</strong></p>
-                                <ul class="list-disc list-inside">
-                                    <li>Women</li>
-                                    <li>People from minority ethnic backgrounds</li>
-                                    <li>Disabled people</li>
-                                    <li>Individuals with long-term health conditions</li>
-                                </ul>
-                                <p>The discussion examined what these findings mean for employability stakeholders and how they can support a more inclusive and effective system.</p>
-                                <a href="https://lnkd.in/gRTRa_iR" target="_blank" rel="noopener noreferrer" class="text-sky-600 text-sm font-bold hover:underline flex items-center gap-1">Register here <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-
-                        <article data-event-date="2026-02-24T00:00:00" class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity" data-aos="fade-up" data-aos-delay="0">
-                            <div class="event-card-image" style="height: 220px; background-color: #f0fdfa; display: flex; align-items: center; justify-content: center;">
-                                <i data-lucide="calendar" class="w-12 h-12 text-teal-600"></i>
-                            </div>
-                            <div class="event-card-summary">
-                                <h2>Annual Apprenticeships Conference 2026</h2>
-                                <h3 style="font-size: 0.95rem; color: #0d9488;">Millennium Point, Birmingham</h3>
-                                <div class="event-card-details">
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Tue 24 Feb 2026</span>
-                                    </div>
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Millennium Point, Birmingham</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-card-hidden text-gray-700 space-y-4">
-                                <p>Our Managing Director, <strong>Jon Smith (CMgr FCMI FIEP)</strong>, attended the Annual Apprenticeships Conference 2026.</p>
-                                <p>As a key event in the skills calendar, the conference brings together apprenticeship providers, employers, and policymakers to shape the future of vocational training.</p>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-
-                        <article data-event-date="2026-02-26T00:00:00" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity" data-aos="fade-up" data-aos-delay="100">
-                            <div class="flex flex-col md:flex-row md:gap-8 items-start">
-                                  <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 h-64 rounded-lg border border-indigo-100 overflow-hidden bg-white">
-                                      <img src="/assets/images/events/workmatters.webp" alt="Work Foundation NEET event" class="w-full h-full object-cover" />
-                                  </div>
-                                <div class="w-full md:w-2/3">
-                                    <h2 class="text-3xl font-bold text-gray-900 mb-2">NEET Trends and Youth Labour Market Discussion</h2>
-                                    <h3 class="text-xl text-indigo-600 font-semibold mb-4">Hosted by the Work Foundation</h3>
-
-                                    <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
-                                        <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-4 h-4"></i> Thu 26 Feb 2026</span>
-                                        <span class="flex items-center gap-1"><i data-lucide="link" class="w-4 h-4"></i> Online Event</span>
-                                    </div>
-
-                                    <div class="prose max-w-none text-gray-700 space-y-4">
-                                        <p>On 26 February, the Work Foundation and an expert panel reviewed the latest ONS figures on young people not in education, employment or training (NEET), and discussed what this means for young people, local communities, the labour market and Government.</p>
-                                        <p>The UK has had a significant population of young people aged 16–24 who are NEET for over 20 years, but the challenge for policymakers has evolved. The number remains stubbornly close to one million — around one in eight young people aged 16–24 — following a large post-pandemic rise.</p>
-                                        <p>The discussion also considered the Government’s response, including an £820 million youth participation package and work to investigate root causes of youth unemployment.</p>
-                                        <p><strong>Panel:</strong> Sharon Thompson FIoL (West Midlands Combined Authority), Susannah Hardyman MBE (Impetus - Backing the best), Shuab Gamote, Chris Smyth (Financial Times), and Ben Harrison (Work Foundation at Lancaster University).</p>
-                                        <a href="https://lnkd.in/eiWpb984" target="_blank" rel="noopener noreferrer" class="text-indigo-600 text-sm font-bold hover:underline flex items-center gap-1">View event and sign up <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-
-                        <article class="event-card is-collapsed bg-white p-6 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
-                            <div class="event-card-image" style="height: 220px; border-radius: 0.5rem; border: 1px solid #cffafe; overflow: hidden; background-color: white;">
-                                <img src="/assets/images/events/youthgaruntee.webp" alt="Youth Guarantee webinar" class="w-full h-full object-cover" />
-                            </div>
-                            <div class="event-card-summary">
-                                <h2>Central London Forward Youth Guarantee Market Warming Webinar</h2>
-                                <h3 style="font-size: 0.95rem; color: #0891b2;">Hosted by Joshua Dearman and Jon Smith CMgr FCMI FIEP FCIPD</h3>
-                                <div class="event-card-details">
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="users" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>56 participants</span>
-                                    </div>
-                                    <div class="event-card-detail-item">
-                                        <i data-lucide="link" class="w-4 h-4 flex-shrink-0"></i>
-                                        <span>Online webinar</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="event-card-hidden text-gray-700 space-y-4">
-
-                                    <div class="prose max-w-none text-gray-700 space-y-4">
-                                        <p>We were pleased to welcome 56 participants to Central London Forward’s Youth Guarantee Market Warming Webinar, bringing together charities, social enterprises and commercial organisations to share delivery plans and explore provider engagement opportunities.</p>
-                                        <p>The discussion was constructive and highly engaging, with strong contributions through questions and ideas from attendees.</p>
-                                        <p><strong>During the webinar, we covered:</strong></p>
-                                        <ul>
-                                            <li>How the Full Potential programme supports 17-25-year-olds who are NEET</li>
-                                            <li>Upcoming commissioning opportunities for delivery partners</li>
-                                            <li>How organisations can deliver employability, skills and wellbeing support for young people facing complex barriers</li>
-                                        </ul>
-                                        <a href="https://lnkd.in/gh5bUQmx" target="_blank" rel="noopener noreferrer" class="text-cyan-600 text-sm font-bold hover:underline flex items-center gap-1">Watch the full webinar session <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                            </div>
-                            <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
-                        </article>
-                    </div>
-                </div>
+                <!-- NEWS_EVENTS_RENDER_START -->
+<div>
+  <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Upcoming events</h2>
+  <p id="upcoming-empty" class="text-center text-gray-600 mb-8" hidden>No upcoming events are listed at the moment.</p>
+  <div id="upcoming-events-list" class="events-collection space-y-12" data-events-managed="true">
+    <article id="esec-liverpool-2026" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="upcoming" data-date-label="Mon 7 Dec - Tue 8 Dec 2026" data-location-label="ACC, Liverpool" data-feed-order="0" data-event-start="2026-12-07" data-event-end="2026-12-08" data-resolved-placement="upcoming" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="event-card-image"><img src="/assets/images/events/baseliverpool.webp" alt="16th European Supported Employment Conference Liverpool 2026"></div>
+    <div class="event-card-summary">
+      <h2>16th European Supported Employment Conference</h2>
+      <h3>The Art of the Possible: Connecting the Dots</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Mon 7 Dec - Tue 8 Dec 2026</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>ACC, Liverpool</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>BASE, in partnership with the Association for Supported Employment Europe (ASEE), is hosting the 16th European Supported Employment Conference in Liverpool.</p><p>This year's conference combines the strengths of BASE's annual event with best practice, innovation and research from across Europe and beyond.</p><p>With an expected 750 delegates per day, this two-day event offers major opportunities to learn, connect, and help shape the future of supported employment and inclusive recruitment.</p><p>Delegate tickets, including early-bird offers, and sponsorship packages are launching this month.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://lnkd.in/egjuE2hy" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Event updates and tickets <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="ersa-annual-conference" data-kind="event" data-date-precision="datetime" data-all-day="false" data-editorial-placement="upcoming" data-date-label="Wed 25 Nov 2026, 9:30am – 10:30pm" data-location-label="Leonardo Royal London St Paul's, EC4V 5AJ" data-feed-order="0" data-event-start="2026-11-25T09:30" data-event-end="2026-11-25T22:30" data-resolved-placement="upcoming" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="event-card-image"><img src="/assets/images/events/sercoersaawards.webp" alt="ERSA Annual Conference and Employability Awards"></div>
+    <div class="event-card-summary">
+      <h2>ERSA Conference and Employability Awards 2026</h2>
+      <h3>Employability Awards sponsored by Fedcap</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Wed 25 Nov 2026, 9:30am – 10:30pm</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>Leonardo Royal London St Paul's, EC4V 5AJ</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>The ERSA awards page says the 2026 Employability Awards winners will be announced on the evening of the annual ERSA Conference at Leonardo Royal St Paul's on Wednesday 25 November 2026. Fedcap is named there as the awards sponsor.</p><p>ERSA's ticket listing gives the same date, 9:30am to 10:30pm, at Leonardo Royal London St Paul's, EC4V 5AJ. That listing does not print a timezone. The times are shown as Europe/London because the venue is in London.</p><p>Compass has said it is attending. The company post does not say Compass is hosting.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://ersa.org.uk/awards/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">ERSA Awards official page <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.tickettailor.com/events/employmentrelatedservicesassociation/2129072" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">ERSA ticket listing <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7525660709121073154/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+  </div>
+</div>
+<details id="past-events-section" class="events-disclosure pt-12 border-t border-gray-100" open>
+  <summary class="text-3xl font-bold text-gray-900 mb-8 text-center">Past events</summary>
+  <div id="past-events-list" class="events-collection space-y-8" data-events-managed="true">
+    <article id="event-aelp-autumn-2026" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="past" data-date-label="Thu 5 Nov 2026" data-location-label="The Eastside Rooms, 2 Woodcock Street, Birmingham, B7 4BL" data-feed-order="20" data-event-start="2026-11-05" data-event-end="2026-11-05" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image" style="background-color:#f3f0ff;display:flex;align-items:center;justify-content:center;"><i data-lucide="calendar-days" class="w-12 h-12 text-compass-purple"></i></div>
+    <div class="event-card-summary">
+      <h2>AELP Autumn Conference 2026</h2>
+      <h3>The Eastside Rooms, Birmingham</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Thu 5 Nov 2026</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>The Eastside Rooms, 2 Woodcock Street, Birmingham, B7 4BL</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>Compass said it attended the AELP Autumn Conference 2026 at The Eastside Rooms in Birmingham. The themes it highlighted were apprenticeships, devolution and place-based delivery, young people and employment, and partnership working.</p><p>AELP's conference pages give the date as 5 November 2026 at The Eastside Rooms, 2 Woodcock Street, Birmingham, B7 4BL. Those pages do not print a start or finish time.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://aelpautumnconference.org.uk/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">AELP Autumn Conference 2026 <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7524117620628045826/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="event-supported-housing-week-2026" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="past" data-date-label="Mon 19 Oct – Fri 23 Oct 2026" data-location-label="" data-feed-order="21" data-event-start="2026-10-19" data-event-end="2026-10-23" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image" style="background-color:#f3f0ff;display:flex;align-items:center;justify-content:center;"><i data-lucide="home" class="w-12 h-12 text-compass-purple"></i></div>
+    <div class="event-card-summary">
+      <h2>Supported Housing Week 2026</h2>
+      <h3>National Housing Federation awareness campaign</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Mon 19 Oct – Fri 23 Oct 2026</span></div>
+        
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>Compass said it was proud to support Supported Housing Week 2026, and that housing, health and employment need to be treated together. This is a statement of support for the campaign, not a claim that Compass attended a venue.</p><p>The National Housing Federation describes the first Supported Housing Week as running from 19 to 23 October 2026. It does not give a single venue or timetable.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.housing.org.uk/our-work/supported-housing/supported-housing-week/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">National Housing Federation <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7516887682799763457/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="iep-basecamp-2026" data-kind="event" data-date-precision="datetime" data-all-day="false" data-editorial-placement="past" data-date-label="Thu 8 Oct 2026, 9:00am – 5:00pm" data-location-label="Trent Conference Centre, Nottingham" data-feed-order="0" data-event-start="2026-10-08T09:00" data-event-end="2026-10-08T17:00" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image" style="background-color:#f3f0ff;display:flex;align-items:center;justify-content:center;"><i data-lucide="calendar-days" class="w-12 h-12 text-compass-purple"></i></div>
+    <div class="event-card-summary">
+      <h2>IEP Basecamp 2026</h2>
+      <h3>Practical learning, networking and the IEP Learning Awards</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Thu 8 Oct 2026, 9:00am – 5:00pm</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>Trent Conference Centre, Nottingham</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>Compass was looking forward to attending IEP Basecamp 2026, a full day for IEP members from Capability Partner organisations. The programme has four seminar sessions, time to connect with colleagues, and the IEP Learning Awards in the afternoon.</p><p>Sessions cover AI and the future of employment support, participant-centred practice, employer engagement, and health and wellbeing, with coffee, lunch and end-of-day celebration drinks.</p><p>Headline sponsor CCC Powered by Asuria UK, bringing together Asuria UK, PeoplePlus UK, Standguide Ltd, The Better Health Generation, Earlybird and Transform and Achieve, is making Basecamp free to attend for eligible IEP members. Other sponsors are The Digital College, Elevate Employment Services, CogniSoft Ltd, Serco and NCFE.</p><p>Basecamp is invitation-only. To find out about becoming a Capability Partner, contact your Partnership Manager or email angela.ramage@iemployability.org.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7511874188677386240/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="iep-fellows-chester-2026" data-kind="event" data-date-precision="datetime" data-all-day="false" data-editorial-placement="past" data-date-label="Thu 17 Sep 2026, 6:00pm – 10:30pm" data-location-label="OddFellows, Chester" data-feed-order="0" data-event-start="2026-09-17T18:00" data-event-end="2026-09-17T22:30" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image" style="background-color:#f3f0ff;display:flex;align-items:center;justify-content:center;"><i data-lucide="calendar-days" class="w-12 h-12 text-compass-purple"></i></div>
+    <div class="event-card-summary">
+      <h2>IEP Fellows Networking Dinner, Chester</h2>
+      <h3>The first IEP Fellows dinner in the city</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Thu 17 Sep 2026, 6:00pm – 10:30pm</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>OddFellows, Chester</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>The company post says chief executive Jon Smith was speaking at this dinner. It is not a report written after the event.</p><p>The date and time already published on this page are Thursday 17 September 2026, 6:00pm to 10:30pm, at OddFellows, Chester. The IEP post included in the company update names Thursday 17 September and does not print a year.</p><p>The dinner was sponsored by ICONI Software Ltd.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7500927532842774529/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="cfp26" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="past" data-date-label="Thu 16 Jul 2026" data-location-label="Edgbaston Stadium" data-feed-order="0" data-event-start="2026-07-16" data-event-end="2026-07-16" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image"><img src="/assets/images/events/connectionsforprosperity.webp" alt="Centre for the New Midlands CFP26 conference at Edgbaston Stadium"></div>
+    <div class="event-card-summary">
+      <h2>CFP26: Centre for the New Midlands Annual Conference</h2>
+      <h3>The 4th Annual Conference</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Thu 16 Jul 2026</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>Edgbaston Stadium</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>CFP26 will bring together around 250 of the region's key stakeholders to explore major questions shaping the Midlands.</p><p>Primary research areas include Housing and Communities, Digital environment, Employability and Skills, and Infrastructure.</p><p>As with other Centre for the New Midlands major events, feedback gathered now will help inform the conference steering group and shape the day's content.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://lnkd.in/ecg9ryqj" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Share your thoughts <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="employment-skills-convention-2026" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="past" data-date-label="Thu 2 Jul 2026" data-location-label="Online" data-feed-order="0" data-event-start="2026-07-02" data-event-end="2026-07-02" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image"><img src="/assets/images/events/escon.webp" alt="Employment and Skills Convention 2026"></div>
+    <div class="event-card-summary">
+      <h2>The Employment and Skills Convention is back!</h2>
+      <h3>Supporting Learning and Work Institute</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Thu 2 Jul 2026</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>Online</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>We're pleased to be supporting Learning and Work Institute on this event, exploring how to grow opportunity and unlock potential in a changing workforce.</p><p>This major annual event for the employment and skills sectors brings together delegates from across central and local government, employers, providers, and third sector organisations to tackle key issues in policy and practice.</p><p>📆 2 July 🕑 All day</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://ow.ly/5gAi50YlT42" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Don't miss out! Register now <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7432439722246901760/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">View LinkedIn Post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="bcc-global-conference-2026" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="past" data-date-label="Thu 25 Jun 2026" data-location-label="QEII Centre, London" data-feed-order="0" data-event-start="2026-06-25" data-event-end="2026-06-25" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image"><img src="/assets/images/events/chamberofcommerce.webp" alt="British Chambers of Commerce Global Annual Conference 2026"></div>
+    <div class="event-card-summary">
+      <h2>British Chambers of Commerce Global Annual Conference 2026</h2>
+      <h3>British Chambers of Commerce flagship gathering hosted by Sophy Ridge</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Thu 25 Jun 2026</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>QEII Centre, London</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>British Chambers of Commerce has officially launched its Global Annual Conference 2026, taking place at the iconic QEII Centre in London and hosted by Sky News presenter Sophy Ridge.</p><p>Built around the theme Delivering Growth, the conference will bring together business leaders, policymakers and innovators from across the UK and around the world to explore how opportunity can be unlocked, the economy strengthened and businesses supported to thrive.</p><p>Confirmed speakers already include Rt Hon. Ed Davey, Leader of the Liberal Democrats; Zack Polanski AM, Green Party Leader; and Rt Hon. Mel Stride, Shadow Chancellor of the Exchequer. A Senior Cabinet Minister and a Senior Representative from Reform UK will also be announced soon.</p><p>As one of the most influential events in the business calendar, the day is designed to spark vital conversations, share fresh insight and create meaningful opportunities to connect and collaborate.</p><p><strong>Event partners:</strong></p><ul class="list-disc list-inside"><li>Headline Partner: NatWest</li><li>Corporate Partners: Intuit and Heathrow</li><li>Supporting Partners: DP World and Trainline Business</li></ul><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://ow.ly/q8KV50YFALc" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Learn more and secure your place <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="iep-summit-2026" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="past" data-date-label="Thu 11 Jun 2026" data-location-label="116 Pall Mall, London" data-feed-order="0" data-event-start="2026-06-11" data-event-end="2026-06-11" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image"><img src="/assets/images/events/iepLondon.webp" alt="The IEP Summit 2026 at 116 Pall Mall, London"></div>
+    <div class="event-card-summary">
+      <h2>The IEP Summit 2026</h2>
+      <h3>The employability sector's flagship gathering returns</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Thu 11 Jun 2026</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>116 Pall Mall, London</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>The Institute of Employability Professionals' flagship Summit will bring together senior leaders from across the sector to discuss the biggest challenges and opportunities shaping employability today.</p><p>Taking place at the historic 116 Pall Mall in London, the Summit creates space for thought-provoking keynote sessions, sector discussion and meaningful networking.</p><p>Delegates will connect with leaders from across:</p><p>A huge thank you to the organisations supporting the Summit this year:</p><p>And for the IEP Summit Networking Dinner:</p><p>Secure your place and join colleagues from across the sector for a day of insight, debate and collaboration. Take advantage of tiered pricing and book early to secure the best value tickets.</p><p>A company post says chief executive Jon Smith attended the Summit. A related company post records that he was a finalist for IEP Fellow of the Year 2026, not the winner.</p><p><strong>Delegates will connect with leaders from across:</strong></p><ul class="list-disc list-inside"><li>Local authorities</li><li>Prime providers and supply chains</li><li>International employability organisations</li><li>Skills, education, health and housing sectors</li></ul><p><strong>Organisations supporting the Summit:</strong></p><ul class="list-disc list-inside"><li>Headline Sponsor: City &amp; Guilds</li><li>Lunch sponsored by The Digital College</li><li>Drinks reception sponsored by Beam</li><li>Breakfast, Networking Break &amp; Notebooks sponsored by ICONI Software</li><li>Lanyards sponsored by CogniSoft Ltd</li></ul><p><strong>IEP Summit Networking Dinner:</strong></p><ul class="list-disc list-inside"><li>Headline Dinner Sponsor: Get Set UK</li><li>Drinks Reception Sponsor: Elevate Employment Services</li><li>Fellow of the Year Award Sponsor: Fedcap UK</li></ul><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://lnkd.in/gffcb9jE" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Secure your place <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7471237269337653248/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company post on attendance <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="iep-talks-cardiff-2026" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="past" data-date-label="Thu 21 May 2026" data-location-label="Museum of Cardiff, The Old Library" data-feed-order="0" data-event-start="2026-05-21" data-event-end="2026-05-21" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image"><img src="/assets/images/events/iepcardiff.webp" alt="IEP Talks Live Cardiff 2026"></div>
+    <div class="event-card-summary">
+      <h2>IEP Talks Live and Networking Dinner</h2>
+      <h3>Spend the afternoon learning. Spend the evening connecting.</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Thu 21 May 2026</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>Museum of Cardiff, The Old Library</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>The company post said Jon Smith would be in Wales in May for the day event and the evening dinner. That was a plan to attend, not a later confirmation that he did.</p><p>IEP Talks Live is coming to Cardiff on 21 May 2026, sponsored by The BUSY Group, with seminars, speed networking and valuable peer discussion, free for IEP Members.</p><p>Then join the IEP Networking Dinner, where like-minded professionals gather for an evening of thoughtful, future-focused conversation and relationship building.</p><p>If you're passionate about shaping the future of employability, this is one not to miss.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://lnkd.in/gTbY5_K7" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Book IEP Talks Live <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://lnkd.in/g7dFN9rD" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Book IEP Networking Dinner <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7436900683859165185/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="iep-talks-birmingham-2026" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="past" data-date-label="Thu 23 Apr 2026" data-location-label="Birmingham" data-feed-order="0" data-event-start="2026-04-23" data-event-end="2026-04-23" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image"><img src="/assets/images/events/ieptalksbirmingham.webp" alt="IEP Talks Live and Fellows Dinner Birmingham"></div>
+    <div class="event-card-summary">
+      <h2>IEP Talks Live &amp; Fellows Dinner</h2>
+      <h3>Birmingham</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Thu 23 Apr 2026</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>Birmingham</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>The IEP announced IEP Talks Live and the IEP Fellows Dinner in Birmingham on 23 April 2026. The exact venue was not shown.</p><p>Compass said it would be attending the IEP Fellows dinner.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7418627496314753024/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="iep-stockholm-2026" data-kind="event" data-date-precision="datetime" data-all-day="false" data-editorial-placement="past" data-date-label="Thu 19 Mar 2026" data-location-label="Sjofartshuset, Skeppsbron 10, Stockholm" data-feed-order="0" data-event-start="2026-03-19T09:30" data-event-end="2026-03-19T22:00" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image"><img src="/assets/images/events/ieptalkssweden.webp" alt="IEP Talks Live Sweden Stockholm 2026"></div>
+    <div class="event-card-summary">
+      <h2>IEP Stockholm</h2>
+      <h3>Learn by day, connect by night</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Thu 19 Mar 2026</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>Sjofartshuset, Skeppsbron 10, Stockholm</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>IEP Talks Live Sweden 09:30 - 18:00</p><p>An engaging daytime event featuring expert speakers, sector discussion, refreshments and lunch.</p><p>Tickets: Non-members 950 SEK. Free for IEP members (daytime event only). IEP member organisations receive two free daytime places per organisation.</p><p>IEP Fellows Dinner Sweden 19:00 - 22:00</p><p>An evening event for Fellows and senior professionals to reflect, build relationships and connect in an informal, inspiring setting. Limited places are available and early booking is advised.</p><p>Programme and speaker details coming soon.</p><p>Questions about tickets? Contact amy.lucas@iemployability.org.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://lnkd.in/gb3YGH3M" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Book IEP Talks Live <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://lnkd.in/gcAtWWTH" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Book Fellows Dinner <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="mailto:amy.lucas@iemployability.org" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">amy.lucas@iemployability.org <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="iep-manchester-2026" data-kind="event" data-date-precision="datetime" data-all-day="false" data-editorial-placement="past" data-date-label="Thu 12 Mar 2026" data-location-label="Manchester Hall" data-feed-order="0" data-event-start="2026-03-12T13:00" data-event-end="2026-03-12T22:30" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image" style="background-color:#f3f0ff;display:flex;align-items:center;justify-content:center;"><i data-lucide="calendar-days" class="w-12 h-12 text-compass-purple"></i></div>
+    <div class="event-card-summary">
+      <h2>IEP Manchester Networking Day</h2>
+      <h3>Connect, Contribute &amp; Shape the Future</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Thu 12 Mar 2026</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>Manchester Hall</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>Spend the day with the IEP at Manchester Hall. IEP Talks Live runs from 1:00pm to 4:30pm, sponsored by Occupational Awards Limited. The IEP Fellows Dinner runs from 6:30pm to 10:30pm, sponsored by CogniSoft Ltd.</p><p>Compass said it was looking forward to attending.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://lnkd.in/eHc7GmZ4" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Register Here <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://lnkd.in/eah75ZFw" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Book Your Place <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7418631335012986880/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="venturefest-wm-2026" data-kind="event" data-date-precision="datetime" data-all-day="false" data-editorial-placement="past" data-date-label="Tue 10 Mar 2026, 9:00 AM - 5:00 PM" data-location-label="Billy Wright Stand, Molineux Stadium, Wolverhampton" data-feed-order="0" data-event-start="2026-03-10T09:00" data-event-end="2026-03-10T17:00" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image"><img src="/assets/images/events/venturefest.webp" alt="Venturefest West Midlands 2026"></div>
+    <div class="event-card-summary">
+      <h2>Venturefest West Midlands 2026</h2>
+      <h3>Innovation, Growth &amp; Collaboration</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Tue 10 Mar 2026, 9:00 AM - 5:00 PM</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>Billy Wright Stand, Molineux Stadium, Wolverhampton</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>Join Venturefest West Midlands 2026 to connect with innovators, entrepreneurs and partners shaping the regional growth ecosystem at the Billy Wright Stand, Molineux Stadium.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.eventbrite.co.uk/e/venturefest-west-midlands-2026-tickets-1978881034444?aff=linkedinbusinessstaticimage" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Register on Eventbrite <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="connecting-wales-2026" data-kind="event" data-date-precision="datetime" data-all-day="false" data-editorial-placement="past" data-date-label="Wed 4 Mar 2026, 11:00 AM - 12:30 PM" data-location-label="Online (Microsoft Teams)" data-feed-order="0" data-event-start="2026-03-04T11:00" data-event-end="2026-03-04T12:30" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image"><img src="/assets/images/events/iepwales.webp" alt="Connecting Wales – Work, Health and Skills"></div>
+    <div class="event-card-summary">
+      <h2>Connecting Wales – Work, Health and Skills</h2>
+      <h3>Hosted by the Institute of Employability Professionals</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Wed 4 Mar 2026, 11:00 AM - 12:30 PM</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>Online (Microsoft Teams)</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>New research from Learning and Work Institute, undertaken with Serco, explores practical and evidence-based employability approaches to strengthen outcomes in Wales and close long-standing support gaps.</p><p>The discussion examined what these findings mean for employability stakeholders and how they can support a more inclusive and effective system.</p><p><strong>The session focused on improving employment outcomes for:</strong></p><ul class="list-disc list-inside"><li>Women</li><li>People from minority ethnic backgrounds</li><li>Disabled people</li><li>Individuals with long-term health conditions</li></ul><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://lnkd.in/gRTRa_iR" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Register here <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="neet-work-foundation-2026" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="past" data-date-label="Thu 26 Feb 2026" data-location-label="Online event" data-feed-order="0" data-event-start="2026-02-26" data-event-end="2026-02-26" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image"><img src="/assets/images/events/workmatters.webp" alt="Work Foundation NEET event"></div>
+    <div class="event-card-summary">
+      <h2>NEET Trends and Youth Labour Market Discussion</h2>
+      <h3>Hosted by the Work Foundation</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Thu 26 Feb 2026</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>Online event</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>On 26 February, the Work Foundation and an expert panel reviewed the latest ONS figures on young people not in education, employment or training (NEET), and discussed what this means for young people, local communities, the labour market and Government.</p><p>The UK has had a significant population of young people aged 16–24 who are NEET for over 20 years, but the challenge for policymakers has evolved. The number remains stubbornly close to one million — around one in eight young people aged 16–24 — following a large post-pandemic rise.</p><p>The discussion also considered the Government’s response, including an £820 million youth participation package and work to investigate root causes of youth unemployment.</p><p>Panel: Sharon Thompson FIoL (West Midlands Combined Authority), Susannah Hardyman MBE (Impetus - Backing the best), Shuab Gamote, Chris Smyth (Financial Times), and Ben Harrison (Work Foundation at Lancaster University).</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://lnkd.in/eiWpb984" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">View event and sign up <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="apprenticeships-conference-2026" data-kind="event" data-date-precision="date" data-all-day="true" data-editorial-placement="past" data-date-label="Tue 24 Feb 2026" data-location-label="Millennium Point, Birmingham" data-feed-order="0" data-event-start="2026-02-24" data-event-end="2026-02-24" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image" style="background-color:#f3f0ff;display:flex;align-items:center;justify-content:center;"><i data-lucide="calendar-days" class="w-12 h-12 text-compass-purple"></i></div>
+    <div class="event-card-summary">
+      <h2>Annual Apprenticeships Conference 2026</h2>
+      <h3>Millennium Point, Birmingham</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Tue 24 Feb 2026</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>Millennium Point, Birmingham</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>A post image states: I am attending Apprenticeships Conference 2026, 24 February 2026, Millennium Point, Birmingham, Jon Smith, managing director of Compass Consult. His note said he was looking forward to catching up with colleagues the following week.</p><p>The date and venue match the date already published on this page. A separate company post about an Apprenticeships and Skills Group conference in Birmingham does not give this date, and it is not treated as the same event.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7430015846195822592/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7430015421031821314/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Jon Smith LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="event-iep-fellows-lecture-london-2026" data-kind="event" data-date-precision="datetime" data-all-day="false" data-editorial-placement="past" data-date-label="Thu 12 Feb 2026, 7:00pm – 11:00pm" data-location-label="Judge's Court Private Room, Browns Brasserie and Bar, London, WC2N 4AG" data-feed-order="31" data-event-start="2026-02-12T19:00" data-event-end="2026-02-12T23:00" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image" style="background-color:#f3f0ff;display:flex;align-items:center;justify-content:center;"><i data-lucide="calendar-days" class="w-12 h-12 text-compass-purple"></i></div>
+    <div class="event-card-summary">
+      <h2>IEP Fellows Lecture and dinner, London</h2>
+      <h3>Browns Brasserie and Bar, London</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Thu 12 Feb 2026, 7:00pm – 11:00pm</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>Judge's Court Private Room, Browns Brasserie and Bar, London, WC2N 4AG</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>The company post said Compass was looking forward to attending the IEP Fellows Lecture and dinner in London on 12 February 2026.</p><p>The IEP post included in that company update gives the dinner as Thursday 12 February 2026, 7:00pm to 11:00pm, in the Judge's Court Private Room at Browns Brasserie and Bar, London, WC2N 4AG, sponsored by Clarion Futures.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7417593889051627520/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7417476735589445632/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">IEP post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="clf-youth-guarantee-webinar" data-kind="event" data-date-precision="unknown" data-all-day="false" data-editorial-placement="past" data-date-label="Date not stated" data-location-label="Online webinar" data-feed-order="0" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image"><img src="/assets/images/events/youthgaruntee.webp" alt="Youth Guarantee webinar"></div>
+    <div class="event-card-summary">
+      <h2>Central London Forward Youth Guarantee Market Warming Webinar</h2>
+      <h3>Hosted by Joshua Dearman and Jon Smith CMgr FCMI FIEP FCIPD</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Date not stated</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>Online webinar</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>Compass said it supported Central London Forward with planning and delivery of the Youth Guarantee Market Warming Webinar. Central London Forward's post says the webinar was hosted by Joshua Dearman and Jon Smith and that 56 participants attended. Compass's post describes about 60 organisations. Those figures are left as each source stated them.</p><p>No exact date was shown on the posts used for this update.</p><p><strong>During the webinar, the session covered:</strong></p><ul class="list-disc list-inside"><li>How the Full Potential programme supports 17-25-year-olds who are NEET</li><li>Upcoming commissioning opportunities for delivery partners</li><li>How organisations can deliver employability, skills and wellbeing support for young people facing complex barriers</li></ul><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://lnkd.in/gh5bUQmx" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Watch the full webinar session <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7422660516516532226/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="event-full-potential-celebrating-success" data-kind="event" data-date-precision="day-month" data-all-day="false" data-editorial-placement="past" data-date-label="18 May" data-location-label="Guildhall, City of London" data-feed-order="30" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image" style="background-color:#f3f0ff;display:flex;align-items:center;justify-content:center;"><i data-lucide="calendar-days" class="w-12 h-12 text-compass-purple"></i></div>
+    <div class="event-card-summary">
+      <h2>Full Potential Celebrating Success Event</h2>
+      <h3>Guildhall, City of London</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>18 May</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>Guildhall, City of London</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>The company post says Compass helped bring together partners, local authorities, employers, delivery organisations and young people at Guildhall in the City of London to celebrate the first year of the Full Potential Youth Guarantee Trailblazer.</p><p>That post dates the event to 18 May and does not print a year, so this card is not placed on the calendar.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7465536565788766208/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+<article id="event-full-potential-best-practice" data-kind="event" data-date-precision="unknown" data-all-day="false" data-editorial-placement="past" data-date-label="Date not stated" data-location-label="Hosted by the London Borough of Lambeth" data-feed-order="32" data-resolved-placement="past" class="event-card is-collapsed bg-white p-8 rounded-lg shadow-md border border-gray-100 opacity-80 hover:opacity-100 transition-opacity">
+    <div class="event-card-image" style="background-color:#f3f0ff;display:flex;align-items:center;justify-content:center;"><i data-lucide="users" class="w-12 h-12 text-compass-purple"></i></div>
+    <div class="event-card-summary">
+      <h2>Full Potential best practice event</h2>
+      <h3>Hosted by the London Borough of Lambeth</h3>
+      <div class="event-card-details">
+        <div class="event-card-detail-item"><i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i><span>Date not stated</span></div>
+        <div class="event-card-detail-item"><i data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i><span>Hosted by the London Borough of Lambeth</span></div>
+      </div>
+    </div>
+    <div class="event-card-hidden text-gray-700 space-y-4"><p>Compass said it attended a best practice event for Full Potential, the Youth Guarantee Trailblazer, supporting stakeholders across central London to share practice and help shape year 2.</p><p>Jon's post says colleagues from all 12 Central London Forward boroughs took part, and thanks the London Borough of Lambeth for hosting and the Learning and Work Institute for facilitating.</p><p>No exact date was shown, so this card is not placed on the calendar.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7428090872098902016/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+    <button type="button" class="event-card-toggle inline-flex items-center gap-1 rounded-full border border-compass-purple px-4 py-2 text-sm font-semibold text-compass-purple hover:bg-purple-50 transition-colors">Read more <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+  </article>
+  </div>
+</details>
 
                 </div>
-
                 <div id="events-calendar-view" class="hidden" aria-live="polite">
                     <div class="calendar-shell" data-aos="fade-up">
                         <div class="calendar-toolbar">
@@ -1210,7 +928,7 @@
                                 <span>Prev</span>
                             </button>
                             <div>
-                                <p id="calendarMonthLabel" class="calendar-month-label">Event Calendar</p>
+                                <p id="calendarMonthLabel" class="calendar-month-label">Event calendar</p>
                                 <p id="calendarMonthSummary" class="calendar-month-summary">Browse events by month.</p>
                             </div>
                             <button id="calendarNextMonth" type="button" class="calendar-nav-button" aria-label="Show next event month">
@@ -1223,7 +941,7 @@
                         </div>
                         <div class="calendar-agenda">
                             <div class="calendar-agenda-header">
-                                <h3 class="text-xl font-bold text-gray-900">Events This Month</h3>
+                                <h3 class="text-xl font-bold text-gray-900">Events this month</h3>
                                 <button id="calendarViewAllEvents" type="button" class="calendar-view-all-button">View full list</button>
                             </div>
                             <div id="eventsCalendarAgenda" class="calendar-agenda-list"></div>
@@ -1232,62 +950,248 @@
                 </div>
                 </div>
 
-            </div>
-        </section>
-                <!-- News -->
-                <div class="pt-12 border-t border-gray-100">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-4 text-center">Latest News</h2>
-                    <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">Updates from Compass Consult on youth employment, skills policy and the employability profession.</p>
-                    <div class="space-y-12">
-                        <article class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
-                            <div class="flex flex-col md:flex-row md:gap-8 items-start">
-                                <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 h-64 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 text-center">
-                                    <i data-lucide="badge-pound-sterling" class="w-16 h-16 text-compass-purple mb-2"></i>
-                                    <span class="text-compass-purple font-bold text-lg">3 October 2026</span>
-                                    <span class="text-sm text-gray-500 mt-1">Grant guidance</span>
-                                </div>
-                                <div class="w-full md:w-2/3">
-                                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Youth Jobs Grant: the opportunity is real, the job has to last</h2>
-                                    <div class="prose max-w-none text-gray-700 space-y-4">
-                                        <p>The Youth Jobs Grant offers employers up to £3,000 for hiring an eligible 18 to 24-year-old who has been on Universal Credit and out of work for six months or more. The scheme is designed to support up to 60,000 job opportunities over three years, and it is open across Great Britain until October 2028.</p>
-                                        <p>Payment is staged, not paid up front: £1,800 after six weeks and £1,200 after 18 weeks, once employment and earnings are verified through HMRC. Roles must be genuine paid work of at least 25 hours a week, last at least four months, pay at least the applicable minimum wage, and not replace an existing worker.</p>
-                                        <p>For Compass Consult, the grant is a useful way to reduce the upfront cost and perceived risk of recruiting young people who have been out of work for longer. It is not a substitute for job quality. Employers, Jobcentres, employability providers, local government and specialist organisations need to use it to build sustained employment, skills and progression, not just job starts.</p>
-                                        <div class="flex flex-wrap items-center gap-4 mt-4">
-                                            <a href="https://www.gov.uk/government/publications/youth-jobs-grant" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Youth Jobs Grant guidance <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                            <a href="https://www.linkedin.com/posts/compass-consult-employability-and-skills-ltd_youth-jobs-grant-grant-guidance-activity-7512127768487251968-s83R" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-
-                        
-                        <article class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
-                            <div class="flex flex-col md:flex-row md:gap-8 items-start">
-                                <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 h-64 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 text-center">
-                                    <i data-lucide="users" class="w-16 h-16 text-compass-purple mb-2"></i>
-                                    <span class="text-compass-purple font-bold text-lg">26 September 2026</span>
-                                    <span class="text-sm text-gray-500 mt-1">Youth services</span>
-                                </div>
-                                <div class="w-full md:w-2/3">
-                                    <h2 class="text-3xl font-bold text-gray-900 mb-2">1,000 new youth workers, and the integration test that follows</h2>
-                                    <div class="prose max-w-none text-gray-700 space-y-4">
-                                        <p>The announcement of 1,000 new youth workers across England matters for anyone working in youth employment, employability and skills. The first workers are expected to be in place by spring 2027, with a focus on community support for young people most at risk of becoming NEET.</p>
-                                        <p>Youth employment cannot be addressed through employment services alone. The new workers are expected to sit alongside education, training, health and crime-prevention services, building trusted relationships and connecting young people to sport, arts, mentoring and wider youth provision.</p>
-                                        <p>The recruitment drive sits inside a wider package: a £450 million Youth Matters Fund for facilities and activities, 50 Young Futures Hubs, more than £500 million through the National Youth Strategy, and the £820 million Youth Guarantee for 18 to 24-year-olds. That sits next to expanded employment support, the Jobs Guarantee and employer-led routes into work.</p>
-                                        <p>The practical test is integration. Local partnerships, clear referral and transition pathways, earlier identification of NEET risk, meaningful employer engagement, and better use of local data all matter more than another set of separate initiatives. Youth Matters was informed by research with more than 14,000 young people. The next phase is not only how many youth workers are recruited, but how well the system around them works.</p>
-                                        <div class="flex flex-wrap items-center gap-4 mt-4">
-                                            <a href="https://www.gov.uk/government/news/1000-new-youth-workers-to-help-reduce-the-risk-of-unemployment" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Government announcement <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                            <a href="https://www.linkedin.com/posts/compassconsultcces_todays-announcement-of-1000-new-youth-workers-activity-7509625278135017472-konH" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-
-                                            </div>
-                </div>
-
+<div id="news-section" class="pt-12 border-t border-gray-100">
+  <h2 class="text-3xl font-bold text-gray-900 mb-4 text-center">Latest news</h2>
+  <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">A selection from the Compass Consult company LinkedIn page, not a complete record. 64 posts were read in full from a 114-post list. 37 previews, 5 reposts and 4 document titles were not fully reviewed, and 4 job adverts were left out. There is no confirmed end of the company feed. Personal profile posts are not used. Undated items follow the order of the reviewed company posts, not an invented publication time.</p>
+  <div id="latest-news-list" class="space-y-12"><article id="news-staying-close-leaving-care" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="1" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="users" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">Source-linked</span>
+        
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Staying Close and support for care-experienced young people</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>Compass welcomed a development in support for young people leaving care, and said leaving care should not mean leaving support behind. It pointed to enduring relationships, suitable housing and integrated mental health support, and said the test will be implementation through partnerships between local authorities, housing providers, health services, employers and specialist voluntary organisations, alongside education, skills and employment.</p><p>The post included the Department for Education's Staying Close implementation guide for local authorities, November 2026. No exact LinkedIn publication time was shown.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7525877667905306625/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article>
+<article id="news-connect-to-work" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="2" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="newspaper" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">Source-linked</span>
+        
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Connect to Work: devolution should not mean fragmentation</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>The company post is commentary on an Employment Related Services Association report by Henry Foulkes about provider experiences of commissioning the Connect to Work programme. The company feed does not add a separate paragraph around that commentary.</p><p>It notes £1.18 billion invested in employment support across England and Wales, significant variation in commissioning, and a central message that devolution should not mean fragmentation.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7522935155746037760/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article>
+<article id="news-jobs-and-careers-service" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="3" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="newspaper" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">Source-linked</span>
+        
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">From Jobcentre Plus to the Jobs and Careers Service</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>The company post points readers to a blog by chief executive Jon Smith on the new DWP Jobs and Careers Service, published by the Institute of Employability Professionals.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.myiep.uk/blogs-and-opinion/from-jobcentre-plus-to-jobs-and-careers-a-new-era-for-employment-skills-careers-support/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">IEP blog <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7520906622580195330/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article>
+<article id="news-lucy-powell-cst-speech" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="4" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="newspaper" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">Source-linked</span>
+        
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Reflections on the Education Secretary's CST Conference speech</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>The company page introduced reflections by chief executive Jon Smith on Education Secretary Lucy Powell's speech at the Confederation of School Trusts Conference 2026. He welcomed the emphasis on widening opportunities, strengthening vocational education, and building stronger connections between education, employers and local communities.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7518270462842548225/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7517251733102780417/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Jon Smith LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article>
+<article id="news-unemployment-figures" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="5" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="newspaper" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">Source-linked</span>
+        
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">UK unemployment falls, but is the jobs market really improving?</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>The company page introduced commentary by chief executive Jon Smith on the latest unemployment figures. He argues that a falling rate is welcome, but that fewer vacancies, cautious recruitment and the need for sustainable, good work mean the headline figure should not be the only test.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7518269639911469056/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7518268586898116609/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Jon Smith LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article>
+<article id="news-youth-jobs-grant" data-kind="news" data-date-precision="date" data-all-day="true" data-editorial-placement="news" data-date-label="3 October 2026" data-location-label="" data-feed-order="6" data-event-start="2026-10-03" data-event-end="2026-10-03" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="badge-pound-sterling" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">3 October 2026</span>
+        <span class="text-sm text-gray-500 mt-1">Grant guidance</span>
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Youth Jobs Grant: the opportunity is real, the job has to last</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>The Youth Jobs Grant offers employers up to £3,000 for hiring an eligible 18 to 24-year-old who has been on Universal Credit and out of work for six months or more. The scheme is designed to support up to 60,000 job opportunities over three years, and it is open across Great Britain until October 2028.</p><p>Payment is staged, not paid up front: £1,800 after six weeks and £1,200 after 18 weeks, once employment and earnings are verified through HMRC. Roles must be genuine paid work of at least 25 hours a week, last at least four months, pay at least the applicable minimum wage, and not replace an existing worker.</p><p>For Compass Consult, the grant is a useful way to reduce the upfront cost and perceived risk of recruiting young people who have been out of work for longer. It is not a substitute for job quality. Employers, Jobcentres, employability providers, local government and specialist organisations need to use it to build sustained employment, skills and progression, not just job starts.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.gov.uk/government/publications/youth-jobs-grant" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Youth Jobs Grant guidance <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/posts/compass-consult-employability-and-skills-ltd_youth-jobs-grant-grant-guidance-activity-7512127768487251968-s83R" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article>
+<article id="news-adult-skills-fund-devolution" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="7" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="newspaper" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">Source-linked</span>
+        
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Adult Skills Fund: from national contracts to local commissioning</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>Compass describes the move away from nationally procured Adult Skills Fund contracts towards locally commissioned provision as a significant moment for the adult skills system. It says local authorities may be better placed to align investment with labour-market intelligence and employer demand, but that devolution will only improve outcomes if it comes with commissioning capacity, provider engagement and strategic coordination.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7511081059699306498/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article>
+<article id="news-disabled-young-people-paid-work" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="8" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="newspaper" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">Source-linked</span>
+        
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Paid employment opportunities for young people with disabilities and health conditions</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>Compass welcomes a focus on genuine, paid employment opportunities for young people with disabilities and health conditions, rather than relying only on traditional employability interventions. It argues that preparation, reasonable adjustments, specialist support, employer engagement and in-work support will decide whether a short opportunity becomes a pathway into lasting work.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7509980774432026624/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article>
+<article id="news-1000-youth-workers" data-kind="news" data-date-precision="date" data-all-day="true" data-editorial-placement="news" data-date-label="26 September 2026" data-location-label="" data-feed-order="9" data-event-start="2026-09-26" data-event-end="2026-09-26" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="users" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">26 September 2026</span>
+        <span class="text-sm text-gray-500 mt-1">Youth services</span>
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">1,000 new youth workers, and the integration test that follows</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>The announcement of 1,000 new youth workers across England matters for anyone working in youth employment, employability and skills. The first workers are expected to be in place by spring 2027, with a focus on community support for young people most at risk of becoming NEET.</p><p>Youth employment cannot be addressed through employment services alone. The new workers are expected to sit alongside education, training, health and crime-prevention services, building trusted relationships and connecting young people to sport, arts, mentoring and wider youth provision.</p><p>The recruitment drive sits inside a wider package: a £450 million Youth Matters Fund for facilities and activities, 50 Young Futures Hubs, more than £500 million through the National Youth Strategy, and the £820 million Youth Guarantee for 18 to 24-year-olds. That sits next to expanded employment support, the Jobs Guarantee and employer-led routes into work.</p><p>The practical test is integration. Local partnerships, clear referral and transition pathways, earlier identification of NEET risk, meaningful employer engagement, and better use of local data all matter more than another set of separate initiatives. Youth Matters was informed by research with more than 14,000 young people. The next phase is not only how many youth workers are recruited, but how well the system around them works.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.gov.uk/government/news/1000-new-youth-workers-to-help-reduce-the-risk-of-unemployment" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Government announcement <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article></div>
+  <details id="news-archive" class="events-disclosure pt-12" open>
+    <summary class="text-2xl font-bold text-gray-900 mb-8 text-center">Earlier updates</summary>
+    <div id="news-archive-list" class="space-y-12"><article id="news-housing-associations-blog" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="101" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="newspaper" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">Source-linked</span>
+        
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Housing associations and employability: a blog by Jon Smith</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>Compass pointed readers to a blog by chief executive Jon Smith, published by the Institute of Employability Professionals, on the role housing associations can play in employability, skills and social mobility.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7498499439972515841/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article>
+<article id="news-volunteering-blog" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="102" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="newspaper" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">Source-linked</span>
+        
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Any volunteers? The rewards and considerations of volunteering</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>Compass pointed readers to a blog published by the Institute of Employability Professionals, Any volunteers? The rewards and considerations of volunteering.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.myiep.uk/blogs-and-opinion/any-volunteers-the-rewards-and-considerations-of-volunteering/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">IEP blog <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7493630595449659392/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article>
+<article id="news-full-potential-evaluation" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="103" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="newspaper" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">Source-linked</span>
+        
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Full Potential Youth Guarantee Trailblazer evaluation</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>Compass welcomed the Learning and Work Institute evaluation of the first year of Full Potential, Central London Forward's Youth Guarantee Trailblazer, and said it had been a privilege to work with partners across central London supporting care-experienced young people.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://learningandwork.org.uk/evaluation-of-central-london-forwards-youth-guarantee-trailblazer/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Learning and Work Institute evaluation <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7473065018347995136/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article>
+<article id="news-broken-system-blog" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="104" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="newspaper" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">Source-linked</span>
+        
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">The broken system failing young people, and how we fix it</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>Compass shared a blog by chief executive Jon Smith, published by the Institute of Employability Professionals, on how a fragmented system can fail young people and how that could be improved. The company post said the blog was published that day, but no exact LinkedIn publication time was shown.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.myiep.uk/blogs-and-opinion/the-broken-system-failing-young-people-and-how-we-fix-it/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">IEP blog <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7470237798210633729/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article>
+<article id="news-iep-capability-partner" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="105" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="newspaper" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">Source-linked</span>
+        
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Compass joins the IEP as a Capability Partner</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>Compass announced that it has joined the Institute of Employability Professionals as a Capability Partner.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.myiep.uk/from-the-iep/compass-consult-joins-the-institute-of-employability-professionals-as-a-capability-partner/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">IEP article <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7465523755650490369/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article>
+<article id="news-iep-fellow-finalist" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="106" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="newspaper" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">Source-linked</span>
+        
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Jon Smith shortlisted for IEP Fellow of the Year 2026</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>Compass congratulated chief executive Jon Smith on being a finalist for IEP Fellow of the Year 2026. The post does not say he won. It said the company was looking forward to the IEP Summit in London on Thursday 11 June.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7465521766270914560/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article>
+<article id="news-thought-leadership-blog" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="107" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="newspaper" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">Source-linked</span>
+        
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Thought leadership and emotional intelligence: a blog by Jon Smith</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>Compass pointed readers to a blog by chief executive Jon Smith, published by the Institute of Employability Professionals, on thought leadership and emotional intelligence.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.myiep.uk/blogs-and-opinion/thought-leadership-and-emotional-intelligence-why-the-best-leaders-need-both/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">IEP blog <i data-lucide="arrow-right" class="w-3 h-3"></i></a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7457749113502085120/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article>
+<article id="news-disability-employment-gap-blog" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="108" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="newspaper" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">Source-linked</span>
+        
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">The disability employment gap remains stubbornly wide</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>Compass said its managing director, Jon Smith, had published a blog exploring the disability employment gap and inviting a wider conversation. No separate public article URL was captured with this post.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7432102063691575296/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article>
+<article id="news-youth-neet-blog" data-kind="news" data-date-precision="unknown" data-all-day="false" data-editorial-placement="news" data-date-label="Source-linked" data-location-label="" data-feed-order="109" class="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+    <div class="flex flex-col md:flex-row md:gap-8 items-start">
+      <div class="w-full md:w-1/3 flex-shrink-0 mb-6 md:mb-0 bg-purple-50 min-h-40 flex flex-col items-center justify-center rounded-lg border border-purple-100 px-6 py-8 text-center">
+        <i data-lucide="newspaper" class="w-12 h-12 text-compass-purple mb-2"></i>
+        <span class="text-compass-purple font-bold text-lg">Source-linked</span>
+        
+      </div>
+      <div class="w-full md:w-2/3">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Young people not in education, employment or training</h2>
+        <div class="prose max-w-none text-gray-700 space-y-4"><p>Compass pointed to a blog by Jon Smith on the number of young people who are not in education, employment or training, posted in connection with National Apprenticeship Week. No exact publication date is taken from that week reference.</p><div class="flex flex-wrap items-center gap-4 mt-4"><a href="https://www.linkedin.com/feed/update/urn:li:activity:7426638799377596416/" target="_blank" rel="noopener noreferrer" class="text-amber-600 text-sm font-bold hover:underline inline-flex items-center gap-1">Company LinkedIn post <i data-lucide="arrow-right" class="w-3 h-3"></i></a></div></div>
+      </div>
+    </div>
+  </article></div>
+  </details>
+</div>
+<!-- NEWS_EVENTS_RENDER_END -->
             </div>
         </section>
 
@@ -1323,7 +1227,7 @@
                             <li><a href="/pages/team.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Meet the Team</a></li>
                             <li><a href="/pages/partnerships.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Partnerships</a></li>
                             <li><a href="/pages/resources.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Resource Library</a></li>
-                            <li><a href="/pages/events.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Events</a></li>
+                            <li><a href="/pages/events.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Latest news and events</a></li>
                             <li><a href="/pages/work-for-us.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Work For Us</a></li>
                             <li><a href="/pages/contact.html" class="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Contact Us</a></li>
                         </ul>
@@ -1363,7 +1267,7 @@
     <!-- main.js: site-wide behaviour (navigation, animations, accessibility) -->
     <script src="/js/aos.min.a5005b2e.js"></script>
     <script defer src="/js/lucide.min.2da98d36.js"></script>
-    <script defer src="/js/main.93deb2f0.js?v=20260406c"></script>
-    <script src="/js/events.js"></script>
+    <script defer src="/js/main.70cbe9c0.js?v=20260406c"></script>
+    <script type="module" src="/js/events.6a466ca4.mjs"></script>
 </body>
 </html>
