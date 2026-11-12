@@ -11,23 +11,25 @@
     "documentTitlesNotReviewed": 4,
     "excludedJobAdverts": 4,
     "jonProfile": "not visited in this company batch",
-    "publicNote": "A selection, not a complete record. The company feed contributed 64 full texts from a 114-post manifest; 37 previews, 5 reposts and 4 document titles were not fully reviewed, and 4 job adverts were left out. Jon Smith's posts contributed 37 selected positions and 36 unique posts from 292 previews. Most of that feed was not expanded, positions 20 to 61 are largely unresolved, and the collection stopped when a browser tab crashed. Neither feed has a confirmed end. No publication time was shown, so undated items follow the order of the reviewed posts rather than an invented date. Jon's profile collection is not being continued in this batch.",
+    "publicNote": "A selection from the Compass Consult company LinkedIn page, not a complete record. 64 posts were read in full from a 114-post list. 37 previews, 5 reposts and 4 document titles were not fully reviewed, and 4 job adverts were left out. There is no confirmed end of the company feed. Personal profile posts are not used. Undated items follow the order of the reviewed company posts, not an invented publication time.",
     "jonSelectedPositions": 37,
     "jonUniqueUrns": 36,
     "jonManifestSize": 292,
     "jonPreviewOnly": 255,
-    "jonReachedEnd": false
+    "jonReachedEnd": false,
+    "source": "company-page-only",
+    "jonProfileUsed": false
   },
   "held": [
     {
       "id": "held-lgr-briefing-promise",
       "activityId": "7521653467967422466",
-      "reason": "The company post promised an LGR briefing the following afternoon. The resource library already contains an LGR factsheet and a 25 March 2026 update. Those files were not matched to this post, so the stale tomorrow wording is not published. Jon pointed to the same company post. That does not publish it."
+      "reason": "The company post promised an LGR briefing the following afternoon. The resource library already contains an LGR factsheet and a 25 March 2026 update. Those files were not matched to this post, so the stale tomorrow wording is not published."
     },
     {
       "id": "held-budget-synopsis-promise",
       "activityId": "7521515449965203471",
-      "reason": "The company post promised a Budget synopsis later that day. The library contains an Autumn 2026 Budget infographic. That file was not verified as the promised synopsis, so the post is not published. Jon reposted the same company promise. That does not publish it."
+      "reason": "The company post promised a Budget synopsis later that day. The library contains an Autumn 2026 Budget infographic. That file was not verified as the promised synopsis, so the post is not published."
     }
   ],
   "entries": [
@@ -44,10 +46,6 @@
       ],
       "links": [
         {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/posts/compassconsultcces_iep-basecamp-2026-is-next-week-were-activity-7511874669646614528-PVv6"
-        },
-        {
           "label": "Company LinkedIn post",
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7511874188677386240/"
         }
@@ -58,11 +56,6 @@
       "lists": [],
       "id": "iep-basecamp-2026",
       "sources": [
-        {
-          "role": "jon-smith",
-          "activityId": "7511874669646614528",
-          "url": "https://www.linkedin.com/posts/compassconsultcces_iep-basecamp-2026-is-next-week-were-activity-7511874669646614528-PVv6"
-        },
         {
           "role": "company",
           "activityId": "7511874188677386240",
@@ -295,7 +288,7 @@
         "A huge thank you to the organisations supporting the Summit this year:",
         "And for the IEP Summit Networking Dinner:",
         "Secure your place and join colleagues from across the sector for a day of insight, debate and collaboration. Take advantage of tiered pricing and book early to secure the best value tickets.",
-        "A company post says Jon Smith attended the Summit. Jon later wrote that he had spent the previous day at the Summit and the dinner. He is recorded as a finalist for IEP Fellow of the Year 2026, not as the winner."
+        "A company post says chief executive Jon Smith attended the Summit. A related company post records that he was a finalist for IEP Fellow of the Year 2026, not the winner."
       ],
       "links": [
         {
@@ -305,10 +298,6 @@
         {
           "label": "Company post on attendance",
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7471237269337653248/"
-        },
-        {
-          "label": "Jon Smith on attending",
-          "href": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7471231127907901440/"
         }
       ],
       "image": {
@@ -362,10 +351,6 @@
           "role": "company",
           "activityId": "7430227568777330689",
           "url": "https://www.linkedin.com/feed/update/urn:li:activity:7430227568777330689/"
-        },
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7471231127907901440/"
         }
       ],
       "schedule": {
@@ -400,10 +385,6 @@
         {
           "label": "Company LinkedIn post",
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7436900683859165185/"
-        },
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:share:7436901953965764609/"
         }
       ],
       "image": {
@@ -424,10 +405,6 @@
           "role": "organiser",
           "activityId": "7436017819793911808",
           "url": "https://www.linkedin.com/feed/update/urn:li:activity:7436017819793911808/"
-        },
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:share:7436901953965764609/"
         }
       ],
       "schedule": {
@@ -452,10 +429,6 @@
         {
           "label": "Company LinkedIn post",
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7418627496314753024/"
-        },
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:share:7418627874137481216/"
         }
       ],
       "image": {
@@ -476,10 +449,6 @@
           "role": "organiser",
           "activityId": "7418623207835975680",
           "url": "https://www.linkedin.com/feed/update/urn:li:activity:7418623207835975680/"
-        },
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:share:7418627874137481216/"
         }
       ],
       "schedule": {
@@ -497,15 +466,11 @@
       "title": "IEP Fellows Networking Dinner, Chester",
       "subtitle": "The first IEP Fellows dinner in the city",
       "paragraphs": [
-        "The IEP announcement on Jon Smith's post gives Thursday 17 September 2026, 6:00pm to 10:30pm, at OddFellows, Chester. That matches the date already on this page.",
-        "Jon wrote that he was looking forward to attending. The company post says he was speaking. Neither post is a report written after the dinner.",
+        "The company post says chief executive Jon Smith was speaking at this dinner. It is not a report written after the event.",
+        "The date and time already published on this page are Thursday 17 September 2026, 6:00pm to 10:30pm, at OddFellows, Chester. The IEP post included in the company update names Thursday 17 September and does not print a year.",
         "The dinner was sponsored by ICONI Software Ltd."
       ],
       "links": [
-        {
-          "label": "LinkedIn post",
-          "href": "https://www.linkedin.com/posts/compassconsultcces_iep-employability-networking-activity-7497739831121276928-gOBA"
-        },
         {
           "label": "Company LinkedIn post",
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7500927532842774529/"
@@ -517,11 +482,6 @@
       "lists": [],
       "id": "iep-fellows-chester-2026",
       "sources": [
-        {
-          "role": "jon-smith",
-          "activityId": "7497739831121276928",
-          "url": "https://www.linkedin.com/posts/compassconsultcces_iep-employability-networking-activity-7497739831121276928-gOBA"
-        },
         {
           "role": "company",
           "activityId": "7500927532842774529",
@@ -563,10 +523,6 @@
         {
           "label": "Company LinkedIn post",
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7418631335012986880/"
-        },
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:share:7418631935628845057/"
         }
       ],
       "image": null,
@@ -584,10 +540,6 @@
           "role": "organiser",
           "activityId": "7417173700854321153",
           "url": "https://www.linkedin.com/feed/update/urn:li:activity:7417173700854321153/"
-        },
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:share:7418631935628845057/"
         }
       ],
       "schedule": {
@@ -737,10 +689,6 @@
         {
           "label": "Jon Smith LinkedIn post",
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7430015421031821314/"
-        },
-        {
-          "label": "Related post, date not stated",
-          "href": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7432041049696677888/"
         }
       ],
       "image": null,
@@ -758,10 +706,6 @@
           "role": "jon-smith",
           "activityId": "7430015421031821314",
           "url": "https://www.linkedin.com/feed/update/urn:li:activity:7430015421031821314/"
-        },
-        {
-          "role": "related-undated",
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7432041049696677888/"
         }
       ],
       "schedule": {
@@ -947,17 +891,13 @@
       "title": "Full Potential Celebrating Success Event",
       "subtitle": "Guildhall, City of London",
       "paragraphs": [
-        "Compass said it helped bring together partners, local authorities, employers, delivery organisations and young people at Guildhall in the City of London to celebrate the first year of the Full Potential Youth Guarantee Trailblazer. Jon Smith wrote that he took part.",
-        "The company post dates the event to 18 May. It does not print a year, so this card is not placed on the calendar."
+        "The company post says Compass helped bring together partners, local authorities, employers, delivery organisations and young people at Guildhall in the City of London to celebrate the first year of the Full Potential Youth Guarantee Trailblazer.",
+        "That post dates the event to 18 May and does not print a year, so this card is not placed on the calendar."
       ],
       "links": [
         {
           "label": "Company LinkedIn post",
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7465536565788766208/"
-        },
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7465537834486120448/"
         }
       ],
       "image": null,
@@ -976,10 +916,6 @@
           "role": "company",
           "activityId": "7465536565788766208",
           "url": "https://www.linkedin.com/feed/update/urn:li:activity:7465536565788766208/"
-        },
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7465537834486120448/"
         }
       ],
       "feedOrder": 30,
@@ -990,11 +926,10 @@
       "baseline": false,
       "kind": "event",
       "title": "IEP Fellows Lecture and dinner, London",
-      "subtitle": "RSA House and Browns Covent Garden",
+      "subtitle": "Browns Brasserie and Bar, London",
       "paragraphs": [
-        "Jon Smith said he was looking forward to IEP Fellows Day in London on Thursday 12 February 2026.",
-        "The IEP text on his post gives the Fellows Lecture, Looking Ahead session and networking drinks as 1:00pm to 5:00pm in the Benjamin Franklin Room at RSA House, London.",
-        "The dinner is at the Judge's Court Private Room, Browns Covent Garden, sponsored by Clarion Futures. Two IEP texts give different dinner times, so no dinner time is shown here."
+        "The company post said Compass was looking forward to attending the IEP Fellows Lecture and dinner in London on 12 February 2026.",
+        "The IEP post included in that company update gives the dinner as Thursday 12 February 2026, 7:00pm to 11:00pm, in the Judge's Court Private Room at Browns Brasserie and Bar, London, WC2N 4AG, sponsored by Clarion Futures."
       ],
       "links": [
         {
@@ -1004,22 +939,18 @@
         {
           "label": "IEP post",
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7417476735589445632/"
-        },
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7415158962788167680/"
         }
       ],
       "image": null,
       "icon": "calendar-days",
-      "location": "Benjamin Franklin Room, RSA House, London; dinner at Browns Covent Garden",
+      "location": "Judge's Court Private Room, Browns Brasserie and Bar, London, WC2N 4AG",
       "schedule": {
-        "precision": "date",
-        "allDay": true,
-        "start": "2026-02-12",
-        "end": "2026-02-12",
+        "precision": "datetime",
+        "allDay": false,
+        "start": "2026-02-12T19:00",
+        "end": "2026-02-12T23:00",
         "editorialPlacement": "past",
-        "dateLabel": "Thu 12 Feb 2026"
+        "dateLabel": "Thu 12 Feb 2026, 7:00pm – 11:00pm"
       },
       "sources": [
         {
@@ -1031,10 +962,6 @@
           "role": "organiser",
           "activityId": "7417476735589445632",
           "url": "https://www.linkedin.com/feed/update/urn:li:activity:7417476735589445632/"
-        },
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7415158962788167680/"
         }
       ],
       "feedOrder": 31
@@ -1102,7 +1029,7 @@
       "kicker": "Grant guidance",
       "location": null,
       "newsList": "latest",
-      "feedOrder": 12,
+      "feedOrder": 6,
       "relativeTimeLabel": null,
       "schedule": {
         "precision": "date",
@@ -1136,10 +1063,6 @@
         {
           "label": "Government announcement",
           "href": "https://www.gov.uk/government/news/1000-new-youth-workers-to-help-reduce-the-risk-of-unemployment"
-        },
-        {
-          "label": "LinkedIn post",
-          "href": "https://www.linkedin.com/posts/compassconsultcces_todays-announcement-of-1000-new-youth-workers-activity-7509625278135017472-konH"
         }
       ],
       "image": null,
@@ -1147,7 +1070,7 @@
       "kicker": "Youth services",
       "location": null,
       "newsList": "latest",
-      "feedOrder": 15,
+      "feedOrder": 9,
       "relativeTimeLabel": null,
       "schedule": {
         "precision": "date",
@@ -1157,13 +1080,7 @@
         "editorialPlacement": "news",
         "dateLabel": "26 September 2026"
       },
-      "sources": [
-        {
-          "role": "jon-smith",
-          "activityId": "7509625278135017472",
-          "url": "https://www.linkedin.com/posts/compassconsultcces_todays-announcement-of-1000-new-youth-workers-activity-7509625278135017472-konH"
-        }
-      ]
+      "sources": []
     },
     {
       "id": "news-staying-close-leaving-care",
@@ -1211,17 +1128,13 @@
       "title": "Connect to Work: devolution should not mean fragmentation",
       "subtitle": null,
       "paragraphs": [
-        "Jon Smith wrote about an Employment Related Services Association report by Henry Foulkes on provider experiences of commissioning the Connect to Work programme. The same commentary appears on the company feed, with no separate Compass text.",
-        "He notes £1.18 billion invested in employment support across England and Wales, significant variation in commissioning, and a central message that devolution should not mean fragmentation."
+        "The company post is commentary on an Employment Related Services Association report by Henry Foulkes about provider experiences of commissioning the Connect to Work programme. The company feed does not add a separate paragraph around that commentary.",
+        "It notes £1.18 billion invested in employment support across England and Wales, significant variation in commissioning, and a central message that devolution should not mean fragmentation."
       ],
       "links": [
         {
           "label": "Company LinkedIn post",
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7522935155746037760/"
-        },
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7522789693789425664/"
         }
       ],
       "image": null,
@@ -1229,7 +1142,7 @@
       "kicker": null,
       "location": null,
       "newsList": "latest",
-      "feedOrder": 3,
+      "feedOrder": 2,
       "relativeTimeLabel": "1w",
       "schedule": {
         "precision": "unknown",
@@ -1244,11 +1157,6 @@
           "role": "jon-smith",
           "activityId": "7522935155746037760",
           "url": "https://www.linkedin.com/feed/update/urn:li:activity:7522935155746037760/"
-        },
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7522789693789425664/",
-          "activityId": "7522789693789425664"
         }
       ]
     },
@@ -1259,8 +1167,7 @@
       "title": "From Jobcentre Plus to the Jobs and Careers Service",
       "subtitle": null,
       "paragraphs": [
-        "The company post points readers to a blog by chief executive Jon Smith on the new DWP Jobs and Careers Service, published by the Institute of Employability Professionals.",
-        "On Jon's profile, that item is a repost of an announcement written by Scott Parkin FIEP. Scott Parkin wrote the announcement. The blog it describes is Jon's. This is one story, not two."
+        "The company post points readers to a blog by chief executive Jon Smith on the new DWP Jobs and Careers Service, published by the Institute of Employability Professionals."
       ],
       "links": [
         {
@@ -1270,10 +1177,6 @@
         {
           "label": "Company LinkedIn post",
           "href": "https://www.linkedin.com/feed/update/urn:li:activity:7520906622580195330/"
-        },
-        {
-          "label": "Jon Smith's repost",
-          "href": "https://www.linkedin.com/feed/update/urn:li:share:7520773084719534080/"
         }
       ],
       "image": null,
@@ -1281,7 +1184,7 @@
       "kicker": null,
       "location": null,
       "newsList": "latest",
-      "feedOrder": 5,
+      "feedOrder": 3,
       "relativeTimeLabel": "2w",
       "schedule": {
         "precision": "unknown",
@@ -1296,10 +1199,6 @@
           "role": "company",
           "activityId": "7520906622580195330",
           "url": "https://www.linkedin.com/feed/update/urn:li:activity:7520906622580195330/"
-        },
-        {
-          "role": "jon-repost",
-          "url": "https://www.linkedin.com/feed/update/urn:li:share:7520773084719534080/"
         }
       ]
     },
@@ -1327,7 +1226,7 @@
       "kicker": null,
       "location": null,
       "newsList": "latest",
-      "feedOrder": 7,
+      "feedOrder": 4,
       "relativeTimeLabel": "3w",
       "schedule": {
         "precision": "unknown",
@@ -1374,7 +1273,7 @@
       "kicker": null,
       "location": null,
       "newsList": "latest",
-      "feedOrder": 8,
+      "feedOrder": 5,
       "relativeTimeLabel": "3w",
       "schedule": {
         "precision": "unknown",
@@ -1417,7 +1316,7 @@
       "kicker": null,
       "location": null,
       "newsList": "latest",
-      "feedOrder": 13,
+      "feedOrder": 7,
       "relativeTimeLabel": "1mo",
       "schedule": {
         "precision": "unknown",
@@ -1455,7 +1354,7 @@
       "kicker": null,
       "location": null,
       "newsList": "latest",
-      "feedOrder": 14,
+      "feedOrder": 8,
       "relativeTimeLabel": "1mo",
       "schedule": {
         "precision": "unknown",
@@ -1834,523 +1733,6 @@
           "url": "https://www.linkedin.com/feed/update/urn:li:activity:7426638799377596416/"
         }
       ]
-    },
-    {
-      "id": "event-sector-supplier-awards-2027",
-      "baseline": false,
-      "kind": "event",
-      "title": "2027 Sector Supplier Awards",
-      "subtitle": "Related sector event, attendance not confirmed",
-      "paragraphs": [
-        "Jon Smith welcomed the return of the Sector Supplier Awards and said he was looking forward to the celebrations in February. He does not say he will attend, and Compass is not described as hosting the awards.",
-        "Sak Awan's post, which Jon shared, says the awards will be held on 23 February 2027, the night before the Apprenticeships Conference. The awards venue is not stated. Nominations are shown as closing on 30 November 2026, and voting as opening on 7 December 2026."
-      ],
-      "links": [
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7525648703144005632/"
-        },
-        {
-          "label": "Sak Awan LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7525591533715111936/"
-        }
-      ],
-      "sources": [
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7525648703144005632/"
-        },
-        {
-          "role": "embedded",
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7525591533715111936/"
-        }
-      ],
-      "image": null,
-      "icon": "calendar-days",
-      "location": null,
-      "schedule": {
-        "precision": "date",
-        "allDay": true,
-        "start": "2027-02-23",
-        "end": "2027-02-23",
-        "editorialPlacement": "upcoming",
-        "dateLabel": "Tue 23 Feb 2027"
-      },
-      "feedOrder": 3,
-      "sourceGroup": "sector-awards-conference-2027"
-    },
-    {
-      "id": "event-apprenticeships-conference-2027",
-      "baseline": false,
-      "kind": "event",
-      "title": "Apprenticeships Conference 2027",
-      "subtitle": "Related sector event, attendance not confirmed",
-      "paragraphs": [
-        "The same posts give the Apprenticeships Conference as 24 February 2027, the day after the Sector Supplier Awards. A visible graphic names Millennium Point with the conference. Jon does not say he will attend, and this is not a Compass event.",
-        "This is not the Annual Apprenticeships Conference already listed for 24 February 2026."
-      ],
-      "links": [
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7525648703144005632/"
-        },
-        {
-          "label": "Sak Awan LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7525591533715111936/"
-        }
-      ],
-      "sources": [
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7525648703144005632/"
-        },
-        {
-          "role": "embedded",
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7525591533715111936/"
-        }
-      ],
-      "image": null,
-      "icon": "calendar-days",
-      "location": "Millennium Point, Birmingham",
-      "schedule": {
-        "precision": "date",
-        "allDay": true,
-        "start": "2027-02-24",
-        "end": "2027-02-24",
-        "editorialPlacement": "upcoming",
-        "dateLabel": "Wed 24 Feb 2027"
-      },
-      "feedOrder": 4,
-      "sourceGroup": "sector-awards-conference-2027"
-    },
-    {
-      "id": "news-iep-capability-framework",
-      "baseline": false,
-      "kind": "news",
-      "title": "IEP Capability Framework: a proposed launch, not yet a date",
-      "subtitle": null,
-      "paragraphs": [
-        "Jon Smith welcomed the IEP Capability Framework for Employability Professionals as a step towards a stronger professional identity and more consistent good practice.",
-        "Pat Russell's announcement, which his post includes, says the IEP is to launch the framework next week, with an implementation guide and an editable toolkit to follow. No launch date is given, and the post is not treated here as proof that the framework has launched."
-      ],
-      "links": [
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:share:7525591036195160064/"
-        },
-        {
-          "label": "Pat Russell LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:share:7525500693282013184/"
-        }
-      ],
-      "sources": [
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:share:7525591036195160064/"
-        },
-        {
-          "role": "embedded",
-          "url": "https://www.linkedin.com/feed/update/urn:li:share:7525500693282013184/"
-        }
-      ],
-      "image": null,
-      "icon": "newspaper",
-      "kicker": null,
-      "location": null,
-      "newsList": "latest",
-      "feedOrder": 2,
-      "relativeTimeLabel": "1d",
-      "schedule": {
-        "precision": "unknown",
-        "allDay": false,
-        "start": null,
-        "end": null,
-        "editorialPlacement": "news",
-        "dateLabel": "Source-linked"
-      }
-    },
-    {
-      "id": "news-london-sme-growth-fund",
-      "baseline": false,
-      "kind": "news",
-      "title": "A £70 million fund for London scale-ups",
-      "subtitle": null,
-      "paragraphs": [
-        "Jon Smith welcomed a £70 million Future London Growth Fund for London scale-ups, and argued that SME investment should translate into jobs, skills and opportunities for people further from the labour market. The embedded post is by Howard Dawber."
-      ],
-      "links": [
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:share:7519110914588069889/"
-        },
-        {
-          "label": "Howard Dawber LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:share:7519083702828830720/"
-        }
-      ],
-      "sources": [
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:share:7519110914588069889/"
-        },
-        {
-          "role": "embedded",
-          "url": "https://www.linkedin.com/feed/update/urn:li:share:7519083702828830720/"
-        }
-      ],
-      "image": null,
-      "icon": "newspaper",
-      "kicker": null,
-      "location": null,
-      "newsList": "latest",
-      "feedOrder": 4,
-      "relativeTimeLabel": "2w",
-      "schedule": {
-        "precision": "unknown",
-        "allDay": false,
-        "start": null,
-        "end": null,
-        "editorialPlacement": "news",
-        "dateLabel": "Source-linked"
-      }
-    },
-    {
-      "id": "news-test-learn-grow-playbook",
-      "baseline": false,
-      "kind": "news",
-      "title": "Test, learn and grow: making improvement standard practice",
-      "subtitle": null,
-      "paragraphs": [
-        "Jon Smith welcomed the Cabinet Office Test, Learn and Grow Playbook, arguing that employability and skills programmes should test what works, learn from evidence and scale it, rather than leaving improvement to the end of a programme."
-      ],
-      "links": [
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:share:7518349673779318784/"
-        }
-      ],
-      "sources": [
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:share:7518349673779318784/"
-        }
-      ],
-      "image": null,
-      "icon": "newspaper",
-      "kicker": null,
-      "location": null,
-      "newsList": "latest",
-      "feedOrder": 6,
-      "relativeTimeLabel": "3w",
-      "schedule": {
-        "precision": "unknown",
-        "allDay": false,
-        "start": null,
-        "end": null,
-        "editorialPlacement": "news",
-        "dateLabel": "Source-linked"
-      }
-    },
-    {
-      "id": "news-rachel-de-souza-children-devolution",
-      "baseline": false,
-      "kind": "news",
-      "title": "Devolution and a lead for children in every strategic authority",
-      "subtitle": null,
-      "paragraphs": [
-        "Jon Smith welcomed an intervention from Dame Rachel de Souza on using devolution to tackle inequalities in children and young people's life chances, including a designated lead for children in every strategic authority, with accountability, investment and collaboration."
-      ],
-      "links": [
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:share:7518262480461090816/"
-        }
-      ],
-      "sources": [
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:share:7518262480461090816/"
-        }
-      ],
-      "image": null,
-      "icon": "newspaper",
-      "kicker": null,
-      "location": null,
-      "newsList": "latest",
-      "feedOrder": 9,
-      "relativeTimeLabel": "3w",
-      "schedule": {
-        "precision": "unknown",
-        "allDay": false,
-        "start": null,
-        "end": null,
-        "editorialPlacement": "news",
-        "dateLabel": "Source-linked"
-      }
-    },
-    {
-      "id": "news-cpca-youth-trailblazer",
-      "baseline": false,
-      "kind": "news",
-      "title": "Youth Guarantee lessons from Cambridgeshire and Peterborough",
-      "subtitle": null,
-      "paragraphs": [
-        "Jon Smith welcomed Year 1 of the Cambridgeshire and Peterborough Combined Authority Youth Trailblazer and its Year 2 Youth Guarantee programmes, arguing that joined-up pathways and personalised support matter as much as job starts. The embedded announcement is the Combined Authority's."
-      ],
-      "links": [
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7517689696106258432/"
-        },
-        {
-          "label": "Combined Authority LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7516136517577129984/"
-        }
-      ],
-      "sources": [
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7517689696106258432/"
-        },
-        {
-          "role": "embedded",
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7516136517577129984/"
-        }
-      ],
-      "image": null,
-      "icon": "newspaper",
-      "kicker": null,
-      "location": null,
-      "newsList": "latest",
-      "feedOrder": 10,
-      "relativeTimeLabel": "3w",
-      "schedule": {
-        "precision": "unknown",
-        "allDay": false,
-        "start": null,
-        "end": null,
-        "editorialPlacement": "news",
-        "dateLabel": "Source-linked"
-      }
-    },
-    {
-      "id": "news-lga-children-in-care-spending",
-      "baseline": false,
-      "kind": "news",
-      "title": "Children in care spending: invest in prevention, not only crisis",
-      "subtitle": null,
-      "paragraphs": [
-        "Jon Smith commented on Local Government Association analysis that councils spent £9.5 billion supporting children in care in 2025/26, compared with £6.6 billion in 2022/23. He argued for earlier intervention and joined-up support, including housing, mental health, education, skills and employment, without treating employment as a substitute for that wider support."
-      ],
-      "links": [
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7515831689563176962/"
-        }
-      ],
-      "sources": [
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7515831689563176962/"
-        }
-      ],
-      "image": null,
-      "icon": "newspaper",
-      "kicker": null,
-      "location": null,
-      "newsList": "latest",
-      "feedOrder": 11,
-      "relativeTimeLabel": "4w",
-      "schedule": {
-        "precision": "unknown",
-        "allDay": false,
-        "start": null,
-        "end": null,
-        "editorialPlacement": "news",
-        "dateLabel": "Source-linked"
-      }
-    },
-    {
-      "id": "event-drive-forward-care-to-career",
-      "baseline": false,
-      "kind": "event",
-      "title": "Drive Forward Foundation Care to Career event",
-      "subtitle": "Jon Smith reported attending",
-      "paragraphs": [
-        "Jon Smith wrote that he attended the Drive Forward Foundation Care to Career event at Hackney Town Hall, celebrating care-experienced young people. No exact date was shown."
-      ],
-      "links": [
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7480724515694649344/"
-        }
-      ],
-      "sources": [
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7480724515694649344/"
-        }
-      ],
-      "image": null,
-      "icon": "calendar-days",
-      "location": "Hackney Town Hall",
-      "schedule": {
-        "precision": "unknown",
-        "allDay": false,
-        "start": null,
-        "end": null,
-        "editorialPlacement": "past",
-        "dateLabel": "Date not stated"
-      },
-      "feedOrder": 40
-    },
-    {
-      "id": "event-iep-talks-live-london-2025",
-      "baseline": false,
-      "kind": "event",
-      "title": "IEP Talks Live London: How to Navigate Devolution",
-      "subtitle": "Planned speaker slot, delivery not confirmed",
-      "paragraphs": [
-        "Jon Smith wrote that he was delighted to be taking part and invited people in London on 15 October to register. The IEP announcement lists him as a speaker for How to Navigate Devolution.",
-        "The IEP gives Wednesday 15 October 2025, 1:00pm to 4:30pm, at Paddington Works, London. The posts do not confirm that the session went ahead."
-      ],
-      "links": [
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:share:7378510476109975552/"
-        },
-        {
-          "label": "IEP announcement",
-          "href": "https://www.linkedin.com/feed/update/urn:li:share:7378404880769540096/"
-        }
-      ],
-      "sources": [
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:share:7378510476109975552/"
-        },
-        {
-          "role": "organiser",
-          "url": "https://www.linkedin.com/feed/update/urn:li:share:7378404880769540096/"
-        }
-      ],
-      "image": null,
-      "icon": "calendar-days",
-      "location": "Paddington Works, London",
-      "schedule": {
-        "precision": "datetime",
-        "allDay": false,
-        "start": "2025-10-15T13:00",
-        "end": "2025-10-15T16:30",
-        "editorialPlacement": "past",
-        "dateLabel": "Wed 15 Oct 2025, 1:00pm – 4:30pm"
-      },
-      "feedOrder": 41
-    },
-    {
-      "id": "event-full-potential-first-best-practice-rbkc",
-      "baseline": false,
-      "kind": "event",
-      "title": "First Full Potential best-practice session",
-      "subtitle": "Royal Borough of Kensington and Chelsea",
-      "paragraphs": [
-        "Jon Smith wrote that he supported Central London Forward to deliver the first Full Potential best-practice session, with 12 London boroughs, hosted by the Royal Borough of Kensington and Chelsea. No exact date was shown. This is a different session from the later Lambeth-hosted best-practice event."
-      ],
-      "links": [
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7377698226994388992/"
-        }
-      ],
-      "sources": [
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7377698226994388992/"
-        }
-      ],
-      "image": null,
-      "icon": "calendar-days",
-      "location": "Hosted by the Royal Borough of Kensington and Chelsea",
-      "schedule": {
-        "precision": "unknown",
-        "allDay": false,
-        "start": null,
-        "end": null,
-        "editorialPlacement": "past",
-        "dateLabel": "Date not stated"
-      },
-      "feedOrder": 42
-    },
-    {
-      "id": "event-youth-guarantee-trailblazers-london-launch",
-      "baseline": false,
-      "kind": "event",
-      "title": "Youth Guarantee Trailblazers London launch",
-      "subtitle": "Jon Smith reported attending",
-      "paragraphs": [
-        "Jon Smith wrote that he attended the launch of the Youth Guarantee Trailblazers in London. No exact date or venue was shown."
-      ],
-      "links": [
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7326232946510618624/"
-        }
-      ],
-      "sources": [
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7326232946510618624/"
-        }
-      ],
-      "image": null,
-      "icon": "calendar-days",
-      "location": null,
-      "schedule": {
-        "precision": "unknown",
-        "allDay": false,
-        "start": null,
-        "end": null,
-        "editorialPlacement": "past",
-        "dateLabel": "Date not stated"
-      },
-      "feedOrder": 43
-    },
-    {
-      "id": "news-compass-consult-launch",
-      "baseline": false,
-      "kind": "news",
-      "title": "Jon Smith launches Compass Consult",
-      "subtitle": null,
-      "paragraphs": [
-        "Jon Smith announced that, after a year of self-employment supporting organisations through devolution, he had launched Compass Consult to help accountable bodies and providers create collaborative solutions for UK employability and skills. No exact publication date was shown."
-      ],
-      "links": [
-        {
-          "label": "Jon Smith LinkedIn post",
-          "href": "https://www.linkedin.com/feed/update/urn:li:share:7410703879631417344/"
-        }
-      ],
-      "sources": [
-        {
-          "role": "jon-smith",
-          "url": "https://www.linkedin.com/feed/update/urn:li:share:7410703879631417344/"
-        }
-      ],
-      "image": null,
-      "icon": "newspaper",
-      "kicker": null,
-      "location": null,
-      "newsList": "archive",
-      "feedOrder": 110,
-      "relativeTimeLabel": "10mo",
-      "schedule": {
-        "precision": "unknown",
-        "allDay": false,
-        "start": null,
-        "end": null,
-        "editorialPlacement": "news",
-        "dateLabel": "Source-linked"
-      }
     }
   ]
 }

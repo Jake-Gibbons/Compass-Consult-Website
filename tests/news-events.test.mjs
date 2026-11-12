@@ -71,11 +71,10 @@ describe("news curation", () => {
 
   it("orders latest news by explicit feed order, with Connect to Work once", () => {
     const latest = sortNews(catalogue.entries, "latest").map((item) => item.id);
-    expect(latest.slice(0, 4)).toEqual([
+    expect(latest.slice(0, 3)).toEqual([
       "news-staying-close-leaving-care",
-      "news-iep-capability-framework",
       "news-connect-to-work",
-      "news-london-sme-growth-fund"
+      "news-jobs-and-careers-service"
     ]);
     expect(latest.filter((id) => id === "news-connect-to-work")).toHaveLength(1);
     expect(latest).toContain("news-youth-jobs-grant");
@@ -111,17 +110,16 @@ describe("rendered page", () => {
     expect(html).toContain("not a complete record");
     expect(html).toContain("Fedcap");
     expect(html).not.toContain("headline sponsor Serco");
-    expect(html).toContain("Scott Parkin");
-    expect(html).toContain("7522789693789425664");
+    expect(html).not.toContain("Scott Parkin");
+    expect(html).not.toContain("7522789693789425664");
+    expect(html).not.toContain("compassconsultcces");
     expect(html.match(/Connect to Work: devolution/g)).toHaveLength(1);
-    expect(html).toContain("23 February 2027");
-    expect(html).toContain("does not say he will attend");
-    expect(html).toContain("not treated here as proof that the framework has launched");
+    expect(html).not.toContain("23 February 2027");
+    expect(html).not.toContain("Capability Framework");
     const lectureAt = html.indexOf('id="event-iep-fellows-lecture-london-2026"');
     const lecture = html.slice(lectureAt, html.indexOf("<article", lectureAt + 10));
-    expect(lecture).toContain("no dinner time is shown");
-    expect(lecture).not.toContain("7:00pm");
-    expect(lecture).not.toContain("6:30pm");
-    expect(html.indexOf('id="event-sector-supplier-awards-2027"')).toBeLessThan(html.indexOf('id="past-events-list"'));
+    expect(lecture).toContain("7:00pm to 11:00pm");
+    expect(lecture).not.toContain("RSA House");
+    expect(html).not.toContain('id="event-sector-supplier-awards-2027"');
   });
 });

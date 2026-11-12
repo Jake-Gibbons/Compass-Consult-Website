@@ -4,15 +4,51 @@
 
 ## What this batch is
 
-This is a selected review, not a complete one.
+News and events on the site come from the Compass Consult company LinkedIn page only:
 
-Company feed, 11 November 2026: 114 posts were listed. 64 were read in full. Still unreviewed: 37 preview-only posts, 5 third-party reposts without a company claim, and 4 document titles. 4 job adverts were excluded. There is no confirmed end of that history.
+https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all
 
-Jon Smith posts, same day: 292 positions were previewed. 37 were expanded, giving 36 unique posts (two positions were the same post). The other 255 were not expanded and are not used as copy. Positions 20 to 61 are largely unresolved. The browser tab crashed after the Basecamp date and venue were confirmed, and no further collection is planned. The feed stopped at an apparent boundary after a 12-year-old vacancy. That is not proof every historical post was available.
+This is a selected review, not a complete one. On 11 November 2026, 114 company posts were listed and 64 were read in full. Still unreviewed: 37 preview-only posts, 5 third-party reposts, and 4 document titles. 4 job adverts were excluded. There is no confirmed end of that feed. Personal profile posts are not a source. Where the same story had also been read on a personal profile, the page cites the company post.
 
-No post showed an absolute publication time. Undated items follow the order of the reviewed posts. They are not dated by activity IDs or by labels such as "1w".
+No company post showed an absolute publication time. Undated items follow the order of the reviewed company posts. They are not dated by activity IDs or by labels such as "1w".
 
-Do not describe this page as a complete review of either feed.
+## Importing a later company batch
+
+Collection stays outside this repository. A scheduled job can read the signed-in company feed and write a JSON file. This repository only merges that file:
+
+```bash
+npm run news:import -- path/to/batch.json
+npm run render:news
+```
+
+`data/linkedin-sync-state.json` records `newestActivityId` and every processed company activity id. A later batch should be newest-first. Posts whose activity id is already recorded are skipped. The import rejects a hand-written `publishedAt`. A timestamp is stored only when `publishedAtSource` is `linkedin-api`, which `npm run news:sync` sets from the Posts API.
+
+```json
+{
+  "account": "company",
+  "collectedOn": "2026-11-12",
+  "feedUrl": "https://www.linkedin.com/company/compass-consult-employability-and-skills-ltd/posts/?feedView=all",
+  "posts": [
+    {
+      "canonicalSourceUrl": "https://www.linkedin.com/feed/update/urn:li:activity:1234567890123456789/",
+      "activityId": "1234567890123456789",
+      "relativeTimeLabel": "1d",
+      "title": "Short title",
+      "body": "Full company post text.",
+      "kind": "news",
+      "links": [{ "label": "Related page", "href": "https://example.com/source" }]
+    }
+  ]
+}
+```
+
+For an event, add `event`. Use `start` and `end` only when the post or an organiser page states them (`YYYY-MM-DD` or `YYYY-MM-DDTHH:mm`). If there is no date, set `event.sectionStatus` to `upcoming` or `past` instead of guessing. `attendance` is optional wording taken from the company post.
+
+## What stays manual, and what the API job does
+
+`npm run news:import` only reads a local JSON file. It does not call LinkedIn.
+
+`npm run news:sync` calls the official LinkedIn Posts API when the secrets in `docs/LINKEDIN-SYNC.md` are present. If they are missing, it prints that it is not configured and exits successfully. The daily workflow opens a review pull request and does not merge it unless the repository variable `LINKEDIN_AUTO_MERGE` is `true`. That variable is unset. There is no scraper and no committed credential.
 
 ## Dates
 
@@ -25,15 +61,3 @@ An all-day event stays in Upcoming through the end date in Europe/London, and mo
 ## Held, not published
 
 Two company posts promised a resource "tomorrow" or "later today": a Local Government Reorganisation briefing (activity `7521653467967422466`) and a Budget synopsis (activity `7521515449965203471`). The library already has an LGR factsheet, an LGR update dated 25 March 2026, and an Autumn 2026 Budget infographic. Those files were not matched to these posts, so the stale promises are not published and the resource files were not changed.
-
-## What is not automated
-
-Nothing here calls LinkedIn, scrapes it, polls it, or publishes on a schedule. `npm run check` only validates the reviewed JSON. It does not deploy the site.
-
-The practical route is the one this pull request uses: a person reviews full post text, edits `data/news-events.json`, and opens a pull request. `npm run render:news` writes the HTML. Validation rejects duplicate stories, a "Recent" label, a year on a day-and-month card, and any flag that says coverage is complete.
-
-A later company-page import would need LinkedIn's Community Management API, approved access, and an admin OAuth grant. That product is for organisation pages an admin already controls. It is not switched on, and this repository has no token and no cron.
-
-Posts on a personal profile are a different permission. Reading Jon Smith's posts through an API would need his own authorisation. No public RSS feed for these profiles was verified. Do not add a scraper or an unattended publisher in place of that access.
-
-If an approved company poll is added later, it should write the same JSON and stop for review. It should not merge or deploy by itself. The site content security policy only allows connections to this origin, so the browser cannot call LinkedIn.

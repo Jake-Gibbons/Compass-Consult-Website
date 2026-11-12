@@ -1,0 +1,87 @@
+name: LinkedIn company news sync
+
+on:
+  schedule:
+    # 06:00 UTC: 06:00 in the UK during Greenwich Mean Time, 07:00 during British Summer Time.
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync company posts
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
+          LINKEDIN_CLIENT_SECRET: ${{ secrets.LINKEDIN_CLIENT_SECRET }}
+          LINKEDIN_REFRESH_TOKEN: ${{ secrets.LINKEDIN_REFRESH_TOKEN }}
+          LINKEDIN_ORG_ID: ${{ secrets.LINKEDIN_ORG_ID }}
+          LINKEDIN_VERSION: ${{ vars.LINKEDIN_VERSION }}
+        run: npm run news:sync
+
+      - name: Render the page
+        run: npm run render:news
+
+      - name: Detect data changes
+        id: diff
+        run: |
+          if git diff --quiet -- data/news-events.json data/linkedin-sync-state.json data/linkedin-needs-review.json pages/events.html; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Test the catalogue
+        if: steps.diff.outputs.changed == 'true'
+        run: npm test && npm run link-check && npm run validate:news
+
+      - name: Open or update the review pull request
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -B automation/linkedin-news
+          git add data/news-events.json data/linkedin-sync-state.json data/linkedin-needs-review.json pages/events.html
+          git commit -m "chore: import new Compass company LinkedIn posts"
+          git push --force-with-lease -u origin automation/linkedin-news
+          REVIEW=$(node -e "const fs=require('fs'); const p='data/linkedin-needs-review.json'; const data=fs.existsSync(p)?JSON.parse(fs.readFileSync(p,'utf8')):{items:[]}; const items=(data.items||[]).map(item=>'- '+(item.activityId||item.id)+': '+(item.reason||'review')).join('\n')||'- None'; console.log(items)")
+          BODY=$(cat <<EOF
+          Automatic import from the Compass Consult company LinkedIn page. This pull request is for review.
+
+          Needs review, not published:
+
+          ${REVIEW}
+
+          Automatic merge stays off unless the repository variable LINKEDIN_AUTO_MERGE is set to true.
+          EOF
+          )
+          if gh pr list --head automation/linkedin-news --json number --jq '.[0].number' | grep -q .; then
+            gh pr edit "$(gh pr list --head automation/linkedin-news --json number --jq '.[0].number')" --title "Review company LinkedIn posts" --body "$BODY"
+          else
+            gh pr create --base main --head automation/linkedin-news --title "Review company LinkedIn posts" --body "$BODY"
+          fi
+
+      - name: Merge only when LINKEDIN_AUTO_MERGE is true
+        if: steps.diff.outputs.changed == 'true' && vars.LINKEDIN_AUTO_MERGE == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr merge automation/linkedin-news --squash --delete-branch
