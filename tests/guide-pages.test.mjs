@@ -1,4 +1,5 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const what = readFileSync("pages/what-we-do.html", "utf8");
@@ -36,11 +37,29 @@ describe("What We Do and Why Compass", () => {
   });
 
   it("adds both pages to the main navigation and sitemap", () => {
-    expect(index).toContain('href="/pages/what-we-do.html"');
-    expect(index).toContain('href="/pages/why-compass.html"');
+    expect(index).toContain('id="home-guide-heading"');
+    expect(index).toContain('href="/pages/what-we-do.html" class="home-guide-card');
+    expect(index).toContain('href="/pages/why-compass.html" class="home-guide-card');
     expect(sitemap).toContain('href="/pages/what-we-do.html"');
     expect(sitemap).toContain('href="/pages/why-compass.html"');
+    expect(readFileSync("sitemap.xml", "utf8")).toContain("https://compassconsultes.co.uk/pages/what-we-do");
+    expect(readFileSync("sitemap.xml", "utf8")).toContain("https://compassconsultes.co.uk/pages/why-compass");
     expect(what).toContain('aria-current="page"');
     expect(why).toContain('aria-current="page"');
+  });
+
+  it("lists both pages in every footer Quick Links block", () => {
+    const files = [
+      ...readdirSync(".").filter((name) => name.endsWith(".html")),
+      ...readdirSync("pages").filter((name) => name.endsWith(".html")).map((name) => join("pages", name))
+    ];
+    const withFooter = files.filter((file) => readFileSync(file, "utf8").includes("Quick Links"));
+    expect(withFooter.length).toBeGreaterThan(20);
+    for (const file of withFooter) {
+      const footer = readFileSync(file, "utf8").slice(readFileSync(file, "utf8").toLowerCase().lastIndexOf("<footer"));
+      const quick = footer.slice(footer.indexOf("Quick Links"));
+      expect(quick, file).toContain('href="/pages/what-we-do.html"');
+      expect(quick, file).toContain('href="/pages/why-compass.html"');
+    }
   });
 });
