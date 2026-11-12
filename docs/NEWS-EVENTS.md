@@ -54,7 +54,7 @@ For an event, add `event`. Use `start` and `end` only when the post or an organi
 
 Publication times were not shown as absolute dates, so new stories have no publication date. They are ordered by their place in the company feed. Existing on-site dates stay unless a source disproved them. Event dates come from the existing page, an organiser page, or an explicit date in a post or post image.
 
-The Full Potential celebration is shown as 18 May with no year. It is not on the calendar.
+The Full Potential celebration is shown as 18 May with the year labelled “Year not stated”. No year is invented.
 
 An all-day event stays in Upcoming through the end date in Europe/London, and moves to Past on the next London day. A timed event moves to Past at its end time. A card with no machine date stays in the section it was given.
 

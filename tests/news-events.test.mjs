@@ -105,7 +105,12 @@ describe("rendered page", () => {
     expect(basecamp).toContain("looking forward to attending");
     expect(basecamp).not.toContain("will be at");
     expect(html).not.toContain('data-event-start="2026-05-18"');
-    expect(html).toContain(">18 May<");
+    expect(html).toContain(">18<");
+    expect(html).toContain("Year not stated");
+    expect(html).toContain("Date not stated");
+    expect(html).toContain('<details id="past-events-section"');
+    expect(html).not.toContain('<details id="past-events-section" class="story-archive" data-section-kind="event" open');
+    expect(html.indexOf('id="ersa-annual-conference"')).toBeLessThan(html.indexOf('id="esec-liverpool-2026"'));
     expect(html).not.toContain("Recent update");
     expect(html).toContain("not a complete record");
     expect(html).toContain("Fedcap");

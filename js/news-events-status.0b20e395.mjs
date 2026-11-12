@@ -27,6 +27,15 @@ const BASELINE_IDS = [
   "news-1000-youth-workers"
 ];
 
+export function formatLondonDate(date) {
+  return new Intl.DateTimeFormat("en-GB", {
+    timeZone: LONDON,
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }).format(date);
+}
+
 export function londonDateKey(date) {
   const parts = new Intl.DateTimeFormat("en-GB", {
     timeZone: LONDON,
@@ -169,8 +178,11 @@ export function validateCatalogue(catalogue) {
     if (entry.kind === "news" && entry.newsList !== newsListFor(entry)) {
       errors.push(`${entry.id} news list ${entry.newsList} does not match its age bucket`);
     }
-    if (entry.publishedAt) {
-      errors.push(`${entry.id} sets publishedAt. This batch must not invent a publication time`);
+    if (entry.publishedAt && entry.publishedAtSource !== "linkedin-api") {
+      errors.push(`${entry.id} sets publishedAt without a LinkedIn API timestamp`);
+    }
+    if (entry.publishedAtSource === "linkedin-api" && !/^\d{4}-\d{2}-\d{2}T/.test(entry.publishedAt || "")) {
+      errors.push(`${entry.id} LinkedIn API publishedAt must be an ISO timestamp`);
     }
     if (entry.schedule?.precision === "day-month") {
       if (entry.schedule.start || entry.schedule.end) {
