@@ -93,8 +93,14 @@
             .guide-who { grid-template-columns: repeat(2, 1fr); }
             .guide-value { grid-template-columns: 1fr 1fr; }
         }
+        .guide-trust { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.6rem; }
+        .guide-trust li { text-align: center; font-weight: 700; color: #1e1b2e; background: #fafafa; border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 0.7rem 0.5rem; line-height: 1.35; }
+        @media (min-width: 640px) {
+            .guide-trust { grid-template-columns: 1fr 1fr; }
+        }
         @media (min-width: 1024px) {
             .guide-cards { grid-template-columns: repeat(4, 1fr); }
+            .guide-trust { grid-template-columns: repeat(5, 1fr); }
             .guide-steps { grid-template-columns: repeat(5, 1fr); }
             .guide-who { grid-template-columns: repeat(5, 1fr); }
             .guide-brings { grid-template-columns: 1fr 1fr; }
@@ -214,6 +220,22 @@
                         <li><span class="guide-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><path d="M8 7c6 0 4 10 10 10"/></svg></span><span>Reduces duplication and improves coordination</span></li>
                         <li><span class="guide-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></span><span>Provides intelligence to shape provision and policy</span></li>
                         <li><span class="guide-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.3"/><path d="M21 3v6h-6"/></svg></span><span>Drives better outcomes for people and communities</span></li>
+                    </ul>
+                </section>
+                <section class="guide-section" aria-labelledby="trusted-heading">
+                    <h2 id="trusted-heading">Trusted by government</h2>
+                    <p class="guide-emphasis">Proven experience. Trusted partnerships. Excellent delivery.</p>
+                    <ul class="guide-trust" aria-label="Government departments and public sector partners">
+                        <li>Skills England</li>
+                        <li>Government Commercial Agency</li>
+                        <li>Ministry of Housing, Communities &amp; Local Government</li>
+                        <li>Ministry of Justice</li>
+                        <li>Department for Education</li>
+                        <li>Greater London Authority</li>
+                        <li>HM Prison &amp; Probation Service</li>
+                        <li>Jobcentre Plus</li>
+                        <li>Department of Health &amp; Social Care</li>
+                        <li>Department for Work &amp; Pensions</li>
                     </ul>
                 </section>
                 

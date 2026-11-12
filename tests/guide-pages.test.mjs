@@ -34,6 +34,29 @@ describe("What We Do and Why Compass", () => {
     }
     expect(what).not.toContain("qr");
     expect(why).not.toContain("qr");
+    const bodies = [
+      "Skills England",
+      "Government Commercial Agency",
+      "Ministry of Housing, Communities &amp; Local Government",
+      "Ministry of Justice",
+      "Department for Education",
+      "Greater London Authority",
+      "HM Prison &amp; Probation Service",
+      "Jobcentre Plus",
+      "Department of Health &amp; Social Care",
+      "Department for Work &amp; Pensions"
+    ];
+    expect(index).toContain('id="trusted-gov-heading"');
+    expect(index).toContain("Proven experience. Trusted partnerships. Excellent delivery.");
+    expect(index).toContain("We are proud to deliver high-quality, impactful services for key government departments and public sector partners across the UK.");
+    expect(why).toContain('id="trusted-heading"');
+    expect(why).toContain("Proven experience. Trusted partnerships. Excellent delivery.");
+    for (const name of bodies) {
+      expect(index).toContain(name);
+      expect(why).toContain(name);
+    }
+    expect(index).not.toContain("GOV.UK");
+    expect(why).not.toContain("GOV.UK");
   });
 
   it("adds both pages to the main navigation and sitemap", () => {

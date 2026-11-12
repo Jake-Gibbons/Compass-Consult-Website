@@ -119,6 +119,23 @@
         .reveal.active { opacity: 1; transform: translate(0) scale(1); }
         .nav-link.active { background-color: #f3f0ff; color: #483086; border-right: 3px solid #483086; }
         .home-guide-card:focus-visible { outline: 3px solid #0f766e; outline-offset: 4px; }
+        .trusted-panel { background: #fff; border: 1px solid #e5e7eb; border-radius: 1.25rem; padding: 2rem 1.25rem 1.5rem; box-shadow: 0 8px 24px rgba(30, 27, 46, 0.04); }
+        .trusted-panel h2 { margin: 0; text-align: center; font-size: 1.875rem; font-weight: 800; color: #1e1b2e; }
+        .trusted-tagline { margin: 0.75rem 0 0; text-align: center; font-weight: 800; color: #483086; }
+        .trusted-callout { max-width: 44rem; margin: 1.1rem auto 0; padding: 1rem 1.2rem; text-align: center; color: #1e1b2e; line-height: 1.6; background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 1rem; }
+        .trusted-names, .trusted-values { list-style: none; margin: 1.25rem 0 0; padding: 0; display: grid; gap: 0.75rem; }
+        .trusted-names li { background: #fafafa; border: 1px solid #e5e7eb; border-radius: 0.85rem; padding: 0.9rem 0.7rem; text-align: center; font-weight: 700; color: #1e1b2e; line-height: 1.35; }
+        .trusted-values li { display: flex; gap: 0.75rem; align-items: flex-start; background: #fff; border: 1px solid #e5e7eb; border-radius: 0.85rem; padding: 0.9rem; }
+        .trusted-icon { width: 2.5rem; height: 2.5rem; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; background: #f5f3ff; color: #483086; }
+        .trusted-icon svg { width: 1.25rem; height: 1.25rem; }
+        .trusted-values p { margin: 0.15rem 0 0; color: #1f2937; font-weight: 700; line-height: 1.4; }
+        @media (min-width: 640px) {
+            .trusted-names, .trusted-values { grid-template-columns: 1fr 1fr; }
+        }
+        @media (min-width: 1024px) {
+            .trusted-names { grid-template-columns: repeat(5, 1fr); }
+            .trusted-values { grid-template-columns: repeat(4, 1fr); }
+        }
         /* Embla ticker styles */
         .embla-ticker { overflow: hidden !important; cursor: grab; width: 100% !important; height: 50px !important; max-height: 50px !important; min-height: 50px !important; }
         .embla-ticker.is-dragging { cursor: grabbing; }
@@ -330,6 +347,34 @@
                         <p class="mt-3 text-gray-600 leading-relaxed">Specialist expertise. Independent insight. Stronger system outcomes.</p>
                         <span class="mt-6 inline-flex items-center text-sm font-semibold text-compass-teal">Explore Why Compass <i data-lucide="arrow-right" class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i></span>
                     </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="pb-16 lg:pb-20" aria-labelledby="trusted-gov-heading">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="trusted-panel">
+                    <h2 id="trusted-gov-heading">Trusted by government</h2>
+                    <p class="trusted-tagline">Proven experience. Trusted partnerships. Excellent delivery.</p>
+                    <p class="trusted-callout">We are proud to deliver high-quality, impactful services for key government departments and public sector partners across the UK.</p>
+                    <ul class="trusted-names" aria-label="Government departments and public sector partners">
+                        <li>Skills England</li>
+                        <li>Government Commercial Agency</li>
+                        <li>Ministry of Housing, Communities &amp; Local Government</li>
+                        <li>Ministry of Justice</li>
+                        <li>Department for Education</li>
+                        <li>Greater London Authority</li>
+                        <li>HM Prison &amp; Probation Service</li>
+                        <li>Jobcentre Plus</li>
+                        <li>Department of Health &amp; Social Care</li>
+                        <li>Department for Work &amp; Pensions</li>
+                    </ul>
+                    <ul class="trusted-values">
+                        <li><span class="trusted-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6l7-3z"/><path d="m9 12 2 2 4-4"/></svg></span><p>Trusted by leading government departments and agencies</p></li>
+                        <li><span class="trusted-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 11V7a2 2 0 1 1 4 0"/><path d="M12 11V5a2 2 0 1 1 4 0v8"/><path d="M16 9a2 2 0 1 1 4 0v5a6 6 0 0 1-6 6h-2a6 6 0 0 1-5-2.5L4 14"/></svg></span><p>Experienced delivering employability and skills solutions</p></li>
+                        <li><span class="trusted-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.2 4.6L19 8.2l-3.5 3.4.8 4.9L12 14.8 7.7 16.5l.8-4.9L5 8.2l4.8-.6L12 3z"/></svg></span><p>Excellent service that makes a real difference</p></li>
+                        <li><span class="trusted-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><p>Working together to create opportunities and improve lives</p></li>
+                    </ul>
                 </div>
             </div>
         </section>
