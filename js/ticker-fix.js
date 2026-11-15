@@ -58,69 +58,6 @@
     });
   }
 
-  function enableTickerDrag(viewport, container, originalWidth) {
-    let activeDrag = null;
-    let suppressClick = false;
-
-    viewport.addEventListener('pointerdown', (event) => {
-      if (event.button !== 0 || activeDrag) return;
-      const animation = container.getAnimations().find((candidate) => candidate.animationName === 'cc-ticker-marquee');
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!animation && !reducedMotion) return;
-
-      activeDrag = {
-        pointerId: event.pointerId,
-        startX: event.clientX,
-        startTime: Number(animation?.currentTime) || 0,
-        startOffset: Number.parseFloat(container.style.getPropertyValue('--ticker-drag-x')) || 0,
-        animation,
-        duration: animation?.effect?.getComputedTiming().duration || 0,
-        moved: false
-      };
-      animation?.pause();
-    });
-
-    window.addEventListener('pointermove', (event) => {
-      if (!activeDrag || event.pointerId !== activeDrag.pointerId) return;
-      const deltaX = event.clientX - activeDrag.startX;
-      if (Math.abs(deltaX) > 4) {
-        activeDrag.moved = true;
-        viewport.classList.add('is-dragging');
-        event.preventDefault();
-      }
-      if (!activeDrag.moved) return;
-
-      if (activeDrag.animation && originalWidth > 0) {
-        activeDrag.animation.currentTime = activeDrag.startTime - (deltaX / originalWidth) * activeDrag.duration;
-      } else {
-        const minOffset = Math.min(0, viewport.clientWidth - originalWidth);
-        const offset = Math.max(minOffset, Math.min(0, activeDrag.startOffset + deltaX));
-        container.style.setProperty('--ticker-drag-x', `${offset}px`);
-      }
-    });
-
-    const finishDrag = (event) => {
-      if (!activeDrag || event.pointerId !== activeDrag.pointerId) return;
-      if (activeDrag.moved) {
-        suppressClick = true;
-        window.setTimeout(() => { suppressClick = false; }, 0);
-      }
-      activeDrag.animation?.play();
-      if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
-      activeDrag = null;
-      viewport.classList.remove('is-dragging');
-    };
-
-    window.addEventListener('pointerup', finishDrag);
-    window.addEventListener('pointercancel', finishDrag);
-    viewport.addEventListener('click', (event) => {
-      if (!suppressClick) return;
-      suppressClick = false;
-      event.preventDefault();
-      event.stopImmediatePropagation();
-    }, true);
-  }
-
   function boot() {
     injectStyles();
     const viewport = document.getElementById('clients-ticker');
@@ -157,7 +94,6 @@
       container.style.removeProperty('transform');
       const originalWidth = originalSlides.reduce((width, slide) => width + slide.getBoundingClientRect().width, 0);
       if (!reduceMotion) container.style.setProperty('--ticker-duration', `${Math.max(20, originalWidth / 45)}s`);
-      enableTickerDrag(viewport, container, originalWidth);
       viewport.dataset.continuousTicker = 'true';
     };
 
