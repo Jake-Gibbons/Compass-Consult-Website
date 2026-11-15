@@ -67,6 +67,10 @@ describe("What We Do and Why Compass", () => {
     expect(index).toContain('src="/assets/images/gov-logos/jobcentre-plus.png" alt="Jobcentre Plus"');
     expect(index).toContain('src="/assets/images/gov-logos/department-of-health-and-social-care.png" alt="Department of Health &amp; Social Care"');
     expect(index).toContain('src="/assets/images/gov-logos/department-for-work-and-pensions.svg" alt="Department for Work &amp; Pensions"');
+    expect(index).toContain('class="gov-ticker__set" aria-hidden="true"');
+    expect(index.match(/alt="Skills England"/g)).toHaveLength(1);
+    expect(index).toContain("gov-ticker-marquee");
+    expect(index).toContain('prefers-reduced-motion: reduce');
     expect(why).toContain("<li>Ministry of Justice</li>");
     expect(why).toContain("<li>Jobcentre Plus</li>");
   });
