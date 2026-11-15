@@ -135,12 +135,11 @@
         .gov-ticker__set { display: flex; align-items: center; gap: 2.75rem; margin: 0; padding: 0 2.75rem 0 0; list-style: none; }
         .gov-ticker__logo { display: flex; align-items: center; justify-content: center; flex: none; }
         .gov-ticker__logo img { display: block; height: var(--gov-logo-height, 38px); width: auto; max-width: none; object-fit: contain; object-position: center; }
-        .gov-ticker--wordmark { --gov-logo-height: 38px; --gov-ticker-duration: 72s; }
-        .gov-ticker--stacked { --gov-logo-height: 72px; --gov-ticker-duration: 39s; }
+        .gov-ticker--wordmark { --gov-logo-height: 38px; --gov-ticker-duration: 79s; }
+        .gov-ticker--stacked { --gov-logo-height: 72px; --gov-ticker-duration: 75s; }
         .gov-ticker__logo--gla { --gov-logo-height: 24px; }
         .gov-ticker__logo--hmpps { --gov-logo-height: 52px; }
         .gov-ticker__logo--dwp { --gov-logo-height: 46px; }
-        .gov-ticker__logo--navy { background: #183860; border-radius: 0.45rem; padding: 0.3rem 0.6rem; }
         .trusted-values li { display: flex; gap: 0.75rem; align-items: flex-start; background: #fff; border: 1px solid #e5e7eb; border-radius: 0.85rem; padding: 0.9rem; }
         .trusted-icon { width: 2.5rem; height: 2.5rem; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; background: #f5f3ff; color: #483086; }
         .trusted-icon svg { width: 1.25rem; height: 1.25rem; }
@@ -163,7 +162,8 @@
             .gov-ticker__viewport { overflow: visible; }
             .gov-ticker__track { animation: none; transform: none; width: 100%; flex-wrap: wrap; justify-content: center; }
             .gov-ticker__set { flex-wrap: wrap; justify-content: center; width: 100%; padding-right: 0; row-gap: 1.25rem; }
-            .gov-ticker__set[aria-hidden="true"] { display: none; }
+            .gov-ticker__set[aria-hidden="true"],
+            .gov-ticker__repeat { display: none; }
         }
         @keyframes gov-ticker-marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
         @keyframes gov-ticker-marquee-reverse { from { transform: translate3d(-50%, 0, 0); } to { transform: translate3d(0, 0, 0); } }
@@ -393,18 +393,18 @@
                             <div class="gov-ticker__viewport">
                                 <div class="gov-ticker__track">
                                     <ul class="gov-ticker__set">
-                                        <li class="gov-ticker__logo gov-ticker__logo--navy"><img src="/assets/images/gov-logos/skills-england.svg" alt="Skills England" width="409" height="71"></li>
-                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/government-commercial-agency.png" alt="Government Commercial Agency" width="3558" height="602"></li>
-                                        <li class="gov-ticker__logo gov-ticker__logo--gla"><img src="/assets/images/gov-logos/greater-london-authority.svg" alt="Greater London Authority" width="149" height="11"></li>
-                                        <li class="gov-ticker__logo gov-ticker__logo--hmpps"><img src="/assets/images/gov-logos/hm-prison-and-probation-service.png" alt="HM Prison &amp; Probation Service" width="594" height="156"></li>
-                                        <li class="gov-ticker__logo gov-ticker__logo--dwp"><img src="/assets/images/gov-logos/department-for-work-and-pensions.svg" alt="Department for Work &amp; Pensions" width="300" height="58"></li>
+                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/skills-england.png" alt="Skills England" width="2473" height="443"></li>
+                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/government-commercial-agency.png" alt="Government Commercial Agency" width="3309" height="314"></li>
+                                        <li class="gov-ticker__logo gov-ticker__logo--gla"><img src="/assets/images/gov-logos/greater-london-authority.png" alt="Greater London Authority" width="2925" height="160"></li>
+                                        <li class="gov-ticker__logo gov-ticker__logo--hmpps"><img src="/assets/images/gov-logos/hm-prison-and-probation-service.png" alt="HM Prison &amp; Probation Service" width="560" height="137"></li>
+                                        <li class="gov-ticker__logo gov-ticker__logo--dwp"><img src="/assets/images/gov-logos/department-for-work-and-pensions.png" alt="Department for Work &amp; Pensions" width="2255" height="290"></li>
                                     </ul>
                                     <ul class="gov-ticker__set" aria-hidden="true">
-                                        <li class="gov-ticker__logo gov-ticker__logo--navy"><img src="/assets/images/gov-logos/skills-england.svg" alt="" width="409" height="71"></li>
-                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/government-commercial-agency.png" alt="" width="3558" height="602"></li>
-                                        <li class="gov-ticker__logo gov-ticker__logo--gla"><img src="/assets/images/gov-logos/greater-london-authority.svg" alt="" width="149" height="11"></li>
-                                        <li class="gov-ticker__logo gov-ticker__logo--hmpps"><img src="/assets/images/gov-logos/hm-prison-and-probation-service.png" alt="" width="594" height="156"></li>
-                                        <li class="gov-ticker__logo gov-ticker__logo--dwp"><img src="/assets/images/gov-logos/department-for-work-and-pensions.svg" alt="" width="300" height="58"></li>
+                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/skills-england.png" alt="" width="2473" height="443"></li>
+                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/government-commercial-agency.png" alt="" width="3309" height="314"></li>
+                                        <li class="gov-ticker__logo gov-ticker__logo--gla"><img src="/assets/images/gov-logos/greater-london-authority.png" alt="" width="2925" height="160"></li>
+                                        <li class="gov-ticker__logo gov-ticker__logo--hmpps"><img src="/assets/images/gov-logos/hm-prison-and-probation-service.png" alt="" width="560" height="137"></li>
+                                        <li class="gov-ticker__logo gov-ticker__logo--dwp"><img src="/assets/images/gov-logos/department-for-work-and-pensions.png" alt="" width="2255" height="290"></li>
                                     </ul>
                                 </div>
                             </div>
@@ -413,18 +413,28 @@
                             <div class="gov-ticker__viewport">
                                 <div class="gov-ticker__track">
                                     <ul class="gov-ticker__set">
-                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/ministry-of-housing-communities-and-local-government.png" alt="Ministry of Housing, Communities &amp; Local Government" width="865" height="470"></li>
-                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/ministry-of-justice.png" alt="Ministry of Justice" width="319" height="260"></li>
-                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/department-for-education.png" alt="Department for Education" width="2880" height="1692"></li>
-                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/department-of-health-and-social-care.png" alt="Department of Health &amp; Social Care" width="346" height="295"></li>
-                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/jobcentre-plus.png" alt="Jobcentre Plus" width="595" height="303"></li>
+                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/ministry-of-housing-communities-and-local-government.png" alt="Ministry of Housing, Communities &amp; Local Government" width="1137" height="611"></li>
+                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/ministry-of-justice.png" alt="Ministry of Justice" width="438" height="354"></li>
+                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/department-for-education.png" alt="Department for Education" width="2896" height="1708"></li>
+                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/department-of-health-and-social-care.png" alt="Department of Health &amp; Social Care" width="523" height="451"></li>
+                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/jobcentre-plus.png" alt="Jobcentre Plus" width="1176" height="589"></li>
+                                        <li class="gov-ticker__logo gov-ticker__repeat" aria-hidden="true"><img src="/assets/images/gov-logos/ministry-of-housing-communities-and-local-government.png" alt="" width="1137" height="611"></li>
+                                        <li class="gov-ticker__logo gov-ticker__repeat" aria-hidden="true"><img src="/assets/images/gov-logos/ministry-of-justice.png" alt="" width="438" height="354"></li>
+                                        <li class="gov-ticker__logo gov-ticker__repeat" aria-hidden="true"><img src="/assets/images/gov-logos/department-for-education.png" alt="" width="2896" height="1708"></li>
+                                        <li class="gov-ticker__logo gov-ticker__repeat" aria-hidden="true"><img src="/assets/images/gov-logos/department-of-health-and-social-care.png" alt="" width="523" height="451"></li>
+                                        <li class="gov-ticker__logo gov-ticker__repeat" aria-hidden="true"><img src="/assets/images/gov-logos/jobcentre-plus.png" alt="" width="1176" height="589"></li>
                                     </ul>
                                     <ul class="gov-ticker__set" aria-hidden="true">
-                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/ministry-of-housing-communities-and-local-government.png" alt="" width="865" height="470"></li>
-                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/ministry-of-justice.png" alt="" width="319" height="260"></li>
-                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/department-for-education.png" alt="" width="2880" height="1692"></li>
-                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/department-of-health-and-social-care.png" alt="" width="346" height="295"></li>
-                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/jobcentre-plus.png" alt="" width="595" height="303"></li>
+                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/ministry-of-housing-communities-and-local-government.png" alt="" width="1137" height="611"></li>
+                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/ministry-of-justice.png" alt="" width="438" height="354"></li>
+                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/department-for-education.png" alt="" width="2896" height="1708"></li>
+                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/department-of-health-and-social-care.png" alt="" width="523" height="451"></li>
+                                        <li class="gov-ticker__logo"><img src="/assets/images/gov-logos/jobcentre-plus.png" alt="" width="1176" height="589"></li>
+                                        <li class="gov-ticker__logo gov-ticker__repeat" aria-hidden="true"><img src="/assets/images/gov-logos/ministry-of-housing-communities-and-local-government.png" alt="" width="1137" height="611"></li>
+                                        <li class="gov-ticker__logo gov-ticker__repeat" aria-hidden="true"><img src="/assets/images/gov-logos/ministry-of-justice.png" alt="" width="438" height="354"></li>
+                                        <li class="gov-ticker__logo gov-ticker__repeat" aria-hidden="true"><img src="/assets/images/gov-logos/department-for-education.png" alt="" width="2896" height="1708"></li>
+                                        <li class="gov-ticker__logo gov-ticker__repeat" aria-hidden="true"><img src="/assets/images/gov-logos/department-of-health-and-social-care.png" alt="" width="523" height="451"></li>
+                                        <li class="gov-ticker__logo gov-ticker__repeat" aria-hidden="true"><img src="/assets/images/gov-logos/jobcentre-plus.png" alt="" width="1176" height="589"></li>
                                     </ul>
                                 </div>
                             </div>

@@ -57,16 +57,16 @@ describe("What We Do and Why Compass", () => {
     }
     expect(index).not.toContain("GOV.UK");
     expect(why).not.toContain("GOV.UK");
-    expect(index).toContain('src="/assets/images/gov-logos/skills-england.svg" alt="Skills England"');
+    expect(index).toContain('src="/assets/images/gov-logos/skills-england.png" alt="Skills England"');
     expect(index).toContain('src="/assets/images/gov-logos/government-commercial-agency.png" alt="Government Commercial Agency"');
     expect(index).toContain('src="/assets/images/gov-logos/ministry-of-housing-communities-and-local-government.png" alt="Ministry of Housing, Communities &amp; Local Government"');
     expect(index).toContain('src="/assets/images/gov-logos/ministry-of-justice.png" alt="Ministry of Justice"');
     expect(index).toContain('src="/assets/images/gov-logos/department-for-education.png" alt="Department for Education"');
-    expect(index).toContain('src="/assets/images/gov-logos/greater-london-authority.svg" alt="Greater London Authority"');
+    expect(index).toContain('src="/assets/images/gov-logos/greater-london-authority.png" alt="Greater London Authority"');
     expect(index).toContain('src="/assets/images/gov-logos/hm-prison-and-probation-service.png" alt="HM Prison &amp; Probation Service"');
     expect(index).toContain('src="/assets/images/gov-logos/jobcentre-plus.png" alt="Jobcentre Plus"');
     expect(index).toContain('src="/assets/images/gov-logos/department-of-health-and-social-care.png" alt="Department of Health &amp; Social Care"');
-    expect(index).toContain('src="/assets/images/gov-logos/department-for-work-and-pensions.svg" alt="Department for Work &amp; Pensions"');
+    expect(index).toContain('src="/assets/images/gov-logos/department-for-work-and-pensions.png" alt="Department for Work &amp; Pensions"');
     expect(index).toContain('class="gov-ticker__set" aria-hidden="true"');
     expect(index.match(/alt="Skills England"/g)).toHaveLength(1);
     expect(index).toContain("gov-ticker-marquee");
