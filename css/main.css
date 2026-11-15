@@ -28,6 +28,12 @@
    18. Reduced-motion overrides
    ========================================================================== */
 
+/* Deploy previews inject a fixed Netlify comments frame. Our CSP blocks that
+   third-party frame, which otherwise leaves a broken grey bar on the screen. */
+div[data-netlify-site-id] {
+  display: none !important;
+}
+
 /* --------------------------------------------------------------------------
    1. CSS Custom Properties — Brand colour palette
    --------------------------------------------------------------------------
