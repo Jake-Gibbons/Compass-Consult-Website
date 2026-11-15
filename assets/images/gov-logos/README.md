@@ -1,21 +1,18 @@
 # Government logos
 
-These files are the official marks used in the homepage “Trusted by government” section. They are stored locally so the page does not hotlink them. They have not been redrawn, recoloured, cropped or distorted.
+These files are the official marks used in the homepage “Trusted by government” section. They are stored locally so the page does not hotlink them. They have not been redrawn or recoloured. Transparent or white padding around a lockup may be trimmed. The artwork itself is unchanged.
 
-Five bodies stay as text cards because a usable official logo file could not be obtained from a public official source. The UK Government Brand Portal lists logo suites for several of them, but the files are behind a login.
+Each file below is the body’s current lockup. Older names (DLUHC, DCLG) and the withdrawn Jobcentre Plus ESF mark were rejected. Wikimedia files were used only where the file description says the vector came from the body’s own site or an official PDF.
 
-| Body | File | Source |
+| Body | File | Source and why it is the current official mark |
 | --- | --- | --- |
-| Skills England | `skills-england.svg` | [Skills England website](https://skillsengland.education.gov.uk/site/images/logo/SkillsEnglandLogo.svg), shown on a `#183860` ground, the same colour as the Skills England header. The published file is white. |
-| Government Commercial Agency | `government-commercial-agency.png` | [GCA website, landscape black brand mark](https://www.gca.gov.uk/assets/images/GCA_linear_black.png). Brand guidance: [gca.gov.uk brand guidelines](https://www.gca.gov.uk/government-commercial-agency-style-guide/brand-guidelines). |
+| Skills England | `skills-england.svg` | [Skills England website](https://skillsengland.education.gov.uk/site/images/logo/SkillsEnglandLogo.svg). The published file is white, so the card uses `#183860`, the same colour as the Skills England header. |
+| Government Commercial Agency | `government-commercial-agency.png` | [GCA website, landscape black brand mark](https://www.gca.gov.uk/assets/images/GCA_linear_black.png). This is the agency’s own landscape lockup from [its brand guidelines](https://www.gca.gov.uk/government-commercial-agency-style-guide/brand-guidelines). |
+| Ministry of Housing, Communities & Local Government | `ministry-of-housing-communities-and-local-government.png` | Lockup on the cover of the [MHCLG annual report and accounts 2025 to 2026](https://www.gov.uk/government/publications/mhclg-annual-report-and-accounts-2025-to-2026) ([print PDF](https://assets.publishing.service.gov.uk/media/6a5a11e660a6e36813cb43aa/MHCLG_Annual_Report_and_Accounts_2025-26.pdf)). It uses the current name, not DLUHC or DCLG. Rendered from the vector artwork on that cover. |
+| Ministry of Justice | `ministry-of-justice.png` | Lockup on the cover of the [Ministry of Justice annual report and accounts 2024 to 2025](https://www.gov.uk/government/publications/ministry-of-justice-annual-report-and-accounts-2024-to-2025) ([print PDF](https://assets.publishing.service.gov.uk/media/69034f73e2ebc0fb39a51fd9/HC1417_MOJ_Annual_Report_and_Accounts_2024-25_Print.pdf)). It is the current Ministry of Justice name with the Royal Arms. The print file embeds this raster; there is no public SVG of the full lockup. |
+| Department for Education | `department-for-education.png` | [DfE frontend design system](https://github.com/DFE-Digital/dfe-frontend/blob/main/packages/assets/dfe-logo-alt.png), the black lockup (blue rule, Royal Arms, “Department for Education”). The sibling `dfe-logo.png` in that package is white and would disappear on these cards. |
 | Greater London Authority | `greater-london-authority.svg` | [Wikimedia Commons file](https://commons.wikimedia.org/wiki/File:Greater_London_Authority_logo.svg), a public-domain reproduction of the wordmark credited to [london.gov.uk](https://www.london.gov.uk/). |
 | HM Prison & Probation Service | `hm-prison-and-probation-service.png` | [Wikimedia Commons file](https://commons.wikimedia.org/wiki/File:HMPPS.png), the standard HMPPS lockup (vertical rule, Royal Arms and name). |
+| Jobcentre Plus | `jobcentre-plus.png` | The green `jobcentreplus` wordmark on [Jobcentre Plus support for employers](https://www.gov.uk/government/publications/how-jobcentre-plus-can-help-employers) ([PDF](https://assets.publishing.service.gov.uk/media/652e30336972600014ccf959/jobcentre-plus-support-for-employers.pdf), October 2023). This is the current DWP-era badge. The older ESF Jobcentre Plus logo guidance was withdrawn in 2017 and was not used. |
+| Department of Health & Social Care | `department-of-health-and-social-care.png` | Lockup on the cover of the [DHSC annual report and accounts 2025 to 2026](https://www.gov.uk/government/publications/dhsc-annual-report-and-accounts-2025-to-2026) ([print-ready PDF](https://assets.publishing.service.gov.uk/media/6ae4c120713f8880fe546235/dhsc-annual-report-and-accounts-2025-2026-print-ready.pdf)). It is the current “Department of Health & Social Care” name with the teal rule and Royal Arms. |
 | Department for Work & Pensions | `department-for-work-and-pensions.svg` | [Wikimedia Commons file](https://commons.wikimedia.org/wiki/File:Department_for_Work_and_Pensions.svg), a public-domain vector taken from an official DWP PDF and credited to dwp.gov.uk. |
-
-Text cards, no logo file:
-
-- Ministry of Housing, Communities & Local Government
-- Ministry of Justice
-- Department for Education
-- Jobcentre Plus
-- Department of Health & Social Care

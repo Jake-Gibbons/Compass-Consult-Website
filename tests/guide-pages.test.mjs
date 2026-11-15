@@ -59,11 +59,16 @@ describe("What We Do and Why Compass", () => {
     expect(why).not.toContain("GOV.UK");
     expect(index).toContain('src="/assets/images/gov-logos/skills-england.svg" alt="Skills England"');
     expect(index).toContain('src="/assets/images/gov-logos/government-commercial-agency.png" alt="Government Commercial Agency"');
+    expect(index).toContain('src="/assets/images/gov-logos/ministry-of-housing-communities-and-local-government.png" alt="Ministry of Housing, Communities &amp; Local Government"');
+    expect(index).toContain('src="/assets/images/gov-logos/ministry-of-justice.png" alt="Ministry of Justice"');
+    expect(index).toContain('src="/assets/images/gov-logos/department-for-education.png" alt="Department for Education"');
     expect(index).toContain('src="/assets/images/gov-logos/greater-london-authority.svg" alt="Greater London Authority"');
     expect(index).toContain('src="/assets/images/gov-logos/hm-prison-and-probation-service.png" alt="HM Prison &amp; Probation Service"');
+    expect(index).toContain('src="/assets/images/gov-logos/jobcentre-plus.png" alt="Jobcentre Plus"');
+    expect(index).toContain('src="/assets/images/gov-logos/department-of-health-and-social-care.png" alt="Department of Health &amp; Social Care"');
     expect(index).toContain('src="/assets/images/gov-logos/department-for-work-and-pensions.svg" alt="Department for Work &amp; Pensions"');
-    expect(index).toContain("<li>Ministry of Justice</li>");
-    expect(index).toContain("<li>Jobcentre Plus</li>");
+    expect(why).toContain("<li>Ministry of Justice</li>");
+    expect(why).toContain("<li>Jobcentre Plus</li>");
   });
 
   it("adds both pages to the main navigation and sitemap", () => {
