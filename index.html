@@ -124,7 +124,9 @@
         .trusted-tagline { margin: 0.75rem 0 0; text-align: center; font-weight: 800; color: #483086; }
         .trusted-callout { max-width: 44rem; margin: 1.1rem auto 0; padding: 1rem 1.2rem; text-align: center; color: #1e1b2e; line-height: 1.6; background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 1rem; }
         .trusted-names, .trusted-values { list-style: none; margin: 1.25rem 0 0; padding: 0; display: grid; gap: 0.75rem; }
-        .trusted-names li { background: #fafafa; border: 1px solid #e5e7eb; border-radius: 0.85rem; padding: 0.9rem 0.7rem; text-align: center; font-weight: 700; color: #1e1b2e; line-height: 1.35; }
+        .trusted-names li { display: flex; align-items: center; justify-content: center; min-height: 6.25rem; background: #fff; border: 1px solid #e5e7eb; border-radius: 0.85rem; padding: 0.85rem 0.7rem; text-align: center; font-weight: 700; color: #1e1b2e; line-height: 1.35; }
+        .trusted-names img { display: block; width: 100%; height: 3.5rem; object-fit: contain; object-position: center; }
+        .trusted-names li.trusted-logo--navy { background: #183860; border-color: #183860; }
         .trusted-values li { display: flex; gap: 0.75rem; align-items: flex-start; background: #fff; border: 1px solid #e5e7eb; border-radius: 0.85rem; padding: 0.9rem; }
         .trusted-icon { width: 2.5rem; height: 2.5rem; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; background: #f5f3ff; color: #483086; }
         .trusted-icon svg { width: 1.25rem; height: 1.25rem; }
@@ -358,16 +360,16 @@
                     <p class="trusted-tagline">Proven experience. Trusted partnerships. Excellent delivery.</p>
                     <p class="trusted-callout">We are proud to deliver high-quality, impactful services for key government departments and public sector partners across the UK.</p>
                     <ul class="trusted-names" aria-label="Government departments and public sector partners">
-                        <li>Skills England</li>
-                        <li>Government Commercial Agency</li>
+                        <li class="trusted-logo trusted-logo--navy"><img src="/assets/images/gov-logos/skills-england.svg" alt="Skills England" width="409" height="71"></li>
+                        <li class="trusted-logo"><img src="/assets/images/gov-logos/government-commercial-agency.png" alt="Government Commercial Agency" width="3558" height="602"></li>
                         <li>Ministry of Housing, Communities &amp; Local Government</li>
                         <li>Ministry of Justice</li>
                         <li>Department for Education</li>
-                        <li>Greater London Authority</li>
-                        <li>HM Prison &amp; Probation Service</li>
+                        <li class="trusted-logo"><img src="/assets/images/gov-logos/greater-london-authority.svg" alt="Greater London Authority" width="149" height="11"></li>
+                        <li class="trusted-logo"><img src="/assets/images/gov-logos/hm-prison-and-probation-service.png" alt="HM Prison &amp; Probation Service" width="594" height="156"></li>
                         <li>Jobcentre Plus</li>
                         <li>Department of Health &amp; Social Care</li>
-                        <li>Department for Work &amp; Pensions</li>
+                        <li class="trusted-logo"><img src="/assets/images/gov-logos/department-for-work-and-pensions.svg" alt="Department for Work &amp; Pensions" width="300" height="58"></li>
                     </ul>
                     <ul class="trusted-values">
                         <li><span class="trusted-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6l7-3z"/><path d="m9 12 2 2 4-4"/></svg></span><p>Trusted by leading government departments and agencies</p></li>

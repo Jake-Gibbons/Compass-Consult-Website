@@ -57,6 +57,13 @@ describe("What We Do and Why Compass", () => {
     }
     expect(index).not.toContain("GOV.UK");
     expect(why).not.toContain("GOV.UK");
+    expect(index).toContain('src="/assets/images/gov-logos/skills-england.svg" alt="Skills England"');
+    expect(index).toContain('src="/assets/images/gov-logos/government-commercial-agency.png" alt="Government Commercial Agency"');
+    expect(index).toContain('src="/assets/images/gov-logos/greater-london-authority.svg" alt="Greater London Authority"');
+    expect(index).toContain('src="/assets/images/gov-logos/hm-prison-and-probation-service.png" alt="HM Prison &amp; Probation Service"');
+    expect(index).toContain('src="/assets/images/gov-logos/department-for-work-and-pensions.svg" alt="Department for Work &amp; Pensions"');
+    expect(index).toContain("<li>Ministry of Justice</li>");
+    expect(index).toContain("<li>Jobcentre Plus</li>");
   });
 
   it("adds both pages to the main navigation and sitemap", () => {
